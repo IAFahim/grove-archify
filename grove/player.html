@@ -309,7 +309,7 @@
       const gen = ++mapLoadGen;
       clearTimeout(mapLoadTimer);
 
-      // Same map document already loaded: only retarget the guided view hash.
+      // Same map file already shown: only retarget the guided view when we can.
       if (iframe.dataset.base === L.map && iframe.dataset.loaded === "1") {
         try {
           if (ch?.view && iframe.contentWindow) {
@@ -322,7 +322,7 @@
           setTimeout(bindHover, 200);
           return;
         } catch (_) {
-          /* fall through to full reload (file:// / opaque origin) */
+          // file:// often treats each file as a unique origin — fall through to src= reload.
         }
       }
 
@@ -331,34 +331,26 @@
       iframe.dataset.url = url;
       iframe.dataset.loaded = "0";
 
-      // Safety net: never leave the spinner up forever (large Archify HTML ~600KB).
+      // Large Archify pages (~600KB) can take a few seconds. Under file://,
+      // contentDocument is often null without throwing, so never treat that as failure.
+      // If we navigated to a real map URL, assume success after a short wait.
       mapLoadTimer = setTimeout(() => {
         if (gen !== mapLoadGen) return;
         if (iframe.dataset.loaded === "1") {
           hideMapLoading();
           return;
         }
-        // If the frame navigated, hide anyway — user can still see the diagram.
-        try {
-          const doc = iframe.contentDocument;
-          if (doc && doc.readyState === "complete" && doc.body && doc.body.childElementCount) {
-            iframe.dataset.loaded = "1";
-            hideMapLoading();
-            bindHover();
-            return;
-          }
-        } catch (_) {
-          // Opaque origin but navigated: treat as loaded.
+        const src = iframe.getAttribute("src") || "";
+        if (src && src !== "about:blank") {
+          // Frame almost certainly has the diagram; drop the veil.
           iframe.dataset.loaded = "1";
           hideMapLoading();
+          setTimeout(bindHover, 200);
           return;
         }
-        failMapLoading(
-          "Map is slow or blocked. Open it directly: " + L.map
-        );
-      }, 10000);
+        failMapLoading("Map did not start loading. Expected file: " + L.map);
+      }, 2500);
 
-      // Force a real navigation even when only the hash changes and same-doc path failed.
       iframe.src = url;
     }
 
@@ -549,8 +541,13 @@
       setTimeout(bindHover, 350);
     });
 
+    // Some engines fire this for nested document errors; don't gray out a visible map.
     iframe.addEventListener("error", () => {
-      failMapLoading("Map iframe error — check that the .html file sits next to player.html");
+      const src = iframe.getAttribute("src") || "";
+      if (src && src !== "about:blank") {
+        iframe.dataset.loaded = "1";
+        hideMapLoading();
+      }
     });
 
     // --- controls ---
