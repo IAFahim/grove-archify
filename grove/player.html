@@ -155,14 +155,18 @@
       <button type="button" data-track="fun" aria-selected="true" title="Everyday language">Fun</button>
       <button type="button" data-track="serious" aria-selected="false" title="Type names and call paths">Serious</button>
     </div>
-    <button type="button" class="btn primary" id="play" title="Space">Play lesson</button>
+    <div class="seg" role="tablist" aria-label="Listen mode">
+      <button type="button" data-mode="explore" aria-selected="true" title="Click or hover boxes — a guide talks about that piece">Explore</button>
+      <button type="button" data-mode="tour" aria-selected="false" title="Full chapter narration in order">Tour</button>
+    </div>
+    <button type="button" class="btn primary" id="play" title="Space">Play tour</button>
     <button type="button" class="btn" id="pause" title="Space while playing">Pause</button>
     <button type="button" class="btn" id="prev" title="[">Prev</button>
     <button type="button" class="btn" id="next" title="] or N">Next</button>
     <button type="button" class="btn" id="stop" title="Esc">Stop</button>
-    <label class="hint" style="margin-left:auto">
+    <label class="hint" style="margin-left:auto" title="Needs http(s) server for map hover; click list always works on file://">
       <input type="checkbox" id="hoverAudio" checked />
-      Hover boxes for short lines
+      Hover map boxes (when allowed)
     </label>
   </div>
 
@@ -178,15 +182,19 @@
     <aside class="sidebar">
       <h2>Lessons</h2>
       <div class="list" id="lessons"></div>
-      <h2>Chapters in this lesson</h2>
+      <h2>Talk about a box</h2>
+      <p class="hint" id="exploreHint">Click a box name — the guide explains that piece. This is the main way to explore.</p>
+      <div class="list" id="nodes"></div>
+      <h2>Tour chapters</h2>
+      <p class="hint">Optional full walk-through. Switch mode to <b>Tour</b>, then Play tour.</p>
       <div class="list" id="chapters"></div>
       <h2>How to study</h2>
       <p class="hint">
-        1) Stay on <b>Fun</b> through all seven lessons.<br />
-        2) Switch to <b>Serious</b> and repeat — same diagrams, real names.<br />
-        3) Open the map fullscreen from the lesson list if you want Archify’s own story rail only.
+        1) <b>Explore</b>: pick boxes, hear one piece at a time.<br />
+        2) Stay on <b>Fun</b> for all seven lessons, then <b>Serious</b>.<br />
+        3) <b>Tour</b> only when you want the guided chapter path.
       </p>
-      <p class="hint">Keys: <kbd>Space</kbd> play/pause · <kbd>N</kbd>/<kbd>]</kbd> next · <kbd>[</kbd> prev · <kbd>Esc</kbd> stop · <kbd>1</kbd> Fun · <kbd>2</kbd> Serious</p>
+      <p class="hint">Keys: <kbd>Space</kbd> play/pause tour · <kbd>E</kbd> explore · <kbd>T</kbd> tour · <kbd>Esc</kbd> stop · <kbd>1</kbd>/<kbd>2</kbd> Fun/Serious</p>
     </aside>
     <div class="stage">
       <div class="loading" id="mapLoading" role="status" aria-live="polite"></div>
@@ -211,6 +219,7 @@
     const caption = $("caption");
     const lessonsEl = $("lessons");
     const chaptersEl = $("chapters");
+    const nodesEl = $("nodes");
     const progressBar = $("progressBar");
     const progressLabel = $("progressLabel");
     const mapLoading = $("mapLoading");
@@ -218,10 +227,15 @@
     /** @type {any} */
     let manifest = null;
     let track = "fun";
+    /** explore = talk about boxes; tour = full chapter narration */
+    let listenMode = "explore";
     let lessonId = "01";
     let chapterIndex = 0;
-    /** lesson play mode auto-advances chapters */
+    /** tour auto-advance */
     let lessonMode = false;
+    /** explore clip in flight (hover/click box) */
+    let exploreTalking = false;
+    let lastExploreId = "";
     let hoverTimer = 0;
     let boundDoc = null;
     /** bumps on every map navigation so stale load handlers ignore */
@@ -377,8 +391,9 @@
         b.type = "button";
         const has = !!ch.audio;
         b.innerHTML = `<span>${i + 1}. ${escapeHtml(ch.title)}</span><small>${has ? (ch.view ? `view · ${escapeHtml(ch.view)}` : "overview") : "audio missing"}</small>`;
-        if (i === chapterIndex) b.setAttribute("aria-current", "true");
+        if (i === chapterIndex && listenMode === "tour") b.setAttribute("aria-current", "true");
         b.addEventListener("click", () => {
+          setListenMode("tour");
           stopPlayback(false);
           chapterIndex = i;
           lessonMode = false;
@@ -388,27 +403,125 @@
       });
     }
 
+    function renderNodes() {
+      const L = lesson();
+      nodesEl.innerHTML = "";
+      if (!L) return;
+      const entries = Object.entries(L.nodes || {});
+      if (!entries.length) {
+        nodesEl.innerHTML = `<p class="hint">No per-box lines for this lesson yet.</p>`;
+        return;
+      }
+      entries.forEach(([id, node]) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.dataset.nodeId = id;
+        const has = !!node.audio;
+        b.innerHTML = `<span>${escapeHtml(prettyNodeTitle(id, L))}</span><small>${has ? "click to hear" : "text only"}</small>`;
+        if (id === lastExploreId) b.setAttribute("aria-current", "true");
+        b.addEventListener("click", () => talkAboutNode(id, { from: "list" }));
+        nodesEl.appendChild(b);
+      });
+    }
+
+    function prettyNodeTitle(id, L) {
+      const t = (L.nodes[id]?.text || "").trim();
+      const first = t.split(/[.!?]/)[0];
+      if (first && first.length <= 48) return `${id} — ${first}`;
+      return id;
+    }
+
+    function setListenMode(mode) {
+      listenMode = mode === "tour" ? "tour" : "explore";
+      document.querySelectorAll(".seg button[data-mode]").forEach((b) => {
+        b.setAttribute("aria-selected", b.dataset.mode === listenMode ? "true" : "false");
+      });
+      $("play").textContent = listenMode === "tour" ? "Play tour" : "Play tour";
+      $("exploreHint").textContent = listenMode === "explore"
+        ? "Click a box name — the guide explains that piece. Hover the map when the browser allows it."
+        : "Tour mode: Play tour walks chapters. Switch back to Explore to poke individual boxes.";
+    }
+
     function selectLesson(id) {
       stopPlayback(false);
+      lastExploreId = "";
       lessonId = id;
       chapterIndex = 0;
       lessonMode = false;
       renderLessons();
       renderChapters();
+      renderNodes();
       const L = lesson();
       if (L) {
-        loadMap(L, L.chapters[0]);
-        setCaption(L.title, "Press Play lesson to hear chapters in order.");
+        // Full bright map (no chapter dim) while exploring
+        loadMap(L, { view: null });
+        setCaption(
+          L.title,
+          listenMode === "explore"
+            ? "Explore: click a box on the left (or hover the diagram). Tour is optional full narration."
+            : "Tour: press Play tour for chapter-by-chapter narration."
+        );
       }
       updateProgress();
     }
 
     function stopPlayback(clearCaption) {
       lessonMode = false;
+      exploreTalking = false;
       audio.pause();
       try { audio.removeAttribute("src"); audio.load(); } catch (_) {}
-      if (clearCaption) setCaption("Stopped", "Press Play lesson to continue.");
+      if (clearCaption) {
+        setCaption(
+          "Stopped",
+          listenMode === "explore"
+            ? "Click any box to keep exploring."
+            : "Press Play tour to continue the guided path."
+        );
+      }
       updateProgress();
+    }
+
+    /**
+     * Guide talks about one diagram box. Works on file:// via the sidebar list.
+     * @param {string} id
+     * @param {{from?: string}} opts
+     */
+    function talkAboutNode(id, opts = {}) {
+      const L = lesson();
+      const node = L?.nodes?.[id];
+      if (!node) return;
+
+      // Exploring interrupts tour; box talk is the point.
+      lessonMode = false;
+      exploreTalking = true;
+      lastExploreId = id;
+      renderNodes();
+
+      const title = `You pointed at · ${id}`;
+      setCaption(title, node.text);
+
+      if (!node.audio) return;
+
+      const src = "narrate/" + node.audio;
+      const onEnded = () => {
+        exploreTalking = false;
+        cleanup();
+      };
+      const onErr = () => {
+        exploreTalking = false;
+        cleanup();
+      };
+      const cleanup = () => {
+        audio.removeEventListener("ended", onEnded);
+        audio.removeEventListener("error", onErr);
+      };
+      audio.addEventListener("ended", onEnded);
+      audio.addEventListener("error", onErr);
+
+      // Interrupt previous blurb immediately — feels like conversation.
+      audio.pause();
+      audio.src = src;
+      audio.play().catch(onErr);
     }
 
     /**
@@ -498,35 +611,49 @@
       playCurrentChapter({ advance: false });
     }
 
-    // --- hover blurbs on diagram nodes ---
+    // --- hover: talk about boxes while exploring (needs same-origin iframe DOM) ---
     function bindHover() {
       if (!$("hoverAudio").checked) return;
+      if (listenMode !== "explore") return;
       try {
         const doc = iframe.contentDocument;
         if (!doc || doc === boundDoc) return;
         boundDoc = doc;
         const root = doc.querySelector("svg") || doc.body;
         root.addEventListener("pointerover", onHover, true);
-      } catch (_) { /* not ready */ }
+        root.addEventListener("click", onMapClick, true);
+      } catch (_) {
+        // file://: parent cannot read iframe DOM — use the "Talk about a box" list instead.
+        $("exploreHint").textContent =
+          "This browser blocks map hover on file://. Click box names in the list — same voice lines.";
+      }
     }
 
-    function onHover(ev) {
-      if (!$("hoverAudio").checked) return;
-      if (lessonMode || (!audio.paused && !audio.ended)) return;
+    function onMapClick(ev) {
+      if (listenMode !== "explore" || lessonMode) return;
       const g = ev.target?.closest?.("[data-node-id]");
       if (!g) return;
       const id = g.getAttribute("data-node-id");
       if (!id || id.includes("+") || id.includes("'")) return;
-      const node = lesson()?.nodes?.[id];
-      if (!node) return;
+      if (!lesson()?.nodes?.[id]) return;
+      ev.preventDefault();
+      talkAboutNode(id, { from: "map" });
+    }
+
+    function onHover(ev) {
+      if (!$("hoverAudio").checked) return;
+      if (listenMode !== "explore" || lessonMode) return;
+      const g = ev.target?.closest?.("[data-node-id]");
+      if (!g) return;
+      const id = g.getAttribute("data-node-id");
+      if (!id || id.includes("+") || id.includes("'")) return;
+      if (!lesson()?.nodes?.[id]) return;
+      if (id === lastExploreId && exploreTalking) return;
       clearTimeout(hoverTimer);
       hoverTimer = setTimeout(() => {
-        if (lessonMode || (!audio.paused && !audio.ended && audio.src.includes("/ch-"))) return;
-        setCaption(`Box · ${id}`, node.text);
-        if (!node.audio) return;
-        audio.src = "narrate/" + node.audio;
-        audio.play().catch(() => {});
-      }, 280);
+        if (listenMode !== "explore" || lessonMode) return;
+        talkAboutNode(id, { from: "hover" });
+      }, 200);
     }
 
     iframe.addEventListener("load", () => {
@@ -551,10 +678,10 @@
     });
 
     // --- controls ---
-    document.querySelectorAll(".seg button").forEach((btn) => {
+    document.querySelectorAll(".seg button[data-track]").forEach((btn) => {
       btn.addEventListener("click", () => {
         track = btn.dataset.track;
-        document.querySelectorAll(".seg button").forEach((b) =>
+        document.querySelectorAll(".seg button[data-track]").forEach((b) =>
           b.setAttribute("aria-selected", b === btn ? "true" : "false")
         );
         const still = lessons().some((l) => l.id === lessonId);
@@ -562,7 +689,20 @@
       });
     });
 
+    document.querySelectorAll(".seg button[data-mode]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setListenMode(btn.dataset.mode);
+        stopPlayback(false);
+        const L = lesson();
+        if (L && listenMode === "explore") {
+          loadMap(L, { view: null });
+          setCaption(L.title, "Click a box in the list (or on the map) — I’ll explain that piece.");
+        }
+      });
+    });
+
     $("play").addEventListener("click", () => {
+      setListenMode("tour");
       lessonMode = true;
       playCurrentChapter({ advance: true });
     });
@@ -600,19 +740,25 @@
         document.querySelector('.seg button[data-track="fun"]').click();
       } else if (ev.key === "2") {
         document.querySelector('.seg button[data-track="serious"]').click();
+      } else if (ev.key === "e" || ev.key === "E") {
+        document.querySelector('.seg button[data-mode="explore"]').click();
+      } else if (ev.key === "t" || ev.key === "T") {
+        document.querySelector('.seg button[data-mode="tour"]').click();
       }
     });
 
     function boot(m) {
       manifest = m;
+      setListenMode("explore");
       renderLessons();
       renderChapters();
+      renderNodes();
       const L = lesson();
       if (L) {
-        loadMap(L, L.chapters[0]);
+        loadMap(L, { view: null });
         setCaption(
           L.title,
-          "Fun first through all lessons, then Serious on the same maps. Press Play lesson."
+          "Explore mode: click any box name on the left — a guide talks about that piece. Play tour is the full walk-through."
         );
       }
       updateProgress();
