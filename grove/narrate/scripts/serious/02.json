@@ -12,7 +12,7 @@
       "id": "happy-path",
       "title": "Pipeline",
       "view": "happy-path",
-      "text": "On import, Collect Root Candidates finds Input variables whose first connection resolves to Grove Execution Auth. Auth Root is set only when the candidate count is one. Baking writes Graph Baking Data and registers dependencies via Graph Baker."
+      "text": "Source GroveGraph is imported by GroveImporter into GroveAuthGraph plus node subassets. GraphAuthoring references the auth main object. GraphBakingSystem calls Auth.Create to emit GraphData. Runtime IGraphReference holds only the blob."
     },
     {
       "id": "safety-gate",
@@ -29,14 +29,14 @@
   ],
   "nodes": {
     "user": "Author intent. Creates Grove Graph asset.",
-    "chat": "Graph Toolkit source. Not referenced by bakers.",
-    "planner": "Grove Importer of T. Grove Node State scopes subgraphs.",
-    "router": "Grove Auth Graph Scriptable Object main asset.",
-    "approval": "Collect Boundary Root Candidates logic.",
+    "chat": "GroveGraph source asset (.mygraph). Editor only. Not the baker input.",
+    "planner": "GroveImporter ScriptedImporter. Creates auth subassets and sets Root from Input boundary candidates.",
+    "router": "GroveAuthGraph: ScriptableObject main asset produced by GroveImporter. Fields Root, Inputs, Outputs, Nodes. GraphAuthoring references this asset. GroveAuthGraph.Create builds BlobAssetReference of GraphData.",
+    "approval": "CollectRootCandidates: exactly one Input variable resolving to GroveExecutionAuth.",
     "blocked": "Import validation failure for entry shape.",
     "retry": "Reimport after fixing Input to execution wiring.",
-    "tool": "Graph Authoring of T Auth comma T Component.",
-    "external": "Graph Baking System of T C via Setup System reflection.",
+    "tool": "GraphAuthoring of TAuth comma TComponent. References Auth, registers bake deps, writes GraphBakingData.",
+    "external": "GraphBakingSystem. Calls Auth.Create with instance values and variant selection.",
     "store": "Dictionary of Grove Variant Auth to selected branch.",
     "trace": "Instance values and Grove State initialize bake.",
     "final": "I Graph Reference Graph property holds the blob."

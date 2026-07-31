@@ -146,7 +146,7 @@
       "lane": "ui",
       "col": 1,
       "type": "frontend",
-      "label": "Draw map",
+      "label": "Source map",
       "sublabel": ".mygraph"
     },
     {
@@ -163,15 +163,15 @@
       "col": 2,
       "type": "backend",
       "label": "Importer",
-      "sublabel": "makes cards"
+      "sublabel": "builds auth"
     },
     {
       "id": "router",
       "lane": "agent",
       "col": 3,
       "type": "backend",
-      "label": "Auth box",
-      "sublabel": "Root + nodes"
+      "label": "Auth asset",
+      "sublabel": "imported cards"
     },
     {
       "id": "approval",
@@ -203,15 +203,15 @@
       "col": 4,
       "type": "messagebus",
       "label": "Authoring",
-      "sublabel": "on entity"
+      "sublabel": "points at auth"
     },
     {
       "id": "external",
       "lane": "tools",
       "col": 5,
       "type": "cloud",
-      "label": "Bake oven",
-      "sublabel": "blob brick"
+      "label": "Bake",
+      "sublabel": "auth \u2192 brick"
     },
     {
       "id": "store",

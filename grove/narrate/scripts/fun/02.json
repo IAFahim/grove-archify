@@ -12,7 +12,7 @@
       "id": "happy-path",
       "title": "Main path",
       "view": "happy-path",
-      "text": "You draw the map, the importer makes cards, authoring puts the card on an entity, the oven freezes a brick, and play time eats the brick."
+      "text": "You draw the pretty map. The importer builds an Auth box \u2014 a frozen card deck of Root, inputs, outputs, and nodes. Authoring on an entity only points at that Auth box. The bake oven reads the Auth box and freezes a brick. Play never opens the pretty map again."
     },
     {
       "id": "safety-gate",
@@ -29,14 +29,14 @@
   ],
   "nodes": {
     "user": "You. The designer who wants a brain on the entity.",
-    "chat": "Pretty map file. Dot my graph.",
-    "planner": "Importer walks nodes and subgraphs.",
-    "router": "Auth box with Root, Inputs, Outputs, Nodes.",
-    "approval": "Start door check. Need one Input root.",
+    "chat": "Pretty map. Graph Toolkit source you edit. Humans draw here; bakers do not read this file at runtime.",
+    "planner": "Importer. Reads the pretty map once and builds the Auth box plus node sub-cards.",
+    "router": "Auth box is the imported result of your pretty map. After import, Grove no longer needs the drawing file for bake. This box holds the start Root, Inputs, Outputs, and every node as little cards. Authoring on a GameObject points here \u2014 not at the .mygraph.",
+    "approval": "Start door check. The Auth box only gets a Root if exactly one Input boundary connects to an execution node.",
     "blocked": "Import error path. Fix the wires.",
     "retry": "Reimport after you fix the start door.",
-    "tool": "Graph Authoring mono behaviour on the entity.",
-    "external": "Bake system. Hash and Create blob.",
+    "tool": "Authoring component on a GameObject. Its job is only to point at an Auth box and optional overrides, then bake.",
+    "external": "Bake oven. Reads the Auth box, applies variants and overrides, freezes a GraphData brick.",
     "store": "Variants. Bake-time branch pick.",
     "trace": "Backpack and overrides live near play.",
     "final": "It runs. Robot can Execute the brick."
