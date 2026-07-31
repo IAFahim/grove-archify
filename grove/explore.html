@@ -98,11 +98,11 @@
     <div class="nodes" id="nodeList"></div>
     <button class="tourbtn" id="tour">▶ Take the guided tour</button>
     <ul class="hintlist">
-      <li><kbd>hover</kbd> a box — it talks</li>
+      <li id="hoverHint"><kbd>hover</kbd> a box — it talks</li>
       <li><kbd>click</kbd> a box — the deeper version</li>
       <li><kbd>Space</kbd> replay · <kbd>M</kbd> mute · <kbd>Y</kbd> tour</li>
       <li><kbd>1</kbd>–<kbd>7</kbd> switch map</li>
-      <li>If hover is quiet on <code>file://</code>, use the list — same lines</li>
+      <li>List on the right = same lines as hover (always works)</li>
     </ul>
   </aside>
 </div>
@@ -208,12 +208,32 @@
   }
 
   // ---------- hover binding into the map ----------
+  // Needs same-origin access to the iframe document (http:// works; file:// in Chromium does not).
+  let hoverBound = false, hoverTries = 0;
+  function setHoverHint(ok){
+    const el = $("hoverHint");
+    if (!el) return;
+    if (ok) {
+      el.innerHTML = "<kbd>hover</kbd> a box — it talks";
+      el.hidden = false;
+      return;
+    }
+    if (location.protocol === "file:") {
+      el.innerHTML = "Map hover is blocked on <code>file://</code> (browser rule). Use the list below, or open via <code>python3 -m http.server 8765</code> → <code>http://127.0.0.1:8765/explore.html</code>";
+    } else {
+      el.innerHTML = "Map hover not hooked yet — use the list, or wait a moment.";
+    }
+  }
   function bindHover(){
     try {
       const doc = frame.contentDocument;
-      if (!doc || doc === boundDoc) return;
+      if (!doc) return false;
+      if (doc === boundDoc && hoverBound) return true;
+      const svg = doc.querySelector("svg");
+      if (!svg) return false;
+      // Only mark bound once listeners attach (avoid race: doc ready, svg not yet).
       boundDoc = doc;
-      const svg = doc.querySelector("svg"); if (!svg) return;
+      hoverBound = true;
       svg.addEventListener("pointerover", (ev) => {
         const g = ev.target && ev.target.closest && ev.target.closest("[data-node-id]");
         if (!g) return;
@@ -229,9 +249,30 @@
         const id = g.getAttribute("data-node-id");
         if (lesson.nodes[id]) { tourOn = false; speakNode(id, true); clearFocus(); }
       }, true);
-    } catch(_) {}
+      setHoverHint(true);
+      return true;
+    } catch(_) {
+      return false;
+    }
   }
-  frame.addEventListener("load", () => { boundDoc = null; setTimeout(bindHover, 350); setTimeout(bindHover, 1200); });
+  function scheduleBind(){
+    hoverBound = false; boundDoc = null; hoverTries = 0;
+    const tick = () => {
+      if (bindHover()) return;
+      hoverTries++;
+      if (hoverTries === 1 || hoverTries === 6) setHoverHint(false);
+      if (hoverTries < 20) setTimeout(tick, 400);
+    };
+    setTimeout(tick, 200);
+  }
+  frame.addEventListener("load", () => {
+    // about:blank / empty loads happen during lesson swaps — ignore
+    try {
+      const href = frame.contentWindow && frame.contentWindow.location && frame.contentWindow.location.href;
+      if (!href || href === "about:blank") return;
+    } catch(_) { /* cross-origin: still try bind / show hint */ }
+    scheduleBind();
+  });
 
   // ---------- guided tour ----------
   function nextTourStep(){
