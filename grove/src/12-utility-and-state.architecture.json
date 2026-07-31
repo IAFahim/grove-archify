@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Grove \u00b7 Utility AI + State Machines",
+    "subtitle": "Selectors \u00b7 qualifiers \u00b7 Scorer \u00b7 StateSet/If/Select Enter/Exit",
+    "output": "../12-utility-and-state.architecture.html",
+    "quality_profile": "standard",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "views": [
+      {
+        "id": "score-fight",
+        "label": "Score fight",
+        "focus": [
+          "scorer",
+          "qualifier",
+          "selector",
+          "action"
+        ],
+        "note": "Float scores in; one (or many) actions out. Last pair = default."
+      },
+      {
+        "id": "state-keys",
+        "label": "State keys",
+        "focus": [
+          "state_set",
+          "state_if",
+          "state_select",
+          "grovestate"
+        ],
+        "note": "Enum keys in GroveState scoped by GraphId."
+      },
+      {
+        "id": "enter-exit",
+        "label": "Enter / Exit",
+        "focus": [
+          "state_select",
+          "on_exit",
+          "on_enter",
+          "current"
+        ],
+        "note": "StateSelect runs OnExit/OnEnter then current Execution."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "scorer",
+      "type": "cloud",
+      "label": "Scorer",
+      "sublabel": "bool\u2192weight",
+      "pos": [
+        40,
+        100
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "qualifier",
+      "type": "backend",
+      "label": "Qualifier",
+      "sublabel": "fold floats",
+      "pos": [
+        220,
+        100
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "selector",
+      "type": "security",
+      "label": "Selector",
+      "sublabel": "pick action",
+      "pos": [
+        420,
+        100
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "action",
+      "type": "backend",
+      "label": "Action",
+      "sublabel": "execution",
+      "pos": [
+        620,
+        100
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "threshold",
+      "type": "messagebus",
+      "label": "Last pair",
+      "sublabel": "default / thresh",
+      "pos": [
+        420,
+        220
+      ],
+      "size": [
+        140,
+        56
+      ],
+      "tag": "strict >"
+    },
+    {
+      "id": "state_set",
+      "type": "frontend",
+      "label": "StateSet",
+      "sublabel": "write enum",
+      "pos": [
+        40,
+        320
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "state_if",
+      "type": "frontend",
+      "label": "StateIf",
+      "sublabel": "branch",
+      "pos": [
+        220,
+        320
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "state_select",
+      "type": "frontend",
+      "label": "StateSelect",
+      "sublabel": "per value",
+      "pos": [
+        420,
+        320
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "on_exit",
+      "type": "backend",
+      "label": "OnExit",
+      "sublabel": "leaving",
+      "pos": [
+        620,
+        280
+      ],
+      "size": [
+        110,
+        50
+      ]
+    },
+    {
+      "id": "on_enter",
+      "type": "backend",
+      "label": "OnEnter",
+      "sublabel": "arriving",
+      "pos": [
+        780,
+        280
+      ],
+      "size": [
+        110,
+        50
+      ]
+    },
+    {
+      "id": "current",
+      "type": "backend",
+      "label": "Execution",
+      "sublabel": "while active",
+      "pos": [
+        420,
+        420
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "grovestate",
+      "type": "database",
+      "label": "GroveState",
+      "sublabel": "keys + GraphId",
+      "pos": [
+        220,
+        460
+      ],
+      "size": [
+        150,
+        56
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Utility AI",
+      "wraps": [
+        "scorer",
+        "qualifier",
+        "selector",
+        "action",
+        "threshold"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "State machines",
+      "wraps": [
+        "state_set",
+        "state_if",
+        "state_select",
+        "on_exit",
+        "on_enter",
+        "current",
+        "grovestate"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "sc-qu",
+      "from": "scorer",
+      "to": "qualifier",
+      "label": "weights"
+    },
+    {
+      "id": "qu-se",
+      "from": "qualifier",
+      "to": "selector",
+      "label": "scores[]",
+      "variant": "emphasis"
+    },
+    {
+      "id": "se-ac",
+      "from": "selector",
+      "to": "action",
+      "label": "winner",
+      "variant": "emphasis"
+    },
+    {
+      "id": "se-th",
+      "from": "selector",
+      "to": "threshold",
+      "label": "last pair",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "set-gs",
+      "from": "state_set",
+      "to": "grovestate",
+      "label": "write",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "if-gs",
+      "from": "state_if",
+      "to": "grovestate",
+      "label": "read",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "sel-gs",
+      "from": "state_select",
+      "to": "grovestate",
+      "label": "Current/Prev",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "sel-ex",
+      "from": "state_select",
+      "to": "on_exit",
+      "label": "leave",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "sel-en",
+      "from": "state_select",
+      "to": "on_enter",
+      "label": "enter",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "sel-cu",
+      "from": "state_select",
+      "to": "current",
+      "label": "run",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Selectors",
+      "items": [
+        "First / Highest / WeightedRandom / ExecuteAll",
+        "InputPorts scores align with OutputPorts actions",
+        "Last pair is default/threshold path",
+        "Win uses strict greater-than"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Qualifiers",
+      "items": [
+        "AllOrNothing, MinOrNothing, Sum*, thresholds",
+        "Fold scorer floats into one score"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "State nodes",
+      "items": [
+        "StateSet writes",
+        "StateIf branches",
+        "StateSelect: OnExit \u2192 OnEnter \u2192 Execution",
+        "Keys via GraphStateUtil + GraphId scope"
+      ]
+    }
+  ]
+}

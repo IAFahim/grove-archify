@@ -1,7 +1,7 @@
 {
   "id": "08",
   "title": "The Blob Secret",
-  "blurb": "Why GraphData can hold a whole graph so easily — three secrets, one brick.",
+  "blurb": "Why GraphData can hold a whole graph so easily \u2014 three secrets, one brick.",
   "map": "08-blob-secret.architecture.html",
   "chapters": [
     {
@@ -43,59 +43,73 @@
   "nodes": {
     "pretty": {
       "short": "Pretty map. Boxes and wires you draw in Graph Toolkit.",
-      "deep": "Source asset only. Runtime never opens the .mygraph. Import produces GroveAuthGraph; bake produces the blob."
+      "deep": "Source asset only. Runtime never opens the .mygraph. Import produces GroveAuthGraph; bake produces the blob.",
+      "label": "Pretty map"
     },
     "bake": {
       "short": "Bake. Auth cards freeze into one blob.",
-      "deep": "GroveAuthGraph.Create with instance overrides and variants. BlobRemapBuilder ConstructRoot GraphData, then each node Create."
+      "deep": "GroveAuthGraph.Create with instance overrides and variants. BlobRemapBuilder ConstructRoot GraphData, then each node Create.",
+      "label": "Bake"
     },
     "noedge": {
       "short": "No edge table. Secret one. Wires die at bake.",
-      "deep": "There is no BlobArray of edges. Connectivity is only BlobPtr fields on nodes and on GraphOutputData.Value."
+      "deep": "There is no BlobArray of edges. Connectivity is only BlobPtr fields on nodes and on GraphOutputData.Value.",
+      "label": "No edge table"
     },
     "brick": {
       "short": "Graph Data. One immutable blob asset.",
-      "deep": "BlobAssetReference GraphData on IGraphReference. Read-only after bake. Shared across entities that reference it."
+      "deep": "BlobAssetReference GraphData on IGraphReference. Read-only after bake. Shared across entities that reference it.",
+      "label": "GraphData"
     },
     "root": {
       "short": "Root. Blob pointer to the start execution node.",
-      "deep": "BlobPtr ExecutionHeader. Set only when exactly one Input boundary feeds execution. GraphExecution starts here."
+      "deep": "BlobPtr ExecutionHeader. Set only when exactly one Input boundary feeds execution. GraphExecution starts here.",
+      "label": "Root"
     },
     "doors": {
       "short": "I O doors. Boundary inputs and outputs.",
-      "deep": "GraphInputData is VariableKey plus TypeHash. GraphOutputData adds BlobPtr DataHeader Value that computes the out value."
+      "deep": "GraphInputData is VariableKey plus TypeHash. GraphOutputData adds BlobPtr DataHeader Value that computes the out value.",
+      "label": "I/O doors"
     },
     "nmap": {
       "short": "Node maps. Id to Node Union for every box.",
-      "deep": "RootNodes for top level. Nodes includes subgraphs. Keys are authored NodeId ulongs."
+      "deep": "RootNodes for top level. Nodes includes subgraphs. Keys are authored NodeId ulongs.",
+      "label": "Node maps"
     },
     "union": {
       "short": "Node Union. Tag plus pointer to header.",
-      "deep": "NodeType Execution or Data. AsExecution and AsData cast the BlobPtr Header safely."
+      "deep": "NodeType Execution or Data. AsExecution and AsData cast the BlobPtr Header safely.",
+      "label": "NodeUnion"
     },
     "bread": {
       "short": "Header bread. Type number and Node Id.",
-      "deep": "ExecutionHeader or DataHeader. Type drives generated dispatch. NodeId scopes debug and state."
+      "deep": "ExecutionHeader or DataHeader. Type drives generated dispatch. NodeId scopes debug and state.",
+      "label": "Header bread"
     },
     "fill": {
       "short": "Filling. Your payload fields after the header.",
-      "deep": "CompositeData, selector payloads, custom node data. Allocated by that node's Create during bake."
+      "deep": "CompositeData, selector payloads, custom node data. Allocated by that node's Create during bake.",
+      "label": "Filling"
     },
     "kids": {
       "short": "Kid arrows. Secret two. Ports are Blob pointers.",
-      "deep": "Next, Executions array, data inputs. Following a kid is pointer chase, not searching an edge list."
+      "deep": "Next, Executions array, data inputs. Following a kid is pointer chase, not searching an edge list.",
+      "label": "Kid arrows"
     },
     "switch": {
       "short": "Type switch. Generated code picks the method.",
-      "deep": "ExecuteNode attribute and source generator. Static methods, Burst friendly, no virtual table walk."
+      "deep": "ExecuteNode attribute and source generator. Static methods, Burst friendly, no virtual table walk.",
+      "label": "Type switch"
     },
     "ctx": {
       "short": "Context. Live backpack. Not stored in the brick.",
-      "deep": "IContext partial struct. Variables, state, chunk caches. GraphData stays immutable while context mutates."
+      "deep": "IContext partial struct. Variables, state, chunk caches. GraphData stays immutable while context mutates.",
+      "label": "Context"
     },
     "share": {
       "short": "Many entities. Secret three. One shared brick ref.",
-      "deep": "BlobAssetReference is a handle. Thousands of entities can share one GraphData. Each still has its own context state."
+      "deep": "BlobAssetReference is a handle. Thousands of entities can share one GraphData. Each still has its own context state.",
+      "label": "Many entities"
     }
   }
 }

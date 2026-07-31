@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Grove \u00b7 Auth Is Authoring",
+    "subtitle": "Three artifacts \u2014 source map \u2192 Auth cards \u2192 GraphData brick. Auth never means login.",
+    "output": "../09-auth-is-authoring.architecture.html",
+    "quality_profile": "standard",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "views": [
+      {
+        "id": "three-files",
+        "label": "Three artifacts",
+        "focus": [
+          "source",
+          "auth_graph",
+          "brick"
+        ],
+        "note": "Editor map, authoring ScriptableObjects, runtime blob. Never confuse them."
+      },
+      {
+        "id": "who-points",
+        "label": "Who points where",
+        "focus": [
+          "authoring",
+          "auth_graph",
+          "brick",
+          "entity"
+        ],
+        "note": "GraphAuthoring points at Auth. Bake writes brick onto IGraphReference."
+      },
+      {
+        "id": "not-login",
+        "label": "Not login",
+        "focus": [
+          "auth_graph",
+          "auth_card",
+          "not_login"
+        ],
+        "note": "GroveAuth* = serializable authoring cards. Zero JWT."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "source",
+      "type": "external",
+      "label": "Source map",
+      "sublabel": ".mygraph",
+      "pos": [
+        40,
+        120
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "tag": "editor only"
+    },
+    {
+      "id": "importer",
+      "type": "backend",
+      "label": "Importer",
+      "sublabel": "GroveImporter",
+      "pos": [
+        240,
+        120
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "auth_graph",
+      "type": "database",
+      "label": "Auth graph",
+      "sublabel": "GroveAuthGraph",
+      "pos": [
+        460,
+        80
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "tag": "authoring"
+    },
+    {
+      "id": "auth_card",
+      "type": "database",
+      "label": "Auth card",
+      "sublabel": "Grove*Auth SO",
+      "pos": [
+        460,
+        200
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "per node"
+    },
+    {
+      "id": "authoring",
+      "type": "cloud",
+      "label": "GraphAuthoring",
+      "sublabel": "on GameObject",
+      "pos": [
+        680,
+        120
+      ],
+      "size": [
+        140,
+        60
+      ]
+    },
+    {
+      "id": "bake",
+      "type": "backend",
+      "label": "Bake",
+      "sublabel": "Auth.Create",
+      "pos": [
+        680,
+        240
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "brick",
+      "type": "messagebus",
+      "label": "GraphData",
+      "sublabel": "blob brick",
+      "pos": [
+        900,
+        160
+      ],
+      "size": [
+        140,
+        64
+      ],
+      "tag": "runtime"
+    },
+    {
+      "id": "entity",
+      "type": "frontend",
+      "label": "Entity",
+      "sublabel": "IGraphReference",
+      "pos": [
+        900,
+        40
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "not_login",
+      "type": "security",
+      "label": "NOT login",
+      "sublabel": "no JWT / OAuth",
+      "pos": [
+        240,
+        260
+      ],
+      "size": [
+        140,
+        64
+      ],
+      "tag": "remember"
+    },
+    {
+      "id": "play",
+      "type": "backend",
+      "label": "Play",
+      "sublabel": "GraphExecution",
+      "pos": [
+        1080,
+        160
+      ],
+      "size": [
+        140,
+        56
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Editor",
+      "wraps": [
+        "source",
+        "importer"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Authoring (Auth = here)",
+      "wraps": [
+        "auth_graph",
+        "auth_card",
+        "authoring",
+        "bake",
+        "not_login"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "Runtime",
+      "wraps": [
+        "brick",
+        "entity",
+        "play"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "src-imp",
+      "from": "source",
+      "to": "importer",
+      "label": "import",
+      "variant": "emphasis"
+    },
+    {
+      "id": "imp-graph",
+      "from": "importer",
+      "to": "auth_graph",
+      "label": "main asset"
+    },
+    {
+      "id": "imp-card",
+      "from": "importer",
+      "to": "auth_card",
+      "label": "subassets",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "auth-author",
+      "from": "auth_graph",
+      "to": "authoring",
+      "label": "reference"
+    },
+    {
+      "id": "author-bake",
+      "from": "authoring",
+      "to": "bake",
+      "label": "BakeGraph",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "card-bake",
+      "from": "auth_card",
+      "to": "bake",
+      "label": "Create/Init",
+      "variant": "dashed",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "bake-brick",
+      "from": "bake",
+      "to": "brick",
+      "label": "freeze",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "brick-entity",
+      "from": "brick",
+      "to": "entity",
+      "label": "blob ref",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "entity-play",
+      "from": "entity",
+      "to": "play",
+      "label": "tick",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "id": "not-auth",
+      "from": "not_login",
+      "to": "auth_graph",
+      "label": "\u2260",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "left"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Auth means authoring",
+      "items": [
+        "GroveAuthGraph + GroveAuth* cards",
+        "Never authentication / login / JWT",
+        "Runtime never opens Auth or .mygraph"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Three artifacts",
+      "items": [
+        "Source: Graph Toolkit draw",
+        "Auth: import product ScriptableObjects",
+        "Brick: BlobAssetReference GraphData"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Pointers",
+      "items": [
+        "GraphAuthoring \u2192 Auth graph",
+        "Bake Auth.Create \u2192 brick on IGraphReference",
+        "ISystem \u2192 GraphImpl \u2192 Execute brick"
+      ]
+    }
+  ]
+}

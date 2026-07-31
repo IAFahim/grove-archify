@@ -1,0 +1,78 @@
+{
+  "id": "10",
+  "title": "Doors & Boundaries",
+  "blurb": "Input Output Local \u00b7 untyped skip \u00b7 root rule \u00b7 pure Calculate graphs.",
+  "map": "10-doors-and-boundaries.sequence.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Doors",
+      "focus": null,
+      "text": "Boundary variables are the doors of a graph. Inputs push live values into Grove State. Outputs pull answers. Locals stay inside.",
+      "deep": "GraphInputData VariableKey and TypeHash. GraphOutputData adds BlobPtr DataHeader Value."
+    },
+    {
+      "id": "root-rule",
+      "title": "Root rule",
+      "focus": "root-rule",
+      "text": "Importer sets Root only when exactly one Input boundary connects to an execution node. Zero or two is an error if you have top level execution.",
+      "deep": "CollectRootCandidates. Pure Calculate graphs may omit Root and only expose Outputs."
+    },
+    {
+      "id": "typed-io",
+      "title": "Typed I/O",
+      "focus": "typed-io",
+      "text": "Only typed unmanaged boundary variables become runtime Inputs and Outputs arrays on the brick.",
+      "deep": "IsUntyped skips. Runtime I/O must be unmanaged. Scope sensitive names across subgraphs."
+    },
+    {
+      "id": "untyped-skip",
+      "title": "Untyped skip",
+      "focus": "untyped-skip",
+      "text": "Toolkit Untyped variables are fine for editor routing. They never become Graph Input Data or Graph Output Data. Silent footgun.",
+      "deep": "Use typed locals or data nodes for values you need at play time."
+    }
+  ],
+  "nodes": {
+    "you": {
+      "label": "You",
+      "short": "You author boundaries on the graph.",
+      "deep": "Input Output Local roles in Graph Toolkit."
+    },
+    "boundary": {
+      "label": "Boundary var",
+      "short": "Boundary variable. Typed door.",
+      "deep": "Becomes GraphInputData or GraphOutputData when typed unmanaged."
+    },
+    "untyped": {
+      "label": "Untyped",
+      "short": "Untyped. Routing only. Skipped for runtime I/O.",
+      "deep": "Never appears in Inputs Outputs arrays."
+    },
+    "importer": {
+      "label": "Importer",
+      "short": "Importer scans for Root candidates.",
+      "deep": "Exactly one Input to execution for execution graphs."
+    },
+    "auth_graph": {
+      "label": "Auth graph",
+      "short": "Auth graph stores door lists.",
+      "deep": "Authoring intermediate, not login."
+    },
+    "root": {
+      "label": "Root",
+      "short": "Root pointer or none.",
+      "deep": "BlobPtr ExecutionHeader when valid entry exists."
+    },
+    "brick": {
+      "label": "Brick",
+      "short": "Brick I/O arrays after bake.",
+      "deep": "GraphInputData and GraphOutputData."
+    },
+    "grovestate": {
+      "label": "GroveState",
+      "short": "Grove State holds live door values at play.",
+      "deep": "SetInput and variable keys write here, not stack args on Root."
+    }
+  }
+}

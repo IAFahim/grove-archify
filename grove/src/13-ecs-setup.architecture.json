@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Grove \u00b7 ECS Setup Checklist",
+    "subtitle": "IGraphReference \u00b7 authoring \u00b7 bake discovery \u00b7 multi-graph \u00b7 GetState \u00b7 debug",
+    "output": "../13-ecs-setup.architecture.html",
+    "quality_profile": "standard",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "views": [
+      {
+        "id": "main-path",
+        "label": "Happy path",
+        "focus": [
+          "define_graph",
+          "auth_asset",
+          "authoring_mb",
+          "bake_sys",
+          "igraph",
+          "isystem"
+        ],
+        "note": "Define \u2192 Auth asset \u2192 Authoring \u2192 auto bake \u2192 GraphImpl Execute."
+      },
+      {
+        "id": "multi",
+        "label": "Multi-graph",
+        "focus": [
+          "buffer_mb",
+          "graphid",
+          "remove",
+          "grovestate"
+        ],
+        "note": "Shared GroveState; RemoveGraphState by GraphId."
+      },
+      {
+        "id": "debug",
+        "label": "State API + debug",
+        "focus": [
+          "getstate",
+          "debug_attr",
+          "variants",
+          "context_type"
+        ],
+        "note": "GetState + GraphStateUtil \u2014 not GetVariables."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "define_graph",
+      "type": "backend",
+      "label": "Graph type",
+      "sublabel": "+ importer",
+      "pos": [
+        40,
+        80
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "context_type",
+      "type": "backend",
+      "label": "Context",
+      "sublabel": "partial IContext",
+      "pos": [
+        40,
+        280
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "auth_asset",
+      "type": "database",
+      "label": "Auth asset",
+      "sublabel": "not login",
+      "pos": [
+        240,
+        80
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "authoring_mb",
+      "type": "cloud",
+      "label": "Authoring",
+      "sublabel": "single graph",
+      "pos": [
+        440,
+        80
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "buffer_mb",
+      "type": "cloud",
+      "label": "Auth buffer",
+      "sublabel": "many graphs",
+      "pos": [
+        440,
+        240
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "variants",
+      "type": "security",
+      "label": "Variants",
+      "sublabel": "strip",
+      "pos": [
+        640,
+        240
+      ],
+      "size": [
+        120,
+        52
+      ]
+    },
+    {
+      "id": "bake_sys",
+      "type": "backend",
+      "label": "Bake system",
+      "sublabel": "IGraphBaking",
+      "pos": [
+        640,
+        120
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "igraph",
+      "type": "database",
+      "label": "IGraphRef",
+      "sublabel": "blob field",
+      "pos": [
+        840,
+        80
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "grovestate",
+      "type": "database",
+      "label": "GroveState",
+      "sublabel": "backpack",
+      "pos": [
+        840,
+        200
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "isystem",
+      "type": "frontend",
+      "label": "ISystem",
+      "sublabel": "GraphImpl",
+      "pos": [
+        1020,
+        80
+      ],
+      "size": [
+        120,
+        56
+      ]
+    },
+    {
+      "id": "getstate",
+      "type": "messagebus",
+      "label": "GetState",
+      "sublabel": "GraphStateUtil",
+      "pos": [
+        1020,
+        240
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "graphid",
+      "type": "security",
+      "label": "GraphId",
+      "sublabel": "scope keys",
+      "pos": [
+        840,
+        320
+      ],
+      "size": [
+        120,
+        52
+      ]
+    },
+    {
+      "id": "remove",
+      "type": "security",
+      "label": "RemoveState",
+      "sublabel": "teardown",
+      "pos": [
+        1020,
+        320
+      ],
+      "size": [
+        120,
+        52
+      ]
+    },
+    {
+      "id": "debug_attr",
+      "type": "messagebus",
+      "label": "NodeDebug",
+      "sublabel": "attrs",
+      "pos": [
+        640,
+        320
+      ],
+      "size": [
+        120,
+        52
+      ]
+    },
+    {
+      "id": "config_var",
+      "type": "messagebus",
+      "label": "Debug cfg",
+      "sublabel": "enabled",
+      "pos": [
+        640,
+        400
+      ],
+      "size": [
+        120,
+        52
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "id": "def-auth",
+      "from": "define_graph",
+      "to": "auth_asset",
+      "label": "import",
+      "variant": "emphasis"
+    },
+    {
+      "id": "def-ctx",
+      "from": "define_graph",
+      "to": "context_type",
+      "label": "pair",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 28
+    },
+    {
+      "id": "auth-mb",
+      "from": "auth_asset",
+      "to": "authoring_mb",
+      "label": "reference"
+    },
+    {
+      "id": "auth-buf",
+      "from": "auth_asset",
+      "to": "buffer_mb",
+      "label": "or many",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 28
+    },
+    {
+      "id": "mb-bake",
+      "from": "authoring_mb",
+      "to": "bake_sys",
+      "label": "bake"
+    },
+    {
+      "id": "bake-ig",
+      "from": "bake_sys",
+      "to": "igraph",
+      "label": "blob",
+      "variant": "emphasis"
+    },
+    {
+      "id": "ig-sys",
+      "from": "igraph",
+      "to": "isystem",
+      "label": "Execute"
+    },
+    {
+      "id": "sys-get",
+      "from": "isystem",
+      "to": "getstate",
+      "label": "state API",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 28
+    },
+    {
+      "id": "ig-gs",
+      "from": "igraph",
+      "to": "grovestate",
+      "label": "shared",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 28
+    },
+    {
+      "id": "ig-gid",
+      "from": "grovestate",
+      "to": "graphid",
+      "label": "keys",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 28
+    },
+    {
+      "id": "gid-rm",
+      "from": "graphid",
+      "to": "remove",
+      "label": "cleanup"
+    },
+    {
+      "id": "cfg-dbg",
+      "from": "config_var",
+      "to": "debug_attr",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "var-bake",
+      "from": "variants",
+      "to": "bake_sys",
+      "label": "strip",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": 28
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Checklist",
+      "items": [
+        "GroveGraph + Importer Auth type",
+        "partial IContext + GroveStates",
+        "Authoring points at Auth not .mygraph",
+        "IGraphReference holds blob",
+        "GraphImpl SetChunk then Execute"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Multi-graph",
+      "items": [
+        "Shared GroveState",
+        "GraphId scopes keys",
+        "RemoveGraphState on teardown"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Truth",
+      "items": [
+        "Bake auto via IGraphBaking",
+        "GetState + GraphStateUtil \u2014 not GetVariables",
+        "Variants strip; NodeDebug gated"
+      ]
+    }
+  ]
+}

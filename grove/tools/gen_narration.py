@@ -142,12 +142,15 @@ def build_manifest() -> dict:
             if isinstance(v, str):
                 nodes[k] = {"short": v, "audio": audio_for(f"node-{k}-short")}
             else:
-                nodes[k] = {
+                entry = {
                     "short": v["short"],
                     "deep": v.get("deep"),
                     "audio": audio_for(f"node-{k}-short"),
                     "audioDeep": audio_for(f"node-{k}-deep") if v.get("deep") else None,
                 }
+                if v.get("label"):
+                    entry["label"] = v["label"]
+                nodes[k] = entry
 
         chapters = []
         for c in script["chapters"]:

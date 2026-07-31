@@ -12,67 +12,77 @@
       "deep": "Graph Data is a blob root: Graph Id, Root pointer, Inputs array, Outputs array, Root Nodes and Nodes hash maps of Node Union tags."
     },
     {
-      "id": "collection-path",
+      "id": "shell",
       "title": "Shell",
-      "focus": "collection-path",
+      "focus": "shell",
       "text": "Outside: Graph Id stamps the backpack keys. Root is the start door. Inputs and Outputs are the labeled holes.",
       "deep": "Graph Input Data stores Variable Key and Burst Type Hash. Graph Output Data also stores a Blob Ptr to a Data Header that produces the value."
     },
     {
-      "id": "consent-boundary",
+      "id": "one-box",
       "title": "Box",
-      "focus": "consent-boundary",
+      "focus": "one-box",
       "text": "Every node: bread is Type and Node Id. Filling is payload like Speed or score lists. Kids are blob pointers.",
       "deep": "Header is twelve-ish bytes: int Type, ulong Node Id. Payload is at address of header plus size of header. Same pattern for Execution and Data headers."
     },
     {
-      "id": "analytics-consumers",
+      "id": "robot-run",
       "title": "Doors",
-      "focus": "analytics-consumers",
+      "focus": "robot-run",
       "text": "Robot reads Type, opens that door in the door book, runs the method, maybe follows more arrows, maybe writes the world.",
       "deep": "Data path special-cases Constant, Variable, Variable Set before Data Generated. Execution always goes through Execution Generated for non-default types."
     }
   ],
   "nodes": {
-    "consent": {
+    "payload": {
       "short": "Filling. Your payload struct.",
-      "deep": "Payload immediately after header via unsafe address offset."
+      "deep": "Payload immediately after header via unsafe address offset.",
+      "label": "Filling"
     },
-    "dashboard": {
+    "ecs_write": {
       "short": "E C S write. Side effects.",
-      "deep": "Component Container Get R W using Entity Index In Chunk."
+      "deep": "Component Container Get R W using Entity Index In Chunk.",
+      "label": "ECS write"
     },
-    "edge": {
+    "header": {
       "short": "Bread. Type number and Node Id.",
-      "deep": "Execution Header or Data Header. I Node Type and Node Id."
+      "deep": "Execution Header or Data Header. I Node Type and Node Id.",
+      "label": "Bread"
     },
-    "features": {
+    "recurse": {
       "short": "Recurse into more headers.",
-      "deep": "Child Execute or Calculate calls."
+      "deep": "Child Execute or Calculate calls.",
+      "label": "Recurse"
     },
-    "mobile": {
+    "io_list": {
       "short": "Inputs and Outputs list on the shell.",
-      "deep": "Graph Input Data and Graph Output Data arrays."
+      "deep": "Graph Input Data and Graph Output Data arrays.",
+      "label": "I/O list"
     },
-    "model": {
+    "backpack": {
       "short": "Backpack reads and writes.",
-      "deep": "Graph State Util Get Variable and Set Variable."
+      "deep": "Graph State Util Get Variable and Set Variable.",
+      "label": "Backpack"
     },
-    "pii": {
+    "blobptrs": {
       "short": "Kid arrows. Blob pointers to children.",
-      "deep": "Blob Array of Blob Ptr headers inside payload structs."
+      "deep": "Blob Array of Blob Ptr headers inside payload structs.",
+      "label": "Kid arrows"
     },
-    "stream": {
+    "type_switch": {
       "short": "Door book entry. Generated switch case.",
-      "deep": "I Context Generator Execution Generated and Data Generated."
+      "deep": "I Context Generator Execution Generated and Data Generated.",
+      "label": "Door #"
     },
-    "warehouse": {
+    "method": {
       "short": "Static method. Burst friendly.",
-      "deep": "Execute Node or Data Node target method."
+      "deep": "Execute Node or Data Node target method.",
+      "label": "Method"
     },
-    "web": {
+    "root": {
       "short": "Root pointer. Where Execute starts.",
-      "deep": "Blob Ptr Execution Header Root. May be invalid for pure Calculate graphs."
+      "deep": "Blob Ptr Execution Header Root. May be invalid for pure Calculate graphs.",
+      "label": "Root"
     }
   }
 }

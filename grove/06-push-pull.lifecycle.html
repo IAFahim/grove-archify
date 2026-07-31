@@ -4501,7 +4501,7 @@
       <p class="subtitle">Execute pushes buttons · Calculate asks for a number</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"main-lifecycle","label":"Push path","focus":["queued","planning","executing","reviewing","completed"],"note":"Root → Composite → Selector → leaf method."},{"id":"human-waits","label":"Pull path","focus":["executing","approval","reviewing","blocked"],"note":"Output asks a data box only when needed."},{"id":"recovery-and-exits","label":"Memory","focus":["executing","failed","blocked","cancelled","expired"],"note":"Backpack keeps variables between frames."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"push-path","label":"Push path","focus":["root","composite","selector","leaf","world_changed"],"note":"Root → Composite → Selector → leaf method."},{"id":"pull-path","label":"Pull path","focus":["selector","output_ask","leaf","data_calc"],"note":"Output asks a data box only when needed."},{"id":"next-frame","label":"Memory","focus":["selector","variable","data_calc","next_frame","same_entity"],"note":"Backpack keeps variables between frames."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4581,15 +4581,15 @@
         <path d="M 154 157 L 748 157" class="a-emphasis" stroke-width="2.2" marker-end="url(#arrowhead-emphasis)"/>
 
         <!-- Transition paths -->
-        <path data-edge-from="executing" data-edge-to="approval" data-edge-key="0" data-edge-id="approval-needed" data-composition-points="402,188;402,278" d="M 402 188 L 402 278" class="a-security" data-animate="edge" style="--step:0" stroke-width="1.1" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="reviewing" data-edge-to="blocked" data-edge-key="1" data-edge-id="review-blocked" data-composition-points="556,188;556,233;556,233;556,278" d="M 556 188 L 556 233 L 556 233 L 556 278" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.1" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="executing" data-edge-to="failed" data-edge-key="2" data-edge-id="execution-failed" data-composition-points="343,157;320,157;320,385;339,385" d="M 343 157 L 330 157 Q 320 157 320 167 L 320 375.5 Q 320 385 329.5 385 L 339 385" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.1" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="failed" data-edge-to="executing" data-edge-key="3" data-edge-id="failed-retry" data-composition-points="339,385;20,385;20,80;402,80;402,126" d="M 339 385 L 30 385 Q 20 385 20 375 L 20 90 Q 20 80 30 80 L 392 80 Q 402 80 402 90 L 402 126" class="a-emphasis" data-animate="edge" style="--step:3" stroke-width="2" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="blocked" data-edge-to="expired" data-edge-key="4" data-edge-id="block-expired" data-composition-points="556,336;556,450" d="M 556 336 L 556 450" class="a-security" data-animate="edge" style="--step:4" stroke-width="1.1" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="approval" data-edge-to="cancelled" data-edge-key="5" data-edge-id="approval-cancelled" data-composition-points="402,336;480,336;480,432;402,432;402,450" d="M 402 336 L 470 336 Q 480 336 480 346 L 480 422 Q 480 432 470 432 L 411 432 Q 402 432 402 441 L 402 450" class="a-security" data-animate="edge" style="--step:5" stroke-width="1.1" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="selector" data-edge-to="output_ask" data-edge-key="0" data-edge-id="output_ask-needed" data-composition-points="402,188;402,278" d="M 402 188 L 402 278" class="a-security" data-animate="edge" style="--step:0" stroke-width="1.1" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="leaf" data-edge-to="data_calc" data-edge-key="1" data-edge-id="review-data_calc" data-composition-points="556,188;556,233;556,233;556,278" d="M 556 188 L 556 233 L 556 233 L 556 278" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.1" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="selector" data-edge-to="variable" data-edge-key="2" data-edge-id="execution-variable" data-composition-points="343,157;320,157;320,385;339,385" d="M 343 157 L 330 157 Q 320 157 320 167 L 320 375.5 Q 320 385 329.5 385 L 339 385" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.1" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="variable" data-edge-to="selector" data-edge-key="3" data-edge-id="variable-retry" data-composition-points="339,385;20,385;20,80;402,80;402,126" d="M 339 385 L 30 385 Q 20 385 20 375 L 20 90 Q 20 80 30 80 L 392 80 Q 402 80 402 90 L 402 126" class="a-emphasis" data-animate="edge" style="--step:3" stroke-width="2" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="data_calc" data-edge-to="same_entity" data-edge-key="4" data-edge-id="block-same_entity" data-composition-points="556,336;556,450" d="M 556 336 L 556 450" class="a-security" data-animate="edge" style="--step:4" stroke-width="1.1" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="output_ask" data-edge-to="next_frame" data-edge-key="5" data-edge-id="output_ask-next_frame" data-composition-points="402,336;480,336;480,432;402,432;402,450" d="M 402 336 L 470 336 Q 480 336 480 346 L 480 422 Q 480 432 470 432 L 411 432 Q 402 432 402 441 L 402 450" class="a-security" data-animate="edge" style="--step:5" stroke-width="1.1" marker-end="url(#arrowhead-security)"/>
 
         <!-- States -->
-        <g id="node-queued" data-node-id="queued" data-node-label="Root" tabindex="0" role="button" aria-label="Focus Root, start, Push (Execute)" aria-pressed="false" data-node-kind="start" data-node-sublabel="start" data-node-tag="entry" data-node-context="Push (Execute)">
+        <g id="node-root" data-node-id="root" data-node-label="Root" tabindex="0" role="button" aria-label="Focus Root, start, Push (Execute)" aria-pressed="false" data-node-kind="start" data-node-sublabel="start" data-node-tag="entry" data-node-context="Push (Execute)">
           <title>Root · start · Push (Execute) · entry</title>
           <rect x="35" y="126" width="118" height="62" rx="7" class="c-mask"/>
           <rect x="35" y="126" width="118" height="62" rx="7" class="c-frontend" data-animate="node" style="--step:0" stroke-width="1.5"/>
@@ -4603,7 +4603,7 @@
         <text data-detail="fine" x="94" y="177" class="t-frontend" font-size="7" text-anchor="middle">entry</text>
         </g>
 
-        <g id="node-planning" data-node-id="planning" data-node-label="Composite" tabindex="0" role="button" aria-label="Focus Composite, do all, Push (Execute)" aria-pressed="false" data-node-kind="active" data-node-sublabel="do all" data-node-tag="model" data-node-context="Push (Execute)">
+        <g id="node-composite" data-node-id="composite" data-node-label="Composite" tabindex="0" role="button" aria-label="Focus Composite, do all, Push (Execute)" aria-pressed="false" data-node-kind="active" data-node-sublabel="do all" data-node-tag="model" data-node-context="Push (Execute)">
           <title>Composite · do all · Push (Execute) · model</title>
           <rect x="189" y="126" width="118" height="62" rx="7" class="c-mask"/>
           <rect x="189" y="126" width="118" height="62" rx="7" class="c-backend" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4616,7 +4616,7 @@
         <text data-detail="fine" x="248" y="177" class="t-backend" font-size="7" text-anchor="middle">model</text>
         </g>
 
-        <g id="node-executing" data-node-id="executing" data-node-label="Selector" tabindex="0" role="button" aria-label="Focus Selector, pick best, Push (Execute)" aria-pressed="false" data-node-kind="active" data-node-sublabel="pick best" data-node-tag="work" data-node-context="Push (Execute)">
+        <g id="node-selector" data-node-id="selector" data-node-label="Selector" tabindex="0" role="button" aria-label="Focus Selector, pick best, Push (Execute)" aria-pressed="false" data-node-kind="active" data-node-sublabel="pick best" data-node-tag="work" data-node-context="Push (Execute)">
           <title>Selector · pick best · Push (Execute) · work</title>
           <rect x="343" y="126" width="118" height="62" rx="7" class="c-mask"/>
           <rect x="343" y="126" width="118" height="62" rx="7" class="c-backend" data-animate="node" style="--step:0" stroke-width="1.5"/>
@@ -4629,7 +4629,7 @@
         <text data-detail="fine" x="402" y="177" class="t-backend" font-size="7" text-anchor="middle">work</text>
         </g>
 
-        <g id="node-reviewing" data-node-id="reviewing" data-node-label="Leaf" tabindex="0" role="button" aria-label="Focus Leaf, move!, Push (Execute)" aria-pressed="false" data-node-kind="decision" data-node-sublabel="move!" data-node-tag="check" data-node-context="Push (Execute)">
+        <g id="node-leaf" data-node-id="leaf" data-node-label="Leaf" tabindex="0" role="button" aria-label="Focus Leaf, move!, Push (Execute)" aria-pressed="false" data-node-kind="decision" data-node-sublabel="move!" data-node-tag="check" data-node-context="Push (Execute)">
           <title>Leaf · move! · Push (Execute) · check</title>
           <rect x="497" y="126" width="118" height="62" rx="7" class="c-mask"/>
           <rect x="497" y="126" width="118" height="62" rx="7" class="c-security" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4643,7 +4643,7 @@
         <text data-detail="fine" x="556" y="177" class="t-security" font-size="7" text-anchor="middle">check</text>
         </g>
 
-        <g id="node-completed" data-node-id="completed" data-node-label="World changed" tabindex="0" role="button" aria-label="Focus World changed, done, Push (Execute)" aria-pressed="false" data-node-kind="success" data-node-sublabel="done" data-node-tag="done" data-node-context="Push (Execute)">
+        <g id="node-world_changed" data-node-id="world_changed" data-node-label="World changed" tabindex="0" role="button" aria-label="Focus World changed, done, Push (Execute)" aria-pressed="false" data-node-kind="success" data-node-sublabel="done" data-node-tag="done" data-node-context="Push (Execute)">
           <title>World changed · done · Push (Execute) · done</title>
           <rect x="651" y="126" width="118" height="62" rx="7" class="c-mask"/>
           <rect x="651" y="126" width="118" height="62" rx="7" class="c-database" data-animate="node" style="--step:4" stroke-width="1.5"/>
@@ -4657,7 +4657,7 @@
         <text data-detail="fine" x="710" y="177" class="t-database" font-size="7" text-anchor="middle">done</text>
         </g>
 
-        <g id="node-approval" data-node-id="approval" data-node-label="Output?" tabindex="0" role="button" aria-label="Focus Output?, ask, Pull (Calculate)" aria-pressed="false" data-node-kind="waiting" data-node-sublabel="ask" data-node-tag="pause" data-node-context="Pull (Calculate)">
+        <g id="node-output_ask" data-node-id="output_ask" data-node-label="Output?" tabindex="0" role="button" aria-label="Focus Output?, ask, Pull (Calculate)" aria-pressed="false" data-node-kind="waiting" data-node-sublabel="ask" data-node-tag="pause" data-node-context="Pull (Calculate)">
           <title>Output? · ask · Pull (Calculate) · pause</title>
           <rect x="339" y="278" width="126" height="58" rx="7" class="c-mask"/>
           <rect x="339" y="278" width="126" height="58" rx="7" class="c-cloud" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4669,7 +4669,7 @@
         <text data-detail="fine" x="402" y="325" class="t-cloud" font-size="7" text-anchor="middle">pause</text>
         </g>
 
-        <g id="node-blocked" data-node-id="blocked" data-node-label="Data box" tabindex="0" role="button" aria-label="Focus Data box, Calculate, Pull (Calculate)" aria-pressed="false" data-node-kind="waiting" data-node-sublabel="Calculate" data-node-tag="wait" data-node-context="Pull (Calculate)">
+        <g id="node-data_calc" data-node-id="data_calc" data-node-label="Data box" tabindex="0" role="button" aria-label="Focus Data box, Calculate, Pull (Calculate)" aria-pressed="false" data-node-kind="waiting" data-node-sublabel="Calculate" data-node-tag="wait" data-node-context="Pull (Calculate)">
           <title>Data box · Calculate · Pull (Calculate) · wait</title>
           <rect x="493" y="278" width="126" height="58" rx="7" class="c-mask"/>
           <rect x="493" y="278" width="126" height="58" rx="7" class="c-cloud" data-animate="node" style="--step:2" stroke-width="1.5"/>
@@ -4681,7 +4681,7 @@
         <text data-detail="fine" x="556" y="325" class="t-cloud" font-size="7" text-anchor="middle">wait</text>
         </g>
 
-        <g id="node-failed" data-node-id="failed" data-node-label="Variable" tabindex="0" role="button" aria-label="Focus Variable, backpack, Backpack" aria-pressed="false" data-node-kind="failure" data-node-sublabel="backpack" data-node-tag="retryable" data-node-context="Backpack">
+        <g id="node-variable" data-node-id="variable" data-node-label="Variable" tabindex="0" role="button" aria-label="Focus Variable, backpack, Backpack" aria-pressed="false" data-node-kind="failure" data-node-sublabel="backpack" data-node-tag="retryable" data-node-context="Backpack">
           <title>Variable · backpack · Backpack · retryable</title>
           <rect x="339" y="356" width="126" height="58" rx="7" class="c-mask"/>
           <rect x="339" y="356" width="126" height="58" rx="7" class="c-security" data-animate="node" style="--step:3" stroke-width="1.5"/>
@@ -4694,7 +4694,7 @@
         <text data-detail="fine" x="402" y="403" class="t-security" font-size="7" text-anchor="middle">retryable</text>
         </g>
 
-        <g id="node-cancelled" data-node-id="cancelled" data-node-label="Next frame" tabindex="0" role="button" aria-label="Focus Next frame, again, Time" aria-pressed="false" data-node-kind="failure" data-node-sublabel="again" data-node-tag="terminal" data-node-context="Time">
+        <g id="node-next_frame" data-node-id="next_frame" data-node-label="Next frame" tabindex="0" role="button" aria-label="Focus Next frame, again, Time" aria-pressed="false" data-node-kind="failure" data-node-sublabel="again" data-node-tag="terminal" data-node-context="Time">
           <title>Next frame · again · Time · terminal</title>
           <rect x="343" y="450" width="118" height="58" rx="7" class="c-mask"/>
           <rect x="343" y="450" width="118" height="58" rx="7" class="c-security" data-animate="node" style="--step:6" stroke-width="1.5"/>
@@ -4707,7 +4707,7 @@
         <text data-detail="fine" x="402" y="497" class="t-security" font-size="7" text-anchor="middle">terminal</text>
         </g>
 
-        <g id="node-expired" data-node-id="expired" data-node-label="Same entity" tabindex="0" role="button" aria-label="Focus Same entity, still there, Time" aria-pressed="false" data-node-kind="failure" data-node-sublabel="still there" data-node-tag="terminal" data-node-context="Time">
+        <g id="node-same_entity" data-node-id="same_entity" data-node-label="Same entity" tabindex="0" role="button" aria-label="Focus Same entity, still there, Time" aria-pressed="false" data-node-kind="failure" data-node-sublabel="still there" data-node-tag="terminal" data-node-context="Time">
           <title>Same entity · still there · Time · terminal</title>
           <rect x="497" y="450" width="118" height="58" rx="7" class="c-mask"/>
           <rect x="497" y="450" width="118" height="58" rx="7" class="c-security" data-animate="node" style="--step:5" stroke-width="1.5"/>

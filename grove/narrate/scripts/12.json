@@ -1,0 +1,98 @@
+{
+  "id": "12",
+  "title": "Utility AI + State",
+  "blurb": "Selectors qualifiers Scorer \u00b7 StateSet If Select \u00b7 Enter Exit.",
+  "map": "12-utility-and-state.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Built-in brains",
+      "focus": null,
+      "text": "Grove ships utility AI and state machine nodes so you do not reinvent score trees.",
+      "deep": "Selectors and Qualifiers folders plus States StateSet StateIf StateSelect."
+    },
+    {
+      "id": "score-fight",
+      "title": "Score fight",
+      "focus": "score-fight",
+      "text": "Scorers make weights. Qualifiers fold floats. Selectors pick an action. Last pair is the default threshold path. Win is strict greater than.",
+      "deep": "First Highest WeightedRandom ExecuteAll. Qualifier AllOrNothing MinOrNothing Sum families."
+    },
+    {
+      "id": "state-keys",
+      "title": "State keys",
+      "focus": "state-keys",
+      "text": "State nodes read and write enum keys in Grove State scoped by Graph Id.",
+      "deep": "GraphStateUtil GetKey with groveContext. Multi graph safe."
+    },
+    {
+      "id": "enter-exit",
+      "title": "Enter Exit",
+      "focus": "enter-exit",
+      "text": "State Select runs On Exit then On Enter when the value changes, then the current Execution while active.",
+      "deep": "Per enum value ports for Execution Enter Exit. StateSet writes. StateIf branches."
+    }
+  ],
+  "nodes": {
+    "scorer": {
+      "label": "Scorer",
+      "short": "Scorer turns bools into weights.",
+      "deep": "Core Scorer helpers."
+    },
+    "qualifier": {
+      "label": "Qualifier",
+      "short": "Qualifier folds float scores.",
+      "deep": "Sum All Or Nothing thresholds."
+    },
+    "selector": {
+      "label": "Selector",
+      "short": "Selector picks execution from scores.",
+      "deep": "Parallel InputPorts and OutputPorts."
+    },
+    "action": {
+      "label": "Action",
+      "short": "Winning action execution.",
+      "deep": "BlobPtr execution chain."
+    },
+    "threshold": {
+      "label": "Last pair",
+      "short": "Last pair is default or threshold.",
+      "deep": "Strict greater than for wins."
+    },
+    "state_set": {
+      "label": "StateSet",
+      "short": "State Set writes the enum into Grove State.",
+      "deep": "Push side effect."
+    },
+    "state_if": {
+      "label": "StateIf",
+      "short": "State If branches on current value.",
+      "deep": "Execution True False style."
+    },
+    "state_select": {
+      "label": "StateSelect",
+      "short": "State Select per enum value.",
+      "deep": "Enter Exit Execution ports."
+    },
+    "on_exit": {
+      "label": "OnExit",
+      "short": "On Exit when leaving a value.",
+      "deep": "Runs once on change."
+    },
+    "on_enter": {
+      "label": "OnEnter",
+      "short": "On Enter when arriving.",
+      "deep": "Runs once on change."
+    },
+    "current": {
+      "label": "Execution",
+      "short": "Current Execution while state holds.",
+      "deep": "Every tick while active."
+    },
+    "grovestate": {
+      "label": "GroveState",
+      "short": "Grove State key storage.",
+      "deep": "GraphId scoped. Not inside the brick."
+    }
+  }
+}

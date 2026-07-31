@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Grove \u00b7 Context + Blocks",
+    "subtitle": "Parent owns scratch T \u00b7 ordered blocks \u00b7 then Next \u2014 sample DebugContext pattern",
+    "output": "../11-context-blocks.architecture.html",
+    "quality_profile": "standard",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "views": [
+      {
+        "id": "parent-loop",
+        "label": "Parent loop",
+        "focus": [
+          "context_node",
+          "blocks",
+          "scratch",
+          "next"
+        ],
+        "note": "Context Execute loops Blocks[i] with ref T then Next."
+      },
+      {
+        "id": "auth-pair",
+        "label": "Auth pair",
+        "focus": [
+          "context_auth",
+          "block_auth",
+          "toolkit"
+        ],
+        "note": "GroveContextAuth + GroveBlockAuth Create the headers."
+      },
+      {
+        "id": "typed-dispatch",
+        "label": "Typed dispatch",
+        "focus": [
+          "execute_attr",
+          "blocks",
+          "scratch"
+        ],
+        "note": "ExecuteNode(id, typeof(T)) on block methods."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "toolkit",
+      "type": "external",
+      "label": "Toolkit UI",
+      "sublabel": "ContextNode",
+      "pos": [
+        40,
+        120
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "context_auth",
+      "type": "database",
+      "label": "Context Auth",
+      "sublabel": "GroveContextAuth",
+      "pos": [
+        240,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "authoring"
+    },
+    {
+      "id": "block_auth",
+      "type": "database",
+      "label": "Block Auth",
+      "sublabel": "GroveBlockAuth",
+      "pos": [
+        240,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "authoring"
+    },
+    {
+      "id": "context_node",
+      "type": "backend",
+      "label": "Context node",
+      "sublabel": "ExecutionHeader",
+      "pos": [
+        480,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "blocks",
+      "type": "messagebus",
+      "label": "Blocks[]",
+      "sublabel": "ordered",
+      "pos": [
+        480,
+        220
+      ],
+      "size": [
+        140,
+        60
+      ]
+    },
+    {
+      "id": "scratch",
+      "type": "cloud",
+      "label": "Scratch T",
+      "sublabel": "ref value",
+      "pos": [
+        700,
+        220
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "execute_attr",
+      "type": "security",
+      "label": "ExecuteNode",
+      "sublabel": "id + typeof(T)",
+      "pos": [
+        900,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "next",
+      "type": "backend",
+      "label": "Next",
+      "sublabel": "continue graph",
+      "pos": [
+        700,
+        60
+      ],
+      "size": [
+        120,
+        60
+      ]
+    },
+    {
+      "id": "sample",
+      "type": "frontend",
+      "label": "Sample",
+      "sublabel": "DebugContext",
+      "pos": [
+        40,
+        280
+      ],
+      "size": [
+        130,
+        56
+      ],
+      "tag": "Sample~"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Author",
+      "wraps": [
+        "toolkit",
+        "context_auth",
+        "block_auth",
+        "sample"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Brick payload",
+      "wraps": [
+        "context_node",
+        "blocks",
+        "scratch",
+        "execute_attr",
+        "next"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "tk-ctx",
+      "from": "toolkit",
+      "to": "context_auth",
+      "label": "import"
+    },
+    {
+      "id": "tk-blk",
+      "from": "toolkit",
+      "to": "block_auth",
+      "label": "blocks",
+      "variant": "dashed"
+    },
+    {
+      "id": "ca-cn",
+      "from": "context_auth",
+      "to": "context_node",
+      "label": "Create"
+    },
+    {
+      "id": "ba-bl",
+      "from": "block_auth",
+      "to": "blocks",
+      "label": "Create"
+    },
+    {
+      "id": "cn-bl",
+      "from": "context_node",
+      "to": "blocks",
+      "label": "loop i",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "bl-sc",
+      "from": "blocks",
+      "to": "scratch",
+      "label": "ref T"
+    },
+    {
+      "id": "sc-ex",
+      "from": "scratch",
+      "to": "execute_attr",
+      "label": "typed"
+    },
+    {
+      "id": "cn-next",
+      "from": "context_node",
+      "to": "next",
+      "label": "then Next",
+      "variant": "emphasis"
+    },
+    {
+      "id": "sample-ca",
+      "from": "sample",
+      "to": "context_auth",
+      "label": "pattern",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Pattern",
+      "items": [
+        "Parent builds scratch T",
+        "For each block: Execute(..., ref T)",
+        "Then Next.Value.Execute"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Dispatch",
+      "items": [
+        "[ExecuteNode(id, typeof(T))] on blocks",
+        "Context methods use normal ExecuteNode(id)",
+        "UseWithContext links block catalog"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Not plain execute",
+      "items": [
+        "Second major extension shape after leaf Execute/Data",
+        "Sample DebugContext + DebugContextBlock"
+      ]
+    }
+  ]
+}

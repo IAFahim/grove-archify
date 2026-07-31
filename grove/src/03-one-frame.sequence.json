@@ -13,36 +13,36 @@
     ],
     "views": [
       {
-        "id": "request-and-auth",
+        "id": "request-and-execution",
         "label": "Wake up",
         "focus": [
-          "user",
-          "web",
-          "api",
-          "auth"
+          "world",
+          "isystem",
+          "graphimpl",
+          "execution"
         ],
         "note": "System builds the robot handle for this frame."
       },
       {
-        "id": "cache-fallback",
+        "id": "side-effects",
         "label": "Open doors",
         "focus": [
-          "api",
-          "redis",
-          "db"
+          "graphimpl",
+          "brick",
+          "type_door"
         ],
         "note": "Number on the box picks which door to open."
       },
       {
-        "id": "return-and-trace",
+        "id": "return-and-method",
         "label": "Do stuff",
         "focus": [
-          "db",
-          "api",
-          "redis",
-          "trace",
-          "web",
-          "user"
+          "type_door",
+          "graphimpl",
+          "brick",
+          "method",
+          "isystem",
+          "world"
         ],
         "note": "Leaf method moves things. Data boxes only open when asked."
       }
@@ -50,43 +50,43 @@
   },
   "participants": [
     {
-      "id": "user",
+      "id": "world",
       "type": "external",
       "label": "World",
       "sublabel": "entities"
     },
     {
-      "id": "web",
+      "id": "isystem",
       "type": "frontend",
       "label": "ISystem",
       "sublabel": "your system"
     },
     {
-      "id": "api",
+      "id": "graphimpl",
       "type": "backend",
       "label": "GraphImpl",
       "sublabel": "robot owner"
     },
     {
-      "id": "auth",
+      "id": "execution",
       "type": "security",
       "label": "Execution",
       "sublabel": "this frame"
     },
     {
-      "id": "redis",
+      "id": "brick",
       "type": "database",
       "label": "Brick",
       "sublabel": "GraphData"
     },
     {
-      "id": "db",
+      "id": "type_door",
       "type": "database",
       "label": "Door #",
       "sublabel": "Type switch"
     },
     {
-      "id": "trace",
+      "id": "method",
       "type": "messagebus",
       "label": "Method",
       "sublabel": "C# static"
@@ -112,96 +112,96 @@
   "messages": [
     {
       "id": "open-page",
-      "from": "user",
-      "to": "web",
+      "from": "world",
+      "to": "isystem",
       "y": 185,
       "label": "tick",
       "variant": "default"
     },
     {
       "id": "dashboard-request",
-      "from": "web",
-      "to": "api",
+      "from": "isystem",
+      "to": "graphimpl",
       "y": 228,
       "label": "GetExecution",
       "variant": "emphasis"
     },
     {
-      "id": "verify-jwt",
-      "from": "api",
-      "to": "auth",
+      "id": "type-help",
+      "from": "graphimpl",
+      "to": "execution",
       "y": 270,
       "label": "Update brain",
       "variant": "security"
     },
     {
-      "id": "auth-claims",
-      "from": "auth",
-      "to": "api",
+      "id": "execution-claims",
+      "from": "execution",
+      "to": "graphimpl",
       "y": 305,
       "label": "handle ready",
       "variant": "return"
     },
     {
-      "id": "cache-read",
-      "from": "api",
-      "to": "redis",
+      "id": "state-read",
+      "from": "graphimpl",
+      "to": "brick",
       "y": 354,
       "label": "Schedule job",
       "variant": "default"
     },
     {
       "id": "cache-miss",
-      "from": "redis",
-      "to": "api",
+      "from": "brick",
+      "to": "graphimpl",
       "y": 391,
       "label": "SetChunk",
       "variant": "return"
     },
     {
       "id": "profile-query",
-      "from": "api",
-      "to": "db",
+      "from": "graphimpl",
+      "to": "type_door",
       "y": 443,
       "label": "bind bags",
       "variant": "emphasis"
     },
     {
       "id": "profile-rows",
-      "from": "db",
-      "to": "api",
+      "from": "type_door",
+      "to": "graphimpl",
       "y": 489,
       "label": "maybe SetInput",
       "variant": "return"
     },
     {
       "id": "cache-write",
-      "from": "api",
-      "to": "redis",
+      "from": "graphimpl",
+      "to": "brick",
       "y": 536,
       "label": "put in backpack",
       "variant": "dashed"
     },
     {
-      "id": "trace-emit",
-      "from": "api",
-      "to": "trace",
+      "id": "method-emit",
+      "from": "graphimpl",
+      "to": "method",
       "y": 580,
       "label": "Execute Root",
       "variant": "dashed"
     },
     {
       "id": "dashboard-response",
-      "from": "api",
-      "to": "web",
+      "from": "graphimpl",
+      "to": "isystem",
       "y": 625,
       "label": "Type switch",
       "variant": "return"
     },
     {
       "id": "page-render",
-      "from": "web",
-      "to": "user",
+      "from": "isystem",
+      "to": "world",
       "y": 662,
       "label": "call method",
       "variant": "return"
@@ -209,37 +209,37 @@
   ],
   "activations": [
     {
-      "participant": "web",
+      "participant": "isystem",
       "from": 220,
       "to": 668,
       "type": "frontend"
     },
     {
-      "participant": "api",
+      "participant": "graphimpl",
       "from": 228,
       "to": 632,
       "type": "backend"
     },
     {
-      "participant": "auth",
+      "participant": "execution",
       "from": 265,
       "to": 310,
       "type": "security"
     },
     {
-      "participant": "redis",
+      "participant": "brick",
       "from": 349,
       "to": 398,
       "type": "database"
     },
     {
-      "participant": "db",
+      "participant": "type_door",
       "from": 438,
       "to": 496,
       "type": "database"
     },
     {
-      "participant": "trace",
+      "participant": "method",
       "from": 575,
       "to": 630,
       "type": "messagebus"

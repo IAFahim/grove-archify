@@ -1,0 +1,88 @@
+{
+  "id": "09",
+  "title": "Auth Is Authoring",
+  "blurb": "Three artifacts: source map \u2192 Auth cards \u2192 GraphData. Auth never means login.",
+  "map": "09-auth-is-authoring.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Not login",
+      "focus": null,
+      "text": "Stop. Auth in Grove means authoring. Grove Auth Graph and Auth cards are Scriptable Objects from import. They are not authentication, not JWT, not login.",
+      "deep": "Package types: GroveAuth, GroveAuthGraph, GroveExecutionAuth, GroveDataAuth under BovineLabs.Grove.Authoring. Runtime assembly has no Auth types for execution."
+    },
+    {
+      "id": "three-files",
+      "title": "Three artifacts",
+      "focus": "three-files",
+      "text": "Source map is the pretty Graph Toolkit file. Import builds the Auth graph and Auth cards. Bake freezes Graph Data. Play only opens the brick.",
+      "deep": "Pipeline: GroveGraph asset \u2192 GroveImporter \u2192 GroveAuthGraph + subassets \u2192 GraphAuthoring reference \u2192 GraphBakingSystem \u2192 BlobAssetReference GraphData on IGraphReference."
+    },
+    {
+      "id": "who-points",
+      "title": "Who points where",
+      "focus": "who-points",
+      "text": "Graph Authoring on a Game Object points at the Auth graph. Bake calls Create on Auth cards. The entity gets an I Graph Reference holding the blob.",
+      "deep": "GraphAuthoring of TAuth Graph comma TComponent. GraphBaker.Bake registers dependencies. Never assign the .mygraph to authoring."
+    },
+    {
+      "id": "not-login",
+      "title": "Not login",
+      "focus": "not-login",
+      "text": "If you hear Auth and think security login, rewire your brain. Here Auth only means authoring intermediate cards.",
+      "deep": "There is no OAuth in com.bovinelabs.grove. Auth is a historical short name for authoring serialization objects."
+    }
+  ],
+  "nodes": {
+    "source": {
+      "label": "Source map",
+      "short": "Source map. Graph Toolkit draw asset. Editor only.",
+      "deep": "Derives GroveGraph. Never read at runtime or bake after import."
+    },
+    "importer": {
+      "label": "Importer",
+      "short": "Importer. Builds Auth graph and Auth cards from the pretty map.",
+      "deep": "GroveImporter ScriptedImporter. Sets Root when exactly one Input to execution."
+    },
+    "auth_graph": {
+      "label": "Auth graph",
+      "short": "Auth graph. GroveAuthGraph main asset. Authoring \u2014 not login.",
+      "deep": "Fields Root, Inputs, Outputs, Nodes. Create builds GraphData blob."
+    },
+    "auth_card": {
+      "label": "Auth card",
+      "short": "Auth card. One Grove star Auth Scriptable Object per node.",
+      "deep": "Create and Init write header plus payload and BlobPtr kids via AuthUtil."
+    },
+    "authoring": {
+      "label": "GraphAuthoring",
+      "short": "Graph Authoring. MonoBehaviour pointing at an Auth graph.",
+      "deep": "Plus variants and instance overrides. Implements IGraphBaking."
+    },
+    "bake": {
+      "label": "Bake",
+      "short": "Bake. Auth Create freezes the brick.",
+      "deep": "Applies overrides then Create. Variants strip unselected branches."
+    },
+    "brick": {
+      "label": "GraphData",
+      "short": "Graph Data brick. Runtime only opens this blob.",
+      "deep": "BlobAssetReference GraphData. Immutable shared recipe."
+    },
+    "entity": {
+      "label": "Entity",
+      "short": "Entity with I Graph Reference holding the blob ref.",
+      "deep": "Component or buffer element."
+    },
+    "not_login": {
+      "label": "NOT login",
+      "short": "NOT login. Zero JWT. Auth means authoring.",
+      "deep": "Say authoring cards when teaching humans."
+    },
+    "play": {
+      "label": "Play",
+      "short": "Play. Graph Execution walks Root every tick.",
+      "deep": "GraphImpl owns the robot; system calls Execute."
+    }
+  }
+}

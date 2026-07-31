@@ -103,7 +103,8 @@
       <li><kbd>hover</kbd> a box — it talks</li>
       <li><kbd>click</kbd> a box — the deeper version</li>
       <li><kbd>Space</kbd> replay · <kbd>M</kbd> mute · <kbd>Y</kbd> tour</li>
-      <li><kbd>1</kbd>–<kbd>8</kbd> switch map</li>
+      <li><kbd>1</kbd>–<kbd>9</kbd> maps · dig deeper in rail</li>
+      <li><b>Auth = authoring</b> (not login)</li>
     </ul>
   </aside>
 </div>
@@ -169,12 +170,17 @@
   // ---------- nodes ----------
   function nodeIds(){ return Object.keys(lesson.nodes || {}); }
 
+  function nodeLabel(id) {
+    const n = lesson.nodes[id] || {};
+    return n.label || id;
+  }
   function speakNode(id, deep) {
     const n = lesson.nodes[id]; if (!n) return;
     curNode = id;
     store.mark(lesson.id, id); renderNodes();
-    if (deep && n.deep) say(id, n.deep, { audio: n.audioDeep, deep: false });
-    else say(id, n.short, { audio: n.audio, deep: !!n.deep, hint: n.deep ? "Click the box again — or press Go deeper — for why it is built this way." : "" });
+    const who = nodeLabel(id);
+    if (deep && n.deep) say(who, n.deep, { audio: n.audioDeep, deep: false });
+    else say(who, n.short, { audio: n.audio, deep: !!n.deep, hint: n.deep ? "Click the box again — or press Go deeper — for why it is built this way." : "" });
     focusNode(id);
   }
 
@@ -209,7 +215,7 @@
       const b = document.createElement("button");
       b.className = seen[id] ? "seen" : "";
       b.innerHTML = '<span class="dot"></span><span class="nm"></span>';
-      b.querySelector(".nm").textContent = id;
+      b.querySelector(".nm").textContent = nodeLabel(id);
       if (lesson.nodes[id].deep) { const t = document.createElement("span"); t.className = "deep"; t.textContent = "2 levels"; b.append(t); }
       b.addEventListener("mouseenter", () => { if (id !== curNode) { tourOn = false; speakNode(id, false); } });
       b.addEventListener("click", () => { tourOn = false; speakNode(id, curNode === id); });
@@ -242,6 +248,9 @@
       const id = g.getAttribute("data-node-id");
       if (!lesson.nodes[id]) return;
       bound++;
+      // Prefer map's human label for rail/caption if script omitted label
+      const mapLab = g.getAttribute("data-node-label");
+      if (mapLab && lesson.nodes[id] && !lesson.nodes[id].label) lesson.nodes[id].label = mapLab;
       g.style.cursor = "pointer";
       const enter = () => { if (id === curNode) return; clearTimeout(hoverT);
                             hoverT = setTimeout(() => { tourOn = false; speakNode(id, false); }, 150); };

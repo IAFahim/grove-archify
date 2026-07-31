@@ -12,67 +12,77 @@
       "deep": "Runtime is recursive descent through blob pointers. Execute pushes control flow. Calculate pulls expressions. There is no system that visits every node each frame."
     },
     {
-      "id": "main-lifecycle",
+      "id": "push-path",
       "title": "Push path",
-      "focus": "main-lifecycle",
+      "focus": "push-path",
       "text": "Root may enter a Composite that runs every child. A Selector scores options, picks one action, executes it. The leaf finally moves the world. Nothing magic loops the whole brick each frame.",
       "deep": "CompositeData holds a BlobArray of ExecutionHeader pointers. Selectors keep parallel Qualifier and Action arrays; the last pair is the default threshold path; win conditions use strict greater-than on floats."
     },
     {
-      "id": "human-waits",
+      "id": "pull-path",
       "title": "Pull path",
-      "focus": "human-waits",
+      "focus": "pull-path",
       "text": "Calculate on an Output evaluates only the data chain needed. Variables read the backpack. Qualifiers fold floats. If nothing asks, those boxes stay asleep.",
       "deep": "Outputs bind to DataHeaders. Variable and VariableSet are special-cased before generated dispatch. VariableSet re-evaluates and writes on every Calculate of its output."
     },
     {
-      "id": "recovery-and-exits",
+      "id": "next-frame",
       "title": "Backpack between frames",
-      "focus": "recovery-and-exits",
+      "focus": "next-frame",
       "text": "Inputs, locals, and state machine ints live in Grove State on the entity. Keys include Graph Id. When one graph ends, remove only that Graph Id's keys so other graphs keep their memory.",
       "deep": "GroveStateKey includes GraphId, optional scope, and key material from Hash128 splits for variables. GraphStateUtil.RemoveGraphState iterates keys and removes those with matching GraphId."
     }
   ],
   "nodes": {
-    "approval": {
+    "output_ask": {
       "short": "An Output or data question. Pull entry.",
-      "deep": "GraphOutputData.Value data header."
+      "deep": "GraphOutputData.Value data header.",
+      "label": "Output?"
     },
-    "blocked": {
+    "data_calc": {
       "short": "Data node Calculate. Demand driven.",
-      "deep": "DataHeader.Calculate path."
+      "deep": "DataHeader.Calculate path.",
+      "label": "Data box"
     },
-    "cancelled": {
+    "next_frame": {
       "short": "Next frame will Get Execution again.",
-      "deep": "Next system update boundary."
+      "deep": "Next system update boundary.",
+      "label": "Next frame"
     },
-    "completed": {
+    "world_changed": {
       "short": "World changed this frame for that entity.",
-      "deep": "ECS mutations already applied this tick."
+      "deep": "ECS mutations already applied this tick.",
+      "label": "World changed"
     },
-    "executing": {
+    "selector": {
       "short": "Selector. Pull scores, push one action.",
-      "deep": "Selector family under GroveExecutionTypes."
+      "deep": "Selector family under GroveExecutionTypes.",
+      "label": "Selector"
     },
-    "expired": {
+    "same_entity": {
       "short": "Same entity still holds Grove State.",
-      "deep": "Persistent GroveState buffer on entity."
+      "deep": "Persistent GroveState buffer on entity.",
+      "label": "Same entity"
     },
-    "failed": {
+    "variable": {
       "short": "Variable. Backpack read or write.",
-      "deep": "Variable or graph-local state entry."
+      "deep": "Variable or graph-local state entry.",
+      "label": "Variable"
     },
-    "planning": {
+    "composite": {
       "short": "Composite. Run every connected execution child in order.",
-      "deep": "GroveExecutionTypes.Composite runtime."
+      "deep": "GroveExecutionTypes.Composite runtime.",
+      "label": "Composite"
     },
-    "queued": {
+    "root": {
       "short": "Root. Push starts here for execution graphs.",
-      "deep": "GraphData.Root ExecutionHeader."
+      "deep": "GraphData.Root ExecutionHeader.",
+      "label": "Root"
     },
-    "reviewing": {
+    "leaf": {
       "short": "Leaf execution. Side effects.",
-      "deep": "Custom or built-in execution leaf."
+      "deep": "Custom or built-in execution leaf.",
+      "label": "Leaf"
     }
   }
 }

@@ -4501,7 +4501,7 @@
       <p class="subtitle">Four LEGO pieces every custom node needs</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"request-path","label":"Four pieces","focus":["users","cdn","lb","api","db"],"note":"Data · Auth · Draw node · Run method."},{"id":"identity-and-cache","label":"Wire in","focus":["auth","api","cache"],"note":"Importer copies draw → auth; bake packs bread+filling."},{"id":"async-work","label":"Play","focus":["cdn","s3","api","queue","worker"],"note":"Number hits your door in the book."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"main-path","label":"Four pieces","focus":["data_struct","draw_node","importer","auth_card","brick_piece"],"note":"Data · Auth · Draw node · Run method."},{"id":"identity-and-use_with_graph","label":"Wire in","focus":["type_enum","auth_card","use_with_graph"],"note":"Importer copies draw → auth; bake packs bread+filling."},{"id":"rooms","label":"Play","focus":["draw_node","overrides","auth_card","door_book","run_method"],"note":"Number hits your door in the book."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4577,18 +4577,18 @@
         <text x="438" y="288" class="t-security" font-size="9" font-weight="600">Grove helps</text>
 
         <!-- Connection paths (before components for correct z-order) -->
-        <path data-edge-from="users" data-edge-to="cdn" data-edge-label="define" data-edge-key="0" data-edge-id="users-to-cdn" data-composition-points="160,330;250,330" d="M 160 330 L 250 330" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="auth" data-edge-to="api" data-edge-label="scope" data-edge-key="1" data-edge-id="jwt-verification" data-composition-points="160,142;620,142;620,246;735,246;735,300" d="M 160 142 L 612 142 Q 620 142 620 150 L 620 238 Q 620 246 628 246 L 727 246 Q 735 246 735 254 L 735 300" class="a-security" data-animate="edge" style="--step:1" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="cdn" data-edge-to="lb" data-edge-key="2" data-edge-id="cdn-to-lb" data-composition-points="380,330;460,330" d="M 380 330 L 460 330" class="a-default" data-animate="edge" style="--step:2" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="cdn" data-edge-to="s3" data-edge-label="tweak" data-edge-key="3" data-edge-id="static-assets" data-composition-points="315,360;315,440" d="M 315 360 L 315 440" class="a-dashed" data-animate="edge" style="--step:3" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="lb" data-edge-to="api" data-edge-key="4" data-edge-id="lb-to-api" data-composition-points="590,330;670,330" d="M 590 330 L 670 330" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="api" data-edge-to="cache" data-edge-label="id" data-edge-key="5" data-edge-id="cache-read-through" data-composition-points="735,300;735,210" d="M 735 300 L 735 210" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="api" data-edge-to="db" data-edge-label="bake" data-edge-key="6" data-edge-id="api-sql" data-composition-points="800,330;880,330" d="M 800 330 L 880 330" class="a-default" data-animate="edge" style="--step:6" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="api" data-edge-to="queue" data-edge-label="call" data-edge-key="7" data-edge-id="enqueue-job" data-composition-points="735,360;735,440" d="M 735 360 L 735 440" class="a-dashed" data-animate="edge" style="--step:7" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="queue" data-edge-to="worker" data-edge-key="8" data-edge-id="queue-to-worker" data-composition-points="800,470;880,470" d="M 800 470 L 880 470" class="a-default" data-animate="edge" style="--step:8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="data_struct" data-edge-to="draw_node" data-edge-label="define" data-edge-key="0" data-edge-id="data_struct-to-draw_node" data-composition-points="160,330;250,330" d="M 160 330 L 250 330" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="type_enum" data-edge-to="auth_card" data-edge-label="scope" data-edge-key="1" data-edge-id="type-help" data-composition-points="160,142;620,142;620,246;735,246;735,300" d="M 160 142 L 612 142 Q 620 142 620 150 L 620 238 Q 620 246 628 246 L 727 246 Q 735 246 735 254 L 735 300" class="a-security" data-animate="edge" style="--step:1" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="draw_node" data-edge-to="importer" data-edge-key="2" data-edge-id="draw_node-to-importer" data-composition-points="380,330;460,330" d="M 380 330 L 460 330" class="a-default" data-animate="edge" style="--step:2" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="draw_node" data-edge-to="overrides" data-edge-label="tweak" data-edge-key="3" data-edge-id="editor-link" data-composition-points="315,360;315,440" d="M 315 360 L 315 440" class="a-dashed" data-animate="edge" style="--step:3" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="importer" data-edge-to="auth_card" data-edge-key="4" data-edge-id="importer-to-auth_card" data-composition-points="590,330;670,330" d="M 590 330 L 670 330" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="auth_card" data-edge-to="use_with_graph" data-edge-label="id" data-edge-key="5" data-edge-id="use_with_graph-read-through" data-composition-points="735,300;735,210" d="M 735 300 L 735 210" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="auth_card" data-edge-to="brick_piece" data-edge-label="bake" data-edge-key="6" data-edge-id="auth_card-sql" data-composition-points="800,330;880,330" d="M 800 330 L 880 330" class="a-default" data-animate="edge" style="--step:6" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="auth_card" data-edge-to="door_book" data-edge-label="call" data-edge-key="7" data-edge-id="to-play" data-composition-points="735,360;735,440" d="M 735 360 L 735 440" class="a-dashed" data-animate="edge" style="--step:7" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="door_book" data-edge-to="run_method" data-edge-key="8" data-edge-id="door_book-to-run_method" data-composition-points="800,470;880,470" d="M 800 470 L 880 470" class="a-default" data-animate="edge" style="--step:8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
 
         <!-- Components -->
-        <g id="node-users" data-node-id="users" data-node-label="Data struct" tabindex="0" role="button" aria-label="Focus Data struct, Speed etc, You write" aria-pressed="false" data-node-kind="external" data-node-sublabel="Speed etc" data-node-context="You write">
+        <g id="node-data_struct" data-node-id="data_struct" data-node-label="Data struct" tabindex="0" role="button" aria-label="Focus Data struct, Speed etc, You write" aria-pressed="false" data-node-kind="external" data-node-sublabel="Speed etc" data-node-context="You write">
           <title>Data struct · Speed etc · You write</title>
           <rect x="40" y="300" width="120" height="60" rx="6" class="c-mask"/>
           <rect x="40" y="300" width="120" height="60" rx="6" class="c-external" data-animate="node" style="--step:0" stroke-width="1.5"/>
@@ -4600,7 +4600,7 @@
         <text data-detail="context" x="100" y="344" class="t-muted" font-size="9" text-anchor="middle">Speed etc</text>
         </g>
 
-        <g id="node-auth" data-node-id="auth" data-node-label="Type number" tabindex="0" role="button" aria-label="Focus Type number, enum id, You write" aria-pressed="false" data-node-kind="security" data-node-sublabel="enum id" data-node-context="You write">
+        <g id="node-type_enum" data-node-id="type_enum" data-node-label="Type number" tabindex="0" role="button" aria-label="Focus Type number, enum id, You write" aria-pressed="false" data-node-kind="security" data-node-sublabel="enum id" data-node-context="You write">
           <title>Type number · enum id · You write</title>
           <rect x="40" y="110" width="120" height="64" rx="6" class="c-mask"/>
           <rect x="40" y="110" width="120" height="64" rx="6" class="c-security" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4612,7 +4612,7 @@
         <text data-detail="context" x="100" y="156" class="t-muted" font-size="9" text-anchor="middle">enum id</text>
         </g>
 
-        <g id="node-cdn" data-node-id="cdn" data-node-label="Draw node" tabindex="0" role="button" aria-label="Focus Draw node, pretty box, You write" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="pretty box" data-node-context="You write">
+        <g id="node-draw_node" data-node-id="draw_node" data-node-label="Draw node" tabindex="0" role="button" aria-label="Focus Draw node, pretty box, You write" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="pretty box" data-node-context="You write">
           <title>Draw node · pretty box · You write</title>
           <rect x="250" y="300" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="250" y="300" width="130" height="60" rx="6" class="c-cloud" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4623,7 +4623,7 @@
         <text data-detail="context" x="315" y="344" class="t-muted" font-size="9" text-anchor="middle">pretty box</text>
         </g>
 
-        <g id="node-lb" data-node-id="lb" data-node-label="Importer" tabindex="0" role="button" aria-label="Focus Importer, copy fields, Grove helps" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="copy fields" data-node-context="Grove helps">
+        <g id="node-importer" data-node-id="importer" data-node-label="Importer" tabindex="0" role="button" aria-label="Focus Importer, copy fields, Grove helps" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="copy fields" data-node-context="Grove helps">
           <title>Importer · copy fields · Grove helps</title>
           <rect x="460" y="300" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="460" y="300" width="130" height="60" rx="6" class="c-cloud" data-animate="node" style="--step:3" stroke-width="1.5"/>
@@ -4634,18 +4634,19 @@
         <text data-detail="context" x="525" y="344" class="t-muted" font-size="9" text-anchor="middle">copy fields</text>
         </g>
 
-        <g id="node-api" data-node-id="api" data-node-label="Auth card" tabindex="0" role="button" aria-label="Focus Auth card, serializable, You write" aria-pressed="false" data-node-kind="backend" data-node-sublabel="serializable" data-node-context="You write">
-          <title>Auth card · serializable · You write</title>
+        <g id="node-auth_card" data-node-id="auth_card" data-node-label="Auth card" tabindex="0" role="button" aria-label="Focus Auth card, Grove*Auth SO, You write" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Grove*Auth SO" data-node-tag="not login" data-node-context="You write">
+          <title>Auth card · Grove*Auth SO · You write · not login</title>
           <rect x="670" y="300" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="670" y="300" width="130" height="60" rx="6" class="c-backend" data-animate="node" style="--step:2" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(676 306) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
           <text data-detail-anchor x="735" y="328" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Auth card</text>
-        <text data-detail="context" x="735" y="344" class="t-muted" font-size="9" text-anchor="middle">serializable</text>
+        <text data-detail="context" x="735" y="344" class="t-muted" font-size="9" text-anchor="middle">Grove*Auth SO</text>
+        <text data-detail="fine" x="735" y="352" class="t-backend" font-size="7" text-anchor="middle">not login</text>
         </g>
 
-        <g id="node-cache" data-node-id="cache" data-node-label="UseWithGraph" tabindex="0" role="button" aria-label="Focus UseWithGraph, which map, Architecture component" aria-pressed="false" data-node-kind="database" data-node-sublabel="which map" data-node-context="Architecture component">
+        <g id="node-use_with_graph" data-node-id="use_with_graph" data-node-label="UseWithGraph" tabindex="0" role="button" aria-label="Focus UseWithGraph, which map, Architecture component" aria-pressed="false" data-node-kind="database" data-node-sublabel="which map" data-node-context="Architecture component">
           <title>UseWithGraph · which map · Architecture component</title>
           <rect x="670" y="150" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="670" y="150" width="130" height="60" rx="6" class="c-database" data-animate="node" style="--step:6" stroke-width="1.5"/>
@@ -4657,7 +4658,7 @@
         <text data-detail="context" x="735" y="194" class="t-muted" font-size="9" text-anchor="middle">which map</text>
         </g>
 
-        <g id="node-db" data-node-id="db" data-node-label="Brick piece" tabindex="0" role="button" aria-label="Focus Brick piece, header+fill, Grove helps" aria-pressed="false" data-node-kind="database" data-node-sublabel="header+fill" data-node-context="Grove helps">
+        <g id="node-brick_piece" data-node-id="brick_piece" data-node-label="Brick piece" tabindex="0" role="button" aria-label="Focus Brick piece, header+fill, Grove helps" aria-pressed="false" data-node-kind="database" data-node-sublabel="header+fill" data-node-context="Grove helps">
           <title>Brick piece · header+fill · Grove helps</title>
           <rect x="880" y="300" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="880" y="300" width="130" height="60" rx="6" class="c-database" data-animate="node" style="--step:7" stroke-width="1.5"/>
@@ -4669,7 +4670,7 @@
         <text data-detail="context" x="945" y="344" class="t-muted" font-size="9" text-anchor="middle">header+fill</text>
         </g>
 
-        <g id="node-s3" data-node-id="s3" data-node-label="Overrides" tabindex="0" role="button" aria-label="Focus Overrides, per entity, Architecture component" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="per entity" data-node-context="Architecture component">
+        <g id="node-overrides" data-node-id="overrides" data-node-label="Overrides" tabindex="0" role="button" aria-label="Focus Overrides, per entity, Architecture component" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="per entity" data-node-context="Architecture component">
           <title>Overrides · per entity · Architecture component</title>
           <rect x="250" y="440" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="250" y="440" width="130" height="60" rx="6" class="c-cloud" data-animate="node" style="--step:4" stroke-width="1.5"/>
@@ -4680,7 +4681,7 @@
         <text data-detail="context" x="315" y="484" class="t-muted" font-size="9" text-anchor="middle">per entity</text>
         </g>
 
-        <g id="node-queue" data-node-id="queue" data-node-label="Door book" tabindex="0" role="button" aria-label="Focus Door book, case Type, Grove helps" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="case Type" data-node-context="Grove helps">
+        <g id="node-door_book" data-node-id="door_book" data-node-label="Door book" tabindex="0" role="button" aria-label="Focus Door book, case Type, Grove helps" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="case Type" data-node-context="Grove helps">
           <title>Door book · case Type · Grove helps</title>
           <rect x="670" y="440" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="670" y="440" width="130" height="60" rx="6" class="c-messagebus" data-animate="node" style="--step:8" stroke-width="1.5"/>
@@ -4694,7 +4695,7 @@
         <text data-detail="context" x="735" y="484" class="t-muted" font-size="9" text-anchor="middle">case Type</text>
         </g>
 
-        <g id="node-worker" data-node-id="worker" data-node-label="Run method" tabindex="0" role="button" aria-label="Focus Run method, static C#, You write" aria-pressed="false" data-node-kind="backend" data-node-sublabel="static C#" data-node-context="You write">
+        <g id="node-run_method" data-node-id="run_method" data-node-label="Run method" tabindex="0" role="button" aria-label="Focus Run method, static C#, You write" aria-pressed="false" data-node-kind="backend" data-node-sublabel="static C#" data-node-context="You write">
           <title>Run method · static C# · You write</title>
           <rect x="880" y="440" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="880" y="440" width="130" height="60" rx="6" class="c-backend" data-animate="node" style="--step:9" stroke-width="1.5"/>
@@ -4706,29 +4707,29 @@
         </g>
 
         <!-- Connection labels -->
-        <g data-detail="context" data-edge-from="users" data-edge-to="cdn" data-edge-label="define" data-edge-key="0" data-edge-id="users-to-cdn">
+        <g data-detail="context" data-edge-from="data_struct" data-edge-to="draw_node" data-edge-label="define" data-edge-key="0" data-edge-id="data_struct-to-draw_node">
           <rect x="185.6" y="310" width="38.8" height="14" rx="3" class="c-mask"/>
           <text x="205" y="320" class="t-backend" font-size="8" text-anchor="middle">define</text>
         </g>
-        <g data-detail="context" data-edge-from="auth" data-edge-to="api" data-edge-label="scope" data-edge-key="1" data-edge-id="jwt-verification">
+        <g data-detail="context" data-edge-from="type_enum" data-edge-to="auth_card" data-edge-label="scope" data-edge-key="1" data-edge-id="type-help">
           <rect x="603" y="174" width="34" height="14" rx="3" class="c-mask"/>
           <text x="620" y="184" class="t-security" font-size="8" text-anchor="middle">scope</text>
         </g>
 
-        <g data-detail="context" data-edge-from="cdn" data-edge-to="s3" data-edge-label="tweak" data-edge-key="3" data-edge-id="static-assets">
+        <g data-detail="context" data-edge-from="draw_node" data-edge-to="overrides" data-edge-label="tweak" data-edge-key="3" data-edge-id="editor-link">
           <rect x="298" y="398" width="34" height="14" rx="3" class="c-mask"/>
           <text x="315" y="408" class="t-messagebus" font-size="8" text-anchor="middle">tweak</text>
         </g>
 
-        <g data-detail="context" data-edge-from="api" data-edge-to="cache" data-edge-label="id" data-edge-key="5" data-edge-id="cache-read-through">
+        <g data-detail="context" data-edge-from="auth_card" data-edge-to="use_with_graph" data-edge-label="id" data-edge-key="5" data-edge-id="use_with_graph-read-through">
           <rect x="720" y="212" width="30" height="14" rx="3" class="c-mask"/>
           <text x="735" y="222" class="t-muted" font-size="8" text-anchor="middle">id</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="db" data-edge-label="bake" data-edge-key="6" data-edge-id="api-sql">
+        <g data-detail="context" data-edge-from="auth_card" data-edge-to="brick_piece" data-edge-label="bake" data-edge-key="6" data-edge-id="auth_card-sql">
           <rect x="825" y="310" width="30" height="14" rx="3" class="c-mask"/>
           <text x="840" y="320" class="t-muted" font-size="8" text-anchor="middle">bake</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="queue" data-edge-label="call" data-edge-key="7" data-edge-id="enqueue-job">
+        <g data-detail="context" data-edge-from="auth_card" data-edge-to="door_book" data-edge-label="call" data-edge-key="7" data-edge-id="to-play">
           <rect x="720" y="398" width="30" height="14" rx="3" class="c-mask"/>
           <text x="735" y="408" class="t-messagebus" font-size="8" text-anchor="middle">call</text>
         </g>

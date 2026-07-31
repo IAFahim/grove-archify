@@ -4501,7 +4501,7 @@
       <p class="subtitle">System wakes the robot · robot opens doors · world moves</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-auth","label":"Wake up","focus":["user","web","api","auth"],"note":"System builds the robot handle for this frame."},{"id":"cache-fallback","label":"Open doors","focus":["api","redis","db"],"note":"Number on the box picks which door to open."},{"id":"return-and-trace","label":"Do stuff","focus":["db","api","redis","trace","web","user"],"note":"Leaf method moves things. Data boxes only open when asked."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-execution","label":"Wake up","focus":["world","isystem","graphimpl","execution"],"note":"System builds the robot handle for this frame."},{"id":"side-effects","label":"Open doors","focus":["graphimpl","brick","type_door"],"note":"Number on the box picks which door to open."},{"id":"return-and-method","label":"Do stuff","focus":["type_door","graphimpl","brick","method","isystem","world"],"note":"Leaf method moves things. Data boxes only open when asked."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4600,96 +4600,96 @@
         <rect x="705" y="575" width="10" height="55" rx="3" class="c-messagebus" stroke-width="1"/>
 
         <!-- Messages -->
-        <g data-edge-from="user" data-edge-to="web" data-edge-label="tick" data-edge-key="0" data-edge-id="open-page">
-          <path data-composition-edge-from="user" data-composition-edge-to="web" data-composition-edge-id="open-page" data-composition-points="69,185;163,185" d="M 69 185 L 163 185" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="world" data-edge-to="isystem" data-edge-label="tick" data-edge-key="0" data-edge-id="open-page">
+          <path data-composition-edge-from="world" data-composition-edge-to="isystem" data-composition-edge-id="open-page" data-composition-points="69,185;163,185" d="M 69 185 L 163 185" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="99" y="165" width="34" height="16" rx="3" class="c-mask"/>
           <text x="116" y="175" class="t-backend" font-size="9" text-anchor="middle">tick</text>
         </g>
         </g>
 
-        <g data-edge-from="web" data-edge-to="api" data-edge-label="GetExecution" data-edge-key="1" data-edge-id="dashboard-request">
-          <path data-composition-edge-from="web" data-composition-edge-to="api" data-composition-edge-id="dashboard-request" data-composition-points="177,228;271,228" d="M 177 228 L 271 228" class="a-emphasis" data-animate="edge" style="--step:1" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="isystem" data-edge-to="graphimpl" data-edge-label="GetExecution" data-edge-key="1" data-edge-id="dashboard-request">
+          <path data-composition-edge-from="isystem" data-composition-edge-to="graphimpl" data-composition-edge-id="dashboard-request" data-composition-points="177,228;271,228" d="M 177 228 L 271 228" class="a-emphasis" data-animate="edge" style="--step:1" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
           <rect x="186.8" y="208" width="74.4" height="16" rx="3" class="c-mask"/>
           <text x="224" y="218" class="t-backend" font-size="9" text-anchor="middle">GetExecution</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="auth" data-edge-label="Update brain" data-edge-key="2" data-edge-id="verify-jwt">
-          <path data-composition-edge-from="api" data-composition-edge-to="auth" data-composition-edge-id="verify-jwt" data-composition-points="285,270;379,270" d="M 285 270 L 379 270" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <g data-edge-from="graphimpl" data-edge-to="execution" data-edge-label="Update brain" data-edge-key="2" data-edge-id="type-help">
+          <path data-composition-edge-from="graphimpl" data-composition-edge-to="execution" data-composition-edge-id="type-help" data-composition-points="285,270;379,270" d="M 285 270 L 379 270" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
         <g data-detail="context">
           <rect x="294.8" y="250" width="74.4" height="16" rx="3" class="c-mask"/>
           <text x="332" y="260" class="t-security" font-size="9" text-anchor="middle">Update brain</text>
         </g>
         </g>
 
-        <g data-edge-from="auth" data-edge-to="api" data-edge-label="handle ready" data-edge-key="3" data-edge-id="auth-claims">
-          <path data-composition-edge-from="auth" data-composition-edge-to="api" data-composition-edge-id="auth-claims" data-composition-points="379,305;285,305" d="M 379 305 L 285 305" class="a-default" data-animate="edge" style="--step:3" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="execution" data-edge-to="graphimpl" data-edge-label="handle ready" data-edge-key="3" data-edge-id="execution-claims">
+          <path data-composition-edge-from="execution" data-composition-edge-to="graphimpl" data-composition-edge-id="execution-claims" data-composition-points="379,305;285,305" d="M 379 305 L 285 305" class="a-default" data-animate="edge" style="--step:3" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="294.8" y="285" width="74.4" height="16" rx="3" class="c-mask"/>
           <text x="332" y="295" class="t-muted" font-size="9" text-anchor="middle">handle ready</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="redis" data-edge-label="Schedule job" data-edge-key="4" data-edge-id="cache-read">
-          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="cache-read" data-composition-points="285,354;487,354" d="M 285 354 L 487 354" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="graphimpl" data-edge-to="brick" data-edge-label="Schedule job" data-edge-key="4" data-edge-id="state-read">
+          <path data-composition-edge-from="graphimpl" data-composition-edge-to="brick" data-composition-edge-id="state-read" data-composition-points="285,354;487,354" d="M 285 354 L 487 354" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="348.8" y="334" width="74.4" height="16" rx="3" class="c-mask"/>
           <text x="386" y="344" class="t-backend" font-size="9" text-anchor="middle">Schedule job</text>
         </g>
         </g>
 
-        <g data-edge-from="redis" data-edge-to="api" data-edge-label="SetChunk" data-edge-key="5" data-edge-id="cache-miss">
-          <path data-composition-edge-from="redis" data-composition-edge-to="api" data-composition-edge-id="cache-miss" data-composition-points="487,391;285,391" d="M 487 391 L 285 391" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="brick" data-edge-to="graphimpl" data-edge-label="SetChunk" data-edge-key="5" data-edge-id="cache-miss">
+          <path data-composition-edge-from="brick" data-composition-edge-to="graphimpl" data-composition-edge-id="cache-miss" data-composition-points="487,391;285,391" d="M 487 391 L 285 391" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="359.2" y="371" width="53.6" height="16" rx="3" class="c-mask"/>
           <text x="386" y="381" class="t-muted" font-size="9" text-anchor="middle">SetChunk</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="db" data-edge-label="bind bags" data-edge-key="6" data-edge-id="profile-query">
-          <path data-composition-edge-from="api" data-composition-edge-to="db" data-composition-edge-id="profile-query" data-composition-points="285,443;595,443" d="M 285 443 L 595 443" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="graphimpl" data-edge-to="type_door" data-edge-label="bind bags" data-edge-key="6" data-edge-id="profile-query">
+          <path data-composition-edge-from="graphimpl" data-composition-edge-to="type_door" data-composition-edge-id="profile-query" data-composition-points="285,443;595,443" d="M 285 443 L 595 443" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
           <rect x="410.6" y="423" width="58.800000000000004" height="16" rx="3" class="c-mask"/>
           <text x="440" y="433" class="t-backend" font-size="9" text-anchor="middle">bind bags</text>
         </g>
         </g>
 
-        <g data-edge-from="db" data-edge-to="api" data-edge-label="maybe SetInput" data-edge-key="7" data-edge-id="profile-rows">
-          <path data-composition-edge-from="db" data-composition-edge-to="api" data-composition-edge-id="profile-rows" data-composition-points="595,489;285,489" d="M 595 489 L 285 489" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="type_door" data-edge-to="graphimpl" data-edge-label="maybe SetInput" data-edge-key="7" data-edge-id="profile-rows">
+          <path data-composition-edge-from="type_door" data-composition-edge-to="graphimpl" data-composition-edge-id="profile-rows" data-composition-points="595,489;285,489" d="M 595 489 L 285 489" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="397.6" y="469" width="84.8" height="16" rx="3" class="c-mask"/>
           <text x="440" y="479" class="t-muted" font-size="9" text-anchor="middle">maybe SetInput</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="redis" data-edge-label="put in backpack" data-edge-key="8" data-edge-id="cache-write">
-          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="cache-write" data-composition-points="285,536;487,536" d="M 285 536 L 487 536" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <g data-edge-from="graphimpl" data-edge-to="brick" data-edge-label="put in backpack" data-edge-key="8" data-edge-id="cache-write">
+          <path data-composition-edge-from="graphimpl" data-composition-edge-to="brick" data-composition-edge-id="cache-write" data-composition-points="285,536;487,536" d="M 285 536 L 487 536" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <g data-detail="context">
           <rect x="341" y="516" width="90" height="16" rx="3" class="c-mask"/>
           <text x="386" y="526" class="t-messagebus" font-size="9" text-anchor="middle">put in backpack</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="trace" data-edge-label="Execute Root" data-edge-key="9" data-edge-id="trace-emit">
-          <path data-composition-edge-from="api" data-composition-edge-to="trace" data-composition-edge-id="trace-emit" data-composition-points="285,580;703,580" d="M 285 580 L 703 580" class="a-dashed" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <g data-edge-from="graphimpl" data-edge-to="method" data-edge-label="Execute Root" data-edge-key="9" data-edge-id="method-emit">
+          <path data-composition-edge-from="graphimpl" data-composition-edge-to="method" data-composition-edge-id="method-emit" data-composition-points="285,580;703,580" d="M 285 580 L 703 580" class="a-dashed" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <g data-detail="context">
           <rect x="456.8" y="560" width="74.4" height="16" rx="3" class="c-mask"/>
           <text x="494" y="570" class="t-messagebus" font-size="9" text-anchor="middle">Execute Root</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="web" data-edge-label="Type switch" data-edge-key="10" data-edge-id="dashboard-response">
-          <path data-composition-edge-from="api" data-composition-edge-to="web" data-composition-edge-id="dashboard-response" data-composition-points="271,625;177,625" d="M 271 625 L 177 625" class="a-default" data-animate="edge" style="--step:10" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="graphimpl" data-edge-to="isystem" data-edge-label="Type switch" data-edge-key="10" data-edge-id="dashboard-response">
+          <path data-composition-edge-from="graphimpl" data-composition-edge-to="isystem" data-composition-edge-id="dashboard-response" data-composition-points="271,625;177,625" d="M 271 625 L 177 625" class="a-default" data-animate="edge" style="--step:10" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="189.4" y="605" width="69.2" height="16" rx="3" class="c-mask"/>
           <text x="224" y="615" class="t-muted" font-size="9" text-anchor="middle">Type switch</text>
         </g>
         </g>
 
-        <g data-edge-from="web" data-edge-to="user" data-edge-label="call method" data-edge-key="11" data-edge-id="page-render">
-          <path data-composition-edge-from="web" data-composition-edge-to="user" data-composition-edge-id="page-render" data-composition-points="163,662;69,662" d="M 163 662 L 69 662" class="a-default" data-animate="edge" style="--step:11" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="isystem" data-edge-to="world" data-edge-label="call method" data-edge-key="11" data-edge-id="page-render">
+          <path data-composition-edge-from="isystem" data-composition-edge-to="world" data-composition-edge-id="page-render" data-composition-points="163,662;69,662" d="M 163 662 L 69 662" class="a-default" data-animate="edge" style="--step:11" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="81.4" y="642" width="69.2" height="16" rx="3" class="c-mask"/>
           <text x="116" y="652" class="t-muted" font-size="9" text-anchor="middle">call method</text>
@@ -4711,7 +4711,7 @@
         </g>
 
         <!-- Participants -->
-        <g id="node-user" data-node-id="user" data-node-label="World" tabindex="0" role="button" aria-label="Focus World, entities, Sequence participant" aria-pressed="false" data-node-kind="external" data-node-sublabel="entities" data-node-context="Sequence participant">
+        <g id="node-world" data-node-id="world" data-node-label="World" tabindex="0" role="button" aria-label="Focus World, entities, Sequence participant" aria-pressed="false" data-node-kind="external" data-node-sublabel="entities" data-node-context="Sequence participant">
           <title>World · entities · Sequence participant</title>
           <rect x="19" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="19" y="72" width="86" height="54" rx="6" class="c-external" data-animate="node" style="--step:0" stroke-width="1.5"/>
@@ -4723,7 +4723,7 @@
           <text data-detail="context" x="62" y="111" class="t-muted" font-size="7" text-anchor="middle">entities</text>
         </g>
 
-        <g id="node-web" data-node-id="web" data-node-label="ISystem" tabindex="0" role="button" aria-label="Focus ISystem, your system, Sequence participant" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="your system" data-node-context="Sequence participant">
+        <g id="node-isystem" data-node-id="isystem" data-node-label="ISystem" tabindex="0" role="button" aria-label="Focus ISystem, your system, Sequence participant" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="your system" data-node-context="Sequence participant">
           <title>ISystem · your system · Sequence participant</title>
           <rect x="127" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="127" y="72" width="86" height="54" rx="6" class="c-frontend" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4737,7 +4737,7 @@
           <text data-detail="context" x="170" y="111" class="t-muted" font-size="7" text-anchor="middle">your system</text>
         </g>
 
-        <g id="node-api" data-node-id="api" data-node-label="GraphImpl" tabindex="0" role="button" aria-label="Focus GraphImpl, robot owner, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="robot owner" data-node-context="Sequence participant">
+        <g id="node-graphimpl" data-node-id="graphimpl" data-node-label="GraphImpl" tabindex="0" role="button" aria-label="Focus GraphImpl, robot owner, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="robot owner" data-node-context="Sequence participant">
           <title>GraphImpl · robot owner · Sequence participant</title>
           <rect x="235" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="235" y="72" width="86" height="54" rx="6" class="c-backend" data-animate="node" style="--step:2" stroke-width="1.5"/>
@@ -4748,7 +4748,7 @@
           <text data-detail="context" x="278" y="111" class="t-muted" font-size="7" text-anchor="middle">robot owner</text>
         </g>
 
-        <g id="node-auth" data-node-id="auth" data-node-label="Execution" tabindex="0" role="button" aria-label="Focus Execution, this frame, Sequence participant" aria-pressed="false" data-node-kind="security" data-node-sublabel="this frame" data-node-context="Sequence participant">
+        <g id="node-execution" data-node-id="execution" data-node-label="Execution" tabindex="0" role="button" aria-label="Focus Execution, this frame, Sequence participant" aria-pressed="false" data-node-kind="security" data-node-sublabel="this frame" data-node-context="Sequence participant">
           <title>Execution · this frame · Sequence participant</title>
           <rect x="343" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="343" y="72" width="86" height="54" rx="6" class="c-security" data-animate="node" style="--step:3" stroke-width="1.5"/>
@@ -4760,7 +4760,7 @@
           <text data-detail="context" x="386" y="111" class="t-muted" font-size="7" text-anchor="middle">this frame</text>
         </g>
 
-        <g id="node-redis" data-node-id="redis" data-node-label="Brick" tabindex="0" role="button" aria-label="Focus Brick, GraphData, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="GraphData" data-node-context="Sequence participant">
+        <g id="node-brick" data-node-id="brick" data-node-label="Brick" tabindex="0" role="button" aria-label="Focus Brick, GraphData, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="GraphData" data-node-context="Sequence participant">
           <title>Brick · GraphData · Sequence participant</title>
           <rect x="451" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="451" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:4" stroke-width="1.5"/>
@@ -4772,7 +4772,7 @@
           <text data-detail="context" x="494" y="111" class="t-muted" font-size="7" text-anchor="middle">GraphData</text>
         </g>
 
-        <g id="node-db" data-node-id="db" data-node-label="Door #" tabindex="0" role="button" aria-label="Focus Door #, Type switch, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="Type switch" data-node-context="Sequence participant">
+        <g id="node-type_door" data-node-id="type_door" data-node-label="Door #" tabindex="0" role="button" aria-label="Focus Door #, Type switch, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="Type switch" data-node-context="Sequence participant">
           <title>Door # · Type switch · Sequence participant</title>
           <rect x="559" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="559" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:5" stroke-width="1.5"/>
@@ -4784,7 +4784,7 @@
           <text data-detail="context" x="602" y="111" class="t-muted" font-size="7" text-anchor="middle">Type switch</text>
         </g>
 
-        <g id="node-trace" data-node-id="trace" data-node-label="Method" tabindex="0" role="button" aria-label="Focus Method, C# static, Sequence participant" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="C# static" data-node-context="Sequence participant">
+        <g id="node-method" data-node-id="method" data-node-label="Method" tabindex="0" role="button" aria-label="Focus Method, C# static, Sequence participant" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="C# static" data-node-context="Sequence participant">
           <title>Method · C# static · Sequence participant</title>
           <rect x="667" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="667" y="72" width="86" height="54" rx="6" class="c-messagebus" data-animate="node" style="--step:6" stroke-width="1.5"/>

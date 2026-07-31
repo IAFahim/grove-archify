@@ -4501,7 +4501,7 @@
       <p class="subtitle">Draw a map → bake a brick → robot plays it every frame</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"request-path","label":"The main path","focus":["users","cdn","lb","api","db"],"note":"You draw. Grove freezes. Robot runs."},{"id":"identity-and-cache","label":"Helpers","focus":["auth","api","cache"],"note":"Numbers pick doors. Backpack holds secrets."},{"id":"async-work","label":"Where stuff lives","focus":["cdn","s3","api","queue","worker"],"note":"Editor box, bake box, play box."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"main-path","label":"The main path","focus":["source","importer","baker","graphdata","context"],"note":"You draw. Grove freezes. Robot runs."},{"id":"identity-and-grovestate","label":"Helpers","focus":["type_int","graphdata","grovestate"],"note":"Numbers pick doors. Backpack holds secrets."},{"id":"rooms","label":"Where stuff lives","focus":["importer","editor","graphdata","isystem","leaf_work"],"note":"Editor box, bake box, play box."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4580,18 +4580,18 @@
         <text x="18" y="98" class="t-security" font-size="9" font-weight="600">Play time</text>
 
         <!-- Connection paths (before components for correct z-order) -->
-        <path data-edge-from="users" data-edge-to="cdn" data-edge-label="draw" data-edge-key="0" data-edge-id="users-to-cdn" data-composition-points="160,330;250,330" d="M 160 330 L 250 330" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="auth" data-edge-to="api" data-edge-label="help" data-edge-key="1" data-edge-id="jwt-verification" data-composition-points="160,142;620,142;620,246;735,246;735,300" d="M 160 142 L 612 142 Q 620 142 620 150 L 620 238 Q 620 246 628 246 L 727 246 Q 735 246 735 254 L 735 300" class="a-security" data-animate="edge" style="--step:1" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="cdn" data-edge-to="lb" data-edge-key="2" data-edge-id="cdn-to-lb" data-composition-points="380,330;460,330" d="M 380 330 L 460 330" class="a-default" data-animate="edge" style="--step:2" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="cdn" data-edge-to="s3" data-edge-label="live in" data-edge-key="3" data-edge-id="static-assets" data-composition-points="315,360;315,440" d="M 315 360 L 315 440" class="a-dashed" data-animate="edge" style="--step:3" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="lb" data-edge-to="api" data-edge-key="4" data-edge-id="lb-to-api" data-composition-points="590,330;670,330" d="M 590 330 L 670 330" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="api" data-edge-to="cache" data-edge-label="remember" data-edge-key="5" data-edge-id="cache-read-through" data-composition-points="735,300;735,210" d="M 735 300 L 735 210" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="api" data-edge-to="db" data-edge-label="run" data-edge-key="6" data-edge-id="api-sql" data-composition-points="800,330;880,330" d="M 800 330 L 880 330" class="a-default" data-animate="edge" style="--step:6" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="api" data-edge-to="queue" data-edge-label="tick" data-edge-key="7" data-edge-id="enqueue-job" data-composition-points="735,360;735,440" d="M 735 360 L 735 440" class="a-dashed" data-animate="edge" style="--step:7" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="queue" data-edge-to="worker" data-edge-key="8" data-edge-id="queue-to-worker" data-composition-points="800,470;880,470" d="M 800 470 L 880 470" class="a-default" data-animate="edge" style="--step:8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="source" data-edge-to="importer" data-edge-label="draw" data-edge-key="0" data-edge-id="source-to-importer" data-composition-points="160,330;250,330" d="M 160 330 L 250 330" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="type_int" data-edge-to="graphdata" data-edge-label="help" data-edge-key="1" data-edge-id="type-help" data-composition-points="160,142;620,142;620,246;735,246;735,300" d="M 160 142 L 612 142 Q 620 142 620 150 L 620 238 Q 620 246 628 246 L 727 246 Q 735 246 735 254 L 735 300" class="a-security" data-animate="edge" style="--step:1" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="importer" data-edge-to="baker" data-edge-key="2" data-edge-id="importer-to-baker" data-composition-points="380,330;460,330" d="M 380 330 L 460 330" class="a-default" data-animate="edge" style="--step:2" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="importer" data-edge-to="editor" data-edge-label="live in" data-edge-key="3" data-edge-id="editor-link" data-composition-points="315,360;315,440" d="M 315 360 L 315 440" class="a-dashed" data-animate="edge" style="--step:3" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="baker" data-edge-to="graphdata" data-edge-key="4" data-edge-id="baker-to-graphdata" data-composition-points="590,330;670,330" d="M 590 330 L 670 330" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="graphdata" data-edge-to="grovestate" data-edge-label="remember" data-edge-key="5" data-edge-id="grovestate-read-through" data-composition-points="735,300;735,210" d="M 735 300 L 735 210" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="graphdata" data-edge-to="context" data-edge-label="run" data-edge-key="6" data-edge-id="graphdata-sql" data-composition-points="800,330;880,330" d="M 800 330 L 880 330" class="a-default" data-animate="edge" style="--step:6" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="graphdata" data-edge-to="isystem" data-edge-label="tick" data-edge-key="7" data-edge-id="to-play" data-composition-points="735,360;735,440" d="M 735 360 L 735 440" class="a-dashed" data-animate="edge" style="--step:7" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="isystem" data-edge-to="leaf_work" data-edge-key="8" data-edge-id="isystem-to-leaf_work" data-composition-points="800,470;880,470" d="M 800 470 L 880 470" class="a-default" data-animate="edge" style="--step:8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
 
         <!-- Components -->
-        <g id="node-users" data-node-id="users" data-node-label="You draw" tabindex="0" role="button" aria-label="Focus You draw, pretty map, Draw time" aria-pressed="false" data-node-kind="external" data-node-sublabel="pretty map" data-node-context="Draw time">
+        <g id="node-source" data-node-id="source" data-node-label="You draw" tabindex="0" role="button" aria-label="Focus You draw, pretty map, Draw time" aria-pressed="false" data-node-kind="external" data-node-sublabel="pretty map" data-node-context="Draw time">
           <title>You draw · pretty map · Draw time</title>
           <rect x="40" y="300" width="120" height="60" rx="6" class="c-mask"/>
           <rect x="40" y="300" width="120" height="60" rx="6" class="c-external" data-animate="node" style="--step:0" stroke-width="1.5"/>
@@ -4603,7 +4603,7 @@
         <text data-detail="context" x="100" y="344" class="t-muted" font-size="9" text-anchor="middle">pretty map</text>
         </g>
 
-        <g id="node-auth" data-node-id="auth" data-node-label="Numbers" tabindex="0" role="button" aria-label="Focus Numbers, pick doors, Play time" aria-pressed="false" data-node-kind="security" data-node-sublabel="pick doors" data-node-context="Play time">
+        <g id="node-type_int" data-node-id="type_int" data-node-label="Numbers" tabindex="0" role="button" aria-label="Focus Numbers, pick doors, Play time" aria-pressed="false" data-node-kind="security" data-node-sublabel="pick doors" data-node-context="Play time">
           <title>Numbers · pick doors · Play time</title>
           <rect x="40" y="110" width="120" height="64" rx="6" class="c-mask"/>
           <rect x="40" y="110" width="120" height="64" rx="6" class="c-security" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4615,18 +4615,18 @@
         <text data-detail="context" x="100" y="156" class="t-muted" font-size="9" text-anchor="middle">pick doors</text>
         </g>
 
-        <g id="node-cdn" data-node-id="cdn" data-node-label="Importer" tabindex="0" role="button" aria-label="Focus Importer, makes cards, Draw time" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="makes cards" data-node-context="Draw time">
-          <title>Importer · makes cards · Draw time</title>
+        <g id="node-importer" data-node-id="importer" data-node-label="Importer" tabindex="0" role="button" aria-label="Focus Importer, Auth cards, Draw time" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Auth cards" data-node-context="Draw time">
+          <title>Importer · Auth cards · Draw time</title>
           <rect x="250" y="300" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="250" y="300" width="130" height="60" rx="6" class="c-cloud" data-animate="node" style="--step:1" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(256 306) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
           <text data-detail-anchor x="315" y="328" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Importer</text>
-        <text data-detail="context" x="315" y="344" class="t-muted" font-size="9" text-anchor="middle">makes cards</text>
+        <text data-detail="context" x="315" y="344" class="t-muted" font-size="9" text-anchor="middle">Auth cards</text>
         </g>
 
-        <g id="node-lb" data-node-id="lb" data-node-label="Bake oven" tabindex="0" role="button" aria-label="Focus Bake oven, freezes map, Bake time" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="freezes map" data-node-context="Bake time">
+        <g id="node-baker" data-node-id="baker" data-node-label="Bake oven" tabindex="0" role="button" aria-label="Focus Bake oven, freezes map, Bake time" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="freezes map" data-node-context="Bake time">
           <title>Bake oven · freezes map · Bake time</title>
           <rect x="460" y="300" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="460" y="300" width="130" height="60" rx="6" class="c-cloud" data-animate="node" style="--step:3" stroke-width="1.5"/>
@@ -4637,7 +4637,7 @@
         <text data-detail="context" x="525" y="344" class="t-muted" font-size="9" text-anchor="middle">freezes map</text>
         </g>
 
-        <g id="node-api" data-node-id="api" data-node-label="Brick blob" tabindex="0" role="button" aria-label="Focus Brick blob, GraphData, Bake time" aria-pressed="false" data-node-kind="backend" data-node-sublabel="GraphData" data-node-context="Bake time">
+        <g id="node-graphdata" data-node-id="graphdata" data-node-label="Brick blob" tabindex="0" role="button" aria-label="Focus Brick blob, GraphData, Bake time" aria-pressed="false" data-node-kind="backend" data-node-sublabel="GraphData" data-node-context="Bake time">
           <title>Brick blob · GraphData · Bake time</title>
           <rect x="670" y="300" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="670" y="300" width="130" height="60" rx="6" class="c-backend" data-animate="node" style="--step:2" stroke-width="1.5"/>
@@ -4648,7 +4648,7 @@
         <text data-detail="context" x="735" y="344" class="t-muted" font-size="9" text-anchor="middle">GraphData</text>
         </g>
 
-        <g id="node-cache" data-node-id="cache" data-node-label="Backpack" tabindex="0" role="button" aria-label="Focus Backpack, GroveState, Play time" aria-pressed="false" data-node-kind="database" data-node-sublabel="GroveState" data-node-context="Play time">
+        <g id="node-grovestate" data-node-id="grovestate" data-node-label="Backpack" tabindex="0" role="button" aria-label="Focus Backpack, GroveState, Play time" aria-pressed="false" data-node-kind="database" data-node-sublabel="GroveState" data-node-context="Play time">
           <title>Backpack · GroveState · Play time</title>
           <rect x="670" y="150" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="670" y="150" width="130" height="60" rx="6" class="c-database" data-animate="node" style="--step:6" stroke-width="1.5"/>
@@ -4660,7 +4660,7 @@
         <text data-detail="context" x="735" y="194" class="t-muted" font-size="9" text-anchor="middle">GroveState</text>
         </g>
 
-        <g id="node-db" data-node-id="db" data-node-label="Robot brain" tabindex="0" role="button" aria-label="Focus Robot brain, your Context, Play time" aria-pressed="false" data-node-kind="database" data-node-sublabel="your Context" data-node-context="Play time">
+        <g id="node-context" data-node-id="context" data-node-label="Robot brain" tabindex="0" role="button" aria-label="Focus Robot brain, your Context, Play time" aria-pressed="false" data-node-kind="database" data-node-sublabel="your Context" data-node-context="Play time">
           <title>Robot brain · your Context · Play time</title>
           <rect x="880" y="300" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="880" y="300" width="130" height="60" rx="6" class="c-database" data-animate="node" style="--step:7" stroke-width="1.5"/>
@@ -4672,7 +4672,7 @@
         <text data-detail="context" x="945" y="344" class="t-muted" font-size="9" text-anchor="middle">your Context</text>
         </g>
 
-        <g id="node-s3" data-node-id="s3" data-node-label="Editor room" tabindex="0" role="button" aria-label="Focus Editor room, Graph Toolkit, Draw time" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Graph Toolkit" data-node-context="Draw time">
+        <g id="node-editor" data-node-id="editor" data-node-label="Editor room" tabindex="0" role="button" aria-label="Focus Editor room, Graph Toolkit, Draw time" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Graph Toolkit" data-node-context="Draw time">
           <title>Editor room · Graph Toolkit · Draw time</title>
           <rect x="250" y="440" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="250" y="440" width="130" height="60" rx="6" class="c-cloud" data-animate="node" style="--step:4" stroke-width="1.5"/>
@@ -4683,7 +4683,7 @@
         <text data-detail="context" x="315" y="484" class="t-muted" font-size="9" text-anchor="middle">Graph Toolkit</text>
         </g>
 
-        <g id="node-queue" data-node-id="queue" data-node-label="Play room" tabindex="0" role="button" aria-label="Focus Play room, ISystem, Play time" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="ISystem" data-node-context="Play time">
+        <g id="node-isystem" data-node-id="isystem" data-node-label="Play room" tabindex="0" role="button" aria-label="Focus Play room, ISystem, Play time" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="ISystem" data-node-context="Play time">
           <title>Play room · ISystem · Play time</title>
           <rect x="670" y="440" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="670" y="440" width="130" height="60" rx="6" class="c-messagebus" data-animate="node" style="--step:8" stroke-width="1.5"/>
@@ -4697,7 +4697,7 @@
         <text data-detail="context" x="735" y="484" class="t-muted" font-size="9" text-anchor="middle">ISystem</text>
         </g>
 
-        <g id="node-worker" data-node-id="worker" data-node-label="Do the work" tabindex="0" role="button" aria-label="Focus Do the work, move / score, Play time" aria-pressed="false" data-node-kind="backend" data-node-sublabel="move / score" data-node-context="Play time">
+        <g id="node-leaf_work" data-node-id="leaf_work" data-node-label="Do the work" tabindex="0" role="button" aria-label="Focus Do the work, move / score, Play time" aria-pressed="false" data-node-kind="backend" data-node-sublabel="move / score" data-node-context="Play time">
           <title>Do the work · move / score · Play time</title>
           <rect x="880" y="440" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="880" y="440" width="130" height="60" rx="6" class="c-backend" data-animate="node" style="--step:9" stroke-width="1.5"/>
@@ -4709,29 +4709,29 @@
         </g>
 
         <!-- Connection labels -->
-        <g data-detail="context" data-edge-from="users" data-edge-to="cdn" data-edge-label="draw" data-edge-key="0" data-edge-id="users-to-cdn">
+        <g data-detail="context" data-edge-from="source" data-edge-to="importer" data-edge-label="draw" data-edge-key="0" data-edge-id="source-to-importer">
           <rect x="190" y="310" width="30" height="14" rx="3" class="c-mask"/>
           <text x="205" y="320" class="t-backend" font-size="8" text-anchor="middle">draw</text>
         </g>
-        <g data-detail="context" data-edge-from="auth" data-edge-to="api" data-edge-label="help" data-edge-key="1" data-edge-id="jwt-verification">
+        <g data-detail="context" data-edge-from="type_int" data-edge-to="graphdata" data-edge-label="help" data-edge-key="1" data-edge-id="type-help">
           <rect x="605" y="174" width="30" height="14" rx="3" class="c-mask"/>
           <text x="620" y="184" class="t-security" font-size="8" text-anchor="middle">help</text>
         </g>
 
-        <g data-detail="context" data-edge-from="cdn" data-edge-to="s3" data-edge-label="live in" data-edge-key="3" data-edge-id="static-assets">
+        <g data-detail="context" data-edge-from="importer" data-edge-to="editor" data-edge-label="live in" data-edge-key="3" data-edge-id="editor-link">
           <rect x="293.2" y="398" width="43.6" height="14" rx="3" class="c-mask"/>
           <text x="315" y="408" class="t-messagebus" font-size="8" text-anchor="middle">live in</text>
         </g>
 
-        <g data-detail="context" data-edge-from="api" data-edge-to="cache" data-edge-label="remember" data-edge-key="5" data-edge-id="cache-read-through">
+        <g data-detail="context" data-edge-from="graphdata" data-edge-to="grovestate" data-edge-label="remember" data-edge-key="5" data-edge-id="grovestate-read-through">
           <rect x="710.8" y="212" width="48.4" height="14" rx="3" class="c-mask"/>
           <text x="735" y="222" class="t-muted" font-size="8" text-anchor="middle">remember</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="db" data-edge-label="run" data-edge-key="6" data-edge-id="api-sql">
+        <g data-detail="context" data-edge-from="graphdata" data-edge-to="context" data-edge-label="run" data-edge-key="6" data-edge-id="graphdata-sql">
           <rect x="825" y="310" width="30" height="14" rx="3" class="c-mask"/>
           <text x="840" y="320" class="t-muted" font-size="8" text-anchor="middle">run</text>
         </g>
-        <g data-detail="context" data-edge-from="api" data-edge-to="queue" data-edge-label="tick" data-edge-key="7" data-edge-id="enqueue-job">
+        <g data-detail="context" data-edge-from="graphdata" data-edge-to="isystem" data-edge-label="tick" data-edge-key="7" data-edge-id="to-play">
           <rect x="720" y="398" width="30" height="14" rx="3" class="c-mask"/>
           <text x="735" y="408" class="t-messagebus" font-size="8" text-anchor="middle">tick</text>
         </g>

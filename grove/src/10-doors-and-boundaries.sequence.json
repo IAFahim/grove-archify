@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Grove \u00b7 Doors & Boundaries",
+    "subtitle": "Input / Output / Local \u00b7 untyped skip \u00b7 root rule \u00b7 pure Calculate",
+    "output": "../10-doors-and-boundaries.sequence.html",
+    "quality_profile": "standard",
+    "animation": "trace",
+    "views": [
+      {
+        "id": "root-rule",
+        "label": "Root rule",
+        "focus": [
+          "you",
+          "importer",
+          "auth_graph",
+          "root"
+        ],
+        "note": "Exactly one Input boundary \u2192 execution becomes Root."
+      },
+      {
+        "id": "typed-io",
+        "label": "Typed I/O",
+        "focus": [
+          "boundary",
+          "auth_graph",
+          "brick",
+          "grovestate"
+        ],
+        "note": "Only typed unmanaged variables become GraphInputData / GraphOutputData."
+      },
+      {
+        "id": "untyped-skip",
+        "label": "Untyped skip",
+        "focus": [
+          "untyped",
+          "boundary",
+          "brick"
+        ],
+        "note": "Toolkit Untyped never lands in runtime I/O arrays."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "you",
+      "type": "external",
+      "label": "You",
+      "sublabel": "author"
+    },
+    {
+      "id": "boundary",
+      "type": "frontend",
+      "label": "Boundary var",
+      "sublabel": "In/Out/Local"
+    },
+    {
+      "id": "untyped",
+      "type": "security",
+      "label": "Untyped",
+      "sublabel": "routing only"
+    },
+    {
+      "id": "importer",
+      "type": "backend",
+      "label": "Importer",
+      "sublabel": "root scan"
+    },
+    {
+      "id": "auth_graph",
+      "type": "database",
+      "label": "Auth graph",
+      "sublabel": "doors list"
+    },
+    {
+      "id": "root",
+      "type": "cloud",
+      "label": "Root",
+      "sublabel": "or none"
+    },
+    {
+      "id": "brick",
+      "type": "database",
+      "label": "Brick",
+      "sublabel": "I/O arrays"
+    },
+    {
+      "id": "grovestate",
+      "type": "messagebus",
+      "label": "GroveState",
+      "sublabel": "live values"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 240,
+      "label": "Author"
+    },
+    {
+      "from": 250,
+      "to": 420,
+      "label": "Import"
+    },
+    {
+      "from": 430,
+      "to": 630,
+      "label": "Bake / play"
+    }
+  ],
+  "messages": [
+    {
+      "id": "draw-in",
+      "from": "you",
+      "to": "boundary",
+      "y": 185,
+      "label": "add Input/Output/Local",
+      "variant": "emphasis"
+    },
+    {
+      "id": "draw-untyped",
+      "from": "you",
+      "to": "untyped",
+      "y": 220,
+      "label": "optional Untyped wire",
+      "variant": "dashed"
+    },
+    {
+      "id": "import-scan",
+      "from": "you",
+      "to": "importer",
+      "y": 270,
+      "label": "import",
+      "variant": "default"
+    },
+    {
+      "id": "imp-root",
+      "from": "importer",
+      "to": "root",
+      "y": 310,
+      "label": "0/1/N Input\u2192exec",
+      "variant": "security"
+    },
+    {
+      "id": "imp-auth",
+      "from": "importer",
+      "to": "auth_graph",
+      "y": 350,
+      "label": "doors list",
+      "variant": "emphasis"
+    },
+    {
+      "id": "untyped-drop",
+      "from": "untyped",
+      "to": "brick",
+      "y": 400,
+      "label": "untyped skipped",
+      "variant": "dashed"
+    },
+    {
+      "id": "typed-bake",
+      "from": "boundary",
+      "to": "brick",
+      "y": 450,
+      "label": "typed \u2192 GraphInput/OutputData",
+      "variant": "emphasis"
+    },
+    {
+      "id": "play-set",
+      "from": "you",
+      "to": "grovestate",
+      "y": 500,
+      "label": "SetInput / variable key",
+      "variant": "default"
+    },
+    {
+      "id": "state-exec",
+      "from": "grovestate",
+      "to": "root",
+      "y": 545,
+      "label": "Execute reads backpack",
+      "variant": "return"
+    },
+    {
+      "id": "calc-out",
+      "from": "brick",
+      "to": "grovestate",
+      "y": 590,
+      "label": "Calculate outputs",
+      "variant": "dashed"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "importer",
+      "from": 265,
+      "to": 370,
+      "type": "backend"
+    },
+    {
+      "participant": "auth_graph",
+      "from": 340,
+      "to": 380,
+      "type": "database"
+    },
+    {
+      "participant": "brick",
+      "from": 390,
+      "to": 620,
+      "type": "database"
+    },
+    {
+      "participant": "grovestate",
+      "from": 510,
+      "to": 620,
+      "type": "messagebus"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Root rule",
+      "items": [
+        "Exactly one Input \u2192 execution \u21d2 Root",
+        "0 or 2+ candidates \u21d2 import error if top-level exec exists",
+        "Pure Calculate graphs may have no Root"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Typed doors only",
+      "items": [
+        "Unmanaged typed vars become GraphInputData/GraphOutputData",
+        "Untyped Toolkit vars never enter I/O arrays",
+        "Locals stay graph-scoped via GroveVariableAuth"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Play",
+      "items": [
+        "SetInput writes GroveState by type or Hash128 key",
+        "Not stack args on Root.Execute",
+        "Outputs pull via Calculate on DataHeader Value"
+      ]
+    }
+  ]
+}

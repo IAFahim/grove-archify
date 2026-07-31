@@ -9,35 +9,35 @@
     "animation": "trace",
     "views": [
       {
-        "id": "collection-path",
+        "id": "shell",
         "label": "Outside of brick",
         "focus": [
-          "web",
-          "mobile",
-          "edge",
-          "stream"
+          "root",
+          "io_list",
+          "header",
+          "type_switch"
         ],
         "note": "GraphId, Root, Inputs, Outputs live on the brick shell."
       },
       {
-        "id": "consent-boundary",
+        "id": "payload-boundary",
         "label": "Each box",
         "focus": [
-          "edge",
-          "consent",
-          "pii"
+          "header",
+          "payload",
+          "blobptrs"
         ],
         "note": "Every node is bread (Type+id) + filling (payload)."
       },
       {
-        "id": "analytics-consumers",
+        "id": "robot-run",
         "label": "Robot opens doors",
         "focus": [
-          "stream",
-          "warehouse",
-          "dashboard",
-          "features",
-          "model"
+          "type_switch",
+          "method",
+          "ecs_write",
+          "recurse",
+          "backpack"
         ],
         "note": "Type number \u2192 method \u2192 maybe open more doors."
       }
@@ -66,7 +66,7 @@
   ],
   "nodes": [
     {
-      "id": "web",
+      "id": "root",
       "type": "frontend",
       "label": "Root",
       "sublabel": "start door",
@@ -74,7 +74,7 @@
       "row": 0
     },
     {
-      "id": "mobile",
+      "id": "io_list",
       "type": "frontend",
       "label": "I/O list",
       "sublabel": "keys",
@@ -82,7 +82,7 @@
       "row": 2
     },
     {
-      "id": "edge",
+      "id": "header",
       "type": "cloud",
       "label": "Bread",
       "sublabel": "Type + id",
@@ -90,7 +90,7 @@
       "row": 1
     },
     {
-      "id": "consent",
+      "id": "payload",
       "type": "security",
       "label": "Filling",
       "sublabel": "payload",
@@ -98,7 +98,7 @@
       "row": 0
     },
     {
-      "id": "stream",
+      "id": "type_switch",
       "type": "messagebus",
       "label": "Door #",
       "sublabel": "switch",
@@ -106,7 +106,7 @@
       "row": 2
     },
     {
-      "id": "pii",
+      "id": "blobptrs",
       "type": "security",
       "label": "Kid arrows",
       "sublabel": "BlobPtrs",
@@ -114,7 +114,7 @@
       "row": 0
     },
     {
-      "id": "warehouse",
+      "id": "method",
       "type": "database",
       "label": "Method",
       "sublabel": "static C#",
@@ -122,7 +122,7 @@
       "row": 2
     },
     {
-      "id": "features",
+      "id": "recurse",
       "type": "database",
       "label": "Recurse",
       "sublabel": "more doors",
@@ -130,7 +130,7 @@
       "row": 4
     },
     {
-      "id": "dashboard",
+      "id": "ecs_write",
       "type": "backend",
       "label": "ECS write",
       "sublabel": "move stuff",
@@ -138,7 +138,7 @@
       "row": 1
     },
     {
-      "id": "model",
+      "id": "backpack",
       "type": "backend",
       "label": "Backpack",
       "sublabel": "memory",
@@ -148,9 +148,9 @@
   ],
   "flows": [
     {
-      "id": "web-clickstream",
-      "from": "web",
-      "to": "edge",
+      "id": "root-clickstream",
+      "from": "root",
+      "to": "header",
       "label": "kick",
       "classification": "brick",
       "variant": "emphasis",
@@ -172,9 +172,9 @@
       ]
     },
     {
-      "id": "mobile-events",
-      "from": "mobile",
-      "to": "edge",
+      "id": "io_list-events",
+      "from": "io_list",
+      "to": "header",
       "label": "keys",
       "classification": "brick",
       "variant": "default",
@@ -196,9 +196,9 @@
       ]
     },
     {
-      "id": "consent-enrichment",
-      "from": "edge",
-      "to": "consent",
+      "id": "payload-enrichment",
+      "from": "header",
+      "to": "payload",
       "label": "pack",
       "classification": "brick",
       "variant": "security",
@@ -225,8 +225,8 @@
     },
     {
       "id": "accepted-events",
-      "from": "edge",
-      "to": "stream",
+      "from": "header",
+      "to": "type_switch",
       "label": "Type",
       "classification": "brick",
       "variant": "emphasis",
@@ -249,8 +249,8 @@
     },
     {
       "id": "identity-map",
-      "from": "consent",
-      "to": "pii",
+      "from": "payload",
+      "to": "blobptrs",
       "label": "kids",
       "classification": "brick",
       "variant": "security",
@@ -262,8 +262,8 @@
     },
     {
       "id": "normalized-facts",
-      "from": "stream",
-      "to": "warehouse",
+      "from": "type_switch",
+      "to": "method",
       "label": "case",
       "classification": "brick",
       "variant": "emphasis",
@@ -275,8 +275,8 @@
     },
     {
       "id": "daily-aggregates",
-      "from": "warehouse",
-      "to": "features",
+      "from": "method",
+      "to": "recurse",
       "label": "again",
       "classification": "brick",
       "variant": "dashed",
@@ -290,8 +290,8 @@
     },
     {
       "id": "metrics-query",
-      "from": "warehouse",
-      "to": "dashboard",
+      "from": "method",
+      "to": "ecs_write",
       "label": "do",
       "classification": "brick",
       "variant": "default",
@@ -314,8 +314,8 @@
     },
     {
       "id": "feature-vectors",
-      "from": "features",
-      "to": "model",
+      "from": "recurse",
+      "to": "backpack",
       "label": "memo",
       "classification": "brick",
       "variant": "dashed",
@@ -327,8 +327,8 @@
     },
     {
       "id": "restricted-join",
-      "from": "pii",
-      "to": "dashboard",
+      "from": "blobptrs",
+      "to": "ecs_write",
       "label": "scope",
       "classification": "brick",
       "variant": "security",

@@ -12,98 +12,108 @@
           "id": "intro",
           "title": "Hello",
           "focus": null,
-          "text": "Welcome to Grove! Think of it like a toy machine. You draw a treasure map. Grove freezes that map into a hard brick. Then a little robot reads the brick every frame and makes the game world move.",
+          "text": "Welcome to Grove. You draw a treasure map. Import freezes authoring Auth cards. Bake freezes a GraphData brick. A robot reads the brick every frame. Auth means authoring \u2014 not login.",
           "audio": "audio/01/ch-intro.wav"
         },
         {
-          "id": "request-path",
+          "id": "main-path",
           "title": "The main path",
-          "focus": "request-path",
+          "focus": "main-path",
           "text": "Follow the bright path. First you draw. Then the importer makes cards. Then the bake oven freezes everything into one brick called Graph Data. That brick is what play time uses.",
-          "audio": "audio/01/ch-request-path.wav"
+          "audio": "audio/01/ch-main-path.wav"
         },
         {
-          "id": "identity-and-cache",
+          "id": "helpers",
           "title": "Helpers",
-          "focus": "identity-and-cache",
+          "focus": "helpers",
           "text": "Two helpers sit beside the path. Numbers on each box pick which door the robot opens. The backpack called Grove State remembers secrets between frames, like inputs and local variables.",
-          "audio": "audio/01/ch-identity-and-cache.wav"
+          "audio": "audio/01/ch-helpers.wav"
         },
         {
-          "id": "async-work",
+          "id": "rooms",
           "title": "Three rooms",
-          "focus": "async-work",
+          "focus": "rooms",
           "text": "There are three rooms. Draw time is Graph Toolkit. Bake time freezes the brick. Play time is your E C S system. Never mix the rooms up. The pretty map is not the brick.",
-          "audio": "audio/01/ch-async-work.wav"
+          "audio": "audio/01/ch-rooms.wav"
         }
       ],
       "nodes": {
-        "api": {
+        "graphdata": {
           "short": "The brick itself. Blob asset Graph Data.",
           "deep": "Blob Asset Reference Graph Data: Root, Inputs, Outputs, node maps, Graph Id.",
-          "audio": "audio/01/node-api-short.wav",
-          "audioDeep": "audio/01/node-api-deep.wav"
+          "audio": "audio/01/node-graphdata-short.wav",
+          "audioDeep": "audio/01/node-graphdata-deep.wav",
+          "label": "Brick blob"
         },
-        "auth": {
+        "type_int": {
           "short": "Numbers. Each node type is an integer door key.",
           "deep": "Node Type integer. Grove Execution Types negatives for built-ins; your positives for customs.",
-          "audio": "audio/01/node-auth-short.wav",
-          "audioDeep": "audio/01/node-auth-deep.wav"
+          "audio": "audio/01/node-type_int-short.wav",
+          "audioDeep": "audio/01/node-type_int-deep.wav",
+          "label": "Numbers"
         },
-        "cache": {
+        "grovestate": {
           "short": "Backpack. Grove State on the entity.",
           "deep": "Buffer container of Grove State. Get State extension returns the entity map.",
-          "audio": "audio/01/node-cache-short.wav",
-          "audioDeep": "audio/01/node-cache-deep.wav"
+          "audio": "audio/01/node-grovestate-short.wav",
+          "audioDeep": "audio/01/node-grovestate-deep.wav",
+          "label": "Backpack"
         },
-        "cdn": {
+        "importer": {
           "short": "Importer. Turns the pretty map into auth cards.",
           "deep": "Grove Importer Scripted Importer of T Auth. Creates auth subassets.",
-          "audio": "audio/01/node-cdn-short.wav",
-          "audioDeep": "audio/01/node-cdn-deep.wav"
+          "audio": "audio/01/node-importer-short.wav",
+          "audioDeep": "audio/01/node-importer-deep.wav",
+          "label": "Importer"
         },
-        "db": {
+        "context": {
           "short": "Robot brain. Your context with component bags.",
           "deep": "I Context of T partial struct. Component and Buffer containers wired by the generator.",
-          "audio": "audio/01/node-db-short.wav",
-          "audioDeep": "audio/01/node-db-deep.wav"
+          "audio": "audio/01/node-context-short.wav",
+          "audioDeep": "audio/01/node-context-deep.wav",
+          "label": "Robot brain"
         },
-        "lb": {
+        "baker": {
           "short": "Bake oven. Freezes cards into a brick.",
           "deep": "Graph Baking System. Auto-spawned; hashes variants and instance overrides.",
-          "audio": "audio/01/node-lb-short.wav",
-          "audioDeep": "audio/01/node-lb-deep.wav"
+          "audio": "audio/01/node-baker-short.wav",
+          "audioDeep": "audio/01/node-baker-deep.wav",
+          "label": "Bake oven"
         },
-        "queue": {
+        "isystem": {
           "short": "Play room. Your I System tick.",
           "deep": "Graph Impl Get Execution then job Set Chunk and Execute or Calculate.",
-          "audio": "audio/01/node-queue-short.wav",
-          "audioDeep": "audio/01/node-queue-deep.wav"
+          "audio": "audio/01/node-isystem-short.wav",
+          "audioDeep": "audio/01/node-isystem-deep.wav",
+          "label": "Play room"
         },
-        "s3": {
+        "editor": {
           "short": "Editor room. Graph Toolkit lives here.",
           "deep": "Editor assembly boundary. Graph Toolkit Graph Database assets.",
-          "audio": "audio/01/node-s3-short.wav",
-          "audioDeep": "audio/01/node-s3-deep.wav"
+          "audio": "audio/01/node-editor-short.wav",
+          "audioDeep": "audio/01/node-editor-deep.wav",
+          "label": "Editor room"
         },
-        "users": {
+        "source": {
           "short": "You draw the pretty map here. This is the source graph people edit.",
           "deep": "Source asset. Grove Graph subclass with a Graph attribute extension such as my graph.",
-          "audio": "audio/01/node-users-short.wav",
-          "audioDeep": "audio/01/node-users-deep.wav"
+          "audio": "audio/01/node-source-short.wav",
+          "audioDeep": "audio/01/node-source-deep.wav",
+          "label": "You draw"
         },
-        "worker": {
+        "leaf_work": {
           "short": "Do the work. Leaf methods move transforms and scores.",
           "deep": "Static methods with Execute Node or Data Node attributes. Context by ref.",
-          "audio": "audio/01/node-worker-short.wav",
-          "audioDeep": "audio/01/node-worker-deep.wav"
+          "audio": "audio/01/node-leaf_work-short.wav",
+          "audioDeep": "audio/01/node-leaf_work-deep.wav",
+          "label": "Do the work"
         }
       }
     },
     {
       "id": "02",
       "title": "Draw \u2192 Bake \u2192 Play",
-      "blurb": "Source map \u2192 importer \u2192 auth asset \u2192 bake \u2192 brick.",
+      "blurb": "Import builds authoring Auth cards (not login). Bake freezes GraphData. Play never opens the pretty map.",
       "map": "02-draw-bake-play.workflow.html",
       "chapters": [
         {
@@ -114,99 +124,111 @@
           "audio": "audio/02/ch-intro.wav"
         },
         {
-          "id": "happy-path",
+          "id": "main-path",
           "title": "Main path",
-          "focus": "happy-path",
+          "focus": "main-path",
           "text": "You draw the pretty map. The importer builds an Auth box \u2014 a frozen card deck of Root, inputs, outputs, and nodes. Authoring on an entity only points at that Auth box. The bake oven reads the Auth box and freezes a brick. Play never opens the pretty map again.",
-          "audio": "audio/02/ch-happy-path.wav"
+          "audio": "audio/02/ch-main-path.wav"
         },
         {
-          "id": "safety-gate",
+          "id": "start-door",
           "title": "Start door",
-          "focus": "safety-gate",
+          "focus": "start-door",
           "text": "The start door rule: exactly one Input wire must touch the first action box. Zero starts or two starts means the importer yells.",
-          "audio": "audio/02/ch-safety-gate.wav"
+          "audio": "audio/02/ch-start-door.wav"
         },
         {
-          "id": "evidence-loop",
+          "id": "extras",
           "title": "Extras",
-          "focus": "evidence-loop",
+          "focus": "extras",
           "text": "Variants pick a branch while baking, so unpicked paths disappear from the brick. The backpack holds live memory after bake.",
-          "audio": "audio/02/ch-evidence-loop.wav"
+          "audio": "audio/02/ch-extras.wav"
         }
       ],
       "nodes": {
-        "approval": {
+        "start_door": {
           "short": "Start door check. The Auth box only gets a Root if exactly one Input boundary connects to an execution node.",
           "deep": "CollectRootCandidates: exactly one Input variable resolving to GroveExecutionAuth.",
-          "audio": "audio/02/node-approval-short.wav",
-          "audioDeep": "audio/02/node-approval-deep.wav"
+          "audio": "audio/02/node-start_door-short.wav",
+          "audioDeep": "audio/02/node-start_door-deep.wav",
+          "label": "Start door"
         },
-        "blocked": {
+        "bad_root": {
           "short": "Import error path. Fix the wires.",
           "deep": "Import validation failure for entry shape.",
-          "audio": "audio/02/node-blocked-short.wav",
-          "audioDeep": "audio/02/node-blocked-deep.wav"
+          "audio": "audio/02/node-bad_root-short.wav",
+          "audioDeep": "audio/02/node-bad_root-deep.wav",
+          "label": "Oops"
         },
-        "chat": {
+        "source_map": {
           "short": "Pretty map. Graph Toolkit source you edit. Humans draw here; bakers do not read this file at runtime.",
           "deep": "GroveGraph source asset (.mygraph). Editor only. Not the baker input.",
-          "audio": "audio/02/node-chat-short.wav",
-          "audioDeep": "audio/02/node-chat-deep.wav"
+          "audio": "audio/02/node-source_map-short.wav",
+          "audioDeep": "audio/02/node-source_map-deep.wav",
+          "label": "Source map"
         },
-        "external": {
+        "bake_step": {
           "short": "Bake oven. Reads the Auth box, applies variants and overrides, freezes a GraphData brick.",
           "deep": "GraphBakingSystem. Calls Auth.Create with instance values and variant selection.",
-          "audio": "audio/02/node-external-short.wav",
-          "audioDeep": "audio/02/node-external-deep.wav"
+          "audio": "audio/02/node-bake_step-short.wav",
+          "audioDeep": "audio/02/node-bake_step-deep.wav",
+          "label": "Bake"
         },
-        "final": {
+        "it_runs": {
           "short": "It runs. Robot can Execute the brick.",
           "deep": "I Graph Reference Graph property holds the blob.",
-          "audio": "audio/02/node-final-short.wav",
-          "audioDeep": "audio/02/node-final-deep.wav"
+          "audio": "audio/02/node-it_runs-short.wav",
+          "audioDeep": "audio/02/node-it_runs-deep.wav",
+          "label": "It runs!"
         },
-        "planner": {
+        "importer": {
           "short": "Importer. Reads the pretty map once and builds the Auth box plus node sub-cards.",
           "deep": "GroveImporter ScriptedImporter. Creates auth subassets and sets Root from Input boundary candidates.",
-          "audio": "audio/02/node-planner-short.wav",
-          "audioDeep": "audio/02/node-planner-deep.wav"
+          "audio": "audio/02/node-importer-short.wav",
+          "audioDeep": "audio/02/node-importer-deep.wav",
+          "label": "Importer"
         },
-        "retry": {
+        "fix_wire": {
           "short": "Reimport after you fix the start door.",
           "deep": "Reimport after fixing Input to execution wiring.",
-          "audio": "audio/02/node-retry-short.wav",
-          "audioDeep": "audio/02/node-retry-deep.wav"
+          "audio": "audio/02/node-fix_wire-short.wav",
+          "audioDeep": "audio/02/node-fix_wire-deep.wav",
+          "label": "Fix wire"
         },
-        "router": {
-          "short": "Auth box is the imported result of your pretty map. After import, Grove no longer needs the drawing file for bake. This box holds the start Root, Inputs, Outputs, and every node as little cards. Authoring on a GameObject points here \u2014 not at the .mygraph.",
-          "deep": "GroveAuthGraph: ScriptableObject main asset produced by GroveImporter. Fields Root, Inputs, Outputs, Nodes. GraphAuthoring references this asset. GroveAuthGraph.Create builds BlobAssetReference of GraphData.",
-          "audio": "audio/02/node-router-short.wav",
-          "audioDeep": "audio/02/node-router-deep.wav"
+        "auth_graph": {
+          "short": "Auth graph. Imported GroveAuthGraph plus node Auth cards. Authoring \u2014 not authentication or login.",
+          "deep": "GroveAuthGraph ScriptableObject main asset from GroveImporter. Fields Root, Inputs, Outputs, Nodes as GroveAuth subassets. GraphAuthoring references this asset, never the .mygraph at bake time. Auth means authoring intermediate.",
+          "audio": "audio/02/node-auth_graph-short.wav",
+          "audioDeep": "audio/02/node-auth_graph-deep.wav",
+          "label": "Auth graph"
         },
-        "store": {
+        "variants": {
           "short": "Variants. Bake-time branch pick.",
           "deep": "Dictionary of Grove Variant Auth to selected branch.",
-          "audio": "audio/02/node-store-short.wav",
-          "audioDeep": "audio/02/node-store-deep.wav"
+          "audio": "audio/02/node-variants-short.wav",
+          "audioDeep": "audio/02/node-variants-deep.wav",
+          "label": "Variants"
         },
-        "tool": {
-          "short": "Authoring component on a GameObject. Its job is only to point at an Auth box and optional overrides, then bake.",
+        "authoring": {
+          "short": "Authoring component. Points at an Auth graph plus optional overrides. Not login.",
           "deep": "GraphAuthoring of TAuth comma TComponent. References Auth, registers bake deps, writes GraphBakingData.",
-          "audio": "audio/02/node-tool-short.wav",
-          "audioDeep": "audio/02/node-tool-deep.wav"
+          "audio": "audio/02/node-authoring-short.wav",
+          "audioDeep": "audio/02/node-authoring-deep.wav",
+          "label": "Authoring"
         },
-        "trace": {
+        "backpack": {
           "short": "Backpack and overrides live near play.",
           "deep": "Instance values and Grove State initialize bake.",
-          "audio": "audio/02/node-trace-short.wav",
-          "audioDeep": "audio/02/node-trace-deep.wav"
+          "audio": "audio/02/node-backpack-short.wav",
+          "audioDeep": "audio/02/node-backpack-deep.wav",
+          "label": "Backpack"
         },
-        "user": {
+        "you": {
           "short": "You. The designer who wants a brain on the entity.",
           "deep": "Author intent. Creates Grove Graph asset.",
-          "audio": "audio/02/node-user-short.wav",
-          "audioDeep": "audio/02/node-user-deep.wav"
+          "audio": "audio/02/node-you-short.wav",
+          "audioDeep": "audio/02/node-you-deep.wav",
+          "label": "Kid / you"
         }
       }
     },
@@ -224,69 +246,76 @@
           "audio": "audio/03/ch-intro.wav"
         },
         {
-          "id": "request-and-auth",
+          "id": "wake-and-walk",
           "title": "Wake the robot",
-          "focus": "request-and-auth",
+          "focus": "wake-and-walk",
           "text": "Get Execution is not a full rebuild. It refreshes generated handles, stamps time and logger into Grove Context, and returns a Graph Execution value. That value is a copy of the context bag for this update.",
-          "audio": "audio/03/ch-request-and-auth.wav"
+          "audio": "audio/03/ch-wake-and-walk.wav"
         },
         {
-          "id": "cache-fallback",
+          "id": "side-effects",
           "title": "Walk the brick",
-          "focus": "cache-fallback",
+          "focus": "side-effects",
           "text": "Set Chunk first. That aims Component Container and Buffer Container at this Archetype Chunk. Then Execute starts at Root. Each box has a Type number. The door book opens that case and runs a static method.",
-          "audio": "audio/03/ch-cache-fallback.wav"
+          "audio": "audio/03/ch-side-effects.wav"
         },
         {
-          "id": "return-and-trace",
+          "id": "return-path",
           "title": "Side effects and questions",
-          "focus": "return-and-trace",
+          "focus": "return-path",
           "text": "Leaf methods write things like Local Transform. Data boxes sleep until something calls Calculate. If you Set Input first, you wrote a variable into the backpack. The graph reads it later. It is not a stack argument to Root.",
-          "audio": "audio/03/ch-return-and-trace.wav"
+          "audio": "audio/03/ch-return-path.wav"
         }
       ],
       "nodes": {
-        "api": {
+        "graphimpl": {
           "short": "Graph Impl. Keeps the context warm across frames.",
           "deep": "GraphImpl of MyContext. CreateGenerated wires containers from SystemState.",
-          "audio": "audio/03/node-api-short.wav",
-          "audioDeep": "audio/03/node-api-deep.wav"
+          "audio": "audio/03/node-graphimpl-short.wav",
+          "audioDeep": "audio/03/node-graphimpl-deep.wav",
+          "label": "GraphImpl"
         },
-        "auth": {
+        "execution": {
           "short": "Graph Execution for this update. Remote control for one tick.",
           "deep": "GraphExecution of MyContext. Field Context is the bag nodes receive by ref.",
-          "audio": "audio/03/node-auth-short.wav",
-          "audioDeep": "audio/03/node-auth-deep.wav"
+          "audio": "audio/03/node-execution-short.wav",
+          "audioDeep": "audio/03/node-execution-deep.wav",
+          "label": "Execution"
         },
-        "db": {
+        "type_door": {
           "short": "Type switch. Generated Execution Generated on your context.",
           "deep": "ExecutionGenerated switch cases keyed by header.Type.",
-          "audio": "audio/03/node-db-short.wav",
-          "audioDeep": "audio/03/node-db-deep.wav"
+          "audio": "audio/03/node-type_door-short.wav",
+          "audioDeep": "audio/03/node-type_door-deep.wav",
+          "label": "Door #"
         },
-        "redis": {
+        "brick": {
           "short": "The brick. Blob Asset Reference of Graph Data.",
           "deep": "IGraphReference.Graph blob. GraphId scopes GroveState keys.",
-          "audio": "audio/03/node-redis-short.wav",
-          "audioDeep": "audio/03/node-redis-deep.wav"
+          "audio": "audio/03/node-brick-short.wav",
+          "audioDeep": "audio/03/node-brick-deep.wav",
+          "label": "Brick"
         },
-        "trace": {
+        "method": {
           "short": "A static method with Execute Node. Does the actual work.",
           "deep": "Your [ExecuteNode] method. Prefer in payload, in GroveContext, ref MyContext.",
-          "audio": "audio/03/node-trace-short.wav",
-          "audioDeep": "audio/03/node-trace-deep.wav"
+          "audio": "audio/03/node-method-short.wav",
+          "audioDeep": "audio/03/node-method-deep.wav",
+          "label": "Method"
         },
-        "user": {
+        "world": {
           "short": "Entities in the world. The job loops them after Set Chunk.",
           "deep": "Entity handle array from the chunk. Paired with entityIndexInChunk for containers.",
-          "audio": "audio/03/node-user-short.wav",
-          "audioDeep": "audio/03/node-user-deep.wav"
+          "audio": "audio/03/node-world-short.wav",
+          "audioDeep": "audio/03/node-world-deep.wav",
+          "label": "World"
         },
-        "web": {
+        "isystem": {
           "short": "Your I System. Owns Graph Impl for the whole system lifetime.",
           "deep": "ISystem with WorldSystemFilter as needed. RequireForUpdate any graph component you query.",
-          "audio": "audio/03/node-web-short.wav",
-          "audioDeep": "audio/03/node-web-deep.wav"
+          "audio": "audio/03/node-isystem-short.wav",
+          "audioDeep": "audio/03/node-isystem-deep.wav",
+          "label": "ISystem"
         }
       }
     },
@@ -304,87 +333,97 @@
           "audio": "audio/04/ch-intro.wav"
         },
         {
-          "id": "collection-path",
+          "id": "shell",
           "title": "Shell",
-          "focus": "collection-path",
+          "focus": "shell",
           "text": "Outside: Graph Id stamps the backpack keys. Root is the start door. Inputs and Outputs are the labeled holes.",
-          "audio": "audio/04/ch-collection-path.wav"
+          "audio": "audio/04/ch-shell.wav"
         },
         {
-          "id": "consent-boundary",
+          "id": "one-box",
           "title": "Box",
-          "focus": "consent-boundary",
+          "focus": "one-box",
           "text": "Every node: bread is Type and Node Id. Filling is payload like Speed or score lists. Kids are blob pointers.",
-          "audio": "audio/04/ch-consent-boundary.wav"
+          "audio": "audio/04/ch-one-box.wav"
         },
         {
-          "id": "analytics-consumers",
+          "id": "robot-run",
           "title": "Doors",
-          "focus": "analytics-consumers",
+          "focus": "robot-run",
           "text": "Robot reads Type, opens that door in the door book, runs the method, maybe follows more arrows, maybe writes the world.",
-          "audio": "audio/04/ch-analytics-consumers.wav"
+          "audio": "audio/04/ch-robot-run.wav"
         }
       ],
       "nodes": {
-        "consent": {
+        "payload": {
           "short": "Filling. Your payload struct.",
           "deep": "Payload immediately after header via unsafe address offset.",
-          "audio": "audio/04/node-consent-short.wav",
-          "audioDeep": "audio/04/node-consent-deep.wav"
+          "audio": "audio/04/node-payload-short.wav",
+          "audioDeep": "audio/04/node-payload-deep.wav",
+          "label": "Filling"
         },
-        "dashboard": {
+        "ecs_write": {
           "short": "E C S write. Side effects.",
           "deep": "Component Container Get R W using Entity Index In Chunk.",
-          "audio": "audio/04/node-dashboard-short.wav",
-          "audioDeep": "audio/04/node-dashboard-deep.wav"
+          "audio": "audio/04/node-ecs_write-short.wav",
+          "audioDeep": "audio/04/node-ecs_write-deep.wav",
+          "label": "ECS write"
         },
-        "edge": {
+        "header": {
           "short": "Bread. Type number and Node Id.",
           "deep": "Execution Header or Data Header. I Node Type and Node Id.",
-          "audio": "audio/04/node-edge-short.wav",
-          "audioDeep": "audio/04/node-edge-deep.wav"
+          "audio": "audio/04/node-header-short.wav",
+          "audioDeep": "audio/04/node-header-deep.wav",
+          "label": "Bread"
         },
-        "features": {
+        "recurse": {
           "short": "Recurse into more headers.",
           "deep": "Child Execute or Calculate calls.",
-          "audio": "audio/04/node-features-short.wav",
-          "audioDeep": "audio/04/node-features-deep.wav"
+          "audio": "audio/04/node-recurse-short.wav",
+          "audioDeep": "audio/04/node-recurse-deep.wav",
+          "label": "Recurse"
         },
-        "mobile": {
+        "io_list": {
           "short": "Inputs and Outputs list on the shell.",
           "deep": "Graph Input Data and Graph Output Data arrays.",
-          "audio": "audio/04/node-mobile-short.wav",
-          "audioDeep": "audio/04/node-mobile-deep.wav"
+          "audio": "audio/04/node-io_list-short.wav",
+          "audioDeep": "audio/04/node-io_list-deep.wav",
+          "label": "I/O list"
         },
-        "model": {
+        "backpack": {
           "short": "Backpack reads and writes.",
           "deep": "Graph State Util Get Variable and Set Variable.",
-          "audio": "audio/04/node-model-short.wav",
-          "audioDeep": "audio/04/node-model-deep.wav"
+          "audio": "audio/04/node-backpack-short.wav",
+          "audioDeep": "audio/04/node-backpack-deep.wav",
+          "label": "Backpack"
         },
-        "pii": {
+        "blobptrs": {
           "short": "Kid arrows. Blob pointers to children.",
           "deep": "Blob Array of Blob Ptr headers inside payload structs.",
-          "audio": "audio/04/node-pii-short.wav",
-          "audioDeep": "audio/04/node-pii-deep.wav"
+          "audio": "audio/04/node-blobptrs-short.wav",
+          "audioDeep": "audio/04/node-blobptrs-deep.wav",
+          "label": "Kid arrows"
         },
-        "stream": {
+        "type_switch": {
           "short": "Door book entry. Generated switch case.",
           "deep": "I Context Generator Execution Generated and Data Generated.",
-          "audio": "audio/04/node-stream-short.wav",
-          "audioDeep": "audio/04/node-stream-deep.wav"
+          "audio": "audio/04/node-type_switch-short.wav",
+          "audioDeep": "audio/04/node-type_switch-deep.wav",
+          "label": "Door #"
         },
-        "warehouse": {
+        "method": {
           "short": "Static method. Burst friendly.",
           "deep": "Execute Node or Data Node target method.",
-          "audio": "audio/04/node-warehouse-short.wav",
-          "audioDeep": "audio/04/node-warehouse-deep.wav"
+          "audio": "audio/04/node-method-short.wav",
+          "audioDeep": "audio/04/node-method-deep.wav",
+          "label": "Method"
         },
-        "web": {
+        "root": {
           "short": "Root pointer. Where Execute starts.",
           "deep": "Blob Ptr Execution Header Root. May be invalid for pure Calculate graphs.",
-          "audio": "audio/04/node-web-short.wav",
-          "audioDeep": "audio/04/node-web-deep.wav"
+          "audio": "audio/04/node-root-short.wav",
+          "audioDeep": "audio/04/node-root-deep.wav",
+          "label": "Root"
         }
       }
     },
@@ -402,69 +441,76 @@
           "audio": "audio/05/ch-intro.wav"
         },
         {
-          "id": "request-and-auth",
+          "id": "wake-and-walk",
           "title": "What it hunts",
-          "focus": "request-and-auth",
+          "focus": "wake-and-walk",
           "text": "It finds your partial struct that implements I Context. It finds static methods with Execute Node or Data Node attributes. It also peeks into Grove for public built-in toys like Composite.",
-          "audio": "audio/05/ch-request-and-auth.wav"
+          "audio": "audio/05/ch-wake-and-walk.wav"
         },
         {
-          "id": "cache-fallback",
+          "id": "side-effects",
           "title": "What it writes",
-          "focus": "cache-fallback",
+          "focus": "side-effects",
           "text": "Create Generated, Update Generated, and Set Chunk Generated wire your component bags. Then big switches: Execution Generated and Data Generated. Debug doors appear only when instrumentation is on.",
-          "audio": "audio/05/ch-cache-fallback.wav"
+          "audio": "audio/05/ch-side-effects.wav"
         },
         {
-          "id": "return-and-trace",
+          "id": "return-path",
           "title": "Play time",
-          "focus": "return-and-trace",
+          "focus": "return-path",
           "text": "Play never invents methods. Header Type selects a case. That case calls your static method with payload rehydrated from bytes after the header. Unknown Type becomes a no-op or default value.",
-          "audio": "audio/05/ch-return-and-trace.wav"
+          "audio": "audio/05/ch-return-path.wav"
         }
       ],
       "nodes": {
-        "api": {
+        "context_cs": {
           "short": "MyContext.cs must be partial.",
           "deep": "partial struct MyContext : IContext of MyContext.",
-          "audio": "audio/05/node-api-short.wav",
-          "audioDeep": "audio/05/node-api-deep.wav"
+          "audio": "audio/05/node-context_cs-short.wav",
+          "audioDeep": "audio/05/node-context_cs-deep.wav",
+          "label": "Context.cs"
         },
-        "auth": {
+        "your_nodes": {
           "short": "Methods with Execute Node or Data Node attributes.",
           "deep": "ExecuteNodeAttribute and DataNodeAttribute with integer type ids.",
-          "audio": "audio/05/node-auth-short.wav",
-          "audioDeep": "audio/05/node-auth-deep.wav"
+          "audio": "audio/05/node-your_nodes-short.wav",
+          "audioDeep": "audio/05/node-your_nodes-deep.wav",
+          "label": "Your nodes"
         },
-        "db": {
+        "generated_cs": {
           "short": "Generated partial. The door book itself.",
           "deep": "Generated ExecutionGenerated and DataGenerated methods.",
-          "audio": "audio/05/node-db-short.wav",
-          "audioDeep": "audio/05/node-db-deep.wav"
+          "audio": "audio/05/node-generated_cs-short.wav",
+          "audioDeep": "audio/05/node-generated_cs-deep.wav",
+          "label": "*.g.cs"
         },
-        "redis": {
+        "grove_dll": {
           "short": "Grove.dll. Built-in node methods get pulled into your switch.",
           "deep": "Built-ins such as Composite and selectors with negative GroveExecutionTypes.",
-          "audio": "audio/05/node-redis-short.wav",
-          "audioDeep": "audio/05/node-redis-deep.wav"
+          "audio": "audio/05/node-grove_dll-short.wav",
+          "audioDeep": "audio/05/node-grove_dll-deep.wav",
+          "label": "Grove.dll"
         },
-        "trace": {
+        "play_time": {
           "short": "Runtime switch. Type integer to method call.",
           "deep": "header.Type switch dispatch at runtime.",
-          "audio": "audio/05/node-trace-short.wav",
-          "audioDeep": "audio/05/node-trace-deep.wav"
+          "audio": "audio/05/node-play_time-short.wav",
+          "audioDeep": "audio/05/node-play_time-deep.wav",
+          "label": "Play time"
         },
-        "user": {
+        "you": {
           "short": "You write Context and node methods in your assemblies.",
           "deep": "Your runtime assembly with partial MyContext and node classes.",
-          "audio": "audio/05/node-user-short.wav",
-          "audioDeep": "audio/05/node-user-deep.wav"
+          "audio": "audio/05/node-you-short.wav",
+          "audioDeep": "audio/05/node-you-deep.wav",
+          "label": "You"
         },
-        "web": {
+        "generator": {
           "short": "Context Generator. Roslyn source generator.",
           "deep": "IIncrementalGenerator ContextGenerator.",
-          "audio": "audio/05/node-web-short.wav",
-          "audioDeep": "audio/05/node-web-deep.wav"
+          "audio": "audio/05/node-generator-short.wav",
+          "audioDeep": "audio/05/node-generator-deep.wav",
+          "label": "Generator"
         }
       }
     },
@@ -482,87 +528,97 @@
           "audio": "audio/06/ch-intro.wav"
         },
         {
-          "id": "main-lifecycle",
+          "id": "push-path",
           "title": "Push path",
-          "focus": "main-lifecycle",
+          "focus": "push-path",
           "text": "Root may enter a Composite that runs every child. A Selector scores options, picks one action, executes it. The leaf finally moves the world. Nothing magic loops the whole brick each frame.",
-          "audio": "audio/06/ch-main-lifecycle.wav"
+          "audio": "audio/06/ch-push-path.wav"
         },
         {
-          "id": "human-waits",
+          "id": "pull-path",
           "title": "Pull path",
-          "focus": "human-waits",
+          "focus": "pull-path",
           "text": "Calculate on an Output evaluates only the data chain needed. Variables read the backpack. Qualifiers fold floats. If nothing asks, those boxes stay asleep.",
-          "audio": "audio/06/ch-human-waits.wav"
+          "audio": "audio/06/ch-pull-path.wav"
         },
         {
-          "id": "recovery-and-exits",
+          "id": "next-frame",
           "title": "Backpack between frames",
-          "focus": "recovery-and-exits",
+          "focus": "next-frame",
           "text": "Inputs, locals, and state machine ints live in Grove State on the entity. Keys include Graph Id. When one graph ends, remove only that Graph Id's keys so other graphs keep their memory.",
-          "audio": "audio/06/ch-recovery-and-exits.wav"
+          "audio": "audio/06/ch-next-frame.wav"
         }
       ],
       "nodes": {
-        "approval": {
+        "output_ask": {
           "short": "An Output or data question. Pull entry.",
           "deep": "GraphOutputData.Value data header.",
-          "audio": "audio/06/node-approval-short.wav",
-          "audioDeep": "audio/06/node-approval-deep.wav"
+          "audio": "audio/06/node-output_ask-short.wav",
+          "audioDeep": "audio/06/node-output_ask-deep.wav",
+          "label": "Output?"
         },
-        "blocked": {
+        "data_calc": {
           "short": "Data node Calculate. Demand driven.",
           "deep": "DataHeader.Calculate path.",
-          "audio": "audio/06/node-blocked-short.wav",
-          "audioDeep": "audio/06/node-blocked-deep.wav"
+          "audio": "audio/06/node-data_calc-short.wav",
+          "audioDeep": "audio/06/node-data_calc-deep.wav",
+          "label": "Data box"
         },
-        "cancelled": {
+        "next_frame": {
           "short": "Next frame will Get Execution again.",
           "deep": "Next system update boundary.",
-          "audio": "audio/06/node-cancelled-short.wav",
-          "audioDeep": "audio/06/node-cancelled-deep.wav"
+          "audio": "audio/06/node-next_frame-short.wav",
+          "audioDeep": "audio/06/node-next_frame-deep.wav",
+          "label": "Next frame"
         },
-        "completed": {
+        "world_changed": {
           "short": "World changed this frame for that entity.",
           "deep": "ECS mutations already applied this tick.",
-          "audio": "audio/06/node-completed-short.wav",
-          "audioDeep": "audio/06/node-completed-deep.wav"
+          "audio": "audio/06/node-world_changed-short.wav",
+          "audioDeep": "audio/06/node-world_changed-deep.wav",
+          "label": "World changed"
         },
-        "executing": {
+        "selector": {
           "short": "Selector. Pull scores, push one action.",
           "deep": "Selector family under GroveExecutionTypes.",
-          "audio": "audio/06/node-executing-short.wav",
-          "audioDeep": "audio/06/node-executing-deep.wav"
+          "audio": "audio/06/node-selector-short.wav",
+          "audioDeep": "audio/06/node-selector-deep.wav",
+          "label": "Selector"
         },
-        "expired": {
+        "same_entity": {
           "short": "Same entity still holds Grove State.",
           "deep": "Persistent GroveState buffer on entity.",
-          "audio": "audio/06/node-expired-short.wav",
-          "audioDeep": "audio/06/node-expired-deep.wav"
+          "audio": "audio/06/node-same_entity-short.wav",
+          "audioDeep": "audio/06/node-same_entity-deep.wav",
+          "label": "Same entity"
         },
-        "failed": {
+        "variable": {
           "short": "Variable. Backpack read or write.",
           "deep": "Variable or graph-local state entry.",
-          "audio": "audio/06/node-failed-short.wav",
-          "audioDeep": "audio/06/node-failed-deep.wav"
+          "audio": "audio/06/node-variable-short.wav",
+          "audioDeep": "audio/06/node-variable-deep.wav",
+          "label": "Variable"
         },
-        "planning": {
+        "composite": {
           "short": "Composite. Run every connected execution child in order.",
           "deep": "GroveExecutionTypes.Composite runtime.",
-          "audio": "audio/06/node-planning-short.wav",
-          "audioDeep": "audio/06/node-planning-deep.wav"
+          "audio": "audio/06/node-composite-short.wav",
+          "audioDeep": "audio/06/node-composite-deep.wav",
+          "label": "Composite"
         },
-        "queued": {
+        "root": {
           "short": "Root. Push starts here for execution graphs.",
           "deep": "GraphData.Root ExecutionHeader.",
-          "audio": "audio/06/node-queued-short.wav",
-          "audioDeep": "audio/06/node-queued-deep.wav"
+          "audio": "audio/06/node-root-short.wav",
+          "audioDeep": "audio/06/node-root-deep.wav",
+          "label": "Root"
         },
-        "reviewing": {
+        "leaf": {
           "short": "Leaf execution. Side effects.",
           "deep": "Custom or built-in execution leaf.",
-          "audio": "audio/06/node-reviewing-short.wav",
-          "audioDeep": "audio/06/node-reviewing-deep.wav"
+          "audio": "audio/06/node-leaf-short.wav",
+          "audioDeep": "audio/06/node-leaf-deep.wav",
+          "label": "Leaf"
         }
       }
     },
@@ -580,87 +636,97 @@
           "audio": "audio/07/ch-intro.wav"
         },
         {
-          "id": "request-path",
+          "id": "main-path",
           "title": "Four pieces",
-          "focus": "request-path",
+          "focus": "main-path",
           "text": "Data holds Speed. Auth serializes it. Draw node is what you see in Graph Toolkit. Run method is the static C sharp with the attribute.",
-          "audio": "audio/07/ch-request-path.wav"
+          "audio": "audio/07/ch-main-path.wav"
         },
         {
-          "id": "identity-and-cache",
+          "id": "helpers",
           "title": "Wire",
-          "focus": "identity-and-cache",
+          "focus": "helpers",
           "text": "Importer copies draw fields into auth. Bake packs header plus payload. Use With Graph scopes the node to your map type.",
-          "audio": "audio/07/ch-identity-and-cache.wav"
+          "audio": "audio/07/ch-helpers.wav"
         },
         {
-          "id": "async-work",
+          "id": "rooms",
           "title": "Play",
-          "focus": "async-work",
+          "focus": "rooms",
           "text": "At play, Type hits your case in the door book. Method gets payload, Grove Context, and your context by ref. Then it mutates the world.",
-          "audio": "audio/07/ch-async-work.wav"
+          "audio": "audio/07/ch-rooms.wav"
         }
       ],
       "nodes": {
-        "api": {
-          "short": "Auth card asset.",
-          "deep": "Grove Execution Auth of T Data.",
-          "audio": "audio/07/node-api-short.wav",
-          "audioDeep": "audio/07/node-api-deep.wav"
+        "auth_card": {
+          "short": "Auth card. Grove*Auth ScriptableObject that Create/Init writes the brick piece. Not login.",
+          "deep": "GroveExecutionAuth or GroveDataAuth. NodeType int, NodeId, Create allocates header+payload and BlobPtr kids via AuthUtil. Authoring layer only.",
+          "audio": "audio/07/node-auth_card-short.wav",
+          "audioDeep": "audio/07/node-auth_card-deep.wav",
+          "label": "Auth card"
         },
-        "auth": {
+        "type_enum": {
           "short": "Type number enum.",
           "deep": "Stable int shared by attribute and auth Node Type.",
-          "audio": "audio/07/node-auth-short.wav",
-          "audioDeep": "audio/07/node-auth-deep.wav"
+          "audio": "audio/07/node-type_enum-short.wav",
+          "audioDeep": "audio/07/node-type_enum-deep.wav",
+          "label": "Type number"
         },
-        "cache": {
+        "use_with_graph": {
           "short": "Use With Graph scope.",
           "deep": "Use With Graph typeof your Grove Graph.",
-          "audio": "audio/07/node-cache-short.wav",
-          "audioDeep": "audio/07/node-cache-deep.wav"
+          "audio": "audio/07/node-use_with_graph-short.wav",
+          "audioDeep": "audio/07/node-use_with_graph-deep.wav",
+          "label": "UseWithGraph"
         },
-        "cdn": {
+        "draw_node": {
           "short": "Draw node in Toolkit.",
           "deep": "Grove Execution Node of Auth comma Data.",
-          "audio": "audio/07/node-cdn-short.wav",
-          "audioDeep": "audio/07/node-cdn-deep.wav"
+          "audio": "audio/07/node-draw_node-short.wav",
+          "audioDeep": "audio/07/node-draw_node-deep.wav",
+          "label": "Draw node"
         },
-        "db": {
+        "brick_piece": {
           "short": "Baked header and payload.",
           "deep": "Header Type plus payload bytes in Graph Data.",
-          "audio": "audio/07/node-db-short.wav",
-          "audioDeep": "audio/07/node-db-deep.wav"
+          "audio": "audio/07/node-brick_piece-short.wav",
+          "audioDeep": "audio/07/node-brick_piece-deep.wav",
+          "label": "Brick piece"
         },
-        "lb": {
+        "importer": {
           "short": "Importer copies to auth.",
           "deep": "I Grove Node Create via Grove Node State.",
-          "audio": "audio/07/node-lb-short.wav",
-          "audioDeep": "audio/07/node-lb-deep.wav"
+          "audio": "audio/07/node-importer-short.wav",
+          "audioDeep": "audio/07/node-importer-deep.wav",
+          "label": "Importer"
         },
-        "queue": {
+        "door_book": {
           "short": "Generated switch case.",
           "deep": "Execution Generated case label.",
-          "audio": "audio/07/node-queue-short.wav",
-          "audioDeep": "audio/07/node-queue-deep.wav"
+          "audio": "audio/07/node-door_book-short.wav",
+          "audioDeep": "audio/07/node-door_book-deep.wav",
+          "label": "Door book"
         },
-        "s3": {
+        "overrides": {
           "short": "Per entity overrides.",
           "deep": "Graph Instance Instance Values list.",
-          "audio": "audio/07/node-s3-short.wav",
-          "audioDeep": "audio/07/node-s3-deep.wav"
+          "audio": "audio/07/node-overrides-short.wav",
+          "audioDeep": "audio/07/node-overrides-deep.wav",
+          "label": "Overrides"
         },
-        "users": {
+        "data_struct": {
           "short": "Data struct. Unmanaged payload.",
           "deep": "Unmanaged struct living after Execution Header.",
-          "audio": "audio/07/node-users-short.wav",
-          "audioDeep": "audio/07/node-users-deep.wav"
+          "audio": "audio/07/node-data_struct-short.wav",
+          "audioDeep": "audio/07/node-data_struct-deep.wav",
+          "label": "Data struct"
         },
-        "worker": {
+        "run_method": {
           "short": "Static run method.",
           "deep": "Execute Node method body. Context by ref.",
-          "audio": "audio/07/node-worker-short.wav",
-          "audioDeep": "audio/07/node-worker-deep.wav"
+          "audio": "audio/07/node-run_method-short.wav",
+          "audioDeep": "audio/07/node-run_method-deep.wav",
+          "label": "Run method"
         }
       }
     },
@@ -711,85 +777,667 @@
           "short": "Pretty map. Boxes and wires you draw in Graph Toolkit.",
           "deep": "Source asset only. Runtime never opens the .mygraph. Import produces GroveAuthGraph; bake produces the blob.",
           "audio": "audio/08/node-pretty-short.wav",
-          "audioDeep": "audio/08/node-pretty-deep.wav"
+          "audioDeep": "audio/08/node-pretty-deep.wav",
+          "label": "Pretty map"
         },
         "bake": {
           "short": "Bake. Auth cards freeze into one blob.",
           "deep": "GroveAuthGraph.Create with instance overrides and variants. BlobRemapBuilder ConstructRoot GraphData, then each node Create.",
           "audio": "audio/08/node-bake-short.wav",
-          "audioDeep": "audio/08/node-bake-deep.wav"
+          "audioDeep": "audio/08/node-bake-deep.wav",
+          "label": "Bake"
         },
         "noedge": {
           "short": "No edge table. Secret one. Wires die at bake.",
           "deep": "There is no BlobArray of edges. Connectivity is only BlobPtr fields on nodes and on GraphOutputData.Value.",
           "audio": "audio/08/node-noedge-short.wav",
-          "audioDeep": "audio/08/node-noedge-deep.wav"
+          "audioDeep": "audio/08/node-noedge-deep.wav",
+          "label": "No edge table"
         },
         "brick": {
           "short": "Graph Data. One immutable blob asset.",
           "deep": "BlobAssetReference GraphData on IGraphReference. Read-only after bake. Shared across entities that reference it.",
           "audio": "audio/08/node-brick-short.wav",
-          "audioDeep": "audio/08/node-brick-deep.wav"
+          "audioDeep": "audio/08/node-brick-deep.wav",
+          "label": "GraphData"
         },
         "root": {
           "short": "Root. Blob pointer to the start execution node.",
           "deep": "BlobPtr ExecutionHeader. Set only when exactly one Input boundary feeds execution. GraphExecution starts here.",
           "audio": "audio/08/node-root-short.wav",
-          "audioDeep": "audio/08/node-root-deep.wav"
+          "audioDeep": "audio/08/node-root-deep.wav",
+          "label": "Root"
         },
         "doors": {
           "short": "I O doors. Boundary inputs and outputs.",
           "deep": "GraphInputData is VariableKey plus TypeHash. GraphOutputData adds BlobPtr DataHeader Value that computes the out value.",
           "audio": "audio/08/node-doors-short.wav",
-          "audioDeep": "audio/08/node-doors-deep.wav"
+          "audioDeep": "audio/08/node-doors-deep.wav",
+          "label": "I/O doors"
         },
         "nmap": {
           "short": "Node maps. Id to Node Union for every box.",
           "deep": "RootNodes for top level. Nodes includes subgraphs. Keys are authored NodeId ulongs.",
           "audio": "audio/08/node-nmap-short.wav",
-          "audioDeep": "audio/08/node-nmap-deep.wav"
+          "audioDeep": "audio/08/node-nmap-deep.wav",
+          "label": "Node maps"
         },
         "union": {
           "short": "Node Union. Tag plus pointer to header.",
           "deep": "NodeType Execution or Data. AsExecution and AsData cast the BlobPtr Header safely.",
           "audio": "audio/08/node-union-short.wav",
-          "audioDeep": "audio/08/node-union-deep.wav"
+          "audioDeep": "audio/08/node-union-deep.wav",
+          "label": "NodeUnion"
         },
         "bread": {
           "short": "Header bread. Type number and Node Id.",
           "deep": "ExecutionHeader or DataHeader. Type drives generated dispatch. NodeId scopes debug and state.",
           "audio": "audio/08/node-bread-short.wav",
-          "audioDeep": "audio/08/node-bread-deep.wav"
+          "audioDeep": "audio/08/node-bread-deep.wav",
+          "label": "Header bread"
         },
         "fill": {
           "short": "Filling. Your payload fields after the header.",
           "deep": "CompositeData, selector payloads, custom node data. Allocated by that node's Create during bake.",
           "audio": "audio/08/node-fill-short.wav",
-          "audioDeep": "audio/08/node-fill-deep.wav"
+          "audioDeep": "audio/08/node-fill-deep.wav",
+          "label": "Filling"
         },
         "kids": {
           "short": "Kid arrows. Secret two. Ports are Blob pointers.",
           "deep": "Next, Executions array, data inputs. Following a kid is pointer chase, not searching an edge list.",
           "audio": "audio/08/node-kids-short.wav",
-          "audioDeep": "audio/08/node-kids-deep.wav"
+          "audioDeep": "audio/08/node-kids-deep.wav",
+          "label": "Kid arrows"
         },
         "switch": {
           "short": "Type switch. Generated code picks the method.",
           "deep": "ExecuteNode attribute and source generator. Static methods, Burst friendly, no virtual table walk.",
           "audio": "audio/08/node-switch-short.wav",
-          "audioDeep": "audio/08/node-switch-deep.wav"
+          "audioDeep": "audio/08/node-switch-deep.wav",
+          "label": "Type switch"
         },
         "ctx": {
           "short": "Context. Live backpack. Not stored in the brick.",
           "deep": "IContext partial struct. Variables, state, chunk caches. GraphData stays immutable while context mutates.",
           "audio": "audio/08/node-ctx-short.wav",
-          "audioDeep": "audio/08/node-ctx-deep.wav"
+          "audioDeep": "audio/08/node-ctx-deep.wav",
+          "label": "Context"
         },
         "share": {
           "short": "Many entities. Secret three. One shared brick ref.",
           "deep": "BlobAssetReference is a handle. Thousands of entities can share one GraphData. Each still has its own context state.",
           "audio": "audio/08/node-share-short.wav",
-          "audioDeep": "audio/08/node-share-deep.wav"
+          "audioDeep": "audio/08/node-share-deep.wav",
+          "label": "Many entities"
+        }
+      }
+    },
+    {
+      "id": "09",
+      "title": "Auth Is Authoring",
+      "blurb": "Three artifacts: source map \u2192 Auth cards \u2192 GraphData. Auth never means login.",
+      "map": "09-auth-is-authoring.architecture.html",
+      "chapters": [
+        {
+          "id": "intro",
+          "title": "Not login",
+          "focus": null,
+          "text": "Stop. Auth in Grove means authoring. Grove Auth Graph and Auth cards are Scriptable Objects from import. They are not authentication, not JWT, not login.",
+          "audio": "audio/09/ch-intro.wav"
+        },
+        {
+          "id": "three-files",
+          "title": "Three artifacts",
+          "focus": "three-files",
+          "text": "Source map is the pretty Graph Toolkit file. Import builds the Auth graph and Auth cards. Bake freezes Graph Data. Play only opens the brick.",
+          "audio": "audio/09/ch-three-files.wav"
+        },
+        {
+          "id": "who-points",
+          "title": "Who points where",
+          "focus": "who-points",
+          "text": "Graph Authoring on a Game Object points at the Auth graph. Bake calls Create on Auth cards. The entity gets an I Graph Reference holding the blob.",
+          "audio": "audio/09/ch-who-points.wav"
+        },
+        {
+          "id": "not-login",
+          "title": "Not login",
+          "focus": "not-login",
+          "text": "If you hear Auth and think security login, rewire your brain. Here Auth only means authoring intermediate cards.",
+          "audio": "audio/09/ch-not-login.wav"
+        }
+      ],
+      "nodes": {
+        "source": {
+          "short": "Source map. Graph Toolkit draw asset. Editor only.",
+          "deep": "Derives GroveGraph. Never read at runtime or bake after import.",
+          "audio": "audio/09/node-source-short.wav",
+          "audioDeep": "audio/09/node-source-deep.wav",
+          "label": "Source map"
+        },
+        "importer": {
+          "short": "Importer. Builds Auth graph and Auth cards from the pretty map.",
+          "deep": "GroveImporter ScriptedImporter. Sets Root when exactly one Input to execution.",
+          "audio": "audio/09/node-importer-short.wav",
+          "audioDeep": "audio/09/node-importer-deep.wav",
+          "label": "Importer"
+        },
+        "auth_graph": {
+          "short": "Auth graph. GroveAuthGraph main asset. Authoring \u2014 not login.",
+          "deep": "Fields Root, Inputs, Outputs, Nodes. Create builds GraphData blob.",
+          "audio": "audio/09/node-auth_graph-short.wav",
+          "audioDeep": "audio/09/node-auth_graph-deep.wav",
+          "label": "Auth graph"
+        },
+        "auth_card": {
+          "short": "Auth card. One Grove star Auth Scriptable Object per node.",
+          "deep": "Create and Init write header plus payload and BlobPtr kids via AuthUtil.",
+          "audio": "audio/09/node-auth_card-short.wav",
+          "audioDeep": "audio/09/node-auth_card-deep.wav",
+          "label": "Auth card"
+        },
+        "authoring": {
+          "short": "Graph Authoring. MonoBehaviour pointing at an Auth graph.",
+          "deep": "Plus variants and instance overrides. Implements IGraphBaking.",
+          "audio": "audio/09/node-authoring-short.wav",
+          "audioDeep": "audio/09/node-authoring-deep.wav",
+          "label": "GraphAuthoring"
+        },
+        "bake": {
+          "short": "Bake. Auth Create freezes the brick.",
+          "deep": "Applies overrides then Create. Variants strip unselected branches.",
+          "audio": "audio/09/node-bake-short.wav",
+          "audioDeep": "audio/09/node-bake-deep.wav",
+          "label": "Bake"
+        },
+        "brick": {
+          "short": "Graph Data brick. Runtime only opens this blob.",
+          "deep": "BlobAssetReference GraphData. Immutable shared recipe.",
+          "audio": "audio/09/node-brick-short.wav",
+          "audioDeep": "audio/09/node-brick-deep.wav",
+          "label": "GraphData"
+        },
+        "entity": {
+          "short": "Entity with I Graph Reference holding the blob ref.",
+          "deep": "Component or buffer element.",
+          "audio": "audio/09/node-entity-short.wav",
+          "audioDeep": "audio/09/node-entity-deep.wav",
+          "label": "Entity"
+        },
+        "not_login": {
+          "short": "NOT login. Zero JWT. Auth means authoring.",
+          "deep": "Say authoring cards when teaching humans.",
+          "audio": "audio/09/node-not_login-short.wav",
+          "audioDeep": "audio/09/node-not_login-deep.wav",
+          "label": "NOT login"
+        },
+        "play": {
+          "short": "Play. Graph Execution walks Root every tick.",
+          "deep": "GraphImpl owns the robot; system calls Execute.",
+          "audio": "audio/09/node-play-short.wav",
+          "audioDeep": "audio/09/node-play-deep.wav",
+          "label": "Play"
+        }
+      }
+    },
+    {
+      "id": "10",
+      "title": "Doors & Boundaries",
+      "blurb": "Input Output Local \u00b7 untyped skip \u00b7 root rule \u00b7 pure Calculate graphs.",
+      "map": "10-doors-and-boundaries.sequence.html",
+      "chapters": [
+        {
+          "id": "intro",
+          "title": "Doors",
+          "focus": null,
+          "text": "Boundary variables are the doors of a graph. Inputs push live values into Grove State. Outputs pull answers. Locals stay inside.",
+          "audio": "audio/10/ch-intro.wav"
+        },
+        {
+          "id": "root-rule",
+          "title": "Root rule",
+          "focus": "root-rule",
+          "text": "Importer sets Root only when exactly one Input boundary connects to an execution node. Zero or two is an error if you have top level execution.",
+          "audio": "audio/10/ch-root-rule.wav"
+        },
+        {
+          "id": "typed-io",
+          "title": "Typed I/O",
+          "focus": "typed-io",
+          "text": "Only typed unmanaged boundary variables become runtime Inputs and Outputs arrays on the brick.",
+          "audio": "audio/10/ch-typed-io.wav"
+        },
+        {
+          "id": "untyped-skip",
+          "title": "Untyped skip",
+          "focus": "untyped-skip",
+          "text": "Toolkit Untyped variables are fine for editor routing. They never become Graph Input Data or Graph Output Data. Silent footgun.",
+          "audio": "audio/10/ch-untyped-skip.wav"
+        }
+      ],
+      "nodes": {
+        "you": {
+          "short": "You author boundaries on the graph.",
+          "deep": "Input Output Local roles in Graph Toolkit.",
+          "audio": "audio/10/node-you-short.wav",
+          "audioDeep": "audio/10/node-you-deep.wav",
+          "label": "You"
+        },
+        "boundary": {
+          "short": "Boundary variable. Typed door.",
+          "deep": "Becomes GraphInputData or GraphOutputData when typed unmanaged.",
+          "audio": "audio/10/node-boundary-short.wav",
+          "audioDeep": "audio/10/node-boundary-deep.wav",
+          "label": "Boundary var"
+        },
+        "untyped": {
+          "short": "Untyped. Routing only. Skipped for runtime I/O.",
+          "deep": "Never appears in Inputs Outputs arrays.",
+          "audio": "audio/10/node-untyped-short.wav",
+          "audioDeep": "audio/10/node-untyped-deep.wav",
+          "label": "Untyped"
+        },
+        "importer": {
+          "short": "Importer scans for Root candidates.",
+          "deep": "Exactly one Input to execution for execution graphs.",
+          "audio": "audio/10/node-importer-short.wav",
+          "audioDeep": "audio/10/node-importer-deep.wav",
+          "label": "Importer"
+        },
+        "auth_graph": {
+          "short": "Auth graph stores door lists.",
+          "deep": "Authoring intermediate, not login.",
+          "audio": "audio/10/node-auth_graph-short.wav",
+          "audioDeep": "audio/10/node-auth_graph-deep.wav",
+          "label": "Auth graph"
+        },
+        "root": {
+          "short": "Root pointer or none.",
+          "deep": "BlobPtr ExecutionHeader when valid entry exists.",
+          "audio": "audio/10/node-root-short.wav",
+          "audioDeep": "audio/10/node-root-deep.wav",
+          "label": "Root"
+        },
+        "brick": {
+          "short": "Brick I/O arrays after bake.",
+          "deep": "GraphInputData and GraphOutputData.",
+          "audio": "audio/10/node-brick-short.wav",
+          "audioDeep": "audio/10/node-brick-deep.wav",
+          "label": "Brick"
+        },
+        "grovestate": {
+          "short": "Grove State holds live door values at play.",
+          "deep": "SetInput and variable keys write here, not stack args on Root.",
+          "audio": "audio/10/node-grovestate-short.wav",
+          "audioDeep": "audio/10/node-grovestate-deep.wav",
+          "label": "GroveState"
+        }
+      }
+    },
+    {
+      "id": "11",
+      "title": "Context + Blocks",
+      "blurb": "Parent owns scratch T, loops typed blocks, then Next. Sample DebugContext pattern.",
+      "map": "11-context-blocks.architecture.html",
+      "chapters": [
+        {
+          "id": "intro",
+          "title": "Second shape",
+          "focus": null,
+          "text": "Besides plain Execute and Data nodes, Grove has context plus block stacks. Parent builds a scratch value, runs blocks in order, then Next.",
+          "audio": "audio/11/ch-intro.wav"
+        },
+        {
+          "id": "parent-loop",
+          "title": "Parent loop",
+          "focus": "parent-loop",
+          "text": "Context Execute loops Blocks i with ref T then continues to Next.",
+          "audio": "audio/11/ch-parent-loop.wav"
+        },
+        {
+          "id": "auth-pair",
+          "title": "Auth pair",
+          "focus": "auth-pair",
+          "text": "Context Auth and Block Auth Create the headers. Toolkit Context Node owns the block stack in the editor.",
+          "audio": "audio/11/ch-auth-pair.wav"
+        },
+        {
+          "id": "typed-dispatch",
+          "title": "Typed dispatch",
+          "focus": "typed-dispatch",
+          "text": "Block methods use Execute Node attribute with typeof T so the door book passes the scratch by ref.",
+          "audio": "audio/11/ch-typed-dispatch.wav"
+        }
+      ],
+      "nodes": {
+        "toolkit": {
+          "short": "Toolkit Context Node UI.",
+          "deep": "Graph Toolkit context and block nodes.",
+          "audio": "audio/11/node-toolkit-short.wav",
+          "audioDeep": "audio/11/node-toolkit-deep.wav",
+          "label": "Toolkit UI"
+        },
+        "context_auth": {
+          "short": "Context Auth. GroveContextAuth.",
+          "deep": "Authoring card for parent execution.",
+          "audio": "audio/11/node-context_auth-short.wav",
+          "audioDeep": "audio/11/node-context_auth-deep.wav",
+          "label": "Context Auth"
+        },
+        "block_auth": {
+          "short": "Block Auth. GroveBlockAuth.",
+          "deep": "Authoring card for one block.",
+          "audio": "audio/11/node-block_auth-short.wav",
+          "audioDeep": "audio/11/node-block_auth-deep.wav",
+          "label": "Block Auth"
+        },
+        "context_node": {
+          "short": "Context node in the brick.",
+          "deep": "Holds Blocks array and Next.",
+          "audio": "audio/11/node-context_node-short.wav",
+          "audioDeep": "audio/11/node-context_node-deep.wav",
+          "label": "Context node"
+        },
+        "blocks": {
+          "short": "Ordered Blocks array of typed execution headers.",
+          "deep": "Run in order each Activate.",
+          "audio": "audio/11/node-blocks-short.wav",
+          "audioDeep": "audio/11/node-blocks-deep.wav",
+          "label": "Blocks[]"
+        },
+        "scratch": {
+          "short": "Scratch T. Live value passed by ref into blocks.",
+          "deep": "Owned by parent Execute method.",
+          "audio": "audio/11/node-scratch-short.wav",
+          "audioDeep": "audio/11/node-scratch-deep.wav",
+          "label": "Scratch T"
+        },
+        "execute_attr": {
+          "short": "Execute Node id plus typeof T on block methods.",
+          "deep": "Typed dispatch.",
+          "audio": "audio/11/node-execute_attr-short.wav",
+          "audioDeep": "audio/11/node-execute_attr-deep.wav",
+          "label": "ExecuteNode"
+        },
+        "next": {
+          "short": "Next continues the graph after blocks.",
+          "deep": "BlobPtr ExecutionHeader.",
+          "audio": "audio/11/node-next-short.wav",
+          "audioDeep": "audio/11/node-next-deep.wav",
+          "label": "Next"
+        },
+        "sample": {
+          "short": "Sample DebugContext and DebugContextBlock.",
+          "deep": "Canonical pattern in Sample tilde.",
+          "audio": "audio/11/node-sample-short.wav",
+          "audioDeep": "audio/11/node-sample-deep.wav",
+          "label": "Sample"
+        }
+      }
+    },
+    {
+      "id": "12",
+      "title": "Utility AI + State",
+      "blurb": "Selectors qualifiers Scorer \u00b7 StateSet If Select \u00b7 Enter Exit.",
+      "map": "12-utility-and-state.architecture.html",
+      "chapters": [
+        {
+          "id": "intro",
+          "title": "Built-in brains",
+          "focus": null,
+          "text": "Grove ships utility AI and state machine nodes so you do not reinvent score trees.",
+          "audio": "audio/12/ch-intro.wav"
+        },
+        {
+          "id": "score-fight",
+          "title": "Score fight",
+          "focus": "score-fight",
+          "text": "Scorers make weights. Qualifiers fold floats. Selectors pick an action. Last pair is the default threshold path. Win is strict greater than.",
+          "audio": "audio/12/ch-score-fight.wav"
+        },
+        {
+          "id": "state-keys",
+          "title": "State keys",
+          "focus": "state-keys",
+          "text": "State nodes read and write enum keys in Grove State scoped by Graph Id.",
+          "audio": "audio/12/ch-state-keys.wav"
+        },
+        {
+          "id": "enter-exit",
+          "title": "Enter Exit",
+          "focus": "enter-exit",
+          "text": "State Select runs On Exit then On Enter when the value changes, then the current Execution while active.",
+          "audio": "audio/12/ch-enter-exit.wav"
+        }
+      ],
+      "nodes": {
+        "scorer": {
+          "short": "Scorer turns bools into weights.",
+          "deep": "Core Scorer helpers.",
+          "audio": "audio/12/node-scorer-short.wav",
+          "audioDeep": "audio/12/node-scorer-deep.wav",
+          "label": "Scorer"
+        },
+        "qualifier": {
+          "short": "Qualifier folds float scores.",
+          "deep": "Sum All Or Nothing thresholds.",
+          "audio": "audio/12/node-qualifier-short.wav",
+          "audioDeep": "audio/12/node-qualifier-deep.wav",
+          "label": "Qualifier"
+        },
+        "selector": {
+          "short": "Selector picks execution from scores.",
+          "deep": "Parallel InputPorts and OutputPorts.",
+          "audio": "audio/12/node-selector-short.wav",
+          "audioDeep": "audio/12/node-selector-deep.wav",
+          "label": "Selector"
+        },
+        "action": {
+          "short": "Winning action execution.",
+          "deep": "BlobPtr execution chain.",
+          "audio": "audio/12/node-action-short.wav",
+          "audioDeep": "audio/12/node-action-deep.wav",
+          "label": "Action"
+        },
+        "threshold": {
+          "short": "Last pair is default or threshold.",
+          "deep": "Strict greater than for wins.",
+          "audio": "audio/12/node-threshold-short.wav",
+          "audioDeep": "audio/12/node-threshold-deep.wav",
+          "label": "Last pair"
+        },
+        "state_set": {
+          "short": "State Set writes the enum into Grove State.",
+          "deep": "Push side effect.",
+          "audio": "audio/12/node-state_set-short.wav",
+          "audioDeep": "audio/12/node-state_set-deep.wav",
+          "label": "StateSet"
+        },
+        "state_if": {
+          "short": "State If branches on current value.",
+          "deep": "Execution True False style.",
+          "audio": "audio/12/node-state_if-short.wav",
+          "audioDeep": "audio/12/node-state_if-deep.wav",
+          "label": "StateIf"
+        },
+        "state_select": {
+          "short": "State Select per enum value.",
+          "deep": "Enter Exit Execution ports.",
+          "audio": "audio/12/node-state_select-short.wav",
+          "audioDeep": "audio/12/node-state_select-deep.wav",
+          "label": "StateSelect"
+        },
+        "on_exit": {
+          "short": "On Exit when leaving a value.",
+          "deep": "Runs once on change.",
+          "audio": "audio/12/node-on_exit-short.wav",
+          "audioDeep": "audio/12/node-on_exit-deep.wav",
+          "label": "OnExit"
+        },
+        "on_enter": {
+          "short": "On Enter when arriving.",
+          "deep": "Runs once on change.",
+          "audio": "audio/12/node-on_enter-short.wav",
+          "audioDeep": "audio/12/node-on_enter-deep.wav",
+          "label": "OnEnter"
+        },
+        "current": {
+          "short": "Current Execution while state holds.",
+          "deep": "Every tick while active.",
+          "audio": "audio/12/node-current-short.wav",
+          "audioDeep": "audio/12/node-current-deep.wav",
+          "label": "Execution"
+        },
+        "grovestate": {
+          "short": "Grove State key storage.",
+          "deep": "GraphId scoped. Not inside the brick.",
+          "audio": "audio/12/node-grovestate-short.wav",
+          "audioDeep": "audio/12/node-grovestate-deep.wav",
+          "label": "GroveState"
+        }
+      }
+    },
+    {
+      "id": "13",
+      "title": "ECS Setup Checklist",
+      "blurb": "IGraphReference \u00b7 authoring \u00b7 bake discovery \u00b7 multi-graph \u00b7 GetState \u00b7 debug.",
+      "map": "13-ecs-setup.architecture.html",
+      "chapters": [
+        {
+          "id": "intro",
+          "title": "Checklist",
+          "focus": null,
+          "text": "To own a Grove graph type you need a graph plus importer, a partial context, authoring that points at Auth not the my graph file, an I Graph Reference, and a system that owns Graph Impl.",
+          "audio": "audio/13/ch-intro.wav"
+        },
+        {
+          "id": "main-path",
+          "title": "Happy path",
+          "focus": "main-path",
+          "text": "Define graph type, import Auth asset, hang Graph Authoring, auto bake system writes blob, I System Get Execution Set Chunk Execute.",
+          "audio": "audio/13/ch-main-path.wav"
+        },
+        {
+          "id": "multi",
+          "title": "Multi-graph",
+          "focus": "multi",
+          "text": "Authoring Buffer bakes many blobs on one entity sharing Grove State. Scope keys with Graph Id and tear down with Remove Graph State.",
+          "audio": "audio/13/ch-multi.wav"
+        },
+        {
+          "id": "debug",
+          "title": "State API and debug",
+          "focus": "debug",
+          "text": "Use Get State extension and Graph State Util. There is no Get Variables on modern contexts. Node Debug attrs are gated by config vars.",
+          "audio": "audio/13/ch-debug.wav"
+        }
+      ],
+      "nodes": {
+        "define_graph": {
+          "short": "Graph type plus importer Auth type.",
+          "deep": "GroveGraph and GroveImporter TAuth.",
+          "audio": "audio/13/node-define_graph-short.wav",
+          "audioDeep": "audio/13/node-define_graph-deep.wav",
+          "label": "Graph type"
+        },
+        "context_type": {
+          "short": "Partial I Context with Grove States property.",
+          "deep": "Generator fills dispatch. Do not implement GetState yourself.",
+          "audio": "audio/13/node-context_type-short.wav",
+          "audioDeep": "audio/13/node-context_type-deep.wav",
+          "label": "Context"
+        },
+        "auth_asset": {
+          "short": "Imported Auth asset. Authoring not login.",
+          "deep": "Reference this from authoring, not .mygraph.",
+          "audio": "audio/13/node-auth_asset-short.wav",
+          "audioDeep": "audio/13/node-auth_asset-deep.wav",
+          "label": "Auth asset"
+        },
+        "authoring_mb": {
+          "short": "Graph Authoring single graph.",
+          "deep": "IGraphBaking.",
+          "audio": "audio/13/node-authoring_mb-short.wav",
+          "audioDeep": "audio/13/node-authoring_mb-deep.wav",
+          "label": "Authoring"
+        },
+        "buffer_mb": {
+          "short": "Authoring Buffer many graphs.",
+          "deep": "Shared GroveState.",
+          "audio": "audio/13/node-buffer_mb-short.wav",
+          "audioDeep": "audio/13/node-buffer_mb-deep.wav",
+          "label": "Auth buffer"
+        },
+        "variants": {
+          "short": "Variants strip unselected branches at bake.",
+          "deep": "Not a runtime if.",
+          "audio": "audio/13/node-variants-short.wav",
+          "audioDeep": "audio/13/node-variants-deep.wav",
+          "label": "Variants"
+        },
+        "bake_sys": {
+          "short": "Bake system auto via I Graph Baking.",
+          "deep": "GraphBakingSystem TComponent.",
+          "audio": "audio/13/node-bake_sys-short.wav",
+          "audioDeep": "audio/13/node-bake_sys-deep.wav",
+          "label": "Bake system"
+        },
+        "igraph": {
+          "short": "I Graph Reference blob field on entity.",
+          "deep": "Component or buffer element.",
+          "audio": "audio/13/node-igraph-short.wav",
+          "audioDeep": "audio/13/node-igraph-deep.wav",
+          "label": "IGraphRef"
+        },
+        "grovestate": {
+          "short": "Grove State backpack ensured at bake.",
+          "deep": "Live inputs locals state keys.",
+          "audio": "audio/13/node-grovestate-short.wav",
+          "audioDeep": "audio/13/node-grovestate-deep.wav",
+          "label": "GroveState"
+        },
+        "isystem": {
+          "short": "I System owns Graph Impl.",
+          "deep": "SetChunk then Execute each frame.",
+          "audio": "audio/13/node-isystem-short.wav",
+          "audioDeep": "audio/13/node-isystem-deep.wav",
+          "label": "ISystem"
+        },
+        "getstate": {
+          "short": "Get State plus Graph State Util keys.",
+          "deep": "Not GetVariables.",
+          "audio": "audio/13/node-getstate-short.wav",
+          "audioDeep": "audio/13/node-getstate-deep.wav",
+          "label": "GetState"
+        },
+        "graphid": {
+          "short": "Graph Id scopes multi graph state.",
+          "deep": "From GraphData.GraphId.",
+          "audio": "audio/13/node-graphid-short.wav",
+          "audioDeep": "audio/13/node-graphid-deep.wav",
+          "label": "GraphId"
+        },
+        "remove": {
+          "short": "Remove Graph State on teardown.",
+          "deep": "Per GraphId only.",
+          "audio": "audio/13/node-remove-short.wav",
+          "audioDeep": "audio/13/node-remove-deep.wav",
+          "label": "RemoveState"
+        },
+        "debug_attr": {
+          "short": "Node Debug attributes.",
+          "deep": "Instrumentation gated.",
+          "audio": "audio/13/node-debug_attr-short.wav",
+          "audioDeep": "audio/13/node-debug_attr-deep.wav",
+          "label": "NodeDebug"
+        },
+        "config_var": {
+          "short": "Debug config vars enabled and selected.",
+          "deep": "GraphConfigurable.",
+          "audio": "audio/13/node-config_var-short.wav",
+          "audioDeep": "audio/13/node-config_var-deep.wav",
+          "label": "Debug cfg"
         }
       }
     }

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Grove — how it works</title>
+<title>Grove — how it works (mastery path)</title>
 <style>
 :root{color-scheme:light dark}
 *{box-sizing:border-box}
@@ -32,6 +32,10 @@ li{margin:.28rem 0}
 .cta a.btn:hover{background:#183d7d}
 .cta span{font-size:.92rem;opacity:.9}
 .note{border-left:4px solid #1f5fd0;padding:.55rem .85rem;margin:1rem 0;background:rgba(31,95,208,.06)}
+.warn{border-left:4px solid #b45309;padding:.55rem .85rem;margin:1rem 0;background:rgba(180,83,9,.08)}
+.gloss{font-size:.9rem}
+.gloss dt{font-weight:650;margin-top:.45rem}
+.gloss dd{margin:0 0 0 0;opacity:.95}
 footer{margin-top:2.5rem;font-size:.8rem;opacity:.6;border-top:1px solid #d6d9df;padding-top:.6rem}
 @media(prefers-color-scheme:dark){
  body{background:#14161a;color:#e5e8ec}
@@ -40,37 +44,61 @@ footer{margin-top:2.5rem;font-size:.8rem;opacity:.6;border-top:1px solid #d6d9df
  code{background:#1e2128}
  .cta{background:#1a2230}
  .note{background:rgba(127,176,255,.08);border-left-color:#7fb0ff}
+ .warn{background:rgba(251,191,36,.08);border-left-color:#fbbf24}
  .cta a.btn{background:#3b6fd4}
 }
 </style>
 </head>
 <body>
 <p class="crumb"><a href="../index.html">docs</a> / grove</p>
-<h1>How Grove works</h1>
-<p class="lede">Eight Archify maps, two narration depths. The diagrams are the lesson;
-the voice tracks walk you through them without turning this page into a textbook.</p>
+<h1>How Grove works — mastery path</h1>
+<p class="lede">Archify maps + short/deep voice. Hover a box for the short line; click for the deep line with real package types. Guided tour walks one map in order.</p>
 
 <div class="cta">
   <a class="btn" href="explore.html">Open explore</a>
-  <span>Fun track first (plain language) → Serious track (types &amp; call paths). Hover diagram boxes for short lines. About 25–40 minutes if you listen to both tracks.</span>
+  <span>Prefer <code>http://</code> (not <code>file://</code>) so map hover can bind. Local: <code>python3 -m http.server 8765</code> from this folder.</span>
+</div>
+
+<div class="warn">
+  <b>Auth means authoring — never login.</b>
+  <code>GroveAuth</code> / <code>GroveAuthGraph</code> are ScriptableObject cards produced by import.
+  They are <b>not</b> authentication, JWT, or security login. Runtime only consumes the baked <code>GraphData</code> brick.
 </div>
 
 <div class="note">
-  <b>What “Fun” and “Serious” mean here.</b>
-  Same eight diagrams. Fun names things you can picture (brick, robot, door book, backpack).
-  Serious uses the real identifiers you will search for in the package
-  (<code>GraphImpl</code>, <code>ExecutionGenerated</code>, <code>GroveState</code>, bake entry rules).
-  Do not skip Fun if you are new — Serious assumes you already saw the shape.
+  <b>How explore works.</b>
+  Short = hover (or rail hover). Deep = click the box (or click the rail row again / Go deeper).
+  <kbd>Y</kbd> guided tour · <kbd>M</kbd> mute · <kbd>1</kbd>–<kbd>N</kbd> switch map · Space replay.
+  Click once on the page so the browser unlocks voice.
 </div>
 
-<p class="lede">Point at any box and it explains itself. Click for the reasoning. Guided tour optional.</p>
 <h2>Study order</h2>
 <ol>
-  <li>In the player, leave <b>Fun</b> selected. Press <b>Play lesson</b> and let chapters advance.</li>
-  <li>Finish lessons <b>01 → 08</b> on Fun (the player can auto-advance lessons).</li>
-  <li>Switch to <b>Serious</b> and repeat. You should recognize every box before the jargon lands.</li>
-  <li>When Serious still feels fuzzy on one map, open that map alone (table below) and use Archify’s chapter rail (<kbd>P</kbd>).</li>
+  <li>Open <a href="explore.html">explore</a> over <code>http://</code>.</li>
+  <li>Do lessons <b>01 → last</b> with hover + click (short then deep). Use the guided tour once per map if you like.</li>
+  <li>When a deep line names a type, treat it as searchable in <code>com.bovinelabs.grove</code>.</li>
+  <li>After the path, you should be able to add a custom node and hang a graph on an entity without guessing ownership.</li>
 </ol>
+
+<h2>Glossary (read once)</h2>
+<dl class="gloss">
+  <dt>Source graph</dt>
+  <dd>Graph Toolkit asset (e.g. <code>.mygraph</code> deriving <code>GroveGraph</code>). Editor-only.</dd>
+  <dt>Auth graph / Auth card</dt>
+  <dd><code>GroveAuthGraph</code> main asset + <code>GroveAuth*</code> subassets from import. Authoring intermediate. <b>Not login.</b></dd>
+  <dt>GraphData brick</dt>
+  <dd>Immutable <code>BlobAssetReference&lt;GraphData&gt;</code>. Runtime recipe: Root, I/O, node maps, <code>BlobPtr</code> ports.</dd>
+  <dt>GraphAuthoring</dt>
+  <dd>MonoBehaviour that points at an Auth graph (+ variants / instance overrides) for bake.</dd>
+  <dt>IGraphReference</dt>
+  <dd>ECS component/buffer element holding the baked blob.</dd>
+  <dt>IContext / GraphImpl / GraphExecution</dt>
+  <dd>Your partial context; system owns <code>GraphImpl</code>; per-update <code>GraphExecution</code> runs Root.</dd>
+  <dt>GroveState</dt>
+  <dd>Per-entity live backpack (inputs, locals, state keys). Not stored inside the brick.</dd>
+  <dt>Type int</dt>
+  <dd>Header field; source-gen switch picks static <code>Execute</code>/<code>Calculate</code> methods.</dd>
+</dl>
 
 <h2>Maps</h2>
 <table>
@@ -78,65 +106,93 @@ the voice tracks walk you through them without turning this page into a textbook
 <tr>
   <td class="w">01</td>
   <td class="w"><a href="01-toy-machine.architecture.html?theme=dark&amp;present=1">Toy machine</a></td>
-  <td>Draw vs bake vs play; why the source asset is not the runtime brick</td>
+  <td>Draw vs bake vs play; three assemblies; source ≠ Auth ≠ brick</td>
 </tr>
 <tr>
   <td class="w">02</td>
   <td class="w"><a href="02-draw-bake-play.workflow.html?theme=dark&amp;present=1">Draw → bake → play</a></td>
-  <td>Import pipeline; single Input→execution entry rule; variants strip at bake</td>
+  <td>Import → <code>GroveAuthGraph</code>; single Input→execution root; variants strip; authoring points at Auth</td>
 </tr>
 <tr>
   <td class="w">03</td>
   <td class="w"><a href="03-one-frame.sequence.html?theme=dark&amp;present=1">One frame</a></td>
-  <td><code>GraphImpl</code> / <code>GraphExecution</code> / <code>SetChunk</code> / <code>Execute</code> ownership</td>
+  <td><code>GraphImpl</code> / <code>GetExecution</code> / <code>SetChunk</code> / <code>Execute</code>; inputs via backpack</td>
 </tr>
 <tr>
   <td class="w">04</td>
   <td class="w"><a href="04-brick.anatomy.dataflow.html?theme=dark&amp;present=1">Brick anatomy</a></td>
-  <td>Header + inline payload; Type int; blob pointers as edges</td>
+  <td>Header + payload; Type int; <code>BlobPtr</code> kids</td>
 </tr>
 <tr>
   <td class="w">05</td>
   <td class="w"><a href="05-door-book.sequence.html?theme=dark&amp;present=1">Door book</a></td>
-  <td>Source generator fills your context switch; brick only stores Type</td>
+  <td>Source generator fills your partial context switch; brick only stores Type</td>
 </tr>
 <tr>
   <td class="w">06</td>
   <td class="w"><a href="06-push-pull.lifecycle.html?theme=dark&amp;present=1">Push vs pull</a></td>
-  <td>Execute push vs Calculate pull; GroveState as live memory</td>
+  <td><code>Execute</code> push vs <code>Calculate</code> pull; variables; composite/selector sketch</td>
 </tr>
 <tr>
   <td class="w">07</td>
   <td class="w"><a href="07-make-a-toy.architecture.html?theme=dark&amp;present=1">Make a toy</a></td>
-  <td>Four pieces of a custom node and how they meet at bake/dispatch</td>
+  <td>Four pieces of a custom node; Auth card <code>Create</code>/<code>Init</code>; overrides</td>
 </tr>
 <tr>
   <td class="w">08</td>
   <td class="w"><a href="08-blob-secret.architecture.html?theme=dark&amp;present=1">Blob secret</a></td>
-  <td>Why GraphData is easy: no edge table, BlobPtrs as ports, shared immutable blob, context holds life</td>
+  <td>No edge table; shared immutable blob; context holds life</td>
+</tr>
+<tr>
+  <td class="w">09</td>
+  <td class="w"><a href="09-auth-is-authoring.architecture.html?theme=dark&amp;present=1">Auth is authoring</a></td>
+  <td>Three artifacts side by side; Auth ≠ login; who references what</td>
+</tr>
+<tr>
+  <td class="w">10</td>
+  <td class="w"><a href="10-doors-and-boundaries.sequence.html?theme=dark&amp;present=1">Doors &amp; boundaries</a></td>
+  <td>Input/Output/Local; untyped skip; root rule; pure Calculate graphs</td>
+</tr>
+<tr>
+  <td class="w">11</td>
+  <td class="w"><a href="11-context-blocks.architecture.html?theme=dark&amp;present=1">Context + blocks</a></td>
+  <td><code>GroveContextAuth</code> / <code>GroveBlockAuth</code>; typed block stack; sample pattern</td>
+</tr>
+<tr>
+  <td class="w">12</td>
+  <td class="w"><a href="12-utility-and-state.architecture.html?theme=dark&amp;present=1">Utility AI + state</a></td>
+  <td>Selectors/qualifiers/Scorer; StateSet/If/Select; Enter/Exit</td>
+</tr>
+<tr>
+  <td class="w">13</td>
+  <td class="w"><a href="13-ecs-setup.architecture.html?theme=dark&amp;present=1">ECS setup checklist</a></td>
+  <td><code>IGraphReference</code>, authoring vs buffer, bake discovery, multi-graph + <code>GraphId</code>, debug hooks</td>
 </tr>
 </table>
 
-<h2>After both tracks</h2>
+<h2>After the path</h2>
 <ul>
-  <li>You can point at each assembly and say what it owns (Editor / Authoring / Runtime).</li>
-  <li>You can write the OnCreate / OnUpdate skeleton around <code>GraphImpl</code> without guessing.</li>
-  <li>You can add a custom execution node without cargo-culting a fourth copy of “auth.”</li>
-  <li>You know where inputs actually live (entity <code>GroveState</code>, not stack args on Root).</li>
+  <li>Point at each assembly and say what it owns (Editor / Authoring / Runtime).</li>
+  <li>Write the <code>ISystem</code> skeleton around <code>GraphImpl</code> without guessing.</li>
+  <li>Add a custom execution or data node without cargo-culting a fourth Auth layer.</li>
+  <li>Know inputs live in entity <code>GroveState</code>, not stack args on Root.</li>
+  <li>Know variants strip at bake; instance overrides patch Auth fields before <code>Create</code>.</li>
 </ul>
 
 <h2>Files</h2>
 <ul>
   <li>Player: <code>explore.html</code></li>
-  <li>Scripts: <code>narrate/scripts/{fun,serious}/*.json</code></li>
-  <li>Audio: <code>narrate/audio/…</code> (Inflect-Micro-v2 WAVs)</li>
-  <li>Map IR: <code>src/*.json</code></li>
-  <li>Regenerate voice: <code>python3 tools/gen_narration.py</code> (ReadAloud Inflect worker must be warm)</li>
+  <li>Scripts: <code>narrate/scripts/0N.json</code> (short + deep per node)</li>
+  <li>Audio: <code>narrate/audio/…</code></li>
+  <li>Map IR: <code>src/*.json</code> → deliver with Archify</li>
+  <li>Regenerate voice: <code>python3 tools/gen_narration.py</code> (Inflect worker warm)</li>
+  <li>Gates: <code>python3 tools/check_mastery.py</code></li>
 </ul>
 
 <footer>
 <a href="../index.html">← all topics</a>
- · Package under study: <code>com.bovinelabs.grove</code>
+ · Package: <code>com.bovinelabs.grove</code>
+ · Sample: package <code>Sample~</code>
 </footer>
 </body>
 </html>

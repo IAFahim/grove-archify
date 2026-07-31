@@ -12,67 +12,77 @@
       "deep": "Split across assemblies: unmanaged payload and enums in data or runtime, Grove Execution Auth or Data Auth in Authoring, Grove Execution Node in Editor, static Execute Node method in runtime."
     },
     {
-      "id": "request-path",
+      "id": "main-path",
       "title": "Four pieces",
-      "focus": "request-path",
+      "focus": "main-path",
       "text": "Data holds Speed. Auth serializes it. Draw node is what you see in Graph Toolkit. Run method is the static C sharp with the attribute.",
       "deep": "Auth Node Type returns your enum int. Init writes blob fields via Blob Remap Builder. Editor Init copies inspector fields onto auth during import."
     },
     {
-      "id": "identity-and-cache",
+      "id": "helpers",
       "title": "Wire",
-      "focus": "identity-and-cache",
+      "focus": "helpers",
       "text": "Importer copies draw fields into auth. Bake packs header plus payload. Use With Graph scopes the node to your map type.",
       "deep": "Create Node on auth allocates header and payload in the graph blob. Instance overrides patch serializable fields per entity before Create. Add Dependencies tracks extra assets."
     },
     {
-      "id": "async-work",
+      "id": "rooms",
       "title": "Play",
-      "focus": "async-work",
+      "focus": "rooms",
       "text": "At play, Type hits your case in the door book. Method gets payload, Grove Context, and your context by ref. Then it mutates the world.",
       "deep": "Attribute Execute Node type id must match baked Type. Signature is public or internal static, non-generic outer type, ref context. Optional typed input for context and block nodes."
     }
   ],
   "nodes": {
-    "api": {
-      "short": "Auth card asset.",
-      "deep": "Grove Execution Auth of T Data."
+    "auth_card": {
+      "short": "Auth card. Grove*Auth ScriptableObject that Create/Init writes the brick piece. Not login.",
+      "deep": "GroveExecutionAuth or GroveDataAuth. NodeType int, NodeId, Create allocates header+payload and BlobPtr kids via AuthUtil. Authoring layer only.",
+      "label": "Auth card"
     },
-    "auth": {
+    "type_enum": {
       "short": "Type number enum.",
-      "deep": "Stable int shared by attribute and auth Node Type."
+      "deep": "Stable int shared by attribute and auth Node Type.",
+      "label": "Type number"
     },
-    "cache": {
+    "use_with_graph": {
       "short": "Use With Graph scope.",
-      "deep": "Use With Graph typeof your Grove Graph."
+      "deep": "Use With Graph typeof your Grove Graph.",
+      "label": "UseWithGraph"
     },
-    "cdn": {
+    "draw_node": {
       "short": "Draw node in Toolkit.",
-      "deep": "Grove Execution Node of Auth comma Data."
+      "deep": "Grove Execution Node of Auth comma Data.",
+      "label": "Draw node"
     },
-    "db": {
+    "brick_piece": {
       "short": "Baked header and payload.",
-      "deep": "Header Type plus payload bytes in Graph Data."
+      "deep": "Header Type plus payload bytes in Graph Data.",
+      "label": "Brick piece"
     },
-    "lb": {
+    "importer": {
       "short": "Importer copies to auth.",
-      "deep": "I Grove Node Create via Grove Node State."
+      "deep": "I Grove Node Create via Grove Node State.",
+      "label": "Importer"
     },
-    "queue": {
+    "door_book": {
       "short": "Generated switch case.",
-      "deep": "Execution Generated case label."
+      "deep": "Execution Generated case label.",
+      "label": "Door book"
     },
-    "s3": {
+    "overrides": {
       "short": "Per entity overrides.",
-      "deep": "Graph Instance Instance Values list."
+      "deep": "Graph Instance Instance Values list.",
+      "label": "Overrides"
     },
-    "users": {
+    "data_struct": {
       "short": "Data struct. Unmanaged payload.",
-      "deep": "Unmanaged struct living after Execution Header."
+      "deep": "Unmanaged struct living after Execution Header.",
+      "label": "Data struct"
     },
-    "worker": {
+    "run_method": {
       "short": "Static run method.",
-      "deep": "Execute Node method body. Context by ref."
+      "deep": "Execute Node method body. Context by ref.",
+      "label": "Run method"
     }
   }
 }

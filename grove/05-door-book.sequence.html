@@ -4501,7 +4501,7 @@
       <p class="subtitle">Compile time writes the switch · play time only looks up numbers</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-auth","label":"Find toys","focus":["user","web","api","auth"],"note":"Generator finds your Context and all [ExecuteNode] methods."},{"id":"cache-fallback","label":"Write book","focus":["api","redis","db"],"note":"Emits Create/Update/SetChunk + big switch."},{"id":"return-and-trace","label":"Play","focus":["db","api","redis","trace","web","user"],"note":"Brick only stores Type; your book has the doors."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-your_nodes","label":"Find toys","focus":["you","generator","context_cs","your_nodes"],"note":"Generator finds your Context and all [ExecuteNode] methods."},{"id":"side-effects","label":"Write book","focus":["context_cs","grove_dll","generated_cs"],"note":"Emits Create/Update/SetChunk + big switch."},{"id":"return-and-play_time","label":"Play","focus":["generated_cs","context_cs","grove_dll","play_time","generator","you"],"note":"Brick only stores Type; your book has the doors."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4600,96 +4600,96 @@
         <rect x="705" y="575" width="10" height="55" rx="3" class="c-messagebus" stroke-width="1"/>
 
         <!-- Messages -->
-        <g data-edge-from="user" data-edge-to="web" data-edge-label="code" data-edge-key="0" data-edge-id="open-page">
-          <path data-composition-edge-from="user" data-composition-edge-to="web" data-composition-edge-id="open-page" data-composition-points="69,185;163,185" d="M 69 185 L 163 185" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="you" data-edge-to="generator" data-edge-label="code" data-edge-key="0" data-edge-id="open-page">
+          <path data-composition-edge-from="you" data-composition-edge-to="generator" data-composition-edge-id="open-page" data-composition-points="69,185;163,185" d="M 69 185 L 163 185" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="99" y="165" width="34" height="16" rx="3" class="c-mask"/>
           <text x="116" y="175" class="t-backend" font-size="9" text-anchor="middle">code</text>
         </g>
         </g>
 
-        <g data-edge-from="web" data-edge-to="api" data-edge-label="find Context" data-edge-key="1" data-edge-id="dashboard-request">
-          <path data-composition-edge-from="web" data-composition-edge-to="api" data-composition-edge-id="dashboard-request" data-composition-points="177,228;271,228" d="M 177 228 L 271 228" class="a-emphasis" data-animate="edge" style="--step:1" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="generator" data-edge-to="context_cs" data-edge-label="find Context" data-edge-key="1" data-edge-id="dashboard-request">
+          <path data-composition-edge-from="generator" data-composition-edge-to="context_cs" data-composition-edge-id="dashboard-request" data-composition-points="177,228;271,228" d="M 177 228 L 271 228" class="a-emphasis" data-animate="edge" style="--step:1" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
           <rect x="186.8" y="208" width="74.4" height="16" rx="3" class="c-mask"/>
           <text x="224" y="218" class="t-backend" font-size="9" text-anchor="middle">find Context</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="auth" data-edge-label="find attrs" data-edge-key="2" data-edge-id="verify-jwt">
-          <path data-composition-edge-from="api" data-composition-edge-to="auth" data-composition-edge-id="verify-jwt" data-composition-points="285,270;379,270" d="M 285 270 L 379 270" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <g data-edge-from="context_cs" data-edge-to="your_nodes" data-edge-label="find attrs" data-edge-key="2" data-edge-id="type-help">
+          <path data-composition-edge-from="context_cs" data-composition-edge-to="your_nodes" data-composition-edge-id="type-help" data-composition-points="285,270;379,270" d="M 285 270 L 379 270" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
         <g data-detail="context">
           <rect x="300" y="250" width="64" height="16" rx="3" class="c-mask"/>
           <text x="332" y="260" class="t-security" font-size="9" text-anchor="middle">find attrs</text>
         </g>
         </g>
 
-        <g data-edge-from="auth" data-edge-to="api" data-edge-label="scan Grove" data-edge-key="3" data-edge-id="auth-claims">
-          <path data-composition-edge-from="auth" data-composition-edge-to="api" data-composition-edge-id="auth-claims" data-composition-points="379,305;285,305" d="M 379 305 L 285 305" class="a-default" data-animate="edge" style="--step:3" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="your_nodes" data-edge-to="context_cs" data-edge-label="scan Grove" data-edge-key="3" data-edge-id="your_nodes-claims">
+          <path data-composition-edge-from="your_nodes" data-composition-edge-to="context_cs" data-composition-edge-id="your_nodes-claims" data-composition-points="379,305;285,305" d="M 379 305 L 285 305" class="a-default" data-animate="edge" style="--step:3" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="300" y="285" width="64" height="16" rx="3" class="c-mask"/>
           <text x="332" y="295" class="t-muted" font-size="9" text-anchor="middle">scan Grove</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="redis" data-edge-label="match type" data-edge-key="4" data-edge-id="cache-read">
-          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="cache-read" data-composition-points="285,354;487,354" d="M 285 354 L 487 354" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="context_cs" data-edge-to="grove_dll" data-edge-label="match type" data-edge-key="4" data-edge-id="state-read">
+          <path data-composition-edge-from="context_cs" data-composition-edge-to="grove_dll" data-composition-edge-id="state-read" data-composition-points="285,354;487,354" d="M 285 354 L 487 354" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="354" y="334" width="64" height="16" rx="3" class="c-mask"/>
           <text x="386" y="344" class="t-backend" font-size="9" text-anchor="middle">match type</text>
         </g>
         </g>
 
-        <g data-edge-from="redis" data-edge-to="api" data-edge-label="emit lifecycle" data-edge-key="5" data-edge-id="cache-miss">
-          <path data-composition-edge-from="redis" data-composition-edge-to="api" data-composition-edge-id="cache-miss" data-composition-points="487,391;285,391" d="M 487 391 L 285 391" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="grove_dll" data-edge-to="context_cs" data-edge-label="emit lifecycle" data-edge-key="5" data-edge-id="cache-miss">
+          <path data-composition-edge-from="grove_dll" data-composition-edge-to="context_cs" data-composition-edge-id="cache-miss" data-composition-points="487,391;285,391" d="M 487 391 L 285 391" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="343.6" y="371" width="84.8" height="16" rx="3" class="c-mask"/>
           <text x="386" y="381" class="t-muted" font-size="9" text-anchor="middle">emit lifecycle</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="db" data-edge-label="emit Exec switch" data-edge-key="6" data-edge-id="profile-query">
-          <path data-composition-edge-from="api" data-composition-edge-to="db" data-composition-edge-id="profile-query" data-composition-points="285,443;595,443" d="M 285 443 L 595 443" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="context_cs" data-edge-to="generated_cs" data-edge-label="emit Exec switch" data-edge-key="6" data-edge-id="profile-query">
+          <path data-composition-edge-from="context_cs" data-composition-edge-to="generated_cs" data-composition-edge-id="profile-query" data-composition-points="285,443;595,443" d="M 285 443 L 595 443" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
           <rect x="392.4" y="423" width="95.2" height="16" rx="3" class="c-mask"/>
           <text x="440" y="433" class="t-backend" font-size="9" text-anchor="middle">emit Exec switch</text>
         </g>
         </g>
 
-        <g data-edge-from="db" data-edge-to="api" data-edge-label="emit Data switch" data-edge-key="7" data-edge-id="profile-rows">
-          <path data-composition-edge-from="db" data-composition-edge-to="api" data-composition-edge-id="profile-rows" data-composition-points="595,489;285,489" d="M 595 489 L 285 489" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="generated_cs" data-edge-to="context_cs" data-edge-label="emit Data switch" data-edge-key="7" data-edge-id="profile-rows">
+          <path data-composition-edge-from="generated_cs" data-composition-edge-to="context_cs" data-composition-edge-id="profile-rows" data-composition-points="595,489;285,489" d="M 595 489 L 285 489" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="392.4" y="469" width="95.2" height="16" rx="3" class="c-mask"/>
           <text x="440" y="479" class="t-muted" font-size="9" text-anchor="middle">emit Data switch</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="redis" data-edge-label="brick Type" data-edge-key="8" data-edge-id="cache-write">
-          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="cache-write" data-composition-points="285,536;487,536" d="M 285 536 L 487 536" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <g data-edge-from="context_cs" data-edge-to="grove_dll" data-edge-label="brick Type" data-edge-key="8" data-edge-id="cache-write">
+          <path data-composition-edge-from="context_cs" data-composition-edge-to="grove_dll" data-composition-edge-id="cache-write" data-composition-points="285,536;487,536" d="M 285 536 L 487 536" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <g data-detail="context">
           <rect x="354" y="516" width="64" height="16" rx="3" class="c-mask"/>
           <text x="386" y="526" class="t-messagebus" font-size="9" text-anchor="middle">brick Type</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="trace" data-edge-label="open door" data-edge-key="9" data-edge-id="trace-emit">
-          <path data-composition-edge-from="api" data-composition-edge-to="trace" data-composition-edge-id="trace-emit" data-composition-points="285,580;703,580" d="M 285 580 L 703 580" class="a-dashed" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <g data-edge-from="context_cs" data-edge-to="play_time" data-edge-label="open door" data-edge-key="9" data-edge-id="play_time-emit">
+          <path data-composition-edge-from="context_cs" data-composition-edge-to="play_time" data-composition-edge-id="play_time-emit" data-composition-points="285,580;703,580" d="M 285 580 L 703 580" class="a-dashed" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <g data-detail="context">
           <rect x="464.6" y="560" width="58.800000000000004" height="16" rx="3" class="c-mask"/>
           <text x="494" y="570" class="t-messagebus" font-size="9" text-anchor="middle">open door</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="web" data-edge-label="call method" data-edge-key="10" data-edge-id="dashboard-response">
-          <path data-composition-edge-from="api" data-composition-edge-to="web" data-composition-edge-id="dashboard-response" data-composition-points="271,625;177,625" d="M 271 625 L 177 625" class="a-default" data-animate="edge" style="--step:10" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="context_cs" data-edge-to="generator" data-edge-label="call method" data-edge-key="10" data-edge-id="dashboard-response">
+          <path data-composition-edge-from="context_cs" data-composition-edge-to="generator" data-composition-edge-id="dashboard-response" data-composition-points="271,625;177,625" d="M 271 625 L 177 625" class="a-default" data-animate="edge" style="--step:10" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="189.4" y="605" width="69.2" height="16" rx="3" class="c-mask"/>
           <text x="224" y="615" class="t-muted" font-size="9" text-anchor="middle">call method</text>
         </g>
         </g>
 
-        <g data-edge-from="web" data-edge-to="user" data-edge-label="maybe more doors" data-edge-key="11" data-edge-id="page-render">
-          <path data-composition-edge-from="web" data-composition-edge-to="user" data-composition-edge-id="page-render" data-composition-points="163,662;69,662" d="M 163 662 L 69 662" class="a-default" data-animate="edge" style="--step:11" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="generator" data-edge-to="you" data-edge-label="maybe more doors" data-edge-key="11" data-edge-id="page-render">
+          <path data-composition-edge-from="generator" data-composition-edge-to="you" data-composition-edge-id="page-render" data-composition-points="163,662;69,662" d="M 163 662 L 69 662" class="a-default" data-animate="edge" style="--step:11" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
           <rect x="68.4" y="642" width="95.2" height="16" rx="3" class="c-mask"/>
           <text x="116" y="652" class="t-muted" font-size="9" text-anchor="middle">maybe more doors</text>
@@ -4711,7 +4711,7 @@
         </g>
 
         <!-- Participants -->
-        <g id="node-user" data-node-id="user" data-node-label="You" tabindex="0" role="button" aria-label="Focus You, write code, Sequence participant" aria-pressed="false" data-node-kind="external" data-node-sublabel="write code" data-node-context="Sequence participant">
+        <g id="node-you" data-node-id="you" data-node-label="You" tabindex="0" role="button" aria-label="Focus You, write code, Sequence participant" aria-pressed="false" data-node-kind="external" data-node-sublabel="write code" data-node-context="Sequence participant">
           <title>You · write code · Sequence participant</title>
           <rect x="19" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="19" y="72" width="86" height="54" rx="6" class="c-external" data-animate="node" style="--step:0" stroke-width="1.5"/>
@@ -4723,7 +4723,7 @@
           <text data-detail="context" x="62" y="111" class="t-muted" font-size="7" text-anchor="middle">write code</text>
         </g>
 
-        <g id="node-web" data-node-id="web" data-node-label="Generator" tabindex="0" role="button" aria-label="Focus Generator, Roslyn, Sequence participant" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Roslyn" data-node-context="Sequence participant">
+        <g id="node-generator" data-node-id="generator" data-node-label="Generator" tabindex="0" role="button" aria-label="Focus Generator, Roslyn, Sequence participant" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Roslyn" data-node-context="Sequence participant">
           <title>Generator · Roslyn · Sequence participant</title>
           <rect x="127" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="127" y="72" width="86" height="54" rx="6" class="c-frontend" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4737,7 +4737,7 @@
           <text data-detail="context" x="170" y="111" class="t-muted" font-size="7" text-anchor="middle">Roslyn</text>
         </g>
 
-        <g id="node-api" data-node-id="api" data-node-label="Context.cs" tabindex="0" role="button" aria-label="Focus Context.cs, partial, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="partial" data-node-context="Sequence participant">
+        <g id="node-context_cs" data-node-id="context_cs" data-node-label="Context.cs" tabindex="0" role="button" aria-label="Focus Context.cs, partial, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="partial" data-node-context="Sequence participant">
           <title>Context.cs · partial · Sequence participant</title>
           <rect x="235" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="235" y="72" width="86" height="54" rx="6" class="c-backend" data-animate="node" style="--step:2" stroke-width="1.5"/>
@@ -4748,7 +4748,7 @@
           <text data-detail="context" x="278" y="111" class="t-muted" font-size="7" text-anchor="middle">partial</text>
         </g>
 
-        <g id="node-auth" data-node-id="auth" data-node-label="Your nodes" tabindex="0" role="button" aria-label="Focus Your nodes, attrs, Sequence participant" aria-pressed="false" data-node-kind="security" data-node-sublabel="attrs" data-node-context="Sequence participant">
+        <g id="node-your_nodes" data-node-id="your_nodes" data-node-label="Your nodes" tabindex="0" role="button" aria-label="Focus Your nodes, attrs, Sequence participant" aria-pressed="false" data-node-kind="security" data-node-sublabel="attrs" data-node-context="Sequence participant">
           <title>Your nodes · attrs · Sequence participant</title>
           <rect x="343" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="343" y="72" width="86" height="54" rx="6" class="c-security" data-animate="node" style="--step:3" stroke-width="1.5"/>
@@ -4760,7 +4760,7 @@
           <text data-detail="context" x="386" y="111" class="t-muted" font-size="7" text-anchor="middle">attrs</text>
         </g>
 
-        <g id="node-redis" data-node-id="redis" data-node-label="Grove.dll" tabindex="0" role="button" aria-label="Focus Grove.dll, built-ins, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="built-ins" data-node-context="Sequence participant">
+        <g id="node-grove_dll" data-node-id="grove_dll" data-node-label="Grove.dll" tabindex="0" role="button" aria-label="Focus Grove.dll, built-ins, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="built-ins" data-node-context="Sequence participant">
           <title>Grove.dll · built-ins · Sequence participant</title>
           <rect x="451" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="451" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:4" stroke-width="1.5"/>
@@ -4772,7 +4772,7 @@
           <text data-detail="context" x="494" y="111" class="t-muted" font-size="7" text-anchor="middle">built-ins</text>
         </g>
 
-        <g id="node-db" data-node-id="db" data-node-label="*.g.cs" tabindex="0" role="button" aria-label="Focus *.g.cs, door book, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="door book" data-node-context="Sequence participant">
+        <g id="node-generated_cs" data-node-id="generated_cs" data-node-label="*.g.cs" tabindex="0" role="button" aria-label="Focus *.g.cs, door book, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="door book" data-node-context="Sequence participant">
           <title>*.g.cs · door book · Sequence participant</title>
           <rect x="559" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="559" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:5" stroke-width="1.5"/>
@@ -4784,7 +4784,7 @@
           <text data-detail="context" x="602" y="111" class="t-muted" font-size="7" text-anchor="middle">door book</text>
         </g>
 
-        <g id="node-trace" data-node-id="trace" data-node-label="Play time" tabindex="0" role="button" aria-label="Focus Play time, switch, Sequence participant" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="switch" data-node-context="Sequence participant">
+        <g id="node-play_time" data-node-id="play_time" data-node-label="Play time" tabindex="0" role="button" aria-label="Focus Play time, switch, Sequence participant" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="switch" data-node-context="Sequence participant">
           <title>Play time · switch · Sequence participant</title>
           <rect x="667" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="667" y="72" width="86" height="54" rx="6" class="c-messagebus" data-animate="node" style="--step:6" stroke-width="1.5"/>

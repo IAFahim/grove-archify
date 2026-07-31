@@ -10,38 +10,38 @@
     "visual_preset": "signal-flow",
     "views": [
       {
-        "id": "happy-path",
+        "id": "main-path",
         "label": "Main path",
         "focus": [
-          "user",
-          "chat",
-          "planner",
-          "router",
-          "approval",
-          "tool",
-          "external",
-          "final"
+          "you",
+          "source_map",
+          "importer",
+          "auth_graph",
+          "start_door",
+          "authoring",
+          "bake_step",
+          "it_runs"
         ],
         "note": "Draw the map, freeze the brick, play it."
       },
       {
-        "id": "safety-gate",
+        "id": "start-door",
         "label": "Start door",
         "focus": [
-          "router",
-          "approval",
-          "blocked",
-          "retry"
+          "auth_graph",
+          "start_door",
+          "bad_root",
+          "fix_wire"
         ],
         "note": "Exactly one Input wire to the first action box."
       },
       {
-        "id": "evidence-loop",
+        "id": "extras",
         "label": "Extras",
         "focus": [
-          "external",
-          "store",
-          "trace"
+          "bake_step",
+          "variants",
+          "backpack"
         ],
         "note": "Variants pick a branch at bake. Backpack is live memory."
       }
@@ -70,7 +70,7 @@
       "label": "Bake + place"
     },
     {
-      "id": "trace",
+      "id": "memory",
       "label": "Memory"
     }
   ],
@@ -106,7 +106,7 @@
       "variant": "emphasis"
     },
     {
-      "id": "tool_work",
+      "id": "authoring_work",
       "label": "Bake work",
       "lane": "tools",
       "fromCol": 4,
@@ -123,18 +123,18 @@
     }
   ],
   "mainPath": [
-    "user",
-    "chat",
-    "planner",
-    "router",
-    "approval",
-    "tool",
-    "external",
-    "final"
+    "you",
+    "source_map",
+    "importer",
+    "auth_graph",
+    "start_door",
+    "authoring",
+    "bake_step",
+    "it_runs"
   ],
   "nodes": [
     {
-      "id": "user",
+      "id": "you",
       "lane": "ui",
       "col": 0,
       "type": "external",
@@ -142,7 +142,7 @@
       "sublabel": "wants a brain"
     },
     {
-      "id": "chat",
+      "id": "source_map",
       "lane": "ui",
       "col": 1,
       "type": "frontend",
@@ -150,31 +150,32 @@
       "sublabel": ".mygraph"
     },
     {
-      "id": "final",
+      "id": "it_runs",
       "lane": "ui",
       "col": 5,
       "type": "backend",
       "label": "It runs!",
-      "sublabel": "fun"
+      "sublabel": "play"
     },
     {
-      "id": "planner",
+      "id": "importer",
       "lane": "agent",
       "col": 2,
       "type": "backend",
       "label": "Importer",
-      "sublabel": "builds auth"
+      "sublabel": "builds Auth"
     },
     {
-      "id": "router",
+      "id": "auth_graph",
       "lane": "agent",
       "col": 3,
       "type": "backend",
-      "label": "Auth asset",
-      "sublabel": "imported cards"
+      "label": "Auth graph",
+      "sublabel": "authoring cards",
+      "tag": "not login"
     },
     {
-      "id": "approval",
+      "id": "start_door",
       "lane": "policy",
       "col": 3,
       "type": "security",
@@ -182,7 +183,7 @@
       "sublabel": "1 Input"
     },
     {
-      "id": "blocked",
+      "id": "bad_root",
       "lane": "exceptions",
       "col": 4,
       "type": "security",
@@ -190,7 +191,7 @@
       "sublabel": "0 or 2 starts"
     },
     {
-      "id": "retry",
+      "id": "fix_wire",
       "lane": "exceptions",
       "col": 5,
       "type": "messagebus",
@@ -198,32 +199,32 @@
       "sublabel": "try again"
     },
     {
-      "id": "tool",
+      "id": "authoring",
       "lane": "tools",
       "col": 4,
       "type": "messagebus",
       "label": "Authoring",
-      "sublabel": "points at auth"
+      "sublabel": "points at Auth"
     },
     {
-      "id": "external",
+      "id": "bake_step",
       "lane": "tools",
       "col": 5,
       "type": "cloud",
       "label": "Bake",
-      "sublabel": "auth \u2192 brick"
+      "sublabel": "Auth \u2192 brick"
     },
     {
-      "id": "store",
-      "lane": "trace",
+      "id": "variants",
+      "lane": "memory",
       "col": 1,
       "type": "database",
       "label": "Variants",
       "sublabel": "bake pick"
     },
     {
-      "id": "trace",
-      "lane": "trace",
+      "id": "backpack",
+      "lane": "memory",
       "col": 4,
       "type": "database",
       "label": "Backpack",
@@ -232,32 +233,33 @@
   ],
   "edges": [
     {
-      "id": "request-chat",
-      "from": "user",
-      "to": "chat",
+      "id": "request-source_map",
+      "from": "you",
+      "to": "source_map",
       "variant": "default"
     },
     {
       "id": "plan-request",
-      "from": "chat",
-      "to": "planner",
-      "label": "import",
+      "from": "source_map",
+      "to": "importer",
+      "label": "cards",
       "variant": "emphasis",
       "fromSide": "bottom",
       "toSide": "top",
       "route": "drop",
-      "labelSegment": 1
+      "labelSegment": 1,
+      "labelDy": 50
     },
     {
-      "id": "planner-route",
-      "from": "planner",
-      "to": "router",
+      "id": "importer-route",
+      "from": "importer",
+      "to": "auth_graph",
       "variant": "default"
     },
     {
-      "id": "approval-check",
-      "from": "router",
-      "to": "approval",
+      "id": "start_door-check",
+      "from": "auth_graph",
+      "to": "start_door",
       "label": "1 start?",
       "variant": "security",
       "fromSide": "bottom",
@@ -268,18 +270,18 @@
       "labelDy": 18
     },
     {
-      "id": "approved-tool",
-      "from": "approval",
-      "to": "tool",
+      "id": "approved-authoring",
+      "from": "start_door",
+      "to": "authoring",
       "variant": "emphasis",
       "fromSide": "left",
       "toSide": "left",
       "route": "return-left"
     },
     {
-      "id": "approval-denied",
-      "from": "approval",
-      "to": "blocked",
+      "id": "start_door-denied",
+      "from": "start_door",
+      "to": "bad_root",
       "label": "bad",
       "variant": "security",
       "role": "error",
@@ -290,22 +292,22 @@
       "labelDy": 12
     },
     {
-      "id": "retry-request",
-      "from": "blocked",
-      "to": "retry",
+      "id": "fix_wire-request",
+      "from": "bad_root",
+      "to": "fix_wire",
       "variant": "dashed",
       "role": "branch"
     },
     {
-      "id": "tool-external-call",
-      "from": "tool",
-      "to": "external",
+      "id": "authoring-bake_step-call",
+      "from": "authoring",
+      "to": "bake_step",
       "variant": "default"
     },
     {
-      "id": "external-reply",
-      "from": "external",
-      "to": "final",
+      "id": "bake_step-reply",
+      "from": "bake_step",
+      "to": "it_runs",
       "variant": "emphasis",
       "role": "return",
       "fromSide": "right",
@@ -315,8 +317,8 @@
     },
     {
       "id": "record-result",
-      "from": "external",
-      "to": "trace",
+      "from": "bake_step",
+      "to": "backpack",
       "label": "freeze",
       "variant": "dashed",
       "fromSide": "bottom",
@@ -325,9 +327,9 @@
       "labelSegment": 1
     },
     {
-      "id": "write-trace-memory",
-      "from": "store",
-      "to": "trace",
+      "id": "write-backpack-memory",
+      "from": "variants",
+      "to": "backpack",
       "label": "pack",
       "variant": "dashed",
       "labelAt": [

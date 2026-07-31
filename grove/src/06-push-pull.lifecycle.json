@@ -9,37 +9,37 @@
     "animation": "trace",
     "views": [
       {
-        "id": "main-lifecycle",
+        "id": "push-path",
         "label": "Push path",
         "focus": [
-          "queued",
-          "planning",
-          "executing",
-          "reviewing",
-          "completed"
+          "root",
+          "composite",
+          "selector",
+          "leaf",
+          "world_changed"
         ],
         "note": "Root \u2192 Composite \u2192 Selector \u2192 leaf method."
       },
       {
-        "id": "human-waits",
+        "id": "pull-path",
         "label": "Pull path",
         "focus": [
-          "executing",
-          "approval",
-          "reviewing",
-          "blocked"
+          "selector",
+          "output_ask",
+          "leaf",
+          "data_calc"
         ],
         "note": "Output asks a data box only when needed."
       },
       {
-        "id": "recovery-and-exits",
+        "id": "next-frame",
         "label": "Memory",
         "focus": [
-          "executing",
-          "failed",
-          "blocked",
-          "cancelled",
-          "expired"
+          "selector",
+          "variable",
+          "data_calc",
+          "next_frame",
+          "same_entity"
         ],
         "note": "Backpack keeps variables between frames."
       }
@@ -65,7 +65,7 @@
   ],
   "states": [
     {
-      "id": "queued",
+      "id": "root",
       "type": "start",
       "label": "Root",
       "sublabel": "start",
@@ -75,7 +75,7 @@
       "tag": "entry"
     },
     {
-      "id": "planning",
+      "id": "composite",
       "type": "active",
       "label": "Composite",
       "sublabel": "do all",
@@ -85,7 +85,7 @@
       "tag": "model"
     },
     {
-      "id": "executing",
+      "id": "selector",
       "type": "active",
       "label": "Selector",
       "sublabel": "pick best",
@@ -95,7 +95,7 @@
       "tag": "work"
     },
     {
-      "id": "reviewing",
+      "id": "leaf",
       "type": "decision",
       "label": "Leaf",
       "sublabel": "move!",
@@ -105,7 +105,7 @@
       "tag": "check"
     },
     {
-      "id": "completed",
+      "id": "world_changed",
       "type": "success",
       "label": "World changed",
       "sublabel": "done",
@@ -115,7 +115,7 @@
       "tag": "done"
     },
     {
-      "id": "approval",
+      "id": "output_ask",
       "type": "waiting",
       "label": "Output?",
       "sublabel": "ask",
@@ -124,7 +124,7 @@
       "tag": "pause"
     },
     {
-      "id": "blocked",
+      "id": "data_calc",
       "type": "waiting",
       "label": "Data box",
       "sublabel": "Calculate",
@@ -133,7 +133,7 @@
       "tag": "wait"
     },
     {
-      "id": "failed",
+      "id": "variable",
       "type": "failure",
       "label": "Variable",
       "sublabel": "backpack",
@@ -143,7 +143,7 @@
       "tag": "retryable"
     },
     {
-      "id": "cancelled",
+      "id": "next_frame",
       "type": "failure",
       "label": "Next frame",
       "sublabel": "again",
@@ -152,7 +152,7 @@
       "tag": "terminal"
     },
     {
-      "id": "expired",
+      "id": "same_entity",
       "type": "failure",
       "label": "Same entity",
       "sublabel": "still there",
@@ -163,25 +163,25 @@
   ],
   "transitions": [
     {
-      "id": "approval-needed",
-      "from": "executing",
-      "to": "approval",
+      "id": "output_ask-needed",
+      "from": "selector",
+      "to": "output_ask",
       "variant": "security",
       "fromSide": "bottom",
       "toSide": "top",
       "route": "straight"
     },
     {
-      "id": "review-blocked",
-      "from": "reviewing",
-      "to": "blocked",
+      "id": "review-data_calc",
+      "from": "leaf",
+      "to": "data_calc",
       "variant": "default",
       "route": "drop"
     },
     {
-      "id": "execution-failed",
-      "from": "executing",
-      "to": "failed",
+      "id": "execution-variable",
+      "from": "selector",
+      "to": "variable",
       "variant": "security",
       "fromSide": "left",
       "toSide": "left",
@@ -197,9 +197,9 @@
       ]
     },
     {
-      "id": "failed-retry",
-      "from": "failed",
-      "to": "executing",
+      "id": "variable-retry",
+      "from": "variable",
+      "to": "selector",
       "variant": "emphasis",
       "fromSide": "left",
       "toSide": "top",
@@ -219,18 +219,18 @@
       ]
     },
     {
-      "id": "block-expired",
-      "from": "blocked",
-      "to": "expired",
+      "id": "block-same_entity",
+      "from": "data_calc",
+      "to": "same_entity",
       "variant": "security",
       "fromSide": "bottom",
       "toSide": "top",
       "route": "straight"
     },
     {
-      "id": "approval-cancelled",
-      "from": "approval",
-      "to": "cancelled",
+      "id": "output_ask-next_frame",
+      "from": "output_ask",
+      "to": "next_frame",
       "variant": "security",
       "fromSide": "bottom",
       "toSide": "top",

@@ -10,36 +10,36 @@
     "visual_preset": "signal-flow",
     "views": [
       {
-        "id": "request-path",
+        "id": "main-path",
         "label": "The main path",
         "focus": [
-          "users",
-          "cdn",
-          "lb",
-          "api",
-          "db"
+          "source",
+          "importer",
+          "baker",
+          "graphdata",
+          "context"
         ],
         "note": "You draw. Grove freezes. Robot runs."
       },
       {
-        "id": "identity-and-cache",
+        "id": "identity-and-grovestate",
         "label": "Helpers",
         "focus": [
-          "auth",
-          "api",
-          "cache"
+          "type_int",
+          "graphdata",
+          "grovestate"
         ],
         "note": "Numbers pick doors. Backpack holds secrets."
       },
       {
-        "id": "async-work",
+        "id": "rooms",
         "label": "Where stuff lives",
         "focus": [
-          "cdn",
-          "s3",
-          "api",
-          "queue",
-          "worker"
+          "importer",
+          "editor",
+          "graphdata",
+          "isystem",
+          "leaf_work"
         ],
         "note": "Editor box, bake box, play box."
       }
@@ -47,7 +47,7 @@
   },
   "components": [
     {
-      "id": "users",
+      "id": "source",
       "type": "external",
       "label": "You draw",
       "sublabel": "pretty map",
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "id": "auth",
+      "id": "type_int",
       "type": "security",
       "label": "Numbers",
       "sublabel": "pick doors",
@@ -75,10 +75,10 @@
       ]
     },
     {
-      "id": "cdn",
+      "id": "importer",
       "type": "cloud",
       "label": "Importer",
-      "sublabel": "makes cards",
+      "sublabel": "Auth cards",
       "pos": [
         250,
         300
@@ -89,7 +89,7 @@
       ]
     },
     {
-      "id": "lb",
+      "id": "baker",
       "type": "cloud",
       "label": "Bake oven",
       "sublabel": "freezes map",
@@ -103,7 +103,7 @@
       ]
     },
     {
-      "id": "api",
+      "id": "graphdata",
       "type": "backend",
       "label": "Brick blob",
       "sublabel": "GraphData",
@@ -117,7 +117,7 @@
       ]
     },
     {
-      "id": "cache",
+      "id": "grovestate",
       "type": "database",
       "label": "Backpack",
       "sublabel": "GroveState",
@@ -131,7 +131,7 @@
       ]
     },
     {
-      "id": "db",
+      "id": "context",
       "type": "database",
       "label": "Robot brain",
       "sublabel": "your Context",
@@ -145,7 +145,7 @@
       ]
     },
     {
-      "id": "s3",
+      "id": "editor",
       "type": "cloud",
       "label": "Editor room",
       "sublabel": "Graph Toolkit",
@@ -159,7 +159,7 @@
       ]
     },
     {
-      "id": "queue",
+      "id": "isystem",
       "type": "messagebus",
       "label": "Play room",
       "sublabel": "ISystem",
@@ -173,7 +173,7 @@
       ]
     },
     {
-      "id": "worker",
+      "id": "leaf_work",
       "type": "backend",
       "label": "Do the work",
       "sublabel": "move / score",
@@ -192,43 +192,43 @@
       "kind": "region",
       "label": "Draw time",
       "wraps": [
-        "users",
-        "s3",
-        "cdn"
+        "source",
+        "editor",
+        "importer"
       ]
     },
     {
       "kind": "region",
       "label": "Bake time",
       "wraps": [
-        "lb",
-        "api"
+        "baker",
+        "graphdata"
       ]
     },
     {
       "kind": "security-group",
       "label": "Play time",
       "wraps": [
-        "queue",
-        "worker",
-        "db",
-        "cache",
-        "auth"
+        "isystem",
+        "leaf_work",
+        "context",
+        "grovestate",
+        "type_int"
       ]
     }
   ],
   "connections": [
     {
-      "id": "users-to-cdn",
-      "from": "users",
-      "to": "cdn",
+      "id": "source-to-importer",
+      "from": "source",
+      "to": "importer",
       "label": "draw",
       "variant": "emphasis"
     },
     {
-      "id": "jwt-verification",
-      "from": "auth",
-      "to": "api",
+      "id": "type-help",
+      "from": "type_int",
+      "to": "graphdata",
       "label": "help",
       "variant": "security",
       "fromSide": "right",
@@ -249,14 +249,14 @@
       ]
     },
     {
-      "id": "cdn-to-lb",
-      "from": "cdn",
-      "to": "lb"
+      "id": "importer-to-baker",
+      "from": "importer",
+      "to": "baker"
     },
     {
-      "id": "static-assets",
-      "from": "cdn",
-      "to": "s3",
+      "id": "editor-link",
+      "from": "importer",
+      "to": "editor",
       "label": "live in",
       "variant": "dashed",
       "fromSide": "bottom",
@@ -264,29 +264,29 @@
       "labelDy": 58
     },
     {
-      "id": "lb-to-api",
-      "from": "lb",
-      "to": "api"
+      "id": "baker-to-graphdata",
+      "from": "baker",
+      "to": "graphdata"
     },
     {
-      "id": "cache-read-through",
-      "from": "api",
-      "to": "cache",
+      "id": "grovestate-read-through",
+      "from": "graphdata",
+      "to": "grovestate",
       "label": "remember",
       "fromSide": "top",
       "toSide": "bottom",
       "labelDy": -68
     },
     {
-      "id": "api-sql",
-      "from": "api",
-      "to": "db",
+      "id": "graphdata-sql",
+      "from": "graphdata",
+      "to": "context",
       "label": "run"
     },
     {
-      "id": "enqueue-job",
-      "from": "api",
-      "to": "queue",
+      "id": "to-play",
+      "from": "graphdata",
+      "to": "isystem",
       "label": "tick",
       "variant": "dashed",
       "fromSide": "bottom",
@@ -294,9 +294,9 @@
       "labelDy": 58
     },
     {
-      "id": "queue-to-worker",
-      "from": "queue",
-      "to": "worker"
+      "id": "isystem-to-leaf_work",
+      "from": "isystem",
+      "to": "leaf_work"
     }
   ],
   "cards": [

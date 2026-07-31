@@ -1,0 +1,83 @@
+{
+  "id": "11",
+  "title": "Context + Blocks",
+  "blurb": "Parent owns scratch T, loops typed blocks, then Next. Sample DebugContext pattern.",
+  "map": "11-context-blocks.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Second shape",
+      "focus": null,
+      "text": "Besides plain Execute and Data nodes, Grove has context plus block stacks. Parent builds a scratch value, runs blocks in order, then Next.",
+      "deep": "GroveContextAuth and GroveBlockAuth. ExecutionHeader T for typed blocks."
+    },
+    {
+      "id": "parent-loop",
+      "title": "Parent loop",
+      "focus": "parent-loop",
+      "text": "Context Execute loops Blocks i with ref T then continues to Next.",
+      "deep": "Sample DebugContext.Execute builds int or struct, for loop Blocks Value Execute, then Next."
+    },
+    {
+      "id": "auth-pair",
+      "title": "Auth pair",
+      "focus": "auth-pair",
+      "text": "Context Auth and Block Auth Create the headers. Toolkit Context Node owns the block stack in the editor.",
+      "deep": "UseWithContext links block catalog. Authoring not login."
+    },
+    {
+      "id": "typed-dispatch",
+      "title": "Typed dispatch",
+      "focus": "typed-dispatch",
+      "text": "Block methods use Execute Node attribute with typeof T so the door book passes the scratch by ref.",
+      "deep": "ExecuteNode id typeof T. Generator emits typed cases into your context switch."
+    }
+  ],
+  "nodes": {
+    "toolkit": {
+      "label": "Toolkit UI",
+      "short": "Toolkit Context Node UI.",
+      "deep": "Graph Toolkit context and block nodes."
+    },
+    "context_auth": {
+      "label": "Context Auth",
+      "short": "Context Auth. GroveContextAuth.",
+      "deep": "Authoring card for parent execution."
+    },
+    "block_auth": {
+      "label": "Block Auth",
+      "short": "Block Auth. GroveBlockAuth.",
+      "deep": "Authoring card for one block."
+    },
+    "context_node": {
+      "label": "Context node",
+      "short": "Context node in the brick.",
+      "deep": "Holds Blocks array and Next."
+    },
+    "blocks": {
+      "label": "Blocks[]",
+      "short": "Ordered Blocks array of typed execution headers.",
+      "deep": "Run in order each Activate."
+    },
+    "scratch": {
+      "label": "Scratch T",
+      "short": "Scratch T. Live value passed by ref into blocks.",
+      "deep": "Owned by parent Execute method."
+    },
+    "execute_attr": {
+      "label": "ExecuteNode",
+      "short": "Execute Node id plus typeof T on block methods.",
+      "deep": "Typed dispatch."
+    },
+    "next": {
+      "label": "Next",
+      "short": "Next continues the graph after blocks.",
+      "deep": "BlobPtr ExecutionHeader."
+    },
+    "sample": {
+      "label": "Sample",
+      "short": "Sample DebugContext and DebugContextBlock.",
+      "deep": "Canonical pattern in Sample tilde."
+    }
+  }
+}

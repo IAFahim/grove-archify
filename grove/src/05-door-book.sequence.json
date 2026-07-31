@@ -13,36 +13,36 @@
     ],
     "views": [
       {
-        "id": "request-and-auth",
+        "id": "request-and-your_nodes",
         "label": "Find toys",
         "focus": [
-          "user",
-          "web",
-          "api",
-          "auth"
+          "you",
+          "generator",
+          "context_cs",
+          "your_nodes"
         ],
         "note": "Generator finds your Context and all [ExecuteNode] methods."
       },
       {
-        "id": "cache-fallback",
+        "id": "side-effects",
         "label": "Write book",
         "focus": [
-          "api",
-          "redis",
-          "db"
+          "context_cs",
+          "grove_dll",
+          "generated_cs"
         ],
         "note": "Emits Create/Update/SetChunk + big switch."
       },
       {
-        "id": "return-and-trace",
+        "id": "return-and-play_time",
         "label": "Play",
         "focus": [
-          "db",
-          "api",
-          "redis",
-          "trace",
-          "web",
-          "user"
+          "generated_cs",
+          "context_cs",
+          "grove_dll",
+          "play_time",
+          "generator",
+          "you"
         ],
         "note": "Brick only stores Type; your book has the doors."
       }
@@ -50,43 +50,43 @@
   },
   "participants": [
     {
-      "id": "user",
+      "id": "you",
       "type": "external",
       "label": "You",
       "sublabel": "write code"
     },
     {
-      "id": "web",
+      "id": "generator",
       "type": "frontend",
       "label": "Generator",
       "sublabel": "Roslyn"
     },
     {
-      "id": "api",
+      "id": "context_cs",
       "type": "backend",
       "label": "Context.cs",
       "sublabel": "partial"
     },
     {
-      "id": "auth",
+      "id": "your_nodes",
       "type": "security",
       "label": "Your nodes",
       "sublabel": "attrs"
     },
     {
-      "id": "redis",
+      "id": "grove_dll",
       "type": "database",
       "label": "Grove.dll",
       "sublabel": "built-ins"
     },
     {
-      "id": "db",
+      "id": "generated_cs",
       "type": "database",
       "label": "*.g.cs",
       "sublabel": "door book"
     },
     {
-      "id": "trace",
+      "id": "play_time",
       "type": "messagebus",
       "label": "Play time",
       "sublabel": "switch"
@@ -112,96 +112,96 @@
   "messages": [
     {
       "id": "open-page",
-      "from": "user",
-      "to": "web",
+      "from": "you",
+      "to": "generator",
       "y": 185,
       "label": "code",
       "variant": "default"
     },
     {
       "id": "dashboard-request",
-      "from": "web",
-      "to": "api",
+      "from": "generator",
+      "to": "context_cs",
       "y": 228,
       "label": "find Context",
       "variant": "emphasis"
     },
     {
-      "id": "verify-jwt",
-      "from": "api",
-      "to": "auth",
+      "id": "type-help",
+      "from": "context_cs",
+      "to": "your_nodes",
       "y": 270,
       "label": "find attrs",
       "variant": "security"
     },
     {
-      "id": "auth-claims",
-      "from": "auth",
-      "to": "api",
+      "id": "your_nodes-claims",
+      "from": "your_nodes",
+      "to": "context_cs",
       "y": 305,
       "label": "scan Grove",
       "variant": "return"
     },
     {
-      "id": "cache-read",
-      "from": "api",
-      "to": "redis",
+      "id": "state-read",
+      "from": "context_cs",
+      "to": "grove_dll",
       "y": 354,
       "label": "match type",
       "variant": "default"
     },
     {
       "id": "cache-miss",
-      "from": "redis",
-      "to": "api",
+      "from": "grove_dll",
+      "to": "context_cs",
       "y": 391,
       "label": "emit lifecycle",
       "variant": "return"
     },
     {
       "id": "profile-query",
-      "from": "api",
-      "to": "db",
+      "from": "context_cs",
+      "to": "generated_cs",
       "y": 443,
       "label": "emit Exec switch",
       "variant": "emphasis"
     },
     {
       "id": "profile-rows",
-      "from": "db",
-      "to": "api",
+      "from": "generated_cs",
+      "to": "context_cs",
       "y": 489,
       "label": "emit Data switch",
       "variant": "return"
     },
     {
       "id": "cache-write",
-      "from": "api",
-      "to": "redis",
+      "from": "context_cs",
+      "to": "grove_dll",
       "y": 536,
       "label": "brick Type",
       "variant": "dashed"
     },
     {
-      "id": "trace-emit",
-      "from": "api",
-      "to": "trace",
+      "id": "play_time-emit",
+      "from": "context_cs",
+      "to": "play_time",
       "y": 580,
       "label": "open door",
       "variant": "dashed"
     },
     {
       "id": "dashboard-response",
-      "from": "api",
-      "to": "web",
+      "from": "context_cs",
+      "to": "generator",
       "y": 625,
       "label": "call method",
       "variant": "return"
     },
     {
       "id": "page-render",
-      "from": "web",
-      "to": "user",
+      "from": "generator",
+      "to": "you",
       "y": 662,
       "label": "maybe more doors",
       "variant": "return"
@@ -209,37 +209,37 @@
   ],
   "activations": [
     {
-      "participant": "web",
+      "participant": "generator",
       "from": 220,
       "to": 668,
       "type": "frontend"
     },
     {
-      "participant": "api",
+      "participant": "context_cs",
       "from": 228,
       "to": 632,
       "type": "backend"
     },
     {
-      "participant": "auth",
+      "participant": "your_nodes",
       "from": 265,
       "to": 310,
       "type": "security"
     },
     {
-      "participant": "redis",
+      "participant": "grove_dll",
       "from": 349,
       "to": 398,
       "type": "database"
     },
     {
-      "participant": "db",
+      "participant": "generated_cs",
       "from": 438,
       "to": 496,
       "type": "database"
     },
     {
-      "participant": "trace",
+      "participant": "play_time",
       "from": 575,
       "to": 630,
       "type": "messagebus"

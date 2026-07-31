@@ -10,36 +10,36 @@
     "visual_preset": "editorial",
     "views": [
       {
-        "id": "request-path",
+        "id": "main-path",
         "label": "Four pieces",
         "focus": [
-          "users",
-          "cdn",
-          "lb",
-          "api",
-          "db"
+          "data_struct",
+          "draw_node",
+          "importer",
+          "auth_card",
+          "brick_piece"
         ],
         "note": "Data \u00b7 Auth \u00b7 Draw node \u00b7 Run method."
       },
       {
-        "id": "identity-and-cache",
+        "id": "identity-and-use_with_graph",
         "label": "Wire in",
         "focus": [
-          "auth",
-          "api",
-          "cache"
+          "type_enum",
+          "auth_card",
+          "use_with_graph"
         ],
         "note": "Importer copies draw \u2192 auth; bake packs bread+filling."
       },
       {
-        "id": "async-work",
+        "id": "rooms",
         "label": "Play",
         "focus": [
-          "cdn",
-          "s3",
-          "api",
-          "queue",
-          "worker"
+          "draw_node",
+          "overrides",
+          "auth_card",
+          "door_book",
+          "run_method"
         ],
         "note": "Number hits your door in the book."
       }
@@ -47,7 +47,7 @@
   },
   "components": [
     {
-      "id": "users",
+      "id": "data_struct",
       "type": "external",
       "label": "Data struct",
       "sublabel": "Speed etc",
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "id": "auth",
+      "id": "type_enum",
       "type": "security",
       "label": "Type number",
       "sublabel": "enum id",
@@ -75,7 +75,7 @@
       ]
     },
     {
-      "id": "cdn",
+      "id": "draw_node",
       "type": "cloud",
       "label": "Draw node",
       "sublabel": "pretty box",
@@ -89,7 +89,7 @@
       ]
     },
     {
-      "id": "lb",
+      "id": "importer",
       "type": "cloud",
       "label": "Importer",
       "sublabel": "copy fields",
@@ -103,10 +103,10 @@
       ]
     },
     {
-      "id": "api",
+      "id": "auth_card",
       "type": "backend",
       "label": "Auth card",
-      "sublabel": "serializable",
+      "sublabel": "Grove*Auth SO",
       "pos": [
         670,
         300
@@ -114,10 +114,11 @@
       "size": [
         130,
         60
-      ]
+      ],
+      "tag": "not login"
     },
     {
-      "id": "cache",
+      "id": "use_with_graph",
       "type": "database",
       "label": "UseWithGraph",
       "sublabel": "which map",
@@ -131,7 +132,7 @@
       ]
     },
     {
-      "id": "db",
+      "id": "brick_piece",
       "type": "database",
       "label": "Brick piece",
       "sublabel": "header+fill",
@@ -145,7 +146,7 @@
       ]
     },
     {
-      "id": "s3",
+      "id": "overrides",
       "type": "cloud",
       "label": "Overrides",
       "sublabel": "per entity",
@@ -159,7 +160,7 @@
       ]
     },
     {
-      "id": "queue",
+      "id": "door_book",
       "type": "messagebus",
       "label": "Door book",
       "sublabel": "case Type",
@@ -173,7 +174,7 @@
       ]
     },
     {
-      "id": "worker",
+      "id": "run_method",
       "type": "backend",
       "label": "Run method",
       "sublabel": "static C#",
@@ -192,35 +193,35 @@
       "kind": "region",
       "label": "You write",
       "wraps": [
-        "users",
-        "auth",
-        "cdn",
-        "api",
-        "worker"
+        "data_struct",
+        "type_enum",
+        "draw_node",
+        "auth_card",
+        "run_method"
       ]
     },
     {
       "kind": "security-group",
       "label": "Grove helps",
       "wraps": [
-        "lb",
-        "db",
-        "queue"
+        "importer",
+        "brick_piece",
+        "door_book"
       ]
     }
   ],
   "connections": [
     {
-      "id": "users-to-cdn",
-      "from": "users",
-      "to": "cdn",
+      "id": "data_struct-to-draw_node",
+      "from": "data_struct",
+      "to": "draw_node",
       "label": "define",
       "variant": "emphasis"
     },
     {
-      "id": "jwt-verification",
-      "from": "auth",
-      "to": "api",
+      "id": "type-help",
+      "from": "type_enum",
+      "to": "auth_card",
       "label": "scope",
       "variant": "security",
       "fromSide": "right",
@@ -241,14 +242,14 @@
       ]
     },
     {
-      "id": "cdn-to-lb",
-      "from": "cdn",
-      "to": "lb"
+      "id": "draw_node-to-importer",
+      "from": "draw_node",
+      "to": "importer"
     },
     {
-      "id": "static-assets",
-      "from": "cdn",
-      "to": "s3",
+      "id": "editor-link",
+      "from": "draw_node",
+      "to": "overrides",
       "label": "tweak",
       "variant": "dashed",
       "fromSide": "bottom",
@@ -256,29 +257,29 @@
       "labelDy": 58
     },
     {
-      "id": "lb-to-api",
-      "from": "lb",
-      "to": "api"
+      "id": "importer-to-auth_card",
+      "from": "importer",
+      "to": "auth_card"
     },
     {
-      "id": "cache-read-through",
-      "from": "api",
-      "to": "cache",
+      "id": "use_with_graph-read-through",
+      "from": "auth_card",
+      "to": "use_with_graph",
       "label": "id",
       "fromSide": "top",
       "toSide": "bottom",
       "labelDy": -68
     },
     {
-      "id": "api-sql",
-      "from": "api",
-      "to": "db",
+      "id": "auth_card-sql",
+      "from": "auth_card",
+      "to": "brick_piece",
       "label": "bake"
     },
     {
-      "id": "enqueue-job",
-      "from": "api",
-      "to": "queue",
+      "id": "to-play",
+      "from": "auth_card",
+      "to": "door_book",
       "label": "call",
       "variant": "dashed",
       "fromSide": "bottom",
@@ -286,9 +287,9 @@
       "labelDy": 58
     },
     {
-      "id": "queue-to-worker",
-      "from": "queue",
-      "to": "worker"
+      "id": "door_book-to-run_method",
+      "from": "door_book",
+      "to": "run_method"
     }
   ],
   "cards": [

@@ -1,0 +1,113 @@
+{
+  "id": "13",
+  "title": "ECS Setup Checklist",
+  "blurb": "IGraphReference \u00b7 authoring \u00b7 bake discovery \u00b7 multi-graph \u00b7 GetState \u00b7 debug.",
+  "map": "13-ecs-setup.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Checklist",
+      "focus": null,
+      "text": "To own a Grove graph type you need a graph plus importer, a partial context, authoring that points at Auth not the my graph file, an I Graph Reference, and a system that owns Graph Impl.",
+      "deep": "Sample MyGraphGraph MyGraphAuth MyGraphAuthoring MyGraph MyContext MyGraphSystem."
+    },
+    {
+      "id": "main-path",
+      "title": "Happy path",
+      "focus": "main-path",
+      "text": "Define graph type, import Auth asset, hang Graph Authoring, auto bake system writes blob, I System Get Execution Set Chunk Execute.",
+      "deep": "IGraphBaking discovery spawns GraphBakingSystem T. Do not hand-write dual type param baking systems as current API."
+    },
+    {
+      "id": "multi",
+      "title": "Multi-graph",
+      "focus": "multi",
+      "text": "Authoring Buffer bakes many blobs on one entity sharing Grove State. Scope keys with Graph Id and tear down with Remove Graph State.",
+      "deep": "GraphAuthoringBuffer. GraphStateUtil RemoveGraphState. Do not clear the whole buffer."
+    },
+    {
+      "id": "debug",
+      "title": "State API and debug",
+      "focus": "debug",
+      "text": "Use Get State extension and Graph State Util. There is no Get Variables on modern contexts. Node Debug attrs are gated by config vars.",
+      "deep": "ExecuteNodeDebug DataNodeDebug under UNITY_INCLUDE_INSTRUMENTATION. graph.debug-enabled and graph.debug-selected."
+    }
+  ],
+  "nodes": {
+    "define_graph": {
+      "label": "Graph type",
+      "short": "Graph type plus importer Auth type.",
+      "deep": "GroveGraph and GroveImporter TAuth."
+    },
+    "context_type": {
+      "label": "Context",
+      "short": "Partial I Context with Grove States property.",
+      "deep": "Generator fills dispatch. Do not implement GetState yourself."
+    },
+    "auth_asset": {
+      "label": "Auth asset",
+      "short": "Imported Auth asset. Authoring not login.",
+      "deep": "Reference this from authoring, not .mygraph."
+    },
+    "authoring_mb": {
+      "label": "Authoring",
+      "short": "Graph Authoring single graph.",
+      "deep": "IGraphBaking."
+    },
+    "buffer_mb": {
+      "label": "Auth buffer",
+      "short": "Authoring Buffer many graphs.",
+      "deep": "Shared GroveState."
+    },
+    "variants": {
+      "label": "Variants",
+      "short": "Variants strip unselected branches at bake.",
+      "deep": "Not a runtime if."
+    },
+    "bake_sys": {
+      "label": "Bake system",
+      "short": "Bake system auto via I Graph Baking.",
+      "deep": "GraphBakingSystem TComponent."
+    },
+    "igraph": {
+      "label": "IGraphRef",
+      "short": "I Graph Reference blob field on entity.",
+      "deep": "Component or buffer element."
+    },
+    "grovestate": {
+      "label": "GroveState",
+      "short": "Grove State backpack ensured at bake.",
+      "deep": "Live inputs locals state keys."
+    },
+    "isystem": {
+      "label": "ISystem",
+      "short": "I System owns Graph Impl.",
+      "deep": "SetChunk then Execute each frame."
+    },
+    "getstate": {
+      "label": "GetState",
+      "short": "Get State plus Graph State Util keys.",
+      "deep": "Not GetVariables."
+    },
+    "graphid": {
+      "label": "GraphId",
+      "short": "Graph Id scopes multi graph state.",
+      "deep": "From GraphData.GraphId."
+    },
+    "remove": {
+      "label": "RemoveState",
+      "short": "Remove Graph State on teardown.",
+      "deep": "Per GraphId only."
+    },
+    "debug_attr": {
+      "label": "NodeDebug",
+      "short": "Node Debug attributes.",
+      "deep": "Instrumentation gated."
+    },
+    "config_var": {
+      "label": "Debug cfg",
+      "short": "Debug config vars enabled and selected.",
+      "deep": "GraphConfigurable."
+    }
+  }
+}

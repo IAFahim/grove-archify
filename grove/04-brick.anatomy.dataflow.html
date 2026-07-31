@@ -4501,7 +4501,7 @@
       <p class="subtitle">Header bread · filling · little arrows to kids</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"collection-path","label":"Outside of brick","focus":["web","mobile","edge","stream"],"note":"GraphId, Root, Inputs, Outputs live on the brick shell."},{"id":"consent-boundary","label":"Each box","focus":["edge","consent","pii"],"note":"Every node is bread (Type+id) + filling (payload)."},{"id":"analytics-consumers","label":"Robot opens doors","focus":["stream","warehouse","dashboard","features","model"],"note":"Type number → method → maybe open more doors."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"shell","label":"Outside of brick","focus":["root","io_list","header","type_switch"],"note":"GraphId, Root, Inputs, Outputs live on the brick shell."},{"id":"payload-boundary","label":"Each box","focus":["header","payload","blobptrs"],"note":"Every node is bread (Type+id) + filling (payload)."},{"id":"robot-run","label":"Robot opens doors","focus":["type_switch","method","ecs_write","recurse","backpack"],"note":"Type number → method → maybe open more doors."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4586,19 +4586,19 @@
         <text x="960" y="68" class="t-dim" font-size="9" font-weight="600" text-anchor="middle">05 / World</text>
 
         <!-- Flow paths -->
-        <path data-edge-from="web" data-edge-to="edge" data-edge-label="kick" data-edge-key="0" data-edge-id="web-clickstream" data-composition-points="156,157;205,157;205,271;259,271" d="M 156 157 L 205 157 L 205 271 L 259 271" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="mobile" data-edge-to="edge" data-edge-label="keys" data-edge-key="1" data-edge-id="mobile-events" data-composition-points="156,385;222,385;222,271;259,271" d="M 156 385 L 222 385 L 222 271 L 259 271" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="edge" data-edge-to="consent" data-edge-label="pack" data-edge-key="2" data-edge-id="consent-enrichment" data-composition-points="315,242;315,112;450,112;450,157;474,157" d="M 315 242 L 315 112 L 450 112 L 450 157 L 474 157" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="edge" data-edge-to="stream" data-edge-label="Type" data-edge-key="3" data-edge-id="accepted-events" data-composition-points="371,271;420,271;420,385;474,385" d="M 371 271 L 420 271 L 420 385 L 474 385" class="a-emphasis" data-animate="edge" style="--step:3" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="consent" data-edge-to="pii" data-edge-label="kids" data-edge-key="4" data-edge-id="identity-map" data-composition-points="586,157;689,157" d="M 586 157 L 689 157" class="a-security" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <path data-edge-from="stream" data-edge-to="warehouse" data-edge-label="case" data-edge-key="5" data-edge-id="normalized-facts" data-composition-points="586,385;689,385" d="M 586 385 L 689 385" class="a-emphasis" data-animate="edge" style="--step:5" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="warehouse" data-edge-to="features" data-edge-label="again" data-edge-key="6" data-edge-id="daily-aggregates" data-composition-points="745,414;745,584" d="M 745 414 L 745 584" class="a-dashed" data-animate="edge" style="--step:6" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="warehouse" data-edge-to="dashboard" data-edge-label="do" data-edge-key="7" data-edge-id="metrics-query" data-composition-points="801,385;852,385;852,271;904,271" d="M 801 385 L 852 385 L 852 271 L 904 271" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="features" data-edge-to="model" data-edge-label="memo" data-edge-key="8" data-edge-id="feature-vectors" data-composition-points="801,613;904,613" d="M 801 613 L 904 613" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="pii" data-edge-to="dashboard" data-edge-label="scope" data-edge-key="9" data-edge-id="restricted-join" data-composition-points="801,157;878,157;878,212;960,212;960,242" d="M 801 157 L 878 157 L 878 212 L 960 212 L 960 242" class="a-security" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="root" data-edge-to="header" data-edge-label="kick" data-edge-key="0" data-edge-id="root-clickstream" data-composition-points="156,157;205,157;205,271;259,271" d="M 156 157 L 205 157 L 205 271 L 259 271" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="io_list" data-edge-to="header" data-edge-label="keys" data-edge-key="1" data-edge-id="io_list-events" data-composition-points="156,385;222,385;222,271;259,271" d="M 156 385 L 222 385 L 222 271 L 259 271" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="header" data-edge-to="payload" data-edge-label="pack" data-edge-key="2" data-edge-id="payload-enrichment" data-composition-points="315,242;315,112;450,112;450,157;474,157" d="M 315 242 L 315 112 L 450 112 L 450 157 L 474 157" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="header" data-edge-to="type_switch" data-edge-label="Type" data-edge-key="3" data-edge-id="accepted-events" data-composition-points="371,271;420,271;420,385;474,385" d="M 371 271 L 420 271 L 420 385 L 474 385" class="a-emphasis" data-animate="edge" style="--step:3" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="payload" data-edge-to="blobptrs" data-edge-label="kids" data-edge-key="4" data-edge-id="identity-map" data-composition-points="586,157;689,157" d="M 586 157 L 689 157" class="a-security" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="type_switch" data-edge-to="method" data-edge-label="case" data-edge-key="5" data-edge-id="normalized-facts" data-composition-points="586,385;689,385" d="M 586 385 L 689 385" class="a-emphasis" data-animate="edge" style="--step:5" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="method" data-edge-to="recurse" data-edge-label="again" data-edge-key="6" data-edge-id="daily-aggregates" data-composition-points="745,414;745,584" d="M 745 414 L 745 584" class="a-dashed" data-animate="edge" style="--step:6" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="method" data-edge-to="ecs_write" data-edge-label="do" data-edge-key="7" data-edge-id="metrics-query" data-composition-points="801,385;852,385;852,271;904,271" d="M 801 385 L 852 385 L 852 271 L 904 271" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="recurse" data-edge-to="backpack" data-edge-label="memo" data-edge-key="8" data-edge-id="feature-vectors" data-composition-points="801,613;904,613" d="M 801 613 L 904 613" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="blobptrs" data-edge-to="ecs_write" data-edge-label="scope" data-edge-key="9" data-edge-id="restricted-join" data-composition-points="801,157;878,157;878,212;960,212;960,242" d="M 801 157 L 878 157 L 878 212 L 960 212 L 960 242" class="a-security" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
 
         <!-- Nodes -->
-        <g id="node-web" data-node-id="web" data-node-label="Root" tabindex="0" role="button" aria-label="Focus Root, start door, 01 / Shell" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="start door" data-node-context="01 / Shell">
+        <g id="node-root" data-node-id="root" data-node-label="Root" tabindex="0" role="button" aria-label="Focus Root, start door, 01 / Shell" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="start door" data-node-context="01 / Shell">
           <title>Root · start door · 01 / Shell</title>
           <rect x="44" y="128" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="44" y="128" width="112" height="58" rx="6" class="c-frontend" data-animate="node" style="--step:0" stroke-width="1.5"/>
@@ -4612,7 +4612,7 @@
           <text data-detail="context" x="100" y="165" class="t-muted" font-size="7" text-anchor="middle">start door</text>
         </g>
 
-        <g id="node-mobile" data-node-id="mobile" data-node-label="I/O list" tabindex="0" role="button" aria-label="Focus I/O list, keys, 01 / Shell" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="keys" data-node-context="01 / Shell">
+        <g id="node-io_list" data-node-id="io_list" data-node-label="I/O list" tabindex="0" role="button" aria-label="Focus I/O list, keys, 01 / Shell" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="keys" data-node-context="01 / Shell">
           <title>I/O list · keys · 01 / Shell</title>
           <rect x="44" y="356" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="44" y="356" width="112" height="58" rx="6" class="c-frontend" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4626,7 +4626,7 @@
           <text data-detail="context" x="100" y="393" class="t-muted" font-size="7" text-anchor="middle">keys</text>
         </g>
 
-        <g id="node-edge" data-node-id="edge" data-node-label="Bread" tabindex="0" role="button" aria-label="Focus Bread, Type + id, 02 / Box" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Type + id" data-node-context="02 / Box">
+        <g id="node-header" data-node-id="header" data-node-label="Bread" tabindex="0" role="button" aria-label="Focus Bread, Type + id, 02 / Box" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Type + id" data-node-context="02 / Box">
           <title>Bread · Type + id · 02 / Box</title>
           <rect x="259" y="242" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="259" y="242" width="112" height="58" rx="6" class="c-cloud" data-animate="node" style="--step:1" stroke-width="1.5"/>
@@ -4637,7 +4637,7 @@
           <text data-detail="context" x="315" y="279" class="t-muted" font-size="7" text-anchor="middle">Type + id</text>
         </g>
 
-        <g id="node-consent" data-node-id="consent" data-node-label="Filling" tabindex="0" role="button" aria-label="Focus Filling, payload, 03 / Pick" aria-pressed="false" data-node-kind="security" data-node-sublabel="payload" data-node-context="03 / Pick">
+        <g id="node-payload" data-node-id="payload" data-node-label="Filling" tabindex="0" role="button" aria-label="Focus Filling, payload, 03 / Pick" aria-pressed="false" data-node-kind="security" data-node-sublabel="payload" data-node-context="03 / Pick">
           <title>Filling · payload · 03 / Pick</title>
           <rect x="474" y="128" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="474" y="128" width="112" height="58" rx="6" class="c-security" data-animate="node" style="--step:3" stroke-width="1.5"/>
@@ -4649,7 +4649,7 @@
           <text data-detail="context" x="530" y="165" class="t-muted" font-size="7" text-anchor="middle">payload</text>
         </g>
 
-        <g id="node-stream" data-node-id="stream" data-node-label="Door #" tabindex="0" role="button" aria-label="Focus Door #, switch, 03 / Pick" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="switch" data-node-context="03 / Pick">
+        <g id="node-type_switch" data-node-id="type_switch" data-node-label="Door #" tabindex="0" role="button" aria-label="Focus Door #, switch, 03 / Pick" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="switch" data-node-context="03 / Pick">
           <title>Door # · switch · 03 / Pick</title>
           <rect x="474" y="356" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="474" y="356" width="112" height="58" rx="6" class="c-messagebus" data-animate="node" style="--step:4" stroke-width="1.5"/>
@@ -4663,7 +4663,7 @@
           <text data-detail="context" x="530" y="393" class="t-muted" font-size="7" text-anchor="middle">switch</text>
         </g>
 
-        <g id="node-pii" data-node-id="pii" data-node-label="Kid arrows" tabindex="0" role="button" aria-label="Focus Kid arrows, BlobPtrs, 04 / Run" aria-pressed="false" data-node-kind="security" data-node-sublabel="BlobPtrs" data-node-context="04 / Run">
+        <g id="node-blobptrs" data-node-id="blobptrs" data-node-label="Kid arrows" tabindex="0" role="button" aria-label="Focus Kid arrows, BlobPtrs, 04 / Run" aria-pressed="false" data-node-kind="security" data-node-sublabel="BlobPtrs" data-node-context="04 / Run">
           <title>Kid arrows · BlobPtrs · 04 / Run</title>
           <rect x="689" y="128" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="689" y="128" width="112" height="58" rx="6" class="c-security" data-animate="node" style="--step:5" stroke-width="1.5"/>
@@ -4675,7 +4675,7 @@
           <text data-detail="context" x="745" y="165" class="t-muted" font-size="7" text-anchor="middle">BlobPtrs</text>
         </g>
 
-        <g id="node-warehouse" data-node-id="warehouse" data-node-label="Method" tabindex="0" role="button" aria-label="Focus Method, static C#, 04 / Run" aria-pressed="false" data-node-kind="database" data-node-sublabel="static C#" data-node-context="04 / Run">
+        <g id="node-method" data-node-id="method" data-node-label="Method" tabindex="0" role="button" aria-label="Focus Method, static C#, 04 / Run" aria-pressed="false" data-node-kind="database" data-node-sublabel="static C#" data-node-context="04 / Run">
           <title>Method · static C# · 04 / Run</title>
           <rect x="689" y="356" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="689" y="356" width="112" height="58" rx="6" class="c-database" data-animate="node" style="--step:6" stroke-width="1.5"/>
@@ -4687,7 +4687,7 @@
           <text data-detail="context" x="745" y="393" class="t-muted" font-size="7" text-anchor="middle">static C#</text>
         </g>
 
-        <g id="node-features" data-node-id="features" data-node-label="Recurse" tabindex="0" role="button" aria-label="Focus Recurse, more doors, 04 / Run" aria-pressed="false" data-node-kind="database" data-node-sublabel="more doors" data-node-context="04 / Run">
+        <g id="node-recurse" data-node-id="recurse" data-node-label="Recurse" tabindex="0" role="button" aria-label="Focus Recurse, more doors, 04 / Run" aria-pressed="false" data-node-kind="database" data-node-sublabel="more doors" data-node-context="04 / Run">
           <title>Recurse · more doors · 04 / Run</title>
           <rect x="689" y="584" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="689" y="584" width="112" height="58" rx="6" class="c-database" data-animate="node" style="--step:7" stroke-width="1.5"/>
@@ -4699,7 +4699,7 @@
           <text data-detail="context" x="745" y="621" class="t-muted" font-size="7" text-anchor="middle">more doors</text>
         </g>
 
-        <g id="node-dashboard" data-node-id="dashboard" data-node-label="ECS write" tabindex="0" role="button" aria-label="Focus ECS write, move stuff, 05 / World" aria-pressed="false" data-node-kind="backend" data-node-sublabel="move stuff" data-node-context="05 / World">
+        <g id="node-ecs_write" data-node-id="ecs_write" data-node-label="ECS write" tabindex="0" role="button" aria-label="Focus ECS write, move stuff, 05 / World" aria-pressed="false" data-node-kind="backend" data-node-sublabel="move stuff" data-node-context="05 / World">
           <title>ECS write · move stuff · 05 / World</title>
           <rect x="904" y="242" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="904" y="242" width="112" height="58" rx="6" class="c-backend" data-animate="node" style="--step:8" stroke-width="1.5"/>
@@ -4710,7 +4710,7 @@
           <text data-detail="context" x="960" y="279" class="t-muted" font-size="7" text-anchor="middle">move stuff</text>
         </g>
 
-        <g id="node-model" data-node-id="model" data-node-label="Backpack" tabindex="0" role="button" aria-label="Focus Backpack, memory, 05 / World" aria-pressed="false" data-node-kind="backend" data-node-sublabel="memory" data-node-context="05 / World">
+        <g id="node-backpack" data-node-id="backpack" data-node-label="Backpack" tabindex="0" role="button" aria-label="Focus Backpack, memory, 05 / World" aria-pressed="false" data-node-kind="backend" data-node-sublabel="memory" data-node-context="05 / World">
           <title>Backpack · memory · 05 / World</title>
           <rect x="904" y="584" width="112" height="58" rx="6" class="c-mask"/>
           <rect x="904" y="584" width="112" height="58" rx="6" class="c-backend" data-animate="node" style="--step:9" stroke-width="1.5"/>
@@ -4722,52 +4722,52 @@
         </g>
 
         <!-- Flow labels -->
-        <g data-detail="context" data-edge-from="web" data-edge-to="edge" data-edge-label="kick" data-edge-key="0" data-edge-id="web-clickstream">
+        <g data-detail="context" data-edge-from="root" data-edge-to="header" data-edge-label="kick" data-edge-key="0" data-edge-id="root-clickstream">
           <rect x="185.75" y="179" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="204" y="190" class="t-backend" font-size="8" text-anchor="middle">kick</text>
         <text data-detail="fine" x="204" y="201" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="mobile" data-edge-to="edge" data-edge-label="keys" data-edge-key="1" data-edge-id="mobile-events">
+        <g data-detail="context" data-edge-from="io_list" data-edge-to="header" data-edge-label="keys" data-edge-key="1" data-edge-id="io_list-events">
           <rect x="201.75" y="331" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="220" y="342" class="t-muted" font-size="8" text-anchor="middle">keys</text>
         <text data-detail="fine" x="220" y="353" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="edge" data-edge-to="consent" data-edge-label="pack" data-edge-key="2" data-edge-id="consent-enrichment">
+        <g data-detail="context" data-edge-from="header" data-edge-to="payload" data-edge-label="pack" data-edge-key="2" data-edge-id="payload-enrichment">
           <rect x="363.75" y="89" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="382" y="100" class="t-security" font-size="8" text-anchor="middle">pack</text>
         <text data-detail="fine" x="382" y="111" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="edge" data-edge-to="stream" data-edge-label="Type" data-edge-key="3" data-edge-id="accepted-events">
+        <g data-detail="context" data-edge-from="header" data-edge-to="type_switch" data-edge-label="Type" data-edge-key="3" data-edge-id="accepted-events">
           <rect x="419.75" y="313" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="438" y="324" class="t-backend" font-size="8" text-anchor="middle">Type</text>
         <text data-detail="fine" x="438" y="335" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="consent" data-edge-to="pii" data-edge-label="kids" data-edge-key="4" data-edge-id="identity-map">
+        <g data-detail="context" data-edge-from="payload" data-edge-to="blobptrs" data-edge-label="kids" data-edge-key="4" data-edge-id="identity-map">
           <rect x="619.75" y="133" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="638" y="144" class="t-security" font-size="8" text-anchor="middle">kids</text>
         <text data-detail="fine" x="638" y="155" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="stream" data-edge-to="warehouse" data-edge-label="case" data-edge-key="5" data-edge-id="normalized-facts">
+        <g data-detail="context" data-edge-from="type_switch" data-edge-to="method" data-edge-label="case" data-edge-key="5" data-edge-id="normalized-facts">
           <rect x="619.75" y="361" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="638" y="372" class="t-backend" font-size="8" text-anchor="middle">case</text>
         <text data-detail="fine" x="638" y="383" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="warehouse" data-edge-to="features" data-edge-label="again" data-edge-key="6" data-edge-id="daily-aggregates">
+        <g data-detail="context" data-edge-from="method" data-edge-to="recurse" data-edge-label="again" data-edge-key="6" data-edge-id="daily-aggregates">
           <rect x="726.75" y="485" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="745" y="496" class="t-messagebus" font-size="8" text-anchor="middle">again</text>
         <text data-detail="fine" x="745" y="507" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="warehouse" data-edge-to="dashboard" data-edge-label="do" data-edge-key="7" data-edge-id="metrics-query">
+        <g data-detail="context" data-edge-from="method" data-edge-to="ecs_write" data-edge-label="do" data-edge-key="7" data-edge-id="metrics-query">
           <rect x="811.75" y="315" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="830" y="326" class="t-muted" font-size="8" text-anchor="middle">do</text>
         <text data-detail="fine" x="830" y="337" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="features" data-edge-to="model" data-edge-label="memo" data-edge-key="8" data-edge-id="feature-vectors">
+        <g data-detail="context" data-edge-from="recurse" data-edge-to="backpack" data-edge-label="memo" data-edge-key="8" data-edge-id="feature-vectors">
           <rect x="833.75" y="587" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="852" y="598" class="t-messagebus" font-size="8" text-anchor="middle">memo</text>
         <text data-detail="fine" x="852" y="609" class="t-dim" font-size="7" text-anchor="middle">brick</text>
         </g>
-        <g data-detail="context" data-edge-from="pii" data-edge-to="dashboard" data-edge-label="scope" data-edge-key="9" data-edge-id="restricted-join">
+        <g data-detail="context" data-edge-from="blobptrs" data-edge-to="ecs_write" data-edge-label="scope" data-edge-key="9" data-edge-id="restricted-join">
           <rect x="861.75" y="187" width="36.5" height="27" rx="4" class="c-mask"/>
           <text x="880" y="198" class="t-security" font-size="8" text-anchor="middle">scope</text>
         <text data-detail="fine" x="880" y="209" class="t-dim" font-size="7" text-anchor="middle">brick</text>

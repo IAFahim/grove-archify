@@ -12,55 +12,62 @@
       "deep": "BovineLabs.ContextGenerator skips generating inside BovineLabs.Grove, Grove.Authoring, and Grove.Editor assemblies. Your game assembly is where the partial Context is completed. Referenced public attributed methods from Grove still appear as switch cases."
     },
     {
-      "id": "request-and-auth",
+      "id": "wake-and-walk",
       "title": "What it hunts",
-      "focus": "request-and-auth",
+      "focus": "wake-and-walk",
       "text": "It finds your partial struct that implements I Context. It finds static methods with Execute Node or Data Node attributes. It also peeks into Grove for public built-in toys like Composite.",
       "deep": "Context must be a partial unmanaged struct implementing IContext of Self and exposing GroveStates. Node methods must be static, not in generic outer types, with context by ref. Generic T where T is IContext of T matches every context. Concrete MyContext matches only that one."
     },
     {
-      "id": "cache-fallback",
+      "id": "side-effects",
       "title": "What it writes",
-      "focus": "cache-fallback",
+      "focus": "side-effects",
       "text": "Create Generated, Update Generated, and Set Chunk Generated wire your component bags. Then big switches: Execution Generated and Data Generated. Debug doors appear only when instrumentation is on.",
       "deep": "Recognized fields include ComponentContainer, BufferContainer, EnableableContainer, SharedComponentContainer, ComponentLookup, BufferLookup, EntityStorageInfoLookup. Emit also covers debug methods under UNITY_INCLUDE_INSTRUMENTATION."
     },
     {
-      "id": "return-and-trace",
+      "id": "return-path",
       "title": "Play time",
-      "focus": "return-and-trace",
+      "focus": "return-path",
       "text": "Play never invents methods. Header Type selects a case. That case calls your static method with payload rehydrated from bytes after the header. Unknown Type becomes a no-op or default value.",
       "deep": "ExecutionHeader.Execute calls ExecutionGenerated. DataHeader.Calculate special-cases Default, Constant, Variable, VariableSet, then DataGenerated. Payload is recovered with pointer arithmetic after the header size."
     }
   ],
   "nodes": {
-    "api": {
+    "context_cs": {
       "short": "MyContext.cs must be partial.",
-      "deep": "partial struct MyContext : IContext of MyContext."
+      "deep": "partial struct MyContext : IContext of MyContext.",
+      "label": "Context.cs"
     },
-    "auth": {
+    "your_nodes": {
       "short": "Methods with Execute Node or Data Node attributes.",
-      "deep": "ExecuteNodeAttribute and DataNodeAttribute with integer type ids."
+      "deep": "ExecuteNodeAttribute and DataNodeAttribute with integer type ids.",
+      "label": "Your nodes"
     },
-    "db": {
+    "generated_cs": {
       "short": "Generated partial. The door book itself.",
-      "deep": "Generated ExecutionGenerated and DataGenerated methods."
+      "deep": "Generated ExecutionGenerated and DataGenerated methods.",
+      "label": "*.g.cs"
     },
-    "redis": {
+    "grove_dll": {
       "short": "Grove.dll. Built-in node methods get pulled into your switch.",
-      "deep": "Built-ins such as Composite and selectors with negative GroveExecutionTypes."
+      "deep": "Built-ins such as Composite and selectors with negative GroveExecutionTypes.",
+      "label": "Grove.dll"
     },
-    "trace": {
+    "play_time": {
       "short": "Runtime switch. Type integer to method call.",
-      "deep": "header.Type switch dispatch at runtime."
+      "deep": "header.Type switch dispatch at runtime.",
+      "label": "Play time"
     },
-    "user": {
+    "you": {
       "short": "You write Context and node methods in your assemblies.",
-      "deep": "Your runtime assembly with partial MyContext and node classes."
+      "deep": "Your runtime assembly with partial MyContext and node classes.",
+      "label": "You"
     },
-    "web": {
+    "generator": {
       "short": "Context Generator. Roslyn source generator.",
-      "deep": "IIncrementalGenerator ContextGenerator."
+      "deep": "IIncrementalGenerator ContextGenerator.",
+      "label": "Generator"
     }
   }
 }
