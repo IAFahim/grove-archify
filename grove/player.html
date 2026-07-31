@@ -201,6 +201,8 @@
 
   <audio id="audio" preload="auto"></audio>
 
+  <!-- file:// cannot fetch() JSON (CORS). A classic script tag works offline. -->
+  <script src="narrate/manifest.js"></script>
   <script>
   (() => {
     const $ = (id) => document.getElementById(id);
@@ -604,34 +606,41 @@
       }
     });
 
-    fetch("narrate/manifest.json")
-      .then((r) => {
-        if (!r.ok) throw new Error("manifest " + r.status);
-        return r.json();
-      })
-      .then((m) => {
-        manifest = m;
-        renderLessons();
-        renderChapters();
-        const L = lesson();
-        if (L) {
-          loadMap(L, L.chapters[0]);
-          setCaption(
-            L.title,
-            "Fun first through all lessons, then Serious on the same maps. Press Play lesson."
-          );
-        }
-        updateProgress();
-      })
-      .catch((err) => {
-        hideMapLoading();
+    function boot(m) {
+      manifest = m;
+      renderLessons();
+      renderChapters();
+      const L = lesson();
+      if (L) {
+        loadMap(L, L.chapters[0]);
         setCaption(
-          "Catalog missing",
-          "Could not load narrate/manifest.json. Open via a local server or GitHub Pages (not always file://). From docs: python3 grove/tools/gen_narration.py --manifest-only",
-          { missing: true }
+          L.title,
+          "Fun first through all lessons, then Serious on the same maps. Press Play lesson."
         );
-        console.error(err);
-      });
+      }
+      updateProgress();
+    }
+
+    // Prefer in-page catalog (file:// safe). Fall back to fetch on http(s).
+    if (window.GROVE_NARRATE_MANIFEST && Array.isArray(window.GROVE_NARRATE_MANIFEST.lessons)) {
+      boot(window.GROVE_NARRATE_MANIFEST);
+    } else {
+      fetch("narrate/manifest.json")
+        .then((r) => {
+          if (!r.ok) throw new Error("manifest " + r.status);
+          return r.json();
+        })
+        .then(boot)
+        .catch((err) => {
+          hideMapLoading();
+          setCaption(
+            "Catalog missing",
+            "Need narrate/manifest.js next to this page. From grove/: python3 tools/gen_narration.py --manifest-only",
+            { missing: true }
+          );
+          console.error(err);
+        });
+    }
   })();
   </script>
 </body>
