@@ -4,28 +4,39 @@
   "chapters": [
     {
       "id": "intro",
-      "title": "Hello",
+      "title": "Two play styles",
       "view": null,
-      "text": "Two ways to play the brick. Push starts at Root and presses action buttons. Pull starts at an Output and asks for a number."
+      "text": "Push starts at Root and walks action boxes. Pull starts at an Output and asks a data box for a value. Most graphs use both: selectors push, but they pull scores on the way."
     },
     {
       "id": "main-lifecycle",
-      "title": "Push",
+      "title": "Push path",
       "view": "main-lifecycle",
-      "text": "Root to Composite to Selector to leaf. Side effects happen. Scores only open when the selector asks."
+      "text": "Root may enter a Composite that runs every child. A Selector scores options, picks one action, executes it. The leaf finally moves the world. Nothing magic loops the whole brick each frame."
     },
     {
       "id": "human-waits",
-      "title": "Pull",
+      "title": "Pull path",
       "view": "human-waits",
-      "text": "Output asks a data box. That box may open Variables or Qualifiers. Nothing runs until something Calculate-s it."
+      "text": "Calculate on an Output evaluates only the data chain needed. Variables read the backpack. Qualifiers fold floats. If nothing asks, those boxes stay asleep."
     },
     {
       "id": "recovery-and-exits",
-      "title": "Backpack",
+      "title": "Backpack between frames",
       "view": "recovery-and-exits",
-      "text": "The backpack keeps variables between frames. Keys include Graph Id. When a graph dies, remove only its keys."
+      "text": "Inputs, locals, and state machine ints live in Grove State on the entity. Keys include Graph Id. When one graph ends, remove only that Graph Id's keys so other graphs keep their memory."
     }
   ],
-  "nodes": {}
+  "nodes": {
+    "queued": "Root. Push starts here for execution graphs.",
+    "planning": "Composite. Run every connected execution child in order.",
+    "executing": "Selector. Pull scores, push one action.",
+    "reviewing": "Leaf execution. Side effects.",
+    "completed": "World changed this frame for that entity.",
+    "approval": "An Output or data question. Pull entry.",
+    "blocked": "Data node Calculate. Demand driven.",
+    "failed": "Variable. Backpack read or write.",
+    "cancelled": "Next frame will Get Execution again.",
+    "expired": "Same entity still holds Grove State."
+  }
 }

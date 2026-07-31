@@ -174,34 +174,63 @@
       "chapters": [
         {
           "id": "intro",
-          "title": "Hello",
+          "title": "What a frame is",
           "view": null,
-          "text": "One frame. The system wakes the robot, points its bags at a chunk of entities, then walks the brick door by door.",
+          "text": "A frame is one heartbeat of the game. Your system wakes, hands the robot a remote for this frame, points its bags at a group of entities, then walks the brick starting at Root.",
           "audio": "audio/fun/03/ch-intro.wav"
         },
         {
           "id": "request-and-auth",
-          "title": "Wake",
+          "title": "Wake the robot",
           "view": "request-and-auth",
-          "text": "Get Execution builds this frame's remote control. Update Generated refreshes component handles. Time and logger hop into Grove Context.",
+          "text": "Get Execution is not a full rebuild. It refreshes generated handles, stamps time and logger into Grove Context, and returns a Graph Execution value. That value is a copy of the context bag for this update.",
           "audio": "audio/fun/03/ch-request-and-auth.wav"
         },
         {
           "id": "cache-fallback",
-          "title": "Walk",
+          "title": "Walk the brick",
           "view": "cache-fallback",
-          "text": "Set Chunk binds containers. Execute starts at Root. The Type number opens a door that calls a static method.",
+          "text": "Set Chunk first. That aims Component Container and Buffer Container at this Archetype Chunk. Then Execute starts at Root. Each box has a Type number. The door book opens that case and runs a static method.",
           "audio": "audio/fun/03/ch-cache-fallback.wav"
         },
         {
           "id": "return-and-trace",
-          "title": "Act",
+          "title": "Side effects and questions",
           "view": "return-and-trace",
-          "text": "Leaf methods write transforms. Data boxes only open when something asks Calculate. Inputs were dropped into the backpack first.",
+          "text": "Leaf methods write things like Local Transform. Data boxes sleep until something calls Calculate. If you Set Input first, you wrote a variable into the backpack. The graph reads it later. It is not a stack argument to Root.",
           "audio": "audio/fun/03/ch-return-and-trace.wav"
         }
       ],
-      "nodes": {}
+      "nodes": {
+        "user": {
+          "text": "Entities in the world. The job loops them after Set Chunk.",
+          "audio": "audio/fun/03/node-user.wav"
+        },
+        "web": {
+          "text": "Your I System. Owns Graph Impl for the whole system lifetime.",
+          "audio": "audio/fun/03/node-web.wav"
+        },
+        "api": {
+          "text": "Graph Impl. Keeps the context warm across frames.",
+          "audio": "audio/fun/03/node-api.wav"
+        },
+        "auth": {
+          "text": "Graph Execution for this update. Remote control for one tick.",
+          "audio": "audio/fun/03/node-auth.wav"
+        },
+        "redis": {
+          "text": "The brick. Blob Asset Reference of Graph Data.",
+          "audio": "audio/fun/03/node-redis.wav"
+        },
+        "db": {
+          "text": "Type switch. Generated Execution Generated on your context.",
+          "audio": "audio/fun/03/node-db.wav"
+        },
+        "trace": {
+          "text": "A static method with Execute Node. Does the actual work.",
+          "audio": "audio/fun/03/node-trace.wav"
+        }
+      }
     },
     {
       "track": "fun",
@@ -289,34 +318,63 @@
       "chapters": [
         {
           "id": "intro",
-          "title": "Hello",
+          "title": "Compile vs play",
           "view": null,
-          "text": "At compile time a helper writes a door book for your robot brain. At play time the brick only stores door numbers.",
+          "text": "The brick only stores numbers. Someone has to write a book that says what number forty two means. That book is generated when your project compiles, onto your partial Context type.",
           "audio": "audio/fun/05/ch-intro.wav"
         },
         {
           "id": "request-and-auth",
-          "title": "Scan",
+          "title": "What it hunts",
           "view": "request-and-auth",
-          "text": "The generator finds your partial Context, your Execute Node methods, and public built-in methods from Grove.",
+          "text": "It finds your partial struct that implements I Context. It finds static methods with Execute Node or Data Node attributes. It also peeks into Grove for public built-in toys like Composite.",
           "audio": "audio/fun/05/ch-request-and-auth.wav"
         },
         {
           "id": "cache-fallback",
-          "title": "Write",
+          "title": "What it writes",
           "view": "cache-fallback",
-          "text": "It writes Create, Update, Set Chunk Generated, plus big switches for Execute and Data, and debug doors when instrumentation is on.",
+          "text": "Create Generated, Update Generated, and Set Chunk Generated wire your component bags. Then big switches: Execution Generated and Data Generated. Debug doors appear only when instrumentation is on.",
           "audio": "audio/fun/05/ch-cache-fallback.wav"
         },
         {
           "id": "return-and-trace",
-          "title": "Play",
+          "title": "Play time",
           "view": "return-and-trace",
-          "text": "Play time: brick says Type, book opens that case, method runs. Built-in toys like Composite live in your book too.",
+          "text": "Play never invents methods. Header Type selects a case. That case calls your static method with payload rehydrated from bytes after the header. Unknown Type becomes a no-op or default value.",
           "audio": "audio/fun/05/ch-return-and-trace.wav"
         }
       ],
-      "nodes": {}
+      "nodes": {
+        "user": {
+          "text": "You write Context and node methods in your assemblies.",
+          "audio": "audio/fun/05/node-user.wav"
+        },
+        "web": {
+          "text": "Context Generator. Roslyn source generator.",
+          "audio": "audio/fun/05/node-web.wav"
+        },
+        "api": {
+          "text": "MyContext.cs must be partial.",
+          "audio": "audio/fun/05/node-api.wav"
+        },
+        "auth": {
+          "text": "Methods with Execute Node or Data Node attributes.",
+          "audio": "audio/fun/05/node-auth.wav"
+        },
+        "redis": {
+          "text": "Grove.dll. Built-in node methods get pulled into your switch.",
+          "audio": "audio/fun/05/node-redis.wav"
+        },
+        "db": {
+          "text": "Generated partial. The door book itself.",
+          "audio": "audio/fun/05/node-db.wav"
+        },
+        "trace": {
+          "text": "Runtime switch. Type integer to method call.",
+          "audio": "audio/fun/05/node-trace.wav"
+        }
+      }
     },
     {
       "track": "fun",
@@ -326,34 +384,75 @@
       "chapters": [
         {
           "id": "intro",
-          "title": "Hello",
+          "title": "Two play styles",
           "view": null,
-          "text": "Two ways to play the brick. Push starts at Root and presses action buttons. Pull starts at an Output and asks for a number.",
+          "text": "Push starts at Root and walks action boxes. Pull starts at an Output and asks a data box for a value. Most graphs use both: selectors push, but they pull scores on the way.",
           "audio": "audio/fun/06/ch-intro.wav"
         },
         {
           "id": "main-lifecycle",
-          "title": "Push",
+          "title": "Push path",
           "view": "main-lifecycle",
-          "text": "Root to Composite to Selector to leaf. Side effects happen. Scores only open when the selector asks.",
+          "text": "Root may enter a Composite that runs every child. A Selector scores options, picks one action, executes it. The leaf finally moves the world. Nothing magic loops the whole brick each frame.",
           "audio": "audio/fun/06/ch-main-lifecycle.wav"
         },
         {
           "id": "human-waits",
-          "title": "Pull",
+          "title": "Pull path",
           "view": "human-waits",
-          "text": "Output asks a data box. That box may open Variables or Qualifiers. Nothing runs until something Calculate-s it.",
+          "text": "Calculate on an Output evaluates only the data chain needed. Variables read the backpack. Qualifiers fold floats. If nothing asks, those boxes stay asleep.",
           "audio": "audio/fun/06/ch-human-waits.wav"
         },
         {
           "id": "recovery-and-exits",
-          "title": "Backpack",
+          "title": "Backpack between frames",
           "view": "recovery-and-exits",
-          "text": "The backpack keeps variables between frames. Keys include Graph Id. When a graph dies, remove only its keys.",
+          "text": "Inputs, locals, and state machine ints live in Grove State on the entity. Keys include Graph Id. When one graph ends, remove only that Graph Id's keys so other graphs keep their memory.",
           "audio": "audio/fun/06/ch-recovery-and-exits.wav"
         }
       ],
-      "nodes": {}
+      "nodes": {
+        "queued": {
+          "text": "Root. Push starts here for execution graphs.",
+          "audio": "audio/fun/06/node-queued.wav"
+        },
+        "planning": {
+          "text": "Composite. Run every connected execution child in order.",
+          "audio": "audio/fun/06/node-planning.wav"
+        },
+        "executing": {
+          "text": "Selector. Pull scores, push one action.",
+          "audio": "audio/fun/06/node-executing.wav"
+        },
+        "reviewing": {
+          "text": "Leaf execution. Side effects.",
+          "audio": "audio/fun/06/node-reviewing.wav"
+        },
+        "completed": {
+          "text": "World changed this frame for that entity.",
+          "audio": "audio/fun/06/node-completed.wav"
+        },
+        "approval": {
+          "text": "An Output or data question. Pull entry.",
+          "audio": "audio/fun/06/node-approval.wav"
+        },
+        "blocked": {
+          "text": "Data node Calculate. Demand driven.",
+          "audio": "audio/fun/06/node-blocked.wav"
+        },
+        "failed": {
+          "text": "Variable. Backpack read or write.",
+          "audio": "audio/fun/06/node-failed.wav"
+        },
+        "cancelled": {
+          "text": "Next frame will Get Execution again.",
+          "audio": "audio/fun/06/node-cancelled.wav"
+        },
+        "expired": {
+          "text": "Same entity still holds Grove State.",
+          "audio": "audio/fun/06/node-expired.wav"
+        }
+      }
     },
     {
       "track": "fun",
@@ -600,39 +699,68 @@
     {
       "track": "serious",
       "id": "03",
-      "title": "One Frame \u2014 internals",
+      "title": "One Frame \u2014 rebuild notes",
       "map": "03-one-frame.sequence.html",
       "chapters": [
         {
           "id": "intro",
-          "title": "Contract",
+          "title": "Ownership",
           "view": null,
-          "text": "Graph Impl owns the context for the system lifetime. Graph Execution is a value type created each update. Jobs must call Set Chunk before per-entity Execute.",
+          "text": "Graph Impl is constructed in On Create and lives for the system. Each On Update you call Get Execution, schedule a job or iterate chunks, call Set Chunk once per chunk, then Execute or Calculate per entity index.",
           "audio": "audio/serious/03/ch-intro.wav"
         },
         {
           "id": "request-and-auth",
           "title": "GetExecution",
           "view": "request-and-auth",
-          "text": "Get Execution calls Update Generated and user Update, then returns Graph Execution with Context copied by value, plus Elapsed Time, Delta Time, and Logger.",
+          "text": "Get Execution runs Update Generated then your Update hook. It builds Grove Context with World time and optional B L Logger. Graph Execution is a struct. Assigning Context copies the containers by value for that handle.",
           "audio": "audio/serious/03/ch-request-and-auth.wav"
         },
         {
           "id": "cache-fallback",
-          "title": "Execute path",
+          "title": "SetChunk and Execute",
           "view": "cache-fallback",
-          "text": "Execute assigns entity context with Graph Id, then Root Value Execute. Execution Header Extensions call Execution Generated unless Type is Default.",
+          "text": "Set Chunk calls Set Chunk Generated then your Set Chunk. Execute no-ops if the blob is not created or Root is invalid. It sets Entity, Entity Index In Chunk, and Graph Id, then Root Value Execute which enters Execution Generated unless Type is Default.",
           "audio": "audio/serious/03/ch-cache-fallback.wav"
         },
         {
           "id": "return-and-trace",
-          "title": "IO",
+          "title": "Inputs and Calculate",
           "view": "return-and-trace",
-          "text": "Try Set Input finds the sole matching Type Hash then Set Variable into Grove State. Calculate resolves Outputs by Type Hash or Variable Key and evaluates Data Headers.",
+          "text": "Try Set Input finds a single Graph Input Data entry whose Type Hash matches T. It writes via Set Variable on the Grove State map. Calculate locates an output by unique type or Variable Key, then evaluates the Data Header chain demand-driven.",
           "audio": "audio/serious/03/ch-return-and-trace.wav"
         }
       ],
-      "nodes": {}
+      "nodes": {
+        "user": {
+          "text": "Entity handle array from the chunk. Paired with entityIndexInChunk for containers.",
+          "audio": "audio/serious/03/node-user.wav"
+        },
+        "web": {
+          "text": "ISystem with WorldSystemFilter as needed. RequireForUpdate any graph component you query.",
+          "audio": "audio/serious/03/node-web.wav"
+        },
+        "api": {
+          "text": "GraphImpl of MyContext. CreateGenerated wires containers from SystemState.",
+          "audio": "audio/serious/03/node-api.wav"
+        },
+        "auth": {
+          "text": "GraphExecution of MyContext. Field Context is the bag nodes receive by ref.",
+          "audio": "audio/serious/03/node-auth.wav"
+        },
+        "redis": {
+          "text": "IGraphReference.Graph blob. GraphId scopes GroveState keys.",
+          "audio": "audio/serious/03/node-redis.wav"
+        },
+        "db": {
+          "text": "ExecutionGenerated switch cases keyed by header.Type.",
+          "audio": "audio/serious/03/node-db.wav"
+        },
+        "trace": {
+          "text": "Your [ExecuteNode] method. Prefer in payload, in GroveContext, ref MyContext.",
+          "audio": "audio/serious/03/node-trace.wav"
+        }
+      }
     },
     {
       "track": "serious",
@@ -715,76 +843,146 @@
     {
       "track": "serious",
       "id": "05",
-      "title": "Source-gen \u2014 internals",
+      "title": "Source-gen \u2014 rebuild notes",
       "map": "05-door-book.sequence.html",
       "chapters": [
         {
           "id": "intro",
-          "title": "Generator",
+          "title": "Generator boundaries",
           "view": null,
-          "text": "Bovine Labs Context Generator is a Roslyn incremental generator. It skips assemblies named Bovine Labs Grove, Authoring, and Editor, but pulls public attributed methods from referenced Grove into your context switch.",
+          "text": "BovineLabs.ContextGenerator skips generating inside BovineLabs.Grove, Grove.Authoring, and Grove.Editor assemblies. Your game assembly is where the partial Context is completed. Referenced public attributed methods from Grove still appear as switch cases.",
           "audio": "audio/serious/05/ch-intro.wav"
         },
         {
           "id": "request-and-auth",
-          "title": "Discovery",
+          "title": "Discovery rules",
           "view": "request-and-auth",
-          "text": "Context Filter requires partial struct implementing I Context of Self. Node Filter finds Execute Node, Data Node, and debug attributes. Context parameter must be ref; generic I Context matches all contexts.",
+          "text": "Context must be a partial unmanaged struct implementing IContext of Self and exposing GroveStates. Node methods must be static, not in generic outer types, with context by ref. Generic T where T is IContext of T matches every context. Concrete MyContext matches only that one.",
           "audio": "audio/serious/05/ch-request-and-auth.wav"
         },
         {
           "id": "cache-fallback",
-          "title": "Emit",
+          "title": "Emitted surface",
           "view": "cache-fallback",
-          "text": "Emits Create Generated, Update Generated, Set Chunk Generated from container field patterns, plus Execution Generated and Data Generated switches with Data T payload helpers.",
+          "text": "Recognized fields include ComponentContainer, BufferContainer, EnableableContainer, SharedComponentContainer, ComponentLookup, BufferLookup, EntityStorageInfoLookup. Emit also covers debug methods under UNITY_INCLUDE_INSTRUMENTATION.",
           "audio": "audio/serious/05/ch-cache-fallback.wav"
         },
         {
           "id": "return-and-trace",
-          "title": "Runtime",
+          "title": "Call path",
           "view": "return-and-trace",
-          "text": "Execution Header Execute calls Execution Generated. Data Header Calculate may short-circuit built-in Grove Data Types before Data Generated. Unknown Type falls through to default.",
+          "text": "ExecutionHeader.Execute calls ExecutionGenerated. DataHeader.Calculate special-cases Default, Constant, Variable, VariableSet, then DataGenerated. Payload is recovered with pointer arithmetic after the header size.",
           "audio": "audio/serious/05/ch-return-and-trace.wav"
         }
       ],
-      "nodes": {}
+      "nodes": {
+        "user": {
+          "text": "Your runtime assembly with partial MyContext and node classes.",
+          "audio": "audio/serious/05/node-user.wav"
+        },
+        "web": {
+          "text": "IIncrementalGenerator ContextGenerator.",
+          "audio": "audio/serious/05/node-web.wav"
+        },
+        "api": {
+          "text": "partial struct MyContext : IContext of MyContext.",
+          "audio": "audio/serious/05/node-api.wav"
+        },
+        "auth": {
+          "text": "ExecuteNodeAttribute and DataNodeAttribute with integer type ids.",
+          "audio": "audio/serious/05/node-auth.wav"
+        },
+        "redis": {
+          "text": "Built-ins such as Composite and selectors with negative GroveExecutionTypes.",
+          "audio": "audio/serious/05/node-redis.wav"
+        },
+        "db": {
+          "text": "Generated ExecutionGenerated and DataGenerated methods.",
+          "audio": "audio/serious/05/node-db.wav"
+        },
+        "trace": {
+          "text": "header.Type switch dispatch at runtime.",
+          "audio": "audio/serious/05/node-trace.wav"
+        }
+      }
     },
     {
       "track": "serious",
       "id": "06",
-      "title": "Push vs Pull \u2014 internals",
+      "title": "Push vs Pull \u2014 rebuild notes",
       "map": "06-push-pull.lifecycle.html",
       "chapters": [
         {
           "id": "intro",
-          "title": "Model",
+          "title": "No full interpreter",
           "view": null,
-          "text": "Execution nodes are edge-triggered control flow. Data nodes are demand-driven expressions. There is no full-graph interpreter loop.",
+          "text": "Runtime is recursive descent through blob pointers. Execute pushes control flow. Calculate pulls expressions. There is no system that visits every node each frame.",
           "audio": "audio/serious/06/ch-intro.wav"
         },
         {
           "id": "main-lifecycle",
-          "title": "Execute",
+          "title": "Built-in control flow",
           "view": "main-lifecycle",
-          "text": "Composite runs Blob Array of Execution Headers in order. Selectors pair Qualifier Data Headers of float with Action Execution Headers; last pair is default threshold path; comparisons use strict greater than.",
+          "text": "CompositeData holds a BlobArray of ExecutionHeader pointers. Selectors keep parallel Qualifier and Action arrays; the last pair is the default threshold path; win conditions use strict greater-than on floats.",
           "audio": "audio/serious/06/ch-main-lifecycle.wav"
         },
         {
           "id": "human-waits",
-          "title": "Calculate",
+          "title": "Data evaluation",
           "view": "human-waits",
-          "text": "Calculate finds Outputs by Burst Type Hash uniqueness or Variable Key. Variable Get reads Grove State with default. Variable Set evaluates Value child, writes, returns.",
+          "text": "Outputs bind to DataHeaders. Variable and VariableSet are special-cased before generated dispatch. VariableSet re-evaluates and writes on every Calculate of its output.",
           "audio": "audio/serious/06/ch-human-waits.wav"
         },
         {
           "id": "recovery-and-exits",
-          "title": "State",
+          "title": "GroveState keys",
           "view": "recovery-and-exits",
-          "text": "Grove State Key splits Graph Id, optional scope, and key words. Graph State Util Remove Graph State drops entries for one Graph Id only.",
+          "text": "GroveStateKey includes GraphId, optional scope, and key material from Hash128 splits for variables. GraphStateUtil.RemoveGraphState iterates keys and removes those with matching GraphId.",
           "audio": "audio/serious/06/ch-recovery-and-exits.wav"
         }
       ],
-      "nodes": {}
+      "nodes": {
+        "queued": {
+          "text": "GraphData.Root ExecutionHeader.",
+          "audio": "audio/serious/06/node-queued.wav"
+        },
+        "planning": {
+          "text": "GroveExecutionTypes.Composite runtime.",
+          "audio": "audio/serious/06/node-planning.wav"
+        },
+        "executing": {
+          "text": "Selector family under GroveExecutionTypes.",
+          "audio": "audio/serious/06/node-executing.wav"
+        },
+        "reviewing": {
+          "text": "Custom or built-in execution leaf.",
+          "audio": "audio/serious/06/node-reviewing.wav"
+        },
+        "completed": {
+          "text": "ECS mutations already applied this tick.",
+          "audio": "audio/serious/06/node-completed.wav"
+        },
+        "approval": {
+          "text": "GraphOutputData.Value data header.",
+          "audio": "audio/serious/06/node-approval.wav"
+        },
+        "blocked": {
+          "text": "DataHeader.Calculate path.",
+          "audio": "audio/serious/06/node-blocked.wav"
+        },
+        "failed": {
+          "text": "Variable or graph-local state entry.",
+          "audio": "audio/serious/06/node-failed.wav"
+        },
+        "cancelled": {
+          "text": "Next system update boundary.",
+          "audio": "audio/serious/06/node-cancelled.wav"
+        },
+        "expired": {
+          "text": "Persistent GroveState buffer on entity.",
+          "audio": "audio/serious/06/node-expired.wav"
+        }
+      }
     },
     {
       "track": "serious",

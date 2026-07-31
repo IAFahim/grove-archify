@@ -2,6 +2,10 @@
 
 Submodule target for `vex-ee-3/_docs`. **Hub only at root** — topic folders hold the maps.
 
+## Narrated Grove lessons
+
+Open [`grove/player.html`](grove/player.html): **Fun** track then **Serious** on the same maps. Inflect WAVs under `grove/narrate/audio/`. Regenerate with `python3 grove/tools/gen_narration.py` (ReadAloud Inflect worker).
+
 ## Live
 
 https://iafahim.github.io/grove-archify/

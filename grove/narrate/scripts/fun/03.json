@@ -4,28 +4,36 @@
   "chapters": [
     {
       "id": "intro",
-      "title": "Hello",
+      "title": "What a frame is",
       "view": null,
-      "text": "One frame. The system wakes the robot, points its bags at a chunk of entities, then walks the brick door by door."
+      "text": "A frame is one heartbeat of the game. Your system wakes, hands the robot a remote for this frame, points its bags at a group of entities, then walks the brick starting at Root."
     },
     {
       "id": "request-and-auth",
-      "title": "Wake",
+      "title": "Wake the robot",
       "view": "request-and-auth",
-      "text": "Get Execution builds this frame's remote control. Update Generated refreshes component handles. Time and logger hop into Grove Context."
+      "text": "Get Execution is not a full rebuild. It refreshes generated handles, stamps time and logger into Grove Context, and returns a Graph Execution value. That value is a copy of the context bag for this update."
     },
     {
       "id": "cache-fallback",
-      "title": "Walk",
+      "title": "Walk the brick",
       "view": "cache-fallback",
-      "text": "Set Chunk binds containers. Execute starts at Root. The Type number opens a door that calls a static method."
+      "text": "Set Chunk first. That aims Component Container and Buffer Container at this Archetype Chunk. Then Execute starts at Root. Each box has a Type number. The door book opens that case and runs a static method."
     },
     {
       "id": "return-and-trace",
-      "title": "Act",
+      "title": "Side effects and questions",
       "view": "return-and-trace",
-      "text": "Leaf methods write transforms. Data boxes only open when something asks Calculate. Inputs were dropped into the backpack first."
+      "text": "Leaf methods write things like Local Transform. Data boxes sleep until something calls Calculate. If you Set Input first, you wrote a variable into the backpack. The graph reads it later. It is not a stack argument to Root."
     }
   ],
-  "nodes": {}
+  "nodes": {
+    "user": "Entities in the world. The job loops them after Set Chunk.",
+    "web": "Your I System. Owns Graph Impl for the whole system lifetime.",
+    "api": "Graph Impl. Keeps the context warm across frames.",
+    "auth": "Graph Execution for this update. Remote control for one tick.",
+    "redis": "The brick. Blob Asset Reference of Graph Data.",
+    "db": "Type switch. Generated Execution Generated on your context.",
+    "trace": "A static method with Execute Node. Does the actual work."
+  }
 }

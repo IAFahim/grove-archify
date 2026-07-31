@@ -4,28 +4,36 @@
   "chapters": [
     {
       "id": "intro",
-      "title": "Hello",
+      "title": "Compile vs play",
       "view": null,
-      "text": "At compile time a helper writes a door book for your robot brain. At play time the brick only stores door numbers."
+      "text": "The brick only stores numbers. Someone has to write a book that says what number forty two means. That book is generated when your project compiles, onto your partial Context type."
     },
     {
       "id": "request-and-auth",
-      "title": "Scan",
+      "title": "What it hunts",
       "view": "request-and-auth",
-      "text": "The generator finds your partial Context, your Execute Node methods, and public built-in methods from Grove."
+      "text": "It finds your partial struct that implements I Context. It finds static methods with Execute Node or Data Node attributes. It also peeks into Grove for public built-in toys like Composite."
     },
     {
       "id": "cache-fallback",
-      "title": "Write",
+      "title": "What it writes",
       "view": "cache-fallback",
-      "text": "It writes Create, Update, Set Chunk Generated, plus big switches for Execute and Data, and debug doors when instrumentation is on."
+      "text": "Create Generated, Update Generated, and Set Chunk Generated wire your component bags. Then big switches: Execution Generated and Data Generated. Debug doors appear only when instrumentation is on."
     },
     {
       "id": "return-and-trace",
-      "title": "Play",
+      "title": "Play time",
       "view": "return-and-trace",
-      "text": "Play time: brick says Type, book opens that case, method runs. Built-in toys like Composite live in your book too."
+      "text": "Play never invents methods. Header Type selects a case. That case calls your static method with payload rehydrated from bytes after the header. Unknown Type becomes a no-op or default value."
     }
   ],
-  "nodes": {}
+  "nodes": {
+    "user": "You write Context and node methods in your assemblies.",
+    "web": "Context Generator. Roslyn source generator.",
+    "api": "MyContext.cs must be partial.",
+    "auth": "Methods with Execute Node or Data Node attributes.",
+    "redis": "Grove.dll. Built-in node methods get pulled into your switch.",
+    "db": "Generated partial. The door book itself.",
+    "trace": "Runtime switch. Type integer to method call."
+  }
 }

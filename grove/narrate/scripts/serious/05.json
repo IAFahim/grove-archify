@@ -1,31 +1,39 @@
 {
-  "title": "Source-gen \u2014 internals",
+  "title": "Source-gen \u2014 rebuild notes",
   "map": "05-door-book.sequence.html",
   "chapters": [
     {
       "id": "intro",
-      "title": "Generator",
+      "title": "Generator boundaries",
       "view": null,
-      "text": "Bovine Labs Context Generator is a Roslyn incremental generator. It skips assemblies named Bovine Labs Grove, Authoring, and Editor, but pulls public attributed methods from referenced Grove into your context switch."
+      "text": "BovineLabs.ContextGenerator skips generating inside BovineLabs.Grove, Grove.Authoring, and Grove.Editor assemblies. Your game assembly is where the partial Context is completed. Referenced public attributed methods from Grove still appear as switch cases."
     },
     {
       "id": "request-and-auth",
-      "title": "Discovery",
+      "title": "Discovery rules",
       "view": "request-and-auth",
-      "text": "Context Filter requires partial struct implementing I Context of Self. Node Filter finds Execute Node, Data Node, and debug attributes. Context parameter must be ref; generic I Context matches all contexts."
+      "text": "Context must be a partial unmanaged struct implementing IContext of Self and exposing GroveStates. Node methods must be static, not in generic outer types, with context by ref. Generic T where T is IContext of T matches every context. Concrete MyContext matches only that one."
     },
     {
       "id": "cache-fallback",
-      "title": "Emit",
+      "title": "Emitted surface",
       "view": "cache-fallback",
-      "text": "Emits Create Generated, Update Generated, Set Chunk Generated from container field patterns, plus Execution Generated and Data Generated switches with Data T payload helpers."
+      "text": "Recognized fields include ComponentContainer, BufferContainer, EnableableContainer, SharedComponentContainer, ComponentLookup, BufferLookup, EntityStorageInfoLookup. Emit also covers debug methods under UNITY_INCLUDE_INSTRUMENTATION."
     },
     {
       "id": "return-and-trace",
-      "title": "Runtime",
+      "title": "Call path",
       "view": "return-and-trace",
-      "text": "Execution Header Execute calls Execution Generated. Data Header Calculate may short-circuit built-in Grove Data Types before Data Generated. Unknown Type falls through to default."
+      "text": "ExecutionHeader.Execute calls ExecutionGenerated. DataHeader.Calculate special-cases Default, Constant, Variable, VariableSet, then DataGenerated. Payload is recovered with pointer arithmetic after the header size."
     }
   ],
-  "nodes": {}
+  "nodes": {
+    "user": "Your runtime assembly with partial MyContext and node classes.",
+    "web": "IIncrementalGenerator ContextGenerator.",
+    "api": "partial struct MyContext : IContext of MyContext.",
+    "auth": "ExecuteNodeAttribute and DataNodeAttribute with integer type ids.",
+    "redis": "Built-ins such as Composite and selectors with negative GroveExecutionTypes.",
+    "db": "Generated ExecutionGenerated and DataGenerated methods.",
+    "trace": "header.Type switch dispatch at runtime."
+  }
 }

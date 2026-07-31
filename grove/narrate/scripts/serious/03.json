@@ -1,31 +1,39 @@
 {
-  "title": "One Frame \u2014 internals",
+  "title": "One Frame \u2014 rebuild notes",
   "map": "03-one-frame.sequence.html",
   "chapters": [
     {
       "id": "intro",
-      "title": "Contract",
+      "title": "Ownership",
       "view": null,
-      "text": "Graph Impl owns the context for the system lifetime. Graph Execution is a value type created each update. Jobs must call Set Chunk before per-entity Execute."
+      "text": "Graph Impl is constructed in On Create and lives for the system. Each On Update you call Get Execution, schedule a job or iterate chunks, call Set Chunk once per chunk, then Execute or Calculate per entity index."
     },
     {
       "id": "request-and-auth",
       "title": "GetExecution",
       "view": "request-and-auth",
-      "text": "Get Execution calls Update Generated and user Update, then returns Graph Execution with Context copied by value, plus Elapsed Time, Delta Time, and Logger."
+      "text": "Get Execution runs Update Generated then your Update hook. It builds Grove Context with World time and optional B L Logger. Graph Execution is a struct. Assigning Context copies the containers by value for that handle."
     },
     {
       "id": "cache-fallback",
-      "title": "Execute path",
+      "title": "SetChunk and Execute",
       "view": "cache-fallback",
-      "text": "Execute assigns entity context with Graph Id, then Root Value Execute. Execution Header Extensions call Execution Generated unless Type is Default."
+      "text": "Set Chunk calls Set Chunk Generated then your Set Chunk. Execute no-ops if the blob is not created or Root is invalid. It sets Entity, Entity Index In Chunk, and Graph Id, then Root Value Execute which enters Execution Generated unless Type is Default."
     },
     {
       "id": "return-and-trace",
-      "title": "IO",
+      "title": "Inputs and Calculate",
       "view": "return-and-trace",
-      "text": "Try Set Input finds the sole matching Type Hash then Set Variable into Grove State. Calculate resolves Outputs by Type Hash or Variable Key and evaluates Data Headers."
+      "text": "Try Set Input finds a single Graph Input Data entry whose Type Hash matches T. It writes via Set Variable on the Grove State map. Calculate locates an output by unique type or Variable Key, then evaluates the Data Header chain demand-driven."
     }
   ],
-  "nodes": {}
+  "nodes": {
+    "user": "Entity handle array from the chunk. Paired with entityIndexInChunk for containers.",
+    "web": "ISystem with WorldSystemFilter as needed. RequireForUpdate any graph component you query.",
+    "api": "GraphImpl of MyContext. CreateGenerated wires containers from SystemState.",
+    "auth": "GraphExecution of MyContext. Field Context is the bag nodes receive by ref.",
+    "redis": "IGraphReference.Graph blob. GraphId scopes GroveState keys.",
+    "db": "ExecutionGenerated switch cases keyed by header.Type.",
+    "trace": "Your [ExecuteNode] method. Prefer in payload, in GroveContext, ref MyContext."
+  }
 }

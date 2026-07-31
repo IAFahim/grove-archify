@@ -1,31 +1,42 @@
 {
-  "title": "Push vs Pull \u2014 internals",
+  "title": "Push vs Pull \u2014 rebuild notes",
   "map": "06-push-pull.lifecycle.html",
   "chapters": [
     {
       "id": "intro",
-      "title": "Model",
+      "title": "No full interpreter",
       "view": null,
-      "text": "Execution nodes are edge-triggered control flow. Data nodes are demand-driven expressions. There is no full-graph interpreter loop."
+      "text": "Runtime is recursive descent through blob pointers. Execute pushes control flow. Calculate pulls expressions. There is no system that visits every node each frame."
     },
     {
       "id": "main-lifecycle",
-      "title": "Execute",
+      "title": "Built-in control flow",
       "view": "main-lifecycle",
-      "text": "Composite runs Blob Array of Execution Headers in order. Selectors pair Qualifier Data Headers of float with Action Execution Headers; last pair is default threshold path; comparisons use strict greater than."
+      "text": "CompositeData holds a BlobArray of ExecutionHeader pointers. Selectors keep parallel Qualifier and Action arrays; the last pair is the default threshold path; win conditions use strict greater-than on floats."
     },
     {
       "id": "human-waits",
-      "title": "Calculate",
+      "title": "Data evaluation",
       "view": "human-waits",
-      "text": "Calculate finds Outputs by Burst Type Hash uniqueness or Variable Key. Variable Get reads Grove State with default. Variable Set evaluates Value child, writes, returns."
+      "text": "Outputs bind to DataHeaders. Variable and VariableSet are special-cased before generated dispatch. VariableSet re-evaluates and writes on every Calculate of its output."
     },
     {
       "id": "recovery-and-exits",
-      "title": "State",
+      "title": "GroveState keys",
       "view": "recovery-and-exits",
-      "text": "Grove State Key splits Graph Id, optional scope, and key words. Graph State Util Remove Graph State drops entries for one Graph Id only."
+      "text": "GroveStateKey includes GraphId, optional scope, and key material from Hash128 splits for variables. GraphStateUtil.RemoveGraphState iterates keys and removes those with matching GraphId."
     }
   ],
-  "nodes": {}
+  "nodes": {
+    "queued": "GraphData.Root ExecutionHeader.",
+    "planning": "GroveExecutionTypes.Composite runtime.",
+    "executing": "Selector family under GroveExecutionTypes.",
+    "reviewing": "Custom or built-in execution leaf.",
+    "completed": "ECS mutations already applied this tick.",
+    "approval": "GraphOutputData.Value data header.",
+    "blocked": "DataHeader.Calculate path.",
+    "failed": "Variable or graph-local state entry.",
+    "cancelled": "Next system update boundary.",
+    "expired": "Persistent GroveState buffer on entity."
+  }
 }
