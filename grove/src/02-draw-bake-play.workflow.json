@@ -2,15 +2,16 @@
   "schema_version": 1,
   "diagram_type": "workflow",
   "meta": {
-    "title": "Grove \u00b7 Author \u2192 Import \u2192 Bake",
-    "subtitle": "Doodle \u2192 AuthGraph \u2192 auto bake \u2192 blob on entity",
+    "title": "Grove \u00b7 Draw \u2192 Bake \u2192 Play",
+    "subtitle": "Like cooking: recipe, oven, dinner plate",
+    "output": "../02-draw-bake-play.workflow.html",
+    "quality_profile": "standard",
     "animation": "trace",
     "visual_preset": "signal-flow",
-    "quality_profile": "standard",
     "views": [
       {
         "id": "happy-path",
-        "label": "Main pipeline",
+        "label": "Main path",
         "focus": [
           "user",
           "chat",
@@ -21,80 +22,75 @@
           "external",
           "final"
         ],
-        "note": "Designer \u2192 graph \u2192 import \u2192 auth \u2192 authoring \u2192 bake \u2192 blob."
+        "note": "Draw the map, freeze the brick, play it."
       },
       {
         "id": "safety-gate",
-        "label": "Entry gate",
+        "label": "Start door",
         "focus": [
           "router",
           "approval",
           "blocked",
           "retry"
         ],
-        "note": "Import requires exactly one Input\u2192execution root."
+        "note": "Exactly one Input wire to the first action box."
       },
       {
         "id": "evidence-loop",
-        "label": "Bake cache",
+        "label": "Extras",
         "focus": [
           "external",
           "store",
           "trace"
         ],
-        "note": "Bake hashes graph + variants + instance overrides."
+        "note": "Variants pick a branch at bake. Backpack is live memory."
       }
-    ],
-    "output": "02-pipeline.workflow.html",
-    "viewBox": [
-      720,
-      900
     ]
   },
   "lanes": [
     {
       "id": "ui",
-      "label": "You + Toolkit"
+      "label": "You"
     },
     {
       "id": "agent",
-      "label": "Import"
+      "label": "Draw room"
     },
     {
       "id": "policy",
-      "label": "Entry rule"
+      "label": "Start rule"
     },
     {
       "id": "exceptions",
-      "label": "Import errors",
+      "label": "Whoops",
       "variant": "exception"
     },
     {
       "id": "tools",
-      "label": "Author + bake"
+      "label": "Bake + place"
     },
     {
       "id": "trace",
-      "label": "Instance data"
+      "label": "Memory"
     }
   ],
   "phases": [
     {
       "id": "intake",
-      "label": "Intake",
+      "label": "Draw",
       "fromCol": 0,
       "toCol": 1
     },
     {
       "id": "reasoning",
-      "label": "Plan + route",
+      "label": "Import",
       "fromCol": 2,
       "toCol": 3,
       "variant": "emphasis"
     },
     {
       "id": "execution",
-      "label": "Execute + report",
+      "label": "Bake + play",
       "fromCol": 4,
       "toCol": 5,
       "variant": "dashed"
@@ -103,7 +99,7 @@
   "groups": [
     {
       "id": "agent_loop",
-      "label": "Planning loop",
+      "label": "Import loop",
       "lane": "agent",
       "fromCol": 2,
       "toCol": 3,
@@ -111,7 +107,7 @@
     },
     {
       "id": "tool_work",
-      "label": "Tool work",
+      "label": "Bake work",
       "lane": "tools",
       "fromCol": 4,
       "toCol": 5,
@@ -119,7 +115,7 @@
     },
     {
       "id": "exception_path",
-      "label": "Human or policy stop",
+      "label": "Fix start door",
       "lane": "exceptions",
       "fromCol": 3,
       "toCol": 5,
@@ -142,15 +138,15 @@
       "lane": "ui",
       "col": 0,
       "type": "external",
-      "label": "Designer",
-      "sublabel": "wants a brain"
+      "label": "Kid / you",
+      "sublabel": "wants AI"
     },
     {
       "id": "chat",
       "lane": "ui",
       "col": 1,
       "type": "frontend",
-      "label": "GroveGraph",
+      "label": "Draw map",
       "sublabel": ".mygraph"
     },
     {
@@ -158,8 +154,8 @@
       "lane": "ui",
       "col": 5,
       "type": "backend",
-      "label": "IGraphRef",
-      "sublabel": "blob ready"
+      "label": "It runs!",
+      "sublabel": "fun"
     },
     {
       "id": "planner",
@@ -167,41 +163,39 @@
       "col": 2,
       "type": "backend",
       "label": "Importer",
-      "sublabel": "walk+scope",
-      "tag": "context aware"
+      "sublabel": "makes cards"
     },
     {
       "id": "router",
       "lane": "agent",
       "col": 3,
       "type": "backend",
-      "label": "AuthGraph",
-      "sublabel": "Root\u00b7I/O"
+      "label": "Auth box",
+      "sublabel": "Root + nodes"
     },
     {
       "id": "approval",
       "lane": "policy",
       "col": 3,
       "type": "security",
-      "label": "Entry check",
-      "sublabel": "1 Input root",
-      "tag": "block risky ops"
+      "label": "Start door",
+      "sublabel": "1 Input"
     },
     {
       "id": "blocked",
       "lane": "exceptions",
       "col": 4,
       "type": "security",
-      "label": "Import err",
-      "sublabel": "0 or 2+ roots"
+      "label": "Oops",
+      "sublabel": "0 or 2 starts"
     },
     {
       "id": "retry",
       "lane": "exceptions",
       "col": 5,
       "type": "messagebus",
-      "label": "Fix graph",
-      "sublabel": "reimport"
+      "label": "Fix wire",
+      "sublabel": "try again"
     },
     {
       "id": "tool",
@@ -209,16 +203,15 @@
       "col": 4,
       "type": "messagebus",
       "label": "Authoring",
-      "sublabel": "GraphAuthoring",
-      "tag": "structured result"
+      "sublabel": "on entity"
     },
     {
       "id": "external",
       "lane": "tools",
       "col": 5,
       "type": "cloud",
-      "label": "BakeSystem",
-      "sublabel": "hash+Create"
+      "label": "Bake oven",
+      "sublabel": "blob brick"
     },
     {
       "id": "store",
@@ -226,15 +219,15 @@
       "col": 1,
       "type": "database",
       "label": "Variants",
-      "sublabel": "bake strip"
+      "sublabel": "bake pick"
     },
     {
       "id": "trace",
       "lane": "trace",
       "col": 4,
       "type": "database",
-      "label": "Overrides",
-      "sublabel": "per entity"
+      "label": "Backpack",
+      "sublabel": "live mem"
     }
   ],
   "edges": [
@@ -265,7 +258,7 @@
       "id": "approval-check",
       "from": "router",
       "to": "approval",
-      "label": "1 root?",
+      "label": "1 start?",
       "variant": "security",
       "fromSide": "bottom",
       "toSide": "top",
@@ -287,7 +280,7 @@
       "id": "approval-denied",
       "from": "approval",
       "to": "blocked",
-      "label": "bad entry",
+      "label": "bad",
       "variant": "security",
       "role": "error",
       "fromSide": "bottom",
@@ -324,7 +317,7 @@
       "id": "record-result",
       "from": "external",
       "to": "trace",
-      "label": "hash",
+      "label": "freeze",
       "variant": "dashed",
       "fromSide": "bottom",
       "toSide": "bottom",
@@ -335,7 +328,7 @@
       "id": "write-trace-memory",
       "from": "store",
       "to": "trace",
-      "label": "overrides",
+      "label": "pack",
       "variant": "dashed",
       "labelAt": [
         365,
@@ -346,29 +339,29 @@
   "cards": [
     {
       "dot": "emerald",
-      "title": "Entry",
+      "title": "Cooking",
       "items": [
-        "One Input \u2192 first execution node",
-        "0 roots with exec \u2192 error",
-        "2+ roots \u2192 error"
+        "Recipe = map",
+        "Oven = baker",
+        "Dinner = robot tick"
       ]
     },
     {
       "dot": "cyan",
-      "title": "Bake",
+      "title": "Start door",
       "items": [
-        "Auto GraphBakingSystem\u27e8TC\u27e9",
-        "Hash graph+variants+overrides",
-        "Unselected variants stripped"
+        "One Input \u2192 first action",
+        "Zero starts = error",
+        "Two starts = error"
       ]
     },
     {
       "dot": "rose",
-      "title": "Don't",
+      "title": "Remember",
       "items": [
-        "Reference .mygraph at runtime",
-        "Hand-write bake systems",
-        "Clear whole GroveState for one graph"
+        "Pretty map is not the brick",
+        "Point authoring at Auth cards",
+        "Play only sees the brick"
       ]
     }
   ]

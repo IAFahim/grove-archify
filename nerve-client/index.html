@@ -57,11 +57,11 @@
     </div>
     <h1>Client go-in-game — the movie</h1>
     <p class="muted">
-      Nerve already shipped the client nodes. The project was missing the same three pieces Menu/Service get:
+      Nerve already shipped the client nodes. The project was missing the same kit Menu/Service get (four concrete pieces):
       context, driver system, settings world route + graph. Watch the maps in order — this is the load-bearing chain,
       not a style choice.
     </p>
-    <p><a href="../index.html">← Grove maps (sibling docs)</a></p>
+    <p><a href="../index.html">← docs hub</a> · <a href="../grove/index.html">Grove package</a></p>
   </header>
 
   <main>
@@ -131,7 +131,7 @@
     <div class="warn">
       <strong>Why this shape:</strong> <code>ClientGoInGame</code> is
       <code>[ExecuteNode(..., typeof(InitializeState))]</code>.
-      Only <code>StartupGate</code> owns <code>BlobArray&lt;ExecutionHeader&lt;InitializeState&gt;&gt;</code> blocks.
+      Only <code>StartupGate</code> owns <code>BlobArray&lt;BlobPtr&lt;ExecutionHeader&lt;InitializeState&gt;&gt;&gt;</code> blocks.
       Only <code>Initialize</code> runs a connected gate from a Canopy state.
       So connecting cannot reach gameplay until every gate block completes — and GoInGame only completes when the server has marked the connection in game.
     </div>
@@ -215,7 +215,7 @@ If current state == connecting
 
     <h2>Verified (not assumed)</h2>
     <div class="ok">
-      With <code>LocalGoInGameSystem</code> deleted:<br/>
+      <strong>Author-claimed session log</strong> (not CI). With <code>LocalGoInGameSystem</code> deleted:<br/>
       <code>ClientWorld | machines=1 | conns=1 inGame=1 ghosts=2</code><br/>
       <code>ClientWorld state = gameplay</code><br/><br/>
       <strong>inGame=1</strong> ⇒ RPC went out.<br/>

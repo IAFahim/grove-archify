@@ -4501,7 +4501,7 @@
       <p class="subtitle">InitializeState incomplete → RPC once per identity → wait NetworkStreamInGame</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-auth","label":"Preconditions","focus":["user","web","api","auth"],"note":"Need known connection + NetworkId + not disconnected."},{"id":"cache-fallback","label":"Request once","focus":["api","redis","db"],"note":"First time for this identity: AddComponent + GoInGameRequest RPC."},{"id":"return-and-trace","label":"Complete","focus":["db","api","redis","trace","web","user"],"note":"IsCompleted \u0026= IsInGame; gate then CanopyGoTo(gameplay)."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-auth","label":"Preconditions","focus":["user","web","api","auth"],"note":"Need known connection + NetworkId + not disconnected."},{"id":"cache-fallback","label":"Request once","focus":["api","redis","auth"],"note":"Client ECB: AddComponent + GoInGameRequest once per identity."},{"id":"return-and-trace","label":"Wait server","focus":["db","api","web","trace"],"note":"Server marks NetworkStreamInGame; gate completes → gameplay."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4624,90 +4624,90 @@
         </g>
         </g>
 
-        <g data-edge-from="auth" data-edge-to="api" data-edge-label="IsInGame?" data-edge-key="3" data-edge-id="auth-claims">
+        <g data-edge-from="auth" data-edge-to="api" data-edge-label="known identity" data-edge-key="3" data-edge-id="auth-claims">
           <path data-composition-edge-from="auth" data-composition-edge-to="api" data-composition-edge-id="auth-claims" data-composition-points="379,305;285,305" d="M 379 305 L 285 305" class="a-default" data-animate="edge" style="--step:3" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="302.6" y="285" width="58.800000000000004" height="16" rx="3" class="c-mask"/>
-          <text x="332" y="295" class="t-muted" font-size="9" text-anchor="middle">IsInGame?</text>
+          <rect x="289.6" y="285" width="84.8" height="16" rx="3" class="c-mask"/>
+          <text x="332" y="295" class="t-muted" font-size="9" text-anchor="middle">known identity</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="redis" data-edge-label="identity changed?" data-edge-key="4" data-edge-id="cache-read">
+        <g data-edge-from="api" data-edge-to="redis" data-edge-label="IsInGame?" data-edge-key="4" data-edge-id="cache-read">
           <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="cache-read" data-composition-points="285,354;487,354" d="M 285 354 L 487 354" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="335.8" y="334" width="100.4" height="16" rx="3" class="c-mask"/>
-          <text x="386" y="344" class="t-backend" font-size="9" text-anchor="middle">identity changed?</text>
+          <rect x="356.6" y="334" width="58.800000000000004" height="16" rx="3" class="c-mask"/>
+          <text x="386" y="344" class="t-backend" font-size="9" text-anchor="middle">IsInGame?</text>
         </g>
         </g>
 
-        <g data-edge-from="redis" data-edge-to="api" data-edge-label="request once" data-edge-key="5" data-edge-id="cache-miss">
+        <g data-edge-from="redis" data-edge-to="api" data-edge-label="identity changed?" data-edge-key="5" data-edge-id="cache-miss">
           <path data-composition-edge-from="redis" data-composition-edge-to="api" data-composition-edge-id="cache-miss" data-composition-points="487,391;285,391" d="M 487 391 L 285 391" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="348.8" y="371" width="74.4" height="16" rx="3" class="c-mask"/>
-          <text x="386" y="381" class="t-muted" font-size="9" text-anchor="middle">request once</text>
+          <rect x="335.8" y="371" width="100.4" height="16" rx="3" class="c-mask"/>
+          <text x="386" y="381" class="t-muted" font-size="9" text-anchor="middle">identity changed?</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="db" data-edge-label="Add InGame (client)" data-edge-key="6" data-edge-id="profile-query">
-          <path data-composition-edge-from="api" data-composition-edge-to="db" data-composition-edge-id="profile-query" data-composition-points="285,443;595,443" d="M 285 443 L 595 443" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="api" data-edge-to="redis" data-edge-label="Add InGame (client)" data-edge-key="6" data-edge-id="profile-query">
+          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="profile-query" data-composition-points="285,443;487,443" d="M 285 443 L 487 443" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
-          <rect x="384.6" y="423" width="110.8" height="16" rx="3" class="c-mask"/>
-          <text x="440" y="433" class="t-backend" font-size="9" text-anchor="middle">Add InGame (client)</text>
+          <rect x="330.6" y="423" width="110.8" height="16" rx="3" class="c-mask"/>
+          <text x="386" y="433" class="t-backend" font-size="9" text-anchor="middle">Add InGame (client)</text>
         </g>
         </g>
 
-        <g data-edge-from="db" data-edge-to="api" data-edge-label="GoInGameRequest" data-edge-key="7" data-edge-id="profile-rows">
-          <path data-composition-edge-from="db" data-composition-edge-to="api" data-composition-edge-id="profile-rows" data-composition-points="595,489;285,489" d="M 595 489 L 285 489" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="api" data-edge-to="redis" data-edge-label="GoInGameRequest RPC" data-edge-key="7" data-edge-id="profile-rows">
+          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="profile-rows" data-composition-points="285,489;487,489" d="M 285 489 L 487 489" class="a-emphasis" data-animate="edge" style="--step:7" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
-          <rect x="395" y="469" width="90" height="16" rx="3" class="c-mask"/>
-          <text x="440" y="479" class="t-muted" font-size="9" text-anchor="middle">GoInGameRequest</text>
+          <rect x="330.6" y="469" width="110.8" height="16" rx="3" class="c-mask"/>
+          <text x="386" y="479" class="t-backend" font-size="9" text-anchor="middle">GoInGameRequest RPC</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="redis" data-edge-label="server accepts" data-edge-key="8" data-edge-id="cache-write">
-          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="cache-write" data-composition-points="285,536;487,536" d="M 285 536 L 487 536" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <g data-edge-from="api" data-edge-to="auth" data-edge-label="remember identity" data-edge-key="8" data-edge-id="cache-write">
+          <path data-composition-edge-from="api" data-composition-edge-to="auth" data-composition-edge-id="cache-write" data-composition-points="285,536;379,536" d="M 285 536 L 379 536" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <g data-detail="context">
-          <rect x="343.6" y="516" width="84.8" height="16" rx="3" class="c-mask"/>
-          <text x="386" y="526" class="t-messagebus" font-size="9" text-anchor="middle">server accepts</text>
+          <rect x="281.8" y="516" width="100.4" height="16" rx="3" class="c-mask"/>
+          <text x="332" y="526" class="t-messagebus" font-size="9" text-anchor="middle">remember identity</text>
         </g>
         </g>
 
-        <g data-edge-from="api" data-edge-to="trace" data-edge-label="IsInGame=true" data-edge-key="9" data-edge-id="trace-emit">
-          <path data-composition-edge-from="api" data-composition-edge-to="trace" data-composition-edge-id="trace-emit" data-composition-points="285,580;703,580" d="M 285 580 L 703 580" class="a-dashed" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <g data-edge-from="db" data-edge-to="api" data-edge-label="server marks InGame" data-edge-key="9" data-edge-id="trace-emit">
+          <path data-composition-edge-from="db" data-composition-edge-to="api" data-composition-edge-id="trace-emit" data-composition-points="595,580;285,580" d="M 595 580 L 285 580" class="a-default" data-animate="edge" style="--step:9" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="454.2" y="560" width="79.60000000000001" height="16" rx="3" class="c-mask"/>
-          <text x="494" y="570" class="t-messagebus" font-size="9" text-anchor="middle">IsInGame=true</text>
+          <rect x="384.6" y="560" width="110.8" height="16" rx="3" class="c-mask"/>
+          <text x="440" y="570" class="t-muted" font-size="9" text-anchor="middle">server marks InGame</text>
         </g>
         </g>
 
         <g data-edge-from="api" data-edge-to="web" data-edge-label="IsCompleted=1" data-edge-key="10" data-edge-id="dashboard-response">
-          <path data-composition-edge-from="api" data-composition-edge-to="web" data-composition-edge-id="dashboard-response" data-composition-points="271,625;177,625" d="M 271 625 L 177 625" class="a-default" data-animate="edge" style="--step:10" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+          <path data-composition-edge-from="api" data-composition-edge-to="web" data-composition-edge-id="dashboard-response" data-composition-points="271,625;177,625" d="M 271 625 L 177 625" class="a-emphasis" data-animate="edge" style="--step:10" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
           <rect x="184.2" y="605" width="79.60000000000001" height="16" rx="3" class="c-mask"/>
-          <text x="224" y="615" class="t-muted" font-size="9" text-anchor="middle">IsCompleted=1</text>
+          <text x="224" y="615" class="t-backend" font-size="9" text-anchor="middle">IsCompleted=1</text>
         </g>
         </g>
 
-        <g data-edge-from="web" data-edge-to="user" data-edge-label="goto gameplay" data-edge-key="11" data-edge-id="page-render">
-          <path data-composition-edge-from="web" data-composition-edge-to="user" data-composition-edge-id="page-render" data-composition-points="163,662;69,662" d="M 163 662 L 69 662" class="a-default" data-animate="edge" style="--step:11" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="web" data-edge-to="trace" data-edge-label="goto gameplay" data-edge-key="11" data-edge-id="page-render">
+          <path data-composition-edge-from="web" data-composition-edge-to="trace" data-composition-edge-id="page-render" data-composition-points="177,662;703,662" d="M 177 662 L 703 662" class="a-default" data-animate="edge" style="--step:11" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="76.19999999999999" y="642" width="79.60000000000001" height="16" rx="3" class="c-mask"/>
-          <text x="116" y="652" class="t-muted" font-size="9" text-anchor="middle">goto gameplay</text>
+          <rect x="400.2" y="642" width="79.60000000000001" height="16" rx="3" class="c-mask"/>
+          <text x="440" y="652" class="t-muted" font-size="9" text-anchor="middle">goto gameplay</text>
         </g>
         </g>
 
         <!-- Segment Labels -->
         <g data-graph-role="segment-label" data-segment-id="0">
-          <rect x="56" y="128" width="50.4" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="141" class="t-dim" font-size="9" font-weight="600">Request</text>
+          <rect x="56" y="128" width="81.60000000000001" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="141" class="t-dim" font-size="9" font-weight="600">Preconditions</text>
         </g>
         <g data-graph-role="segment-label" data-segment-id="1">
-          <rect x="56" y="293" width="55.6" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="306" class="t-dim" font-size="9" font-weight="600">Fallback</text>
+          <rect x="56" y="293" width="76.4" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="306" class="t-dim" font-size="9" font-weight="600">Request once</text>
         </g>
         <g data-graph-role="segment-label" data-segment-id="2">
-          <rect x="56" y="503" width="97.2" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="516" class="t-dim" font-size="9" font-weight="600">Response + trace</text>
+          <rect x="56" y="503" width="71.2" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="516" class="t-dim" font-size="9" font-weight="600">Wait server</text>
         </g>
 
         <!-- Participants -->
@@ -4760,8 +4760,8 @@
           <text data-detail="context" x="386" y="111" class="t-muted" font-size="7" text-anchor="middle">requested id</text>
         </g>
 
-        <g id="node-redis" data-node-id="redis" data-node-label="ECB" tabindex="0" role="button" aria-label="Focus ECB, RPC, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="RPC" data-node-context="Sequence participant">
-          <title>ECB · RPC · Sequence participant</title>
+        <g id="node-redis" data-node-id="redis" data-node-label="ECB" tabindex="0" role="button" aria-label="Focus ECB, client EndSim, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="client EndSim" data-node-context="Sequence participant">
+          <title>ECB · client EndSim · Sequence participant</title>
           <rect x="451" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="451" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:4" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(457 78) scale(0.6875)">
@@ -4769,11 +4769,11 @@
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
           <text data-detail-anchor x="494" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">ECB</text>
-          <text data-detail="context" x="494" y="111" class="t-muted" font-size="7" text-anchor="middle">RPC</text>
+          <text data-detail="context" x="494" y="111" class="t-muted" font-size="7" text-anchor="middle">client EndSim</text>
         </g>
 
-        <g id="node-db" data-node-id="db" data-node-label="Server" tabindex="0" role="button" aria-label="Focus Server, marks in game, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="marks in game" data-node-context="Sequence participant">
-          <title>Server · marks in game · Sequence participant</title>
+        <g id="node-db" data-node-id="db" data-node-label="Server" tabindex="0" role="button" aria-label="Focus Server, marks InGame, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="marks InGame" data-node-context="Sequence participant">
+          <title>Server · marks InGame · Sequence participant</title>
           <rect x="559" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="559" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:5" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(565 78) scale(0.6875)">
@@ -4781,11 +4781,11 @@
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
           <text data-detail-anchor x="602" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Server</text>
-          <text data-detail="context" x="602" y="111" class="t-muted" font-size="7" text-anchor="middle">marks in game</text>
+          <text data-detail="context" x="602" y="111" class="t-muted" font-size="7" text-anchor="middle">marks InGame</text>
         </g>
 
-        <g id="node-trace" data-node-id="trace" data-node-label="CanopyGoTo" tabindex="0" role="button" aria-label="Focus CanopyGoTo, gameplay, Sequence participant" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="gameplay" data-node-context="Sequence participant">
-          <title>CanopyGoTo · gameplay · Sequence participant</title>
+        <g id="node-trace" data-node-id="trace" data-node-label="Gate" tabindex="0" role="button" aria-label="Focus Gate, CanopyGoTo, Sequence participant" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="CanopyGoTo" data-node-context="Sequence participant">
+          <title>Gate · CanopyGoTo · Sequence participant</title>
           <rect x="667" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="667" y="72" width="86" height="54" rx="6" class="c-messagebus" data-animate="node" style="--step:6" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(673 78) scale(0.6875)">
@@ -4794,8 +4794,8 @@
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-detail-anchor x="710" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">CanopyGoTo</text>
-          <text data-detail="context" x="710" y="111" class="t-muted" font-size="7" text-anchor="middle">gameplay</text>
+          <text data-detail-anchor x="710" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Gate</text>
+          <text data-detail="context" x="710" y="111" class="t-muted" font-size="7" text-anchor="middle">CanopyGoTo</text>
         </g>
 
         <!-- Legend -->

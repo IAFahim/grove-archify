@@ -2,40 +2,40 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "One Client Tick \u00b7 Gather \u2192 Graph \u2192 Gate",
-    "subtitle": "ClientAppStateSystem fills context; executor runs; tracker then GoInGame",
-    "output": "../03-tick.sequence.html",
+    "title": "Grove \u00b7 Who Builds the Door Book",
+    "subtitle": "Compile time writes the switch \u00b7 play time only looks up numbers",
+    "output": "../05-door-book.sequence.html",
+    "quality_profile": "standard",
+    "animation": "trace",
     "viewBox": [
       960,
       800
     ],
-    "animation": "trace",
-    "quality_profile": "standard",
     "views": [
       {
         "id": "request-and-auth",
-        "label": "Gather",
+        "label": "Find toys",
         "focus": [
           "user",
           "web",
           "api",
           "auth"
         ],
-        "note": "System builds ClientConnectionInput from driver + connection entity."
+        "note": "Generator finds your Context and all [ExecuteNode] methods."
       },
       {
         "id": "cache-fallback",
-        "label": "Run graph",
+        "label": "Write book",
         "focus": [
           "api",
           "redis",
           "db"
         ],
-        "note": "Executor runs SM; tracker always updates snapshot on root."
+        "note": "Emits Create/Update/SetChunk + big switch."
       },
       {
         "id": "return-and-trace",
-        "label": "Gate / wait",
+        "label": "Play",
         "focus": [
           "db",
           "api",
@@ -44,7 +44,7 @@
           "web",
           "user"
         ],
-        "note": "GoInGame may emit RPC; completion waits IsInGame."
+        "note": "Brick only stores Type; your book has the doors."
       }
     ]
   },
@@ -52,61 +52,61 @@
     {
       "id": "user",
       "type": "external",
-      "label": "NetCode",
-      "sublabel": "driver events"
+      "label": "You",
+      "sublabel": "write code"
     },
     {
       "id": "web",
       "type": "frontend",
-      "label": "StateSystem",
-      "sublabel": "ClientApp"
+      "label": "Generator",
+      "sublabel": "Roslyn"
     },
     {
       "id": "api",
       "type": "backend",
-      "label": "Executor",
-      "sublabel": "Nerve SM"
+      "label": "Context.cs",
+      "sublabel": "partial"
     },
     {
       "id": "auth",
       "type": "security",
-      "label": "Context",
-      "sublabel": "by value"
+      "label": "Your nodes",
+      "sublabel": "attrs"
     },
     {
       "id": "redis",
       "type": "database",
-      "label": "Tracker",
-      "sublabel": "snapshot"
+      "label": "Grove.dll",
+      "sublabel": "built-ins"
     },
     {
       "id": "db",
       "type": "database",
-      "label": "GoInGame",
-      "sublabel": "block"
+      "label": "*.g.cs",
+      "sublabel": "door book"
     },
     {
       "id": "trace",
       "type": "messagebus",
-      "label": "ECB",
-      "sublabel": "EndSim"
+      "label": "Play time",
+      "sublabel": "switch"
     }
   ],
   "segments": [
     {
       "from": 150,
       "to": 295,
-      "label": "Gather"
+      "label": "Scan"
     },
     {
       "from": 315,
       "to": 505,
-      "label": "Run graph"
+      "label": "Write"
     },
     {
       "from": 525,
       "to": 665,
-      "label": "Gate / wait"
+      "label": "Play"
     }
   ],
   "messages": [
@@ -115,7 +115,7 @@
       "from": "user",
       "to": "web",
       "y": 185,
-      "label": "events",
+      "label": "code",
       "variant": "default"
     },
     {
@@ -123,7 +123,7 @@
       "from": "web",
       "to": "api",
       "y": 228,
-      "label": "build Connection",
+      "label": "find Context",
       "variant": "emphasis"
     },
     {
@@ -131,7 +131,7 @@
       "from": "api",
       "to": "auth",
       "y": 270,
-      "label": "GetExecution",
+      "label": "find attrs",
       "variant": "security"
     },
     {
@@ -139,7 +139,7 @@
       "from": "auth",
       "to": "api",
       "y": 305,
-      "label": "write fields",
+      "label": "scan Grove",
       "variant": "return"
     },
     {
@@ -147,7 +147,7 @@
       "from": "api",
       "to": "redis",
       "y": 354,
-      "label": "Run graph",
+      "label": "match type",
       "variant": "default"
     },
     {
@@ -155,7 +155,7 @@
       "from": "redis",
       "to": "api",
       "y": 391,
-      "label": "update snapshot",
+      "label": "emit lifecycle",
       "variant": "return"
     },
     {
@@ -163,7 +163,7 @@
       "from": "api",
       "to": "db",
       "y": 443,
-      "label": "maybe RPC",
+      "label": "emit Exec switch",
       "variant": "emphasis"
     },
     {
@@ -171,7 +171,7 @@
       "from": "db",
       "to": "api",
       "y": 489,
-      "label": "IsCompleted?",
+      "label": "emit Data switch",
       "variant": "return"
     },
     {
@@ -179,7 +179,7 @@
       "from": "api",
       "to": "redis",
       "y": 536,
-      "label": "AddComponent / RPC",
+      "label": "brick Type",
       "variant": "dashed"
     },
     {
@@ -187,7 +187,7 @@
       "from": "api",
       "to": "trace",
       "y": 580,
-      "label": "EndSim buffer",
+      "label": "open door",
       "variant": "dashed"
     },
     {
@@ -195,7 +195,7 @@
       "from": "api",
       "to": "web",
       "y": 625,
-      "label": "state hold",
+      "label": "call method",
       "variant": "return"
     },
     {
@@ -203,7 +203,7 @@
       "from": "web",
       "to": "user",
       "y": 662,
-      "label": "next tick",
+      "label": "maybe more doors",
       "variant": "return"
     }
   ],
@@ -248,29 +248,29 @@
   "cards": [
     {
       "dot": "emerald",
-      "title": "Context is a value",
+      "title": "Context rules",
       "items": [
-        "GetExecution copies context",
-        "Write Connection + CommandBuffer AFTER GetExecution",
-        "That is what nodes actually see"
+        "partial struct",
+        "has GroveStates backpack",
+        "bags for components get wired for free"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Node rules",
+      "items": [
+        "static method",
+        "context by ref",
+        "not inside a generic class"
       ]
     },
     {
       "dot": "rose",
-      "title": "IsHost false here",
+      "title": "Where doors live",
       "items": [
-        "Separate ClientWorld+ServerWorld \u2260 host world",
-        "Only single dual-flag world is host",
-        "GoInGame still adds NetworkStreamInGame when not host"
-      ]
-    },
-    {
-      "dot": "orange",
-      "title": "System only gathers",
-      "items": [
-        "Query NetworkStreamConnection singleton",
-        "Has NetworkId / NetworkStreamInGame",
-        "executor.Run does the graph work"
+        "Brick stores only the number",
+        "Your generated book has the switch",
+        "Built-in toys get copied into your book"
       ]
     }
   ]

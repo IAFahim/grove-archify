@@ -71,8 +71,7 @@
       "label": "connecting",
       "sublabel": "default state",
       "stage": 0,
-      "row": 0,
-      "tag": "events"
+      "row": 0
     },
     {
       "id": "mobile",
@@ -80,8 +79,7 @@
       "label": "root",
       "sublabel": "tracker",
       "stage": 0,
-      "row": 2,
-      "tag": "events"
+      "row": 2
     },
     {
       "id": "edge",
@@ -89,8 +87,7 @@
       "label": "Initialize",
       "sublabel": "Canopy block",
       "stage": 1,
-      "row": 1,
-      "tag": "TLS"
+      "row": 1
     },
     {
       "id": "consent",
@@ -98,8 +95,7 @@
       "label": "InitializeState",
       "sublabel": "scratch",
       "stage": 2,
-      "row": 0,
-      "tag": "PII guard"
+      "row": 0
     },
     {
       "id": "stream",
@@ -116,8 +112,7 @@
       "label": "GoInGame",
       "sublabel": "typed block",
       "stage": 3,
-      "row": 0,
-      "tag": "restricted"
+      "row": 0
     },
     {
       "id": "warehouse",
@@ -125,8 +120,7 @@
       "label": "IsCompleted",
       "sublabel": "AND",
       "stage": 3,
-      "row": 2,
-      "tag": "curated"
+      "row": 2
     },
     {
       "id": "features",
@@ -134,8 +128,7 @@
       "label": "Target",
       "sublabel": "gameplay",
       "stage": 3,
-      "row": 4,
-      "tag": "derived"
+      "row": 4
     },
     {
       "id": "dashboard",
@@ -143,8 +136,7 @@
       "label": "CanopyGoTo",
       "sublabel": "transition",
       "stage": 4,
-      "row": 1,
-      "tag": "SQL"
+      "row": 1
     },
     {
       "id": "model",
@@ -152,8 +144,7 @@
       "label": "gameplay",
       "sublabel": "state",
       "stage": 4,
-      "row": 4,
-      "tag": "features"
+      "row": 4
     }
   ],
   "flows": [
@@ -162,7 +153,7 @@
       "from": "web",
       "to": "edge",
       "label": "child",
-      "classification": "user events",
+      "classification": "type chain",
       "variant": "emphasis",
       "fromSide": "right",
       "toSide": "left",
@@ -186,7 +177,7 @@
       "from": "mobile",
       "to": "edge",
       "label": "watch",
-      "classification": "device events",
+      "classification": "type chain",
       "variant": "default",
       "fromSide": "right",
       "toSide": "left",
@@ -210,7 +201,7 @@
       "from": "edge",
       "to": "consent",
       "label": "exec",
-      "classification": "PII touch",
+      "classification": "type chain",
       "variant": "security",
       "fromSide": "top",
       "toSide": "left",
@@ -238,7 +229,7 @@
       "from": "edge",
       "to": "stream",
       "label": "run",
-      "classification": "append-only",
+      "classification": "type chain",
       "variant": "emphasis",
       "fromSide": "right",
       "toSide": "left",
@@ -262,7 +253,7 @@
       "from": "consent",
       "to": "pii",
       "label": "block",
-      "classification": "encrypted PII",
+      "classification": "type chain",
       "variant": "security",
       "route": "straight",
       "labelAt": [
@@ -275,7 +266,7 @@
       "from": "stream",
       "to": "warehouse",
       "label": "AND",
-      "classification": "non-PII",
+      "classification": "type chain",
       "variant": "emphasis",
       "route": "straight",
       "labelAt": [
@@ -288,7 +279,7 @@
       "from": "warehouse",
       "to": "features",
       "label": "done?",
-      "classification": "batch",
+      "classification": "type chain",
       "variant": "dashed",
       "fromSide": "bottom",
       "toSide": "top",
@@ -303,7 +294,7 @@
       "from": "warehouse",
       "to": "dashboard",
       "label": "goto",
-      "classification": "read-only",
+      "classification": "type chain",
       "variant": "default",
       "fromSide": "right",
       "toSide": "left",
@@ -327,7 +318,7 @@
       "from": "features",
       "to": "model",
       "label": "arrive",
-      "classification": "derived",
+      "classification": "type chain",
       "variant": "dashed",
       "route": "straight",
       "labelAt": [
@@ -340,7 +331,7 @@
       "from": "pii",
       "to": "dashboard",
       "label": "typed",
-      "classification": "approved only",
+      "classification": "type chain",
       "variant": "security",
       "fromSide": "right",
       "toSide": "top",

@@ -2,14 +2,16 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Grove \u00b7 One Custom Node, Four Pieces",
-    "subtitle": "Data \u00b7 Auth \u00b7 Editor \u00b7 Runtime method",
-    "output": "07-node.architecture.html",
+    "title": "Grove \u00b7 The Toy Machine",
+    "subtitle": "Draw a map \u2192 bake a brick \u2192 robot plays it every frame",
+    "output": "../01-toy-machine.architecture.html",
     "quality_profile": "standard",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
     "views": [
       {
         "id": "request-path",
-        "label": "Four pieces",
+        "label": "The main path",
         "focus": [
           "users",
           "cdn",
@@ -17,21 +19,21 @@
           "api",
           "db"
         ],
-        "note": "Data \u2192 Auth \u2192 Importer \u2192 Blob \u2192 Execute."
+        "note": "You draw. Grove freezes. Robot runs."
       },
       {
         "id": "identity-and-cache",
-        "label": "Editor scope",
+        "label": "Helpers",
         "focus": [
           "auth",
           "api",
           "cache"
         ],
-        "note": "UseWithGraph scopes the Toolkit node."
+        "note": "Numbers pick doors. Backpack holds secrets."
       },
       {
         "id": "async-work",
-        "label": "Overrides",
+        "label": "Where stuff lives",
         "focus": [
           "cdn",
           "s3",
@@ -39,17 +41,16 @@
           "queue",
           "worker"
         ],
-        "note": "Instance overrides patch fields before bake."
+        "note": "Editor box, bake box, play box."
       }
-    ],
-    "visual_preset": "editorial"
+    ]
   },
   "components": [
     {
       "id": "users",
       "type": "external",
-      "label": "Data struct",
-      "sublabel": "Speed etc",
+      "label": "You draw",
+      "sublabel": "pretty map",
       "pos": [
         40,
         300
@@ -62,8 +63,8 @@
     {
       "id": "auth",
       "type": "security",
-      "label": "UseWithGraph",
-      "sublabel": "scope graph",
+      "label": "Numbers",
+      "sublabel": "pick doors",
       "pos": [
         40,
         110
@@ -71,14 +72,13 @@
       "size": [
         120,
         64
-      ],
-      "tag": "JWT + PKCE"
+      ]
     },
     {
       "id": "cdn",
       "type": "cloud",
-      "label": "Editor node",
-      "sublabel": "Toolkit",
+      "label": "Importer",
+      "sublabel": "makes cards",
       "pos": [
         250,
         300
@@ -91,8 +91,8 @@
     {
       "id": "lb",
       "type": "cloud",
-      "label": "Importer",
-      "sublabel": "Init auth",
+      "label": "Bake oven",
+      "sublabel": "freezes map",
       "pos": [
         460,
         300
@@ -105,8 +105,8 @@
     {
       "id": "api",
       "type": "backend",
-      "label": "Auth asset",
-      "sublabel": "serializable",
+      "label": "Brick blob",
+      "sublabel": "GraphData",
       "pos": [
         670,
         300
@@ -119,8 +119,8 @@
     {
       "id": "cache",
       "type": "database",
-      "label": "Type id",
-      "sublabel": "enum",
+      "label": "Backpack",
+      "sublabel": "GroveState",
       "pos": [
         670,
         150
@@ -133,8 +133,8 @@
     {
       "id": "db",
       "type": "database",
-      "label": "Header+payload",
-      "sublabel": "baked blob",
+      "label": "Robot brain",
+      "sublabel": "your Context",
       "pos": [
         880,
         300
@@ -147,8 +147,8 @@
     {
       "id": "s3",
       "type": "cloud",
-      "label": "Overrides",
-      "sublabel": "per entity",
+      "label": "Editor room",
+      "sublabel": "Graph Toolkit",
       "pos": [
         250,
         440
@@ -156,14 +156,13 @@
       "size": [
         130,
         60
-      ],
-      "tag": "OAI protected"
+      ]
     },
     {
       "id": "queue",
       "type": "messagebus",
-      "label": "Source-gen",
-      "sublabel": "case Type",
+      "label": "Play room",
+      "sublabel": "ISystem",
       "pos": [
         670,
         440
@@ -176,8 +175,8 @@
     {
       "id": "worker",
       "type": "backend",
-      "label": "Execute method",
-      "sublabel": "static",
+      "label": "Do the work",
+      "sublabel": "move / score",
       "pos": [
         880,
         440
@@ -191,23 +190,30 @@
   "boundaries": [
     {
       "kind": "region",
-      "label": "You write",
+      "label": "Draw time",
       "wraps": [
         "users",
-        "cdn",
-        "api",
-        "cache",
-        "worker"
+        "s3",
+        "cdn"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Bake time",
+      "wraps": [
+        "lb",
+        "api"
       ]
     },
     {
       "kind": "security-group",
-      "label": "Grove bake/run",
+      "label": "Play time",
       "wraps": [
-        "lb",
-        "api",
+        "queue",
+        "worker",
         "db",
-        "queue"
+        "cache",
+        "auth"
       ]
     }
   ],
@@ -216,14 +222,14 @@
       "id": "users-to-cdn",
       "from": "users",
       "to": "cdn",
-      "label": "define",
+      "label": "draw",
       "variant": "emphasis"
     },
     {
       "id": "jwt-verification",
       "from": "auth",
       "to": "api",
-      "label": "scope",
+      "label": "help",
       "variant": "security",
       "fromSide": "right",
       "toSide": "top",
@@ -251,7 +257,7 @@
       "id": "static-assets",
       "from": "cdn",
       "to": "s3",
-      "label": "override",
+      "label": "live in",
       "variant": "dashed",
       "fromSide": "bottom",
       "toSide": "top",
@@ -266,7 +272,7 @@
       "id": "cache-read-through",
       "from": "api",
       "to": "cache",
-      "label": "Type id",
+      "label": "remember",
       "fromSide": "top",
       "toSide": "bottom",
       "labelDy": -68
@@ -275,13 +281,13 @@
       "id": "api-sql",
       "from": "api",
       "to": "db",
-      "label": "bake"
+      "label": "run"
     },
     {
       "id": "enqueue-job",
       "from": "api",
       "to": "queue",
-      "label": "dispatch",
+      "label": "tick",
       "variant": "dashed",
       "fromSide": "bottom",
       "toSide": "top",
@@ -296,29 +302,29 @@
   "cards": [
     {
       "dot": "cyan",
-      "title": "Signature",
+      "title": "Kid version",
       "items": [
-        "Execute(in data, in GroveContext, ref Ctx)",
-        "generic IContext for built-ins",
-        "typed input for block nodes"
+        "You draw a treasure map",
+        "Grove freezes it into a brick",
+        "A robot reads the brick every frame"
       ]
     },
     {
       "dot": "emerald",
-      "title": "Access",
+      "title": "Three toys",
       "items": [
-        "ComponentContainer.GetRW(i)",
-        "GetState for variables",
-        "DeltaTime / Entity / GraphId"
+        "Pretty map (.mygraph) \u2014 for you",
+        "Card box (AuthGraph) \u2014 for bake",
+        "Brick (GraphData blob) \u2014 for play"
       ]
     },
     {
       "dot": "rose",
-      "title": "Don't",
+      "title": "Magic rule",
       "items": [
-        "generic outer types",
-        "context by value",
-        "managed payload"
+        "Every box has a number on it",
+        "Robot opens the door for that number",
+        "That runs a tiny C# method"
       ]
     }
   ]

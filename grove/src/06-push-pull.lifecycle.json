@@ -2,19 +2,15 @@
   "schema_version": 1,
   "diagram_type": "lifecycle",
   "meta": {
-    "title": "Grove \u00b7 Selector + State Heartbeat",
-    "subtitle": "Score pick \u00b7 StateIf \u00b7 Enter/Exit edges",
-    "output": "06-selector.lifecycle.html",
-    "viewBox": [
-      980,
-      660
-    ],
-    "animation": "trace",
+    "title": "Grove \u00b7 Push Play vs Pull Ask",
+    "subtitle": "Execute pushes buttons \u00b7 Calculate asks for a number",
+    "output": "../06-push-pull.lifecycle.html",
     "quality_profile": "standard",
+    "animation": "trace",
     "views": [
       {
         "id": "main-lifecycle",
-        "label": "Selector",
+        "label": "Push path",
         "focus": [
           "queued",
           "planning",
@@ -22,22 +18,22 @@
           "reviewing",
           "completed"
         ],
-        "note": "Threshold \u2192 scan scores \u2192 pick action."
+        "note": "Root \u2192 Composite \u2192 Selector \u2192 leaf method."
       },
       {
         "id": "human-waits",
-        "label": "State waits",
+        "label": "Pull path",
         "focus": [
           "executing",
           "approval",
           "reviewing",
           "blocked"
         ],
-        "note": "GetState then StateIf True/False."
+        "note": "Output asks a data box only when needed."
       },
       {
         "id": "recovery-and-exits",
-        "label": "Enter/Exit",
+        "label": "Memory",
         "focus": [
           "executing",
           "failed",
@@ -45,34 +41,34 @@
           "cancelled",
           "expired"
         ],
-        "note": "StateSelect fires Exit then Enter on change."
+        "note": "Backpack keeps variables between frames."
       }
     ]
   },
   "lanes": [
     {
       "id": "main",
-      "label": "Selector path"
+      "label": "Push (Execute)"
     },
     {
       "id": "waiting",
-      "label": "State"
+      "label": "Pull (Calculate)"
     },
     {
       "id": "exceptions",
-      "label": "Edges"
+      "label": "Backpack"
     },
     {
       "id": "terminal",
-      "label": "Hold / terminal"
+      "label": "Time"
     }
   ],
   "states": [
     {
       "id": "queued",
       "type": "start",
-      "label": "Selector",
-      "sublabel": "Execute",
+      "label": "Root",
+      "sublabel": "start",
       "lane": "main",
       "col": 0,
       "step": "01",
@@ -81,8 +77,8 @@
     {
       "id": "planning",
       "type": "active",
-      "label": "Threshold",
-      "sublabel": "last Qual",
+      "label": "Composite",
+      "sublabel": "do all",
       "lane": "main",
       "col": 1,
       "step": "02",
@@ -91,8 +87,8 @@
     {
       "id": "executing",
       "type": "active",
-      "label": "Scan",
-      "sublabel": "> thr",
+      "label": "Selector",
+      "sublabel": "pick best",
       "lane": "main",
       "col": 2,
       "step": "03",
@@ -101,8 +97,8 @@
     {
       "id": "reviewing",
       "type": "decision",
-      "label": "Pick",
-      "sublabel": "policy",
+      "label": "Leaf",
+      "sublabel": "move!",
       "lane": "main",
       "col": 3,
       "step": "04",
@@ -111,8 +107,8 @@
     {
       "id": "completed",
       "type": "success",
-      "label": "Action",
-      "sublabel": "Execute[i]",
+      "label": "World changed",
+      "sublabel": "done",
       "lane": "main",
       "col": 4,
       "step": "05",
@@ -121,8 +117,8 @@
     {
       "id": "approval",
       "type": "waiting",
-      "label": "GetState",
-      "sublabel": "map",
+      "label": "Output?",
+      "sublabel": "ask",
       "lane": "waiting",
       "col": 0,
       "tag": "pause"
@@ -130,8 +126,8 @@
     {
       "id": "blocked",
       "type": "waiting",
-      "label": "StateIf",
-      "sublabel": "T/F",
+      "label": "Data box",
+      "sublabel": "Calculate",
       "lane": "waiting",
       "col": 1,
       "tag": "wait"
@@ -139,8 +135,8 @@
     {
       "id": "failed",
       "type": "failure",
-      "label": "Exit",
-      "sublabel": "prev",
+      "label": "Variable",
+      "sublabel": "backpack",
       "lane": "exceptions",
       "col": 0,
       "yOffset": 78,
@@ -149,8 +145,8 @@
     {
       "id": "cancelled",
       "type": "failure",
-      "label": "Enter",
-      "sublabel": "curr",
+      "label": "Next frame",
+      "sublabel": "again",
       "lane": "terminal",
       "col": 0,
       "tag": "terminal"
@@ -158,8 +154,8 @@
     {
       "id": "expired",
       "type": "failure",
-      "label": "Hold",
-      "sublabel": "Execution",
+      "label": "Same entity",
+      "sublabel": "still there",
       "lane": "terminal",
       "col": 1,
       "tag": "terminal"
@@ -257,29 +253,29 @@
   "cards": [
     {
       "dot": "emerald",
-      "title": "Selector",
+      "title": "Push",
       "items": [
-        "Qualifiers[] || Actions[]",
-        "Last pair = threshold",
-        "strict > wins"
+        "Start at Root",
+        "Walk action boxes",
+        "Side effects happen"
       ]
     },
     {
       "dot": "amber",
-      "title": "State",
+      "title": "Pull",
       "items": [
-        "GetState per entity",
-        "StateIf branches",
-        "keys include GraphId"
+        "Start at an Output",
+        "Only open data boxes you need",
+        "Return a value"
       ]
     },
     {
       "dot": "rose",
-      "title": "Edges",
+      "title": "Backpack",
       "items": [
-        "Exit(prev) then Enter(curr)",
-        "first run seeds 0",
-        "RemoveGraphState on teardown"
+        "Lives on the entity",
+        "Keyed by GraphId",
+        "Inputs + locals + state live here"
       ]
     }
   ]

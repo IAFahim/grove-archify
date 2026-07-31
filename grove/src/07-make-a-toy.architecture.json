@@ -2,14 +2,16 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Client Go-In-Game \u00b7 What You Wire",
-    "subtitle": "Nerve already ships the nodes \u2014 project supplies context, system, settings, graph",
-    "output": "../01-pieces.architecture.html",
+    "title": "Grove \u00b7 Make Your Own Toy",
+    "subtitle": "Four LEGO pieces every custom node needs",
+    "output": "../07-make-a-toy.architecture.html",
     "quality_profile": "standard",
+    "animation": "trace",
+    "visual_preset": "editorial",
     "views": [
       {
         "id": "request-path",
-        "label": "Project four",
+        "label": "Four pieces",
         "focus": [
           "users",
           "cdn",
@@ -17,21 +19,21 @@
           "api",
           "db"
         ],
-        "note": "Context \u2192 System \u2192 Settings \u2192 ClientFlow.cnerve."
+        "note": "Data \u00b7 Auth \u00b7 Draw node \u00b7 Run method."
       },
       {
         "id": "identity-and-cache",
-        "label": "Nerve stock",
+        "label": "Wire in",
         "focus": [
           "auth",
           "api",
           "cache"
         ],
-        "note": "Tracker + GoInGame nodes already in the package."
+        "note": "Importer copies draw \u2192 auth; bake packs bread+filling."
       },
       {
         "id": "async-work",
-        "label": "World landing",
+        "label": "Play",
         "focus": [
           "cdn",
           "s3",
@@ -39,18 +41,16 @@
           "queue",
           "worker"
         ],
-        "note": "SettingsWorld(client) \u2192 Client.unity \u2192 client world."
+        "note": "Number hits your door in the book."
       }
-    ],
-    "animation": "trace",
-    "visual_preset": "signal-flow"
+    ]
   },
   "components": [
     {
       "id": "users",
       "type": "external",
-      "label": "ClientAppContext",
-      "sublabel": "INerveClientContext",
+      "label": "Data struct",
+      "sublabel": "Speed etc",
       "pos": [
         40,
         300
@@ -63,8 +63,8 @@
     {
       "id": "auth",
       "type": "security",
-      "label": "Shipped nodes",
-      "sublabel": "Tracker \u00b7 GoInGame",
+      "label": "Type number",
+      "sublabel": "enum id",
       "pos": [
         40,
         110
@@ -77,8 +77,8 @@
     {
       "id": "cdn",
       "type": "cloud",
-      "label": "ClientAppStateSystem",
-      "sublabel": "gather + Run",
+      "label": "Draw node",
+      "sublabel": "pretty box",
       "pos": [
         250,
         300
@@ -91,8 +91,8 @@
     {
       "id": "lb",
       "type": "cloud",
-      "label": "ClientStateSettings",
-      "sublabel": "SettingsWorld client",
+      "label": "Importer",
+      "sublabel": "copy fields",
       "pos": [
         460,
         300
@@ -105,8 +105,8 @@
     {
       "id": "api",
       "type": "backend",
-      "label": "ClientFlow.cnerve",
-      "sublabel": "state graph",
+      "label": "Auth card",
+      "sublabel": "serializable",
       "pos": [
         670,
         300
@@ -119,8 +119,8 @@
     {
       "id": "cache",
       "type": "database",
-      "label": "Connection facts",
-      "sublabel": "per tick input",
+      "label": "UseWithGraph",
+      "sublabel": "which map",
       "pos": [
         670,
         150
@@ -133,8 +133,8 @@
     {
       "id": "db",
       "type": "database",
-      "label": "NerveStateMachine",
-      "sublabel": "baked entity",
+      "label": "Brick piece",
+      "sublabel": "header+fill",
       "pos": [
         880,
         300
@@ -147,8 +147,8 @@
     {
       "id": "s3",
       "type": "cloud",
-      "label": "Client.unity",
-      "sublabel": "SubSceneSet",
+      "label": "Overrides",
+      "sublabel": "per entity",
       "pos": [
         250,
         440
@@ -161,8 +161,8 @@
     {
       "id": "queue",
       "type": "messagebus",
-      "label": "Startup Gate",
-      "sublabel": "InitializeState",
+      "label": "Door book",
+      "sublabel": "case Type",
       "pos": [
         670,
         440
@@ -175,8 +175,8 @@
     {
       "id": "worker",
       "type": "backend",
-      "label": "GoInGame RPC",
-      "sublabel": "until inGame",
+      "label": "Run method",
+      "sublabel": "static C#",
       "pos": [
         880,
         440
@@ -190,29 +190,22 @@
   "boundaries": [
     {
       "kind": "region",
-      "label": "You write (project)",
+      "label": "You write",
       "wraps": [
         "users",
-        "cdn",
-        "lb",
-        "api"
-      ]
-    },
-    {
-      "kind": "security-group",
-      "label": "Nerve package ships",
-      "wraps": [
         "auth",
-        "queue",
+        "cdn",
+        "api",
         "worker"
       ]
     },
     {
-      "kind": "region",
-      "label": "World routing",
+      "kind": "security-group",
+      "label": "Grove helps",
       "wraps": [
-        "s3",
-        "db"
+        "lb",
+        "db",
+        "queue"
       ]
     }
   ],
@@ -221,14 +214,14 @@
       "id": "users-to-cdn",
       "from": "users",
       "to": "cdn",
-      "label": "owns",
+      "label": "define",
       "variant": "emphasis"
     },
     {
-      "id": "scope-verification",
+      "id": "jwt-verification",
       "from": "auth",
       "to": "api",
-      "label": "reads",
+      "label": "scope",
       "variant": "security",
       "fromSide": "right",
       "toSide": "top",
@@ -256,7 +249,7 @@
       "id": "static-assets",
       "from": "cdn",
       "to": "s3",
-      "label": "loads",
+      "label": "tweak",
       "variant": "dashed",
       "fromSide": "bottom",
       "toSide": "top",
@@ -271,7 +264,7 @@
       "id": "cache-read-through",
       "from": "api",
       "to": "cache",
-      "label": "feeds",
+      "label": "id",
       "fromSide": "top",
       "toSide": "bottom",
       "labelDy": -68
@@ -280,13 +273,13 @@
       "id": "api-sql",
       "from": "api",
       "to": "db",
-      "label": "bakes"
+      "label": "bake"
     },
     {
       "id": "enqueue-job",
       "from": "api",
       "to": "queue",
-      "label": "blocks",
+      "label": "call",
       "variant": "dashed",
       "fromSide": "bottom",
       "toSide": "top",
@@ -301,29 +294,29 @@
   "cards": [
     {
       "dot": "cyan",
-      "title": "Missing was project-side",
+      "title": "Recipe",
       "items": [
-        "Nerve already had ClientConnectionTracker + ClientGoInGame",
-        "Sample had Menu + Service graphs, never a client graph",
-        "LocalGoInGameSystem reimplemented a node that already existed"
+        "Execute(in data, in GroveContext, ref Context)",
+        "or generic IContext for shared toys",
+        "context always by ref"
       ]
     },
     {
       "dot": "emerald",
-      "title": "Same three pieces as Menu/Service",
+      "title": "Inside the method",
       "items": [
-        "Context (INerveClientContext)",
-        "Driver system (gather + executor.Run)",
-        "SettingsWorld routing + graph asset"
+        "GetRW(index) for components",
+        "GetState for backpack",
+        "DeltaTime / Entity / GraphId"
       ]
     },
     {
       "dot": "rose",
-      "title": "Types force the chain",
+      "title": "Don't",
       "items": [
-        "GoInGame needs InitializeState",
-        "Only StartupGate supplies InitializeState blocks",
-        "Only Initialize runs a gate from a Canopy state"
+        "generic outer class",
+        "context by value",
+        "managed junk in payload"
       ]
     }
   ]

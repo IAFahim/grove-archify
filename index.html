@@ -1,316 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Grove Archify · rebuild it in your head</title>
-  <style>
-    :root {
-      --bg: #0b1020;
-      --panel: #121a2f;
-      --ink: #e8eefc;
-      --muted: #9aabc9;
-      --accent: #5eead4;
-      --accent2: #f472b6;
-      --line: #24304d;
-      --card: #172038;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background:
-        radial-gradient(1200px 600px at 10% -10%, #1a2a55 0%, transparent 55%),
-        radial-gradient(900px 500px at 100% 0%, #3b1d4a 0%, transparent 50%),
-        var(--bg);
-      color: var(--ink);
-      line-height: 1.55;
-    }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    header {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 48px 24px 16px;
-    }
-    header h1 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      margin: 0 0 8px;
-      letter-spacing: -0.03em;
-    }
-    header p { color: var(--muted); max-width: 70ch; margin: 0 0 12px; }
-    .badge {
-      display: inline-block;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--accent);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      margin-right: 8px;
-    }
-    main { max-width: 1100px; margin: 0 auto; padding: 8px 24px 80px; }
-    h2 { margin-top: 40px; letter-spacing: -0.02em; }
-    h3 { margin-top: 28px; color: var(--accent); }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 14px;
-      margin: 20px 0 8px;
-    }
-    .card {
-      background: linear-gradient(180deg, var(--card), var(--panel));
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px 16px 14px;
-      transition: transform .15s ease, border-color .15s ease;
-    }
-    .card:hover { transform: translateY(-2px); border-color: #3a4f7a; }
-    .card .n {
-      font-size: 12px;
-      color: var(--accent2);
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .card h3 { margin: 6px 0 8px; color: var(--ink); font-size: 1.05rem; }
-    .card p { margin: 0 0 12px; color: var(--muted); font-size: .92rem; }
-    .card a.btn {
-      display: inline-block;
-      background: #1d3a3a;
-      color: var(--accent);
-      border: 1px solid #2d5c5c;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: .88rem;
-      font-weight: 600;
-    }
-    .card a.btn:hover { background: #234848; text-decoration: none; }
-    .story {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin: 16px 0;
-    }
-    .story ol { margin: 8px 0 0; padding-left: 1.2rem; color: var(--muted); }
-    .story li { margin: 6px 0; }
-    .story strong { color: var(--ink); }
-    pre, code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .86rem;
-    }
-    pre {
-      background: #0a0f1c;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 14px;
-      overflow: auto;
-      color: #d7e3ff;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0 20px;
-      font-size: .92rem;
-    }
-    th, td {
-      border: 1px solid var(--line);
-      padding: 8px 10px;
-      text-align: left;
-      vertical-align: top;
-    }
-    th { background: #15203a; color: var(--accent); }
-    td { color: var(--muted); }
-    td:first-child { color: var(--ink); white-space: nowrap; }
-    .warn {
-      border-left: 3px solid var(--accent2);
-      padding: 10px 14px;
-      background: #1a1220;
-      border-radius: 0 10px 10px 0;
-      color: var(--muted);
-      margin: 14px 0;
-    }
-    footer {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px 48px;
-      color: var(--muted);
-      font-size: .85rem;
-    }
-  </style>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>vex-ee-3 — docs index</title>
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0 auto;padding:1.4rem 1.1rem 4rem;max-width:58rem;background:#fff;color:#16181d;
+ font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font-size:1.4rem;margin:.2rem 0 .1rem}
+h2{font-size:1.02rem;margin:1.5rem 0 .35rem;letter-spacing:.01em}
+p{margin:.45rem 0}
+.lede{font-size:1.02rem;margin:.35rem 0 .9rem}
+table{border-collapse:collapse;width:100%;margin:.45rem 0 .9rem;font-size:.88rem}
+th,td{border:1px solid #d6d9df;padding:.32rem .5rem;text-align:left;vertical-align:top}
+th{background:#f3f4f7;font-weight:600}
+td.w{white-space:nowrap}
+code{font:.86em ui-monospace,SFMono-Regular,Menlo,monospace;background:#f0f1f4;padding:.05em .3em;border-radius:3px}
+footer{margin-top:2.5rem;font-size:.8rem;opacity:.6;border-top:1px solid #d6d9df;padding-top:.6rem}
+@media(prefers-color-scheme:dark){
+ body{background:#14161a;color:#e5e8ec}
+ th,td,footer{border-color:#343943}
+ th{background:#1e2128}
+ code{background:#1e2128}
+}
+</style>
 </head>
 <body>
-  <header>
-    <div>
-      <span class="badge">com.bovinelabs.grove 2.1.1</span>
-      <span class="badge">Unity 6000.7</span>
-      <span class="badge">Archify maps</span>
-    </div>
-    <h1>Grove, archified</h1>
-    <p><a href="nerve-client/index.html" style="color:#f0abfc;font-weight:600">→ Nerve Client Go-In-Game movie (separate folder)</a></p>
-    <p>
-      A senior map of how BovineLabs Grove actually works — enough that you could rebuild the pipeline.
-      Eight interactive diagrams + the full mental model. Open a map, hit <strong>?</strong> for the diagram guide,
-      <strong>P</strong> for guided stories, <strong>R</strong> for routes.
-    </p>
-  </header>
+<h1>vex-ee-3 &mdash; architecture docs</h1>
+<p class="lede">One folder per topic. Hub only at the root &mdash; maps never dump here.
+Open a topic, then play the Archify maps in order.</p>
 
-  <main>
-    <h2>Learning path (do this order)</h2>
-    <div class="story">
-      <ol>
-        <li><strong>Map of the machine</strong> — three assemblies, three assets, one switch.</li>
-        <li><strong>Author → bake</strong> — how a doodle becomes a blob.</li>
-        <li><strong>One frame</strong> — GraphImpl → Execution → Root.Execute.</li>
-        <li><strong>Blob bytes</strong> — header + payload + Type int.</li>
-        <li><strong>Source-gen</strong> — who builds the jump table.</li>
-        <li><strong>Selector + state</strong> — push control + GroveState.</li>
-        <li><strong>Custom node</strong> — the four pieces you reimplement.</li>
-        <li><strong>GroveState</strong> — the only live graph memory.</li>
-      </ol>
-    </div>
+<h2>Topics</h2>
+<table>
+<tr><th class="w">Folder</th><th>What you learn</th><th>Start</th></tr>
+<tr>
+  <td class="w"><code>grove/</code></td>
+  <td>How <b>BovineLabs Grove</b> works: draw → bake → brick → robot, doors, backpack, make a toy.</td>
+  <td><a href="grove/index.html">Open Grove</a></td>
+</tr>
+<tr>
+  <td class="w"><code>nerve-client/</code></td>
+  <td>Daggertooth <b>client go-in-game</b> wiring (project pieces + ClientFlow). Separate from Grove package internals.</td>
+  <td><a href="nerve-client/index.html">Open Nerve client</a></td>
+</tr>
+</table>
 
-    <div class="grid">
-      <article class="card">
-        <div class="n">01 · architecture</div>
-        <h3>The whole machine</h3>
-        <p>Editor → Auth → Bake → Blob → GraphImpl/Execution → nodes. Boundaries for edit/bake/run.</p>
-        <a class="btn" href="01-map.architecture.html?theme=dark&present=1">Open map →</a>
-      </article>
-      <article class="card">
-        <div class="n">02 · workflow</div>
-        <h3>Author → import → bake</h3>
-        <p>Entry convention, import errors, auto GraphBakingSystem, variants/overrides.</p>
-        <a class="btn" href="02-pipeline.workflow.html?theme=dark&present=1">Open pipeline →</a>
-      </article>
-      <article class="card">
-        <div class="n">03 · sequence</div>
-        <h3>One frame, one entity</h3>
-        <p>SetChunk, TrySetInput → GroveState, Root.Execute, Type switch, leaf side effect.</p>
-        <a class="btn" href="03-frame.sequence.html?theme=dark&present=1">Open sequence →</a>
-      </article>
-      <article class="card">
-        <div class="n">04 · dataflow</div>
-        <h3>Blob anatomy + dispatch</h3>
-        <p>GraphData fields, header+payload layout, BlobPtrs, generated switch, ECS write.</p>
-        <a class="btn" href="04-blob.dataflow.html?theme=dark&present=1">Open dataflow →</a>
-      </article>
-      <article class="card">
-        <div class="n">05 · sequence</div>
-        <h3>Source-gen contract</h3>
-        <p>Scan IContext + [ExecuteNode]/[DataNode] + Grove refs → emit partial switches.</p>
-        <a class="btn" href="05-codegen.sequence.html?theme=dark&present=1">Open codegen →</a>
-      </article>
-      <article class="card">
-        <div class="n">06 · lifecycle</div>
-        <h3>Selector + state</h3>
-        <p>Threshold → scan → pick → action. GetState, StateIf, Exit/Enter edges.</p>
-        <a class="btn" href="06-selector.lifecycle.html?theme=dark&present=1">Open lifecycle →</a>
-      </article>
-      <article class="card">
-        <div class="n">07 · architecture</div>
-        <h3>One custom node</h3>
-        <p>Data · Auth · Editor · Runtime method. Instance overrides, Type id, dispatch.</p>
-        <a class="btn" href="07-node.architecture.html?theme=dark&present=1">Open node kit →</a>
-      </article>
-      <article class="card">
-        <div class="n">08 · dataflow</div>
-        <h3>GroveState memory</h3>
-        <p>Writers, GraphId-keyed map, readers, RemoveGraphState teardown.</p>
-        <a class="btn" href="08-state.dataflow.html?theme=dark&present=1">Open state →</a>
-      </article>
-    </div>
+<h2>Layout rules</h2>
+<ul>
+<li>Root = index + README only.</li>
+<li>Each topic = its own folder with <code>index.html</code>, map HTML, and <code>src/*.json</code>.</li>
+<li>Never drop numbered maps at repo root.</li>
+</ul>
 
-    <h2>The one-sentence core</h2>
-    <div class="story">
-      <p style="margin:0;color:var(--ink)">
-        Grove freezes a Graph Toolkit doodle into a blob of <strong>headers + payloads + pointers</strong>,
-        then walks it from ECS by jumping on an <strong>integer Type</strong> through a
-        <strong>source-generated switch</strong> living on your context — with all mutable graph memory
-        in a shared per-entity <strong>GroveState</strong> map.
-      </p>
-    </div>
-
-    <h2>Three assets (never confuse them)</h2>
-    <table>
-      <thead><tr><th>Asset</th><th>What it is</th><th>Who owns it</th></tr></thead>
-      <tbody>
-        <tr><td><code>.mygraph</code></td><td>Graph Toolkit source (derives <code>GroveGraph</code>)</td><td>Editor / designer</td></tr>
-        <tr><td><code>GroveAuthGraph</code></td><td>Imported main + auth-node subassets</td><td>Authoring references this</td></tr>
-        <tr><td><code>BlobAssetReference&lt;GraphData&gt;</code></td><td>Baked runtime blob on <code>IGraphReference</code></td><td>ECS entity</td></tr>
-      </tbody>
-    </table>
-
-    <h2>Three assemblies</h2>
-    <table>
-      <thead><tr><th>Assembly</th><th>Job</th></tr></thead>
-      <tbody>
-        <tr><td><code>BovineLabs.Grove.Editor</code></td><td>Graph Toolkit nodes, <code>GroveImporter</code>, instance inspector</td></tr>
-        <tr><td><code>BovineLabs.Grove.Authoring</code></td><td>Auth assets, bakers, auto <code>GraphBakingSystem&lt;TC&gt;</code></td></tr>
-        <tr><td><code>BovineLabs.Grove</code></td><td>Blob layout, <code>GraphImpl</code>/<code>GraphExecution</code>, built-ins, gen contract</td></tr>
-      </tbody>
-    </table>
-
-    <h2>Runtime loop (memorize)</h2>
-<pre>OnCreate:  impl = new GraphImpl&lt;MyContext&gt;(ref state)
-OnUpdate:  execution = impl.GetExecution(ref state)
-IJobChunk:
-  execution.SetChunk(chunk, index)
-  foreach entity:
-    execution.TrySetInput(... )   // writes GroveState
-    execution.Execute(e, i, blob) // Root.Execute → switch(Type)
-    // or Calculate&lt;TOut&gt;(...) for data-only graphs</pre>
-
-    <h2>Blob node shape</h2>
-<pre>[ ExecutionHeader | DataHeader ]   Type:int  NodeId:ulong
-[ payload struct immediately after ]  // CompositeData, Variable&lt;T&gt;, MoveData...
-// children = BlobArray&lt;BlobPtr&lt;Header&gt;&gt; inside payload</pre>
-
-    <h2>Dispatch rules</h2>
-    <table>
-      <thead><tr><th>Path</th><th>Entry</th><th>Mechanism</th></tr></thead>
-      <tbody>
-        <tr><td>Execute</td><td><code>Root</code></td><td><code>ExecutionGenerated</code> switch (all non-Default)</td></tr>
-        <tr><td>Calculate</td><td><code>Outputs[i].Value</code></td><td>Data switch; Constant/Variable/VariableSet hand-special-cased first</td></tr>
-        <tr><td>Built-in ids</td><td>negative enums</td><td>Pulled into <em>your</em> switch via referenced-assembly scan</td></tr>
-        <tr><td>Custom ids</td><td>your positive enums</td><td><code>[ExecuteNode]</code> / <code>[DataNode]</code> on static methods</td></tr>
-      </tbody>
-    </table>
-
-    <h2>Hard rules (fail closed)</h2>
-    <div class="warn">
-      Execution graphs need <strong>exactly one</strong> root Input boundary connected to an execution node.
-      Untyped Graph Toolkit variables are for routing/entry only — they are <strong>not</strong> baked as runtime Inputs/Outputs.
-      Variants are <strong>bake-time strip</strong>, not per-frame if/else.
-      Context must be <code>partial struct</code> with <code>GroveStates</code>.
-      Node methods: static, non-generic outer type, context by <code>ref</code>.
-    </div>
-
-    <h2>Rebuild checklist</h2>
-    <div class="story">
-      <ol>
-        <li>Define graph type + ScriptedImporter + AuthGraph subclass.</li>
-        <li>Author nodes (editor + auth + unmanaged payload + static method).</li>
-        <li>Place <code>GraphAuthoring&lt;Auth, Component&gt;</code> referencing imported Auth.</li>
-        <li>Implement <code>IGraphReference</code> component; let bake invent the system.</li>
-        <li>Implement <code>partial struct MyContext : IContext&lt;MyContext&gt;</code>.</li>
-        <li>System owns <code>GraphImpl</code>, job calls <code>SetChunk</code> then <code>Execute</code>/<code>Calculate</code>.</li>
-        <li>Use <code>GroveState</code> for inputs, locals, state machines; tear down by GraphId.</li>
-      </ol>
-    </div>
-
-    <h2>Source in this repo</h2>
-    <p style="color:var(--muted)">
-      Typed Archify IR lives in <code>src/*.json</code>. Regenerate HTML with
-      <code>node archify/bin/archify.mjs deliver &lt;type&gt; src/…json ./…html --quality standard</code>
-      (requires a local <a href="https://github.com/tt-a1i/archify">archify</a> checkout).
-      Package under study: <code>com.bovinelabs.grove@c8b04cbdb09c</code> (v2.1.1).
-    </p>
-  </main>
-
-  <footer>
-    Grove is © BovineLabs. Maps generated with Archify (MIT). This is a learning artifact, not the package itself.
-  </footer>
+<footer>
+Submodule at <code>vex-ee-3/_docs</code> · repo <code>IAFahim/grove-archify</code> ·
+Pages: <a href="https://iafahim.github.io/grove-archify/">iafahim.github.io/grove-archify</a>
+</footer>
 </body>
 </html>

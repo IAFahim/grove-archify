@@ -81,20 +81,20 @@
   "phases": [
     {
       "id": "intake",
-      "label": "Intake",
+      "label": "Author",
       "fromCol": 0,
       "toCol": 1
     },
     {
       "id": "reasoning",
-      "label": "Plan + route",
+      "label": "Route + bake",
       "fromCol": 2,
       "toCol": 3,
       "variant": "emphasis"
     },
     {
       "id": "execution",
-      "label": "Execute + report",
+      "label": "Client run",
       "fromCol": 4,
       "toCol": 5,
       "variant": "dashed"
@@ -103,7 +103,7 @@
   "groups": [
     {
       "id": "agent_loop",
-      "label": "Planning loop",
+      "label": "Author loop",
       "lane": "agent",
       "fromCol": 2,
       "toCol": 3,
@@ -111,7 +111,7 @@
     },
     {
       "id": "tool_work",
-      "label": "Tool work",
+      "label": "Client load",
       "lane": "tools",
       "fromCol": 4,
       "toCol": 5,
@@ -119,7 +119,7 @@
     },
     {
       "id": "exception_path",
-      "label": "Human or policy stop",
+      "label": "Miswire path",
       "lane": "exceptions",
       "fromCol": 3,
       "toCol": 5,
@@ -168,7 +168,7 @@
       "type": "backend",
       "label": "ClientFlow",
       "sublabel": "import auth",
-      "tag": "context aware"
+      "tag": "code-built"
     },
     {
       "id": "router",
@@ -185,7 +185,7 @@
       "type": "security",
       "label": "World attr",
       "sublabel": "client",
-      "tag": "block risky ops"
+      "tag": "world route"
     },
     {
       "id": "blocked",
@@ -209,8 +209,7 @@
       "col": 4,
       "type": "messagebus",
       "label": "Client scene",
-      "sublabel": "prefab bake",
-      "tag": "structured result"
+      "sublabel": "prefab bake"
     },
     {
       "id": "external",

@@ -4501,7 +4501,7 @@
       <p class="subtitle">ClientAppStateSystem fills context; executor runs; tracker then GoInGame</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-auth","label":"Gather","focus":["user","web","api","auth"],"note":"System builds ClientConnectionInput from driver + connection entity."},{"id":"cache-fallback","label":"Graph run","focus":["api","redis","db"],"note":"Executor runs state machine with context Connection + ECB."},{"id":"return-and-trace","label":"Gate / RPC","focus":["db","api","redis","trace","web","user"],"note":"GoInGame may emit RPC; completion waits IsInGame."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-auth","label":"Gather","focus":["user","web","api","auth"],"note":"System builds ClientConnectionInput from driver + connection entity."},{"id":"cache-fallback","label":"Run graph","focus":["api","redis","db"],"note":"Executor runs SM; tracker always updates snapshot on root."},{"id":"return-and-trace","label":"Gate / wait","focus":["db","api","redis","trace","web","user"],"note":"GoInGame may emit RPC; completion waits IsInGame."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4698,16 +4698,16 @@
 
         <!-- Segment Labels -->
         <g data-graph-role="segment-label" data-segment-id="0">
-          <rect x="56" y="128" width="50.4" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="141" class="t-dim" font-size="9" font-weight="600">Request</text>
+          <rect x="56" y="128" width="45.2" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="141" class="t-dim" font-size="9" font-weight="600">Gather</text>
         </g>
         <g data-graph-role="segment-label" data-segment-id="1">
-          <rect x="56" y="293" width="55.6" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="306" class="t-dim" font-size="9" font-weight="600">Fallback</text>
+          <rect x="56" y="293" width="60.800000000000004" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="306" class="t-dim" font-size="9" font-weight="600">Run graph</text>
         </g>
         <g data-graph-role="segment-label" data-segment-id="2">
-          <rect x="56" y="503" width="97.2" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="516" class="t-dim" font-size="9" font-weight="600">Response + trace</text>
+          <rect x="56" y="503" width="71.2" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="516" class="t-dim" font-size="9" font-weight="600">Gate / wait</text>
         </g>
 
         <!-- Participants -->

@@ -4592,21 +4592,21 @@
         <!-- Phase headers -->
         <line x1="42" y1="35" x2="266" y2="35" class="a-default" stroke-width="1.1"/>
         <rect x="42" y="27" width="224" height="16" rx="4" class="c-mask"/>
-        <text x="154" y="39" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Intake</text>
+        <text x="154" y="39" class="t-muted" font-size="8" font-weight="600" text-anchor="middle">Author</text>
         <line x1="254" y1="35" x2="476" y2="35" class="a-emphasis" stroke-width="1.1"/>
         <rect x="254" y="27" width="222" height="16" rx="4" class="c-mask"/>
-        <text x="365" y="39" class="t-backend" font-size="8" font-weight="600" text-anchor="middle">Plan + route</text>
+        <text x="365" y="39" class="t-backend" font-size="8" font-weight="600" text-anchor="middle">Route + bake</text>
         <line x1="454" y1="35" x2="671" y2="35" class="a-dashed" stroke-width="1.1"/>
         <rect x="454" y="27" width="217" height="16" rx="4" class="c-mask"/>
-        <text x="562.5" y="39" class="t-messagebus" font-size="8" font-weight="600" text-anchor="middle">Execute + report</text>
+        <text x="562.5" y="39" class="t-messagebus" font-size="8" font-weight="600" text-anchor="middle">Client run</text>
 
         <!-- Workflow groups -->
         <rect data-graph-role="structural-frame" data-composition-frame-kind="group" data-composition-frame-id="group-0" x="250" y="214" width="230" height="58" rx="9" class="c-lane" stroke-width="1"/>
-        <text x="260" y="228" class="t-backend" font-size="7" font-weight="600">Planning loop</text>
+        <text x="260" y="228" class="t-backend" font-size="7" font-weight="600">Author loop</text>
         <rect data-graph-role="structural-frame" data-composition-frame-kind="group" data-composition-frame-id="group-1" x="450" y="586" width="225" height="58" rx="9" class="c-lane" stroke-width="1"/>
-        <text x="460" y="600" class="t-messagebus" font-size="7" font-weight="600">Tool work</text>
+        <text x="460" y="600" class="t-messagebus" font-size="7" font-weight="600">Client load</text>
         <rect data-graph-role="structural-frame" data-composition-frame-kind="group" data-composition-frame-id="group-2" x="380" y="462" width="295" height="58" rx="9" class="c-security-group" stroke-width="1"/>
-        <text x="390" y="476" class="t-security" font-size="7" font-weight="600">Human or policy stop</text>
+        <text x="390" y="476" class="t-security" font-size="7" font-weight="600">Miswire path</text>
 
         <!-- Edge paths -->
         <path data-edge-from="user" data-edge-to="chat" data-edge-key="0" data-edge-id="request-chat" data-composition-points="134,119;174,119" d="M 134 119 L 174 119" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
@@ -4622,8 +4622,8 @@
         <path data-edge-from="store" data-edge-to="trace" data-edge-label="load" data-edge-key="10" data-edge-id="write-trace-memory" data-composition-points="266,739;454,739" d="M 266 739 L 454 739" class="a-dashed" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
 
         <!-- Nodes -->
-        <g id="node-user" data-node-id="user" data-node-label="Menu" tabindex="0" role="button" aria-label="Focus Menu, Rebuild Client Graph, Editor › Intake" aria-pressed="false" data-node-kind="external" data-node-sublabel="Rebuild Client Graph" data-node-context="Editor › Intake">
-          <title>Menu · Rebuild Client Graph · Editor › Intake</title>
+        <g id="node-user" data-node-id="user" data-node-label="Menu" tabindex="0" role="button" aria-label="Focus Menu, Rebuild Client Graph, Editor › Author" aria-pressed="false" data-node-kind="external" data-node-sublabel="Rebuild Client Graph" data-node-context="Editor › Author">
+          <title>Menu · Rebuild Client Graph · Editor › Author</title>
           <rect x="42" y="93" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="42" y="93" width="92" height="52" rx="6" class="c-external" data-animate="node" style="--step:0" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(48 99) scale(0.6875)">
@@ -4634,8 +4634,8 @@
           <text data-detail="context" x="88" y="131" class="t-muted" font-size="7" text-anchor="middle">Rebuild Client Graph</text>
         </g>
 
-        <g id="node-chat" data-node-id="chat" data-node-label="GraphSetup" tabindex="0" role="button" aria-label="Focus GraphSetup, code author, Editor › Intake" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="code author" data-node-context="Editor › Intake">
-          <title>GraphSetup · code author · Editor › Intake</title>
+        <g id="node-chat" data-node-id="chat" data-node-label="GraphSetup" tabindex="0" role="button" aria-label="Focus GraphSetup, code author, Editor › Author" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="code author" data-node-context="Editor › Author">
+          <title>GraphSetup · code author · Editor › Author</title>
           <rect x="174" y="93" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="174" y="93" width="92" height="52" rx="6" class="c-frontend" data-animate="node" style="--step:1" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(180 99) scale(0.6875)">
@@ -4648,8 +4648,8 @@
           <text data-detail="context" x="220" y="131" class="t-muted" font-size="8" text-anchor="middle">code author</text>
         </g>
 
-        <g id="node-final" data-node-id="final" data-node-label="gameplay" tabindex="0" role="button" aria-label="Focus gameplay, verified, Editor › Execute + report" aria-pressed="false" data-node-kind="backend" data-node-sublabel="verified" data-node-context="Editor › Execute + report">
-          <title>gameplay · verified · Editor › Execute + report</title>
+        <g id="node-final" data-node-id="final" data-node-label="gameplay" tabindex="0" role="button" aria-label="Focus gameplay, verified, Editor › Client run" aria-pressed="false" data-node-kind="backend" data-node-sublabel="verified" data-node-context="Editor › Client run">
+          <title>gameplay · verified · Editor › Client run</title>
           <rect x="579" y="93" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="579" y="93" width="92" height="52" rx="6" class="c-backend" data-animate="node" style="--step:7" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(585 99) scale(0.6875)">
@@ -4659,8 +4659,8 @@
           <text data-detail="context" x="625" y="131" class="t-muted" font-size="8" text-anchor="middle">verified</text>
         </g>
 
-        <g id="node-planner" data-node-id="planner" data-node-label="ClientFlow" tabindex="0" role="button" aria-label="Focus ClientFlow, import auth, Assets › Planning loop › Plan + route" aria-pressed="false" data-node-kind="backend" data-node-sublabel="import auth" data-node-tag="context aware" data-node-context="Assets › Planning loop › Plan + route">
-          <title>ClientFlow · import auth · Assets › Planning loop › Plan + route · context aware</title>
+        <g id="node-planner" data-node-id="planner" data-node-label="ClientFlow" tabindex="0" role="button" aria-label="Focus ClientFlow, import auth, Assets › Author loop › Route + bake" aria-pressed="false" data-node-kind="backend" data-node-sublabel="import auth" data-node-tag="code-built" data-node-context="Assets › Author loop › Route + bake">
+          <title>ClientFlow · import auth · Assets › Author loop › Route + bake · code-built</title>
           <rect x="254" y="209" width="92" height="68" rx="6" class="c-mask"/>
           <rect x="254" y="209" width="92" height="68" rx="6" class="c-backend" data-animate="node" style="--step:2" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(260 215) scale(0.6875)">
@@ -4668,11 +4668,11 @@
           </g>
           <text data-detail-anchor x="300" y="230" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">ClientFlow</text>
           <text data-detail="context" x="300" y="247" class="t-muted" font-size="8" text-anchor="middle">import auth</text>
-        <text data-detail="fine" x="300" y="265" class="t-backend" font-size="7" text-anchor="middle">context aware</text>
+        <text data-detail="fine" x="300" y="265" class="t-backend" font-size="7" text-anchor="middle">code-built</text>
         </g>
 
-        <g id="node-router" data-node-id="router" data-node-label="Settings" tabindex="0" role="button" aria-label="Focus Settings, assign asset, Assets › Planning loop › Plan + route" aria-pressed="false" data-node-kind="backend" data-node-sublabel="assign asset" data-node-context="Assets › Planning loop › Plan + route">
-          <title>Settings · assign asset · Assets › Planning loop › Plan + route</title>
+        <g id="node-router" data-node-id="router" data-node-label="Settings" tabindex="0" role="button" aria-label="Focus Settings, assign asset, Assets › Author loop › Route + bake" aria-pressed="false" data-node-kind="backend" data-node-sublabel="assign asset" data-node-context="Assets › Author loop › Route + bake">
+          <title>Settings · assign asset · Assets › Author loop › Route + bake</title>
           <rect x="384" y="217" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="384" y="217" width="92" height="52" rx="6" class="c-backend" data-animate="node" style="--step:3" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(390 223) scale(0.6875)">
@@ -4682,8 +4682,8 @@
           <text data-detail="context" x="430" y="255" class="t-muted" font-size="8" text-anchor="middle">assign asset</text>
         </g>
 
-        <g id="node-approval" data-node-id="approval" data-node-label="World attr" tabindex="0" role="button" aria-label="Focus World attr, client, Routing › Plan + route" aria-pressed="false" data-node-kind="security" data-node-sublabel="client" data-node-tag="block risky ops" data-node-context="Routing › Plan + route">
-          <title>World attr · client · Routing › Plan + route · block risky ops</title>
+        <g id="node-approval" data-node-id="approval" data-node-label="World attr" tabindex="0" role="button" aria-label="Focus World attr, client, Routing › Route + bake" aria-pressed="false" data-node-kind="security" data-node-sublabel="client" data-node-tag="world route" data-node-context="Routing › Route + bake">
+          <title>World attr · client · Routing › Route + bake · world route</title>
           <rect x="384" y="333" width="92" height="68" rx="6" class="c-mask"/>
           <rect x="384" y="333" width="92" height="68" rx="6" class="c-security" data-animate="node" style="--step:4" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(390 339) scale(0.6875)">
@@ -4692,11 +4692,11 @@
           </g>
           <text data-detail-anchor x="430" y="354" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">World attr</text>
           <text data-detail="context" x="430" y="371" class="t-muted" font-size="8" text-anchor="middle">client</text>
-        <text data-detail="fine" x="430" y="389" class="t-security" font-size="7" text-anchor="middle">block risky ops</text>
+        <text data-detail="fine" x="430" y="389" class="t-security" font-size="7" text-anchor="middle">world route</text>
         </g>
 
-        <g id="node-blocked" data-node-id="blocked" data-node-label="Wrong world" tabindex="0" role="button" aria-label="Focus Wrong world, never runs, Miswire › Human or policy stop › Execute + report" aria-pressed="false" data-node-kind="security" data-node-sublabel="never runs" data-node-context="Miswire › Human or policy stop › Execute + report">
-          <title>Wrong world · never runs · Miswire › Human or policy stop › Execute + report</title>
+        <g id="node-blocked" data-node-id="blocked" data-node-label="Wrong world" tabindex="0" role="button" aria-label="Focus Wrong world, never runs, Miswire › Miswire path › Client run" aria-pressed="false" data-node-kind="security" data-node-sublabel="never runs" data-node-context="Miswire › Miswire path › Client run">
+          <title>Wrong world · never runs · Miswire › Miswire path › Client run</title>
           <rect x="454" y="465" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="454" y="465" width="92" height="52" rx="6" class="c-security" data-animate="node" style="--step:12" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(460 471) scale(0.6875)">
@@ -4707,8 +4707,8 @@
           <text data-detail="context" x="500" y="503" class="t-muted" font-size="8" text-anchor="middle">never runs</text>
         </g>
 
-        <g id="node-retry" data-node-id="retry" data-node-label="Fix attr" tabindex="0" role="button" aria-label="Focus Fix attr, reassign, Miswire › Human or policy stop › Execute + report" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="reassign" data-node-context="Miswire › Human or policy stop › Execute + report">
-          <title>Fix attr · reassign · Miswire › Human or policy stop › Execute + report</title>
+        <g id="node-retry" data-node-id="retry" data-node-label="Fix attr" tabindex="0" role="button" aria-label="Focus Fix attr, reassign, Miswire › Miswire path › Client run" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="reassign" data-node-context="Miswire › Miswire path › Client run">
+          <title>Fix attr · reassign · Miswire › Miswire path › Client run</title>
           <rect x="579" y="465" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="579" y="465" width="92" height="52" rx="6" class="c-messagebus" data-animate="node" style="--step:12" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(585 471) scale(0.6875)">
@@ -4721,23 +4721,22 @@
           <text data-detail="context" x="625" y="503" class="t-muted" font-size="8" text-anchor="middle">reassign</text>
         </g>
 
-        <g id="node-tool" data-node-id="tool" data-node-label="Client scene" tabindex="0" role="button" aria-label="Focus Client scene, prefab bake, Client world › Tool work › Execute + report" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="prefab bake" data-node-tag="structured result" data-node-context="Client world › Tool work › Execute + report">
-          <title>Client scene · prefab bake · Client world › Tool work › Execute + report · structured result</title>
-          <rect x="454" y="581" width="92" height="68" rx="6" class="c-mask"/>
-          <rect x="454" y="581" width="92" height="68" rx="6" class="c-messagebus" data-animate="node" style="--step:5" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(460 587) scale(0.6875)">
+        <g id="node-tool" data-node-id="tool" data-node-label="Client scene" tabindex="0" role="button" aria-label="Focus Client scene, prefab bake, Client world › Client load › Client run" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="prefab bake" data-node-context="Client world › Client load › Client run">
+          <title>Client scene · prefab bake · Client world › Client load › Client run</title>
+          <rect x="454" y="589" width="92" height="52" rx="6" class="c-mask"/>
+          <rect x="454" y="589" width="92" height="52" rx="6" class="c-messagebus" data-animate="node" style="--step:5" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(460 595) scale(0.6875)">
             <path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/>
             <circle cx="5" cy="4.5" r="1" class="sigil-fill"/>
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-detail-anchor x="500" y="602" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Client scene</text>
-          <text data-detail="context" x="500" y="619" class="t-muted" font-size="8" text-anchor="middle">prefab bake</text>
-        <text data-detail="fine" x="500" y="637" class="t-messagebus" font-size="7" text-anchor="middle">structured result</text>
+          <text data-detail-anchor x="500" y="610" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Client scene</text>
+          <text data-detail="context" x="500" y="627" class="t-muted" font-size="8" text-anchor="middle">prefab bake</text>
         </g>
 
-        <g id="node-external" data-node-id="external" data-node-label="AppSystem" tabindex="0" role="button" aria-label="Focus AppSystem, ClientApp, Client world › Tool work › Execute + report" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="ClientApp" data-node-context="Client world › Tool work › Execute + report">
-          <title>AppSystem · ClientApp · Client world › Tool work › Execute + report</title>
+        <g id="node-external" data-node-id="external" data-node-label="AppSystem" tabindex="0" role="button" aria-label="Focus AppSystem, ClientApp, Client world › Client load › Client run" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="ClientApp" data-node-context="Client world › Client load › Client run">
+          <title>AppSystem · ClientApp · Client world › Client load › Client run</title>
           <rect x="579" y="589" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="579" y="589" width="92" height="52" rx="6" class="c-cloud" data-animate="node" style="--step:6" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(585 595) scale(0.6875)">
@@ -4747,8 +4746,8 @@
           <text data-detail="context" x="625" y="627" class="t-muted" font-size="8" text-anchor="middle">ClientApp</text>
         </g>
 
-        <g id="node-store" data-node-id="store" data-node-label="SubScene" tabindex="0" role="button" aria-label="Focus SubScene, RequiredClient, ECS entity › Intake" aria-pressed="false" data-node-kind="database" data-node-sublabel="RequiredClient" data-node-context="ECS entity › Intake">
-          <title>SubScene · RequiredClient · ECS entity › Intake</title>
+        <g id="node-store" data-node-id="store" data-node-label="SubScene" tabindex="0" role="button" aria-label="Focus SubScene, RequiredClient, ECS entity › Author" aria-pressed="false" data-node-kind="database" data-node-sublabel="RequiredClient" data-node-context="ECS entity › Author">
+          <title>SubScene · RequiredClient · ECS entity › Author</title>
           <rect x="174" y="713" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="174" y="713" width="92" height="52" rx="6" class="c-database" data-animate="node" style="--step:12" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(180 719) scale(0.6875)">
@@ -4759,8 +4758,8 @@
           <text data-detail="context" x="220" y="751" class="t-muted" font-size="8" text-anchor="middle">RequiredClient</text>
         </g>
 
-        <g id="node-trace" data-node-id="trace" data-node-label="StateMach" tabindex="0" role="button" aria-label="Focus StateMach, entity, ECS entity › Execute + report" aria-pressed="false" data-node-kind="database" data-node-sublabel="entity" data-node-context="ECS entity › Execute + report">
-          <title>StateMach · entity · ECS entity › Execute + report</title>
+        <g id="node-trace" data-node-id="trace" data-node-label="StateMach" tabindex="0" role="button" aria-label="Focus StateMach, entity, ECS entity › Client run" aria-pressed="false" data-node-kind="database" data-node-sublabel="entity" data-node-context="ECS entity › Client run">
+          <title>StateMach · entity · ECS entity › Client run</title>
           <rect x="454" y="713" width="92" height="52" rx="6" class="c-mask"/>
           <rect x="454" y="713" width="92" height="52" rx="6" class="c-database" data-animate="node" style="--step:12" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(460 719) scale(0.6875)">

@@ -72,8 +72,7 @@
       "size": [
         120,
         64
-      ],
-      "tag": "JWT + PKCE"
+      ]
     },
     {
       "id": "cdn",
@@ -157,8 +156,7 @@
       "size": [
         130,
         60
-      ],
-      "tag": "OAI protected"
+      ]
     },
     {
       "id": "queue",
@@ -228,7 +226,7 @@
       "variant": "emphasis"
     },
     {
-      "id": "jwt-verification",
+      "id": "scope-verification",
       "from": "auth",
       "to": "api",
       "label": "delete",

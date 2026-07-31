@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="archify 2.12.0">
-  <title>Grove · One Frame, One Entity Diagram</title>
+  <title>Grove · One Frame Movie Diagram</title>
   <script>
     // Resolve the theme before first paint so light-preference users don't
     // see a dark flash. The toolbar script below re-applies with UI state.
@@ -4496,12 +4496,12 @@
     <div class="header">
       <div class="header-row">
         <div class="pulse-dot"></div>
-        <h1>Grove · One Frame, One Entity</h1>
+        <h1>Grove · One Frame Movie</h1>
       </div>
-      <p class="subtitle">GraphImpl → GraphExecution → Root.Execute → Type switch → leaf side effect</p>
+      <p class="subtitle">System wakes the robot · robot opens doors · world moves</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"setup","label":"System setup","focus":["sys","impl","exec"],"note":"Context is updated once per system tick before the chunk job."},{"id":"chunk","label":"Chunk bind","focus":["job","exec","ctx"],"note":"SetChunk rebinds ComponentContainer / BufferContainer to this ArchetypeChunk."},{"id":"walk","label":"Graph walk","focus":["exec","blob","dispatch","leaf","state"],"note":"Root header → ExecutionGenerated switch → built-in or custom static methods."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"request-and-auth","label":"Wake up","focus":["user","web","api","auth"],"note":"System builds the robot handle for this frame."},{"id":"cache-fallback","label":"Open doors","focus":["api","redis","db"],"note":"Number on the box picks which door to open."},{"id":"return-and-trace","label":"Do stuff","focus":["db","api","redis","trace","web","user"],"note":"Leaf method moves things. Data boxes only open when asked."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4544,9 +4544,9 @@
 
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read">
-      <svg viewBox="0 0 1100 860" role="img" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="standard">
-        <title id="archify-diagram-title">Grove · One Frame, One Entity</title>
-        <desc id="archify-diagram-description">GraphImpl → GraphExecution → Root.Execute → Type switch → leaf side effect</desc>
+      <svg viewBox="0 0 960 800" role="img" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="standard">
+        <title id="archify-diagram-title">Grove · One Frame Movie</title>
+        <desc id="archify-diagram-description">System wakes the robot · robot opens doors · world moves</desc>
         <!-- Definitions -->
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -4570,251 +4570,222 @@
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         <!-- Time Segments -->
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="segment" data-composition-frame-id="0" x="48" y="150" width="1004" height="130" rx="10" class="c-lane" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="segment" data-composition-frame-id="0" x="48" y="150" width="864" height="145" rx="10" class="c-lane" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="segment" data-composition-frame-id="1" x="48" y="300" width="1004" height="170" rx="10" class="c-lane" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="segment" data-composition-frame-id="1" x="48" y="315" width="864" height="190" rx="10" class="c-lane" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="segment" data-composition-frame-id="2" x="48" y="490" width="1004" height="290" rx="10" class="c-lane" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="segment" data-composition-frame-id="2" x="48" y="525" width="864" height="140" rx="10" class="c-lane" stroke-width="1"/>
 
         <!-- Lifelines -->
-        <path d="M 62 142 L 62 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
-        <path d="M 170 142 L 170 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
-        <path d="M 278 142 L 278 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
-        <path d="M 386 142 L 386 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
-        <path d="M 494 142 L 494 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
-        <path d="M 602 142 L 602 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
-        <path d="M 710 142 L 710 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
-        <path d="M 818 142 L 818 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
-        <path d="M 926 142 L 926 795" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
+        <path d="M 62 142 L 62 735" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
+        <path d="M 170 142 L 170 735" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
+        <path d="M 278 142 L 278 735" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
+        <path d="M 386 142 L 386 735" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
+        <path d="M 494 142 L 494 735" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
+        <path d="M 602 142 L 602 735" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
+        <path d="M 710 142 L 710 735" class="a-default" stroke-width="0.8" stroke-dasharray="3,7"/>
 
         <!-- Activations -->
-        <rect x="57" y="170" width="10" height="140" rx="3" class="c-mask"/>
-        <rect x="57" y="170" width="10" height="140" rx="3" class="c-backend" stroke-width="1"/>
-        <rect x="165" y="170" width="10" height="85" rx="3" class="c-mask"/>
-        <rect x="165" y="170" width="10" height="85" rx="3" class="c-backend" stroke-width="1"/>
-        <rect x="273" y="240" width="10" height="520" rx="3" class="c-mask"/>
-        <rect x="273" y="240" width="10" height="520" rx="3" class="c-backend" stroke-width="1"/>
-        <rect x="381" y="290" width="10" height="470" rx="3" class="c-mask"/>
-        <rect x="381" y="290" width="10" height="470" rx="3" class="c-cloud" stroke-width="1"/>
-        <rect x="489" y="205" width="10" height="525" rx="3" class="c-mask"/>
-        <rect x="489" y="205" width="10" height="525" rx="3" class="c-frontend" stroke-width="1"/>
-        <rect x="597" y="550" width="10" height="70" rx="3" class="c-mask"/>
-        <rect x="597" y="550" width="10" height="70" rx="3" class="c-database" stroke-width="1"/>
-        <rect x="705" y="590" width="10" height="180" rx="3" class="c-mask"/>
-        <rect x="705" y="590" width="10" height="180" rx="3" class="c-messagebus" stroke-width="1"/>
-        <rect x="813" y="630" width="10" height="140" rx="3" class="c-mask"/>
-        <rect x="813" y="630" width="10" height="140" rx="3" class="c-backend" stroke-width="1"/>
-        <rect x="921" y="460" width="10" height="230" rx="3" class="c-mask"/>
-        <rect x="921" y="460" width="10" height="230" rx="3" class="c-database" stroke-width="1"/>
+        <rect x="165" y="220" width="10" height="448" rx="3" class="c-mask"/>
+        <rect x="165" y="220" width="10" height="448" rx="3" class="c-frontend" stroke-width="1"/>
+        <rect x="273" y="228" width="10" height="404" rx="3" class="c-mask"/>
+        <rect x="273" y="228" width="10" height="404" rx="3" class="c-backend" stroke-width="1"/>
+        <rect x="381" y="265" width="10" height="45" rx="3" class="c-mask"/>
+        <rect x="381" y="265" width="10" height="45" rx="3" class="c-security" stroke-width="1"/>
+        <rect x="489" y="349" width="10" height="49" rx="3" class="c-mask"/>
+        <rect x="489" y="349" width="10" height="49" rx="3" class="c-database" stroke-width="1"/>
+        <rect x="597" y="438" width="10" height="58" rx="3" class="c-mask"/>
+        <rect x="597" y="438" width="10" height="58" rx="3" class="c-database" stroke-width="1"/>
+        <rect x="705" y="575" width="10" height="55" rx="3" class="c-mask"/>
+        <rect x="705" y="575" width="10" height="55" rx="3" class="c-messagebus" stroke-width="1"/>
 
         <!-- Messages -->
-        <g data-edge-from="sys" data-edge-to="impl" data-edge-label="GetExecution" data-edge-key="0" data-edge-id="m1">
-          <path data-composition-edge-from="sys" data-composition-edge-to="impl" data-composition-edge-id="m1" data-composition-points="69,175;163,175" d="M 69 175 L 163 175" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="user" data-edge-to="web" data-edge-label="tick" data-edge-key="0" data-edge-id="open-page">
+          <path data-composition-edge-from="user" data-composition-edge-to="web" data-composition-edge-id="open-page" data-composition-points="69,185;163,185" d="M 69 185 L 163 185" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="78.8" y="155" width="74.4" height="16" rx="3" class="c-mask"/>
-          <text x="116" y="165" class="t-backend" font-size="9" text-anchor="middle">GetExecution</text>
+          <rect x="99" y="165" width="34" height="16" rx="3" class="c-mask"/>
+          <text x="116" y="175" class="t-backend" font-size="9" text-anchor="middle">tick</text>
         </g>
         </g>
 
-        <g data-edge-from="impl" data-edge-to="ctx" data-edge-label="Update*" data-edge-key="1" data-edge-id="m2">
-          <path data-composition-edge-from="impl" data-composition-edge-to="ctx" data-composition-edge-id="m2" data-composition-points="177,210;487,210" d="M 177 210 L 487 210" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="web" data-edge-to="api" data-edge-label="GetExecution" data-edge-key="1" data-edge-id="dashboard-request">
+          <path data-composition-edge-from="web" data-composition-edge-to="api" data-composition-edge-id="dashboard-request" data-composition-points="177,228;271,228" d="M 177 228 L 271 228" class="a-emphasis" data-animate="edge" style="--step:1" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
-          <rect x="307.8" y="190" width="48.4" height="16" rx="3" class="c-mask"/>
-          <text x="332" y="200" class="t-backend" font-size="9" text-anchor="middle">Update*</text>
+          <rect x="186.8" y="208" width="74.4" height="16" rx="3" class="c-mask"/>
+          <text x="224" y="218" class="t-backend" font-size="9" text-anchor="middle">GetExecution</text>
         </g>
         </g>
 
-        <g data-edge-from="impl" data-edge-to="exec" data-edge-label="build handle" data-edge-key="2" data-edge-id="m3">
-          <path data-composition-edge-from="impl" data-composition-edge-to="exec" data-composition-edge-id="m3" data-composition-points="177,245;271,245" d="M 177 245 L 271 245" class="a-default" data-animate="edge" style="--step:2" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="api" data-edge-to="auth" data-edge-label="Update brain" data-edge-key="2" data-edge-id="verify-jwt">
+          <path data-composition-edge-from="api" data-composition-edge-to="auth" data-composition-edge-id="verify-jwt" data-composition-points="285,270;379,270" d="M 285 270 L 379 270" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
         <g data-detail="context">
-          <rect x="186.8" y="225" width="74.4" height="16" rx="3" class="c-mask"/>
-          <text x="224" y="235" class="t-muted" font-size="9" text-anchor="middle">build handle</text>
+          <rect x="294.8" y="250" width="74.4" height="16" rx="3" class="c-mask"/>
+          <text x="332" y="260" class="t-security" font-size="9" text-anchor="middle">Update brain</text>
         </g>
         </g>
 
-        <g data-edge-from="sys" data-edge-to="job" data-edge-label="ScheduleParallel" data-edge-key="3" data-edge-id="m4">
-          <path data-composition-edge-from="sys" data-composition-edge-to="job" data-composition-edge-id="m4" data-composition-points="69,295;379,295" d="M 69 295 L 379 295" class="a-emphasis" data-animate="edge" style="--step:3" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="auth" data-edge-to="api" data-edge-label="handle ready" data-edge-key="3" data-edge-id="auth-claims">
+          <path data-composition-edge-from="auth" data-composition-edge-to="api" data-composition-edge-id="auth-claims" data-composition-points="379,305;285,305" d="M 379 305 L 285 305" class="a-default" data-animate="edge" style="--step:3" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="176.4" y="275" width="95.2" height="16" rx="3" class="c-mask"/>
-          <text x="224" y="285" class="t-backend" font-size="9" text-anchor="middle">ScheduleParallel</text>
+          <rect x="294.8" y="285" width="74.4" height="16" rx="3" class="c-mask"/>
+          <text x="332" y="295" class="t-muted" font-size="9" text-anchor="middle">handle ready</text>
         </g>
         </g>
 
-        <g data-edge-from="job" data-edge-to="exec" data-edge-label="SetChunk" data-edge-key="4" data-edge-id="m5">
-          <path data-composition-edge-from="job" data-composition-edge-to="exec" data-composition-edge-id="m5" data-composition-points="379,340;285,340" d="M 379 340 L 285 340" class="a-emphasis" data-animate="edge" style="--step:4" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="api" data-edge-to="redis" data-edge-label="Schedule job" data-edge-key="4" data-edge-id="cache-read">
+          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="cache-read" data-composition-points="285,354;487,354" d="M 285 354 L 487 354" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="305.2" y="320" width="53.6" height="16" rx="3" class="c-mask"/>
-          <text x="332" y="330" class="t-backend" font-size="9" text-anchor="middle">SetChunk</text>
+          <rect x="348.8" y="334" width="74.4" height="16" rx="3" class="c-mask"/>
+          <text x="386" y="344" class="t-backend" font-size="9" text-anchor="middle">Schedule job</text>
         </g>
         </g>
 
-        <g data-edge-from="exec" data-edge-to="ctx" data-edge-label="SetChunkGenerated" data-edge-key="5" data-edge-id="m6">
-          <path data-composition-edge-from="exec" data-composition-edge-to="ctx" data-composition-edge-id="m6" data-composition-points="285,375;487,375" d="M 285 375 L 487 375" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <g data-edge-from="redis" data-edge-to="api" data-edge-label="SetChunk" data-edge-key="5" data-edge-id="cache-miss">
+          <path data-composition-edge-from="redis" data-composition-edge-to="api" data-composition-edge-id="cache-miss" data-composition-points="487,391;285,391" d="M 487 391 L 285 391" class="a-default" data-animate="edge" style="--step:5" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="335.8" y="355" width="100.4" height="16" rx="3" class="c-mask"/>
-          <text x="386" y="365" class="t-backend" font-size="9" text-anchor="middle">SetChunkGenerated</text>
+          <rect x="359.2" y="371" width="53.6" height="16" rx="3" class="c-mask"/>
+          <text x="386" y="381" class="t-muted" font-size="9" text-anchor="middle">SetChunk</text>
         </g>
         </g>
 
-        <g data-edge-from="job" data-edge-to="exec" data-edge-label="TrySetInput" data-edge-key="6" data-edge-id="m7">
-          <path data-composition-edge-from="job" data-composition-edge-to="exec" data-composition-edge-id="m7" data-composition-points="379,430;285,430" d="M 379 430 L 285 430" class="a-dashed" data-animate="edge" style="--step:6" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <g data-edge-from="api" data-edge-to="db" data-edge-label="bind bags" data-edge-key="6" data-edge-id="profile-query">
+          <path data-composition-edge-from="api" data-composition-edge-to="db" data-composition-edge-id="profile-query" data-composition-points="285,443;595,443" d="M 285 443 L 595 443" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         <g data-detail="context">
-          <rect x="297.4" y="410" width="69.2" height="16" rx="3" class="c-mask"/>
-          <text x="332" y="420" class="t-messagebus" font-size="9" text-anchor="middle">TrySetInput</text>
+          <rect x="410.6" y="423" width="58.800000000000004" height="16" rx="3" class="c-mask"/>
+          <text x="440" y="433" class="t-backend" font-size="9" text-anchor="middle">bind bags</text>
         </g>
         </g>
 
-        <g data-edge-from="exec" data-edge-to="state" data-edge-label="SetVariable" data-edge-key="7" data-edge-id="m8">
-          <path data-composition-edge-from="exec" data-composition-edge-to="state" data-composition-edge-id="m8" data-composition-points="285,465;919,465" d="M 285 465 L 919 465" class="a-dashed" data-animate="edge" style="--step:7" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <g data-edge-from="db" data-edge-to="api" data-edge-label="maybe SetInput" data-edge-key="7" data-edge-id="profile-rows">
+          <path data-composition-edge-from="db" data-composition-edge-to="api" data-composition-edge-id="profile-rows" data-composition-points="595,489;285,489" d="M 595 489 L 285 489" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="567.4" y="445" width="69.2" height="16" rx="3" class="c-mask"/>
-          <text x="602" y="455" class="t-messagebus" font-size="9" text-anchor="middle">SetVariable</text>
+          <rect x="397.6" y="469" width="84.8" height="16" rx="3" class="c-mask"/>
+          <text x="440" y="479" class="t-muted" font-size="9" text-anchor="middle">maybe SetInput</text>
         </g>
         </g>
 
-        <g data-edge-from="job" data-edge-to="exec" data-edge-label="Execute" data-edge-key="8" data-edge-id="m9">
-          <path data-composition-edge-from="job" data-composition-edge-to="exec" data-composition-edge-id="m9" data-composition-points="379,515;285,515" d="M 379 515 L 285 515" class="a-emphasis" data-animate="edge" style="--step:8" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="api" data-edge-to="redis" data-edge-label="put in backpack" data-edge-key="8" data-edge-id="cache-write">
+          <path data-composition-edge-from="api" data-composition-edge-to="redis" data-composition-edge-id="cache-write" data-composition-points="285,536;487,536" d="M 285 536 L 487 536" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <g data-detail="context">
-          <rect x="307.8" y="495" width="48.4" height="16" rx="3" class="c-mask"/>
-          <text x="332" y="505" class="t-backend" font-size="9" text-anchor="middle">Execute</text>
+          <rect x="341" y="516" width="90" height="16" rx="3" class="c-mask"/>
+          <text x="386" y="526" class="t-messagebus" font-size="9" text-anchor="middle">put in backpack</text>
         </g>
         </g>
 
-        <g data-edge-from="exec" data-edge-to="blob" data-edge-label="Root.Execute" data-edge-key="9" data-edge-id="m10">
-          <path data-composition-edge-from="exec" data-composition-edge-to="blob" data-composition-edge-id="m10" data-composition-points="285,555;595,555" d="M 285 555 L 595 555" class="a-emphasis" data-animate="edge" style="--step:9" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="api" data-edge-to="trace" data-edge-label="Execute Root" data-edge-key="9" data-edge-id="trace-emit">
+          <path data-composition-edge-from="api" data-composition-edge-to="trace" data-composition-edge-id="trace-emit" data-composition-points="285,580;703,580" d="M 285 580 L 703 580" class="a-dashed" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
         <g data-detail="context">
-          <rect x="402.8" y="535" width="74.4" height="16" rx="3" class="c-mask"/>
-          <text x="440" y="545" class="t-backend" font-size="9" text-anchor="middle">Root.Execute</text>
+          <rect x="456.8" y="560" width="74.4" height="16" rx="3" class="c-mask"/>
+          <text x="494" y="570" class="t-messagebus" font-size="9" text-anchor="middle">Execute Root</text>
         </g>
         </g>
 
-        <g data-edge-from="blob" data-edge-to="dispatch" data-edge-label="Type switch" data-edge-key="10" data-edge-id="m11">
-          <path data-composition-edge-from="blob" data-composition-edge-to="dispatch" data-composition-edge-id="m11" data-composition-points="609,595;703,595" d="M 609 595 L 703 595" class="a-emphasis" data-animate="edge" style="--step:10" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="api" data-edge-to="web" data-edge-label="Type switch" data-edge-key="10" data-edge-id="dashboard-response">
+          <path data-composition-edge-from="api" data-composition-edge-to="web" data-composition-edge-id="dashboard-response" data-composition-points="271,625;177,625" d="M 271 625 L 177 625" class="a-default" data-animate="edge" style="--step:10" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="621.4" y="575" width="69.2" height="16" rx="3" class="c-mask"/>
-          <text x="656" y="585" class="t-backend" font-size="9" text-anchor="middle">Type switch</text>
+          <rect x="189.4" y="605" width="69.2" height="16" rx="3" class="c-mask"/>
+          <text x="224" y="615" class="t-muted" font-size="9" text-anchor="middle">Type switch</text>
         </g>
         </g>
 
-        <g data-edge-from="dispatch" data-edge-to="leaf" data-edge-label="call method" data-edge-key="11" data-edge-id="m12">
-          <path data-composition-edge-from="dispatch" data-composition-edge-to="leaf" data-composition-edge-id="m12" data-composition-points="717,635;811,635" d="M 717 635 L 811 635" class="a-emphasis" data-animate="edge" style="--step:11" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <g data-edge-from="web" data-edge-to="user" data-edge-label="call method" data-edge-key="11" data-edge-id="page-render">
+          <path data-composition-edge-from="web" data-composition-edge-to="user" data-composition-edge-id="page-render" data-composition-points="163,662;69,662" d="M 163 662 L 69 662" class="a-default" data-animate="edge" style="--step:11" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
         <g data-detail="context">
-          <rect x="729.4" y="615" width="69.2" height="16" rx="3" class="c-mask"/>
-          <text x="764" y="625" class="t-backend" font-size="9" text-anchor="middle">call method</text>
-        </g>
-        </g>
-
-        <g data-edge-from="leaf" data-edge-to="state" data-edge-label="GetState" data-edge-key="12" data-edge-id="m13">
-          <path data-composition-edge-from="leaf" data-composition-edge-to="state" data-composition-edge-id="m13" data-composition-points="825,675;919,675" d="M 825 675 L 919 675" class="a-default" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead)"/>
-        <g data-detail="context">
-          <rect x="845.2" y="655" width="53.6" height="16" rx="3" class="c-mask"/>
-          <text x="872" y="665" class="t-backend" font-size="9" text-anchor="middle">GetState</text>
-        </g>
-        </g>
-
-        <g data-edge-from="leaf" data-edge-to="ctx" data-edge-label="GetRW transform" data-edge-key="13" data-edge-id="m14">
-          <path data-composition-edge-from="leaf" data-composition-edge-to="ctx" data-composition-edge-id="m14" data-composition-points="811,715;501,715" d="M 811 715 L 501 715" class="a-default" data-animate="edge" style="--step:12" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
-        <g data-detail="context">
-          <rect x="611" y="695" width="90" height="16" rx="3" class="c-mask"/>
-          <text x="656" y="705" class="t-muted" font-size="9" text-anchor="middle">GetRW transform</text>
-        </g>
-        </g>
-
-        <g data-edge-from="leaf" data-edge-to="dispatch" data-edge-label="recurse children" data-edge-key="14" data-edge-id="m15">
-          <path data-composition-edge-from="leaf" data-composition-edge-to="dispatch" data-composition-edge-id="m15" data-composition-points="811,755;717,755" d="M 811 755 L 717 755" class="a-dashed" data-animate="edge" style="--step:12" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <g data-detail="context">
-          <rect x="716.4" y="735" width="95.2" height="16" rx="3" class="c-mask"/>
-          <text x="764" y="745" class="t-messagebus" font-size="9" text-anchor="middle">recurse children</text>
+          <rect x="81.4" y="642" width="69.2" height="16" rx="3" class="c-mask"/>
+          <text x="116" y="652" class="t-muted" font-size="9" text-anchor="middle">call method</text>
         </g>
         </g>
 
         <!-- Segment Labels -->
         <g data-graph-role="segment-label" data-segment-id="0">
-          <rect x="56" y="128" width="71.2" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="141" class="t-dim" font-size="9" font-weight="600">System tick</text>
+          <rect x="56" y="128" width="42" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="141" class="t-dim" font-size="9" font-weight="600">Wake</text>
         </g>
         <g data-graph-role="segment-label" data-segment-id="1">
-          <rect x="56" y="256" width="42" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="269" class="t-dim" font-size="9" font-weight="600">Chunk</text>
+          <rect x="56" y="293" width="66" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="306" class="t-dim" font-size="9" font-weight="600">Walk brick</text>
         </g>
         <g data-graph-role="segment-label" data-segment-id="2">
-          <rect x="56" y="468" width="71.2" height="18" rx="3" class="c-mask"/>
-          <text x="62" y="481" class="t-dim" font-size="9" font-weight="600">Entity walk</text>
+          <rect x="56" y="503" width="42" height="18" rx="3" class="c-mask"/>
+          <text x="62" y="516" class="t-dim" font-size="9" font-weight="600">Act</text>
         </g>
 
         <!-- Participants -->
-        <g id="node-sys" data-node-id="sys" data-node-label="System" tabindex="0" role="button" aria-label="Focus System, MyGraphSystem, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="MyGraphSystem" data-node-context="Sequence participant">
-          <title>System · MyGraphSystem · Sequence participant</title>
+        <g id="node-user" data-node-id="user" data-node-label="World" tabindex="0" role="button" aria-label="Focus World, entities, Sequence participant" aria-pressed="false" data-node-kind="external" data-node-sublabel="entities" data-node-context="Sequence participant">
+          <title>World · entities · Sequence participant</title>
           <rect x="19" y="72" width="86" height="54" rx="6" class="c-mask"/>
-          <rect x="19" y="72" width="86" height="54" rx="6" class="c-backend" data-animate="node" style="--step:0" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(25 78) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          <rect x="19" y="72" width="86" height="54" rx="6" class="c-external" data-animate="node" style="--step:0" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(25 78) scale(0.6875)">
+            <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
+            <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-detail-anchor x="62" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">System</text>
-          <text data-detail="context" x="62" y="111" class="t-muted" font-size="7" text-anchor="middle">MyGraphSystem</text>
+          <text data-detail-anchor x="62" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">World</text>
+          <text data-detail="context" x="62" y="111" class="t-muted" font-size="7" text-anchor="middle">entities</text>
         </g>
 
-        <g id="node-impl" data-node-id="impl" data-node-label="GraphImpl" tabindex="0" role="button" aria-label="Focus GraphImpl, owns context, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="owns context" data-node-context="Sequence participant">
-          <title>GraphImpl · owns context · Sequence participant</title>
+        <g id="node-web" data-node-id="web" data-node-label="ISystem" tabindex="0" role="button" aria-label="Focus ISystem, your system, Sequence participant" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="your system" data-node-context="Sequence participant">
+          <title>ISystem · your system · Sequence participant</title>
           <rect x="127" y="72" width="86" height="54" rx="6" class="c-mask"/>
-          <rect x="127" y="72" width="86" height="54" rx="6" class="c-backend" data-animate="node" style="--step:1" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(133 78) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-detail-anchor x="170" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">GraphImpl</text>
-          <text data-detail="context" x="170" y="111" class="t-muted" font-size="7" text-anchor="middle">owns context</text>
-        </g>
-
-        <g id="node-exec" data-node-id="exec" data-node-label="Execution" tabindex="0" role="button" aria-label="Focus Execution, per update, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="per update" data-node-context="Sequence participant">
-          <title>Execution · per update · Sequence participant</title>
-          <rect x="235" y="72" width="86" height="54" rx="6" class="c-mask"/>
-          <rect x="235" y="72" width="86" height="54" rx="6" class="c-backend" data-animate="node" style="--step:2" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(241 78) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-detail-anchor x="278" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Execution</text>
-          <text data-detail="context" x="278" y="111" class="t-muted" font-size="7" text-anchor="middle">per update</text>
-        </g>
-
-        <g id="node-job" data-node-id="job" data-node-label="Job" tabindex="0" role="button" aria-label="Focus Job, parallel, Sequence participant" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="parallel" data-node-context="Sequence participant">
-          <title>Job · parallel · Sequence participant</title>
-          <rect x="343" y="72" width="86" height="54" rx="6" class="c-mask"/>
-          <rect x="343" y="72" width="86" height="54" rx="6" class="c-cloud" data-animate="node" style="--step:3" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(349 78) scale(0.6875)">
-            <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
-          </g>
-          <text data-detail-anchor x="386" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Job</text>
-          <text data-detail="context" x="386" y="111" class="t-muted" font-size="7" text-anchor="middle">parallel</text>
-        </g>
-
-        <g id="node-ctx" data-node-id="ctx" data-node-label="Context" tabindex="0" role="button" aria-label="Focus Context, containers, Sequence participant" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="containers" data-node-context="Sequence participant">
-          <title>Context · containers · Sequence participant</title>
-          <rect x="451" y="72" width="86" height="54" rx="6" class="c-mask"/>
-          <rect x="451" y="72" width="86" height="54" rx="6" class="c-frontend" data-animate="node" style="--step:4" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(457 78) scale(0.6875)">
+          <rect x="127" y="72" width="86" height="54" rx="6" class="c-frontend" data-animate="node" style="--step:1" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(133 78) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-detail-anchor x="494" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Context</text>
-          <text data-detail="context" x="494" y="111" class="t-muted" font-size="7" text-anchor="middle">containers</text>
+          <text data-detail-anchor x="170" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">ISystem</text>
+          <text data-detail="context" x="170" y="111" class="t-muted" font-size="7" text-anchor="middle">your system</text>
         </g>
 
-        <g id="node-blob" data-node-id="blob" data-node-label="Blob" tabindex="0" role="button" aria-label="Focus Blob, blob, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="blob" data-node-context="Sequence participant">
-          <title>Blob · blob · Sequence participant</title>
+        <g id="node-api" data-node-id="api" data-node-label="GraphImpl" tabindex="0" role="button" aria-label="Focus GraphImpl, robot owner, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="robot owner" data-node-context="Sequence participant">
+          <title>GraphImpl · robot owner · Sequence participant</title>
+          <rect x="235" y="72" width="86" height="54" rx="6" class="c-mask"/>
+          <rect x="235" y="72" width="86" height="54" rx="6" class="c-backend" data-animate="node" style="--step:2" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(241 78) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          </g>
+          <text data-detail-anchor x="278" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">GraphImpl</text>
+          <text data-detail="context" x="278" y="111" class="t-muted" font-size="7" text-anchor="middle">robot owner</text>
+        </g>
+
+        <g id="node-auth" data-node-id="auth" data-node-label="Execution" tabindex="0" role="button" aria-label="Focus Execution, this frame, Sequence participant" aria-pressed="false" data-node-kind="security" data-node-sublabel="this frame" data-node-context="Sequence participant">
+          <title>Execution · this frame · Sequence participant</title>
+          <rect x="343" y="72" width="86" height="54" rx="6" class="c-mask"/>
+          <rect x="343" y="72" width="86" height="54" rx="6" class="c-security" data-animate="node" style="--step:3" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(349 78) scale(0.6875)">
+            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
+            <path d="m5.8 8 1.5 1.5 3-3"/>
+          </g>
+          <text data-detail-anchor x="386" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Execution</text>
+          <text data-detail="context" x="386" y="111" class="t-muted" font-size="7" text-anchor="middle">this frame</text>
+        </g>
+
+        <g id="node-redis" data-node-id="redis" data-node-label="Brick" tabindex="0" role="button" aria-label="Focus Brick, GraphData, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="GraphData" data-node-context="Sequence participant">
+          <title>Brick · GraphData · Sequence participant</title>
+          <rect x="451" y="72" width="86" height="54" rx="6" class="c-mask"/>
+          <rect x="451" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:4" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(457 78) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-detail-anchor x="494" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Brick</text>
+          <text data-detail="context" x="494" y="111" class="t-muted" font-size="7" text-anchor="middle">GraphData</text>
+        </g>
+
+        <g id="node-db" data-node-id="db" data-node-label="Door #" tabindex="0" role="button" aria-label="Focus Door #, Type switch, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="Type switch" data-node-context="Sequence participant">
+          <title>Door # · Type switch · Sequence participant</title>
           <rect x="559" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="559" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:5" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(565 78) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-detail-anchor x="602" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Blob</text>
-          <text data-detail="context" x="602" y="111" class="t-muted" font-size="7" text-anchor="middle">blob</text>
+          <text data-detail-anchor x="602" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Door #</text>
+          <text data-detail="context" x="602" y="111" class="t-muted" font-size="7" text-anchor="middle">Type switch</text>
         </g>
 
-        <g id="node-dispatch" data-node-id="dispatch" data-node-label="Switch" tabindex="0" role="button" aria-label="Focus Switch, generated, Sequence participant" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="generated" data-node-context="Sequence participant">
-          <title>Switch · generated · Sequence participant</title>
+        <g id="node-trace" data-node-id="trace" data-node-label="Method" tabindex="0" role="button" aria-label="Focus Method, C# static, Sequence participant" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="C# static" data-node-context="Sequence participant">
+          <title>Method · C# static · Sequence participant</title>
           <rect x="667" y="72" width="86" height="54" rx="6" class="c-mask"/>
           <rect x="667" y="72" width="86" height="54" rx="6" class="c-messagebus" data-animate="node" style="--step:6" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(673 78) scale(0.6875)">
@@ -4823,43 +4794,20 @@
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-detail-anchor x="710" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Switch</text>
-          <text data-detail="context" x="710" y="111" class="t-muted" font-size="7" text-anchor="middle">generated</text>
-        </g>
-
-        <g id="node-leaf" data-node-id="leaf" data-node-label="Node" tabindex="0" role="button" aria-label="Focus Node, Move / Composite, Sequence participant" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Move / Composite" data-node-context="Sequence participant">
-          <title>Node · Move / Composite · Sequence participant</title>
-          <rect x="775" y="72" width="86" height="54" rx="6" class="c-mask"/>
-          <rect x="775" y="72" width="86" height="54" rx="6" class="c-backend" data-animate="node" style="--step:7" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(781 78) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-detail-anchor x="818" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Node</text>
-          <text data-detail="context" x="818" y="111" class="t-muted" font-size="7" text-anchor="middle">Move / Composite</text>
-        </g>
-
-        <g id="node-state" data-node-id="state" data-node-label="State" tabindex="0" role="button" aria-label="Focus State, entity map, Sequence participant" aria-pressed="false" data-node-kind="database" data-node-sublabel="entity map" data-node-context="Sequence participant">
-          <title>State · entity map · Sequence participant</title>
-          <rect x="883" y="72" width="86" height="54" rx="6" class="c-mask"/>
-          <rect x="883" y="72" width="86" height="54" rx="6" class="c-database" data-animate="node" style="--step:8" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(889 78) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-detail-anchor x="926" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">State</text>
-          <text data-detail="context" x="926" y="111" class="t-muted" font-size="7" text-anchor="middle">entity map</text>
+          <text data-detail-anchor x="710" y="94" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Method</text>
+          <text data-detail="context" x="710" y="111" class="t-muted" font-size="7" text-anchor="middle">C# static</text>
         </g>
 
         <!-- Legend -->
-        <text x="150" y="786" class="t-primary" font-size="10" font-weight="600">Legend</text>
-        <path d="M 150 806 L 184 806" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <text x="193" y="809" class="t-muted" font-size="8">request</text>
-        <path d="M 270 806 L 304 806" class="a-default" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
-        <text x="313" y="809" class="t-muted" font-size="8">return</text>
-        <path d="M 385 806 L 419 806" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
-        <text x="428" y="809" class="t-muted" font-size="8">security</text>
-        <path d="M 530 806 L 564 806" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
-        <text x="573" y="809" class="t-muted" font-size="8">async trace</text>
+        <text x="150" y="726" class="t-primary" font-size="10" font-weight="600">Legend</text>
+        <path d="M 150 746 L 184 746" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <text x="193" y="749" class="t-muted" font-size="8">request</text>
+        <path d="M 270 746 L 304 746" class="a-default" stroke-width="1.4" stroke-dasharray="3,5" marker-end="url(#arrowhead)"/>
+        <text x="313" y="749" class="t-muted" font-size="8">return</text>
+        <path d="M 385 746 L 419 746" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <text x="428" y="749" class="t-muted" font-size="8">security</text>
+        <path d="M 530 746 L 564 746" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <text x="573" y="749" class="t-muted" font-size="8">async trace</text>
       </svg>
       <p class="intent-trace-status no-print" id="intent-trace-status" role="status" aria-live="polite" aria-atomic="true"></p>
       <div class="share-chapter-cue no-print" id="share-chapter-cue" hidden role="status" aria-live="polite">
@@ -5046,36 +4994,36 @@
       <div class="card">
         <div class="card-header">
           <div class="card-dot emerald"></div>
-          <h3>Ownership</h3>
+          <h3>Robot jobs</h3>
         </div>
         <ul>
-          <li>&bull; GraphImpl lives for the system lifetime</li>
-          <li>&bull; GraphExecution is a value built each update</li>
-          <li>&bull; SetChunk is mandatory before per-entity Execute</li>
+          <li>&bull; GraphImpl = keep the robot</li>
+          <li>&bull; Execution = this frame&#39;s remote</li>
+          <li>&bull; SetChunk = point bags at this group of entities</li>
         </ul>
       </div>
 
       <div class="card">
         <div class="card-header">
           <div class="card-dot cyan"></div>
-          <h3>Inputs are state</h3>
+          <h3>Two ways to play</h3>
         </div>
         <ul>
-          <li>&bull; TrySetInput writes GroveState, not stack args</li>
-          <li>&bull; Keys are Hash128 from boundary variable names</li>
-          <li>&bull; TypeHash resolves when only one input of that type exists</li>
+          <li>&bull; Execute = start at Root, push buttons</li>
+          <li>&bull; Calculate = ask an Output for a number</li>
+          <li>&bull; Data boxes sleep until someone asks</li>
         </ul>
       </div>
 
       <div class="card">
         <div class="card-header">
           <div class="card-dot rose"></div>
-          <h3>No interpreter loop</h3>
+          <h3>Inputs</h3>
         </div>
         <ul>
-          <li>&bull; Only Root is kicked for Execute</li>
-          <li>&bull; Nodes recurse via BlobPtr children</li>
-          <li>&bull; Data nodes run only when something Calculate-s them</li>
+          <li>&bull; Not handed as stack args</li>
+          <li>&bull; Written into the backpack first</li>
+          <li>&bull; Then the map reads them</li>
         </ul>
       </div>
     </div>

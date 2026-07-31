@@ -4581,7 +4581,7 @@
 
         <!-- Connection paths (before components for correct z-order) -->
         <path data-edge-from="users" data-edge-to="cdn" data-edge-label="was" data-edge-key="0" data-edge-id="users-to-cdn" data-composition-points="160,330;250,330" d="M 160 330 L 250 330" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="auth" data-edge-to="api" data-edge-label="delete" data-edge-key="1" data-edge-id="jwt-verification" data-composition-points="160,142;620,142;620,246;735,246;735,300" d="M 160 142 L 612 142 Q 620 142 620 150 L 620 238 Q 620 246 628 246 L 727 246 Q 735 246 735 254 L 735 300" class="a-security" data-animate="edge" style="--step:1" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="auth" data-edge-to="api" data-edge-label="delete" data-edge-key="1" data-edge-id="scope-verification" data-composition-points="160,142;620,142;620,246;735,246;735,300" d="M 160 142 L 612 142 Q 620 142 620 150 L 620 238 Q 620 246 628 246 L 727 246 Q 735 246 735 254 L 735 300" class="a-security" data-animate="edge" style="--step:1" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         <path data-edge-from="cdn" data-edge-to="lb" data-edge-key="2" data-edge-id="cdn-to-lb" data-composition-points="380,330;460,330" d="M 380 330 L 460 330" class="a-default" data-animate="edge" style="--step:2" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="cdn" data-edge-to="s3" data-edge-label="prove" data-edge-key="3" data-edge-id="static-assets" data-composition-points="315,360;315,440" d="M 315 360 L 315 440" class="a-dashed" data-animate="edge" style="--step:3" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         <path data-edge-from="lb" data-edge-to="api" data-edge-key="4" data-edge-id="lb-to-api" data-composition-points="590,330;670,330" d="M 590 330 L 670 330" class="a-default" data-animate="edge" style="--step:4" stroke-width="1.5" marker-end="url(#arrowhead)"/>
@@ -4603,8 +4603,8 @@
         <text data-detail="context" x="100" y="344" class="t-muted" font-size="9" text-anchor="middle">service+menu only</text>
         </g>
 
-        <g id="node-auth" data-node-id="auth" data-node-label="LocalGoInGame" tabindex="0" role="button" aria-label="Focus LocalGoInGame, deleted, Wrong path (removed)" aria-pressed="false" data-node-kind="security" data-node-sublabel="deleted" data-node-tag="JWT + PKCE" data-node-context="Wrong path (removed)">
-          <title>LocalGoInGame · deleted · Wrong path (removed) · JWT + PKCE</title>
+        <g id="node-auth" data-node-id="auth" data-node-label="LocalGoInGame" tabindex="0" role="button" aria-label="Focus LocalGoInGame, deleted, Wrong path (removed)" aria-pressed="false" data-node-kind="security" data-node-sublabel="deleted" data-node-context="Wrong path (removed)">
+          <title>LocalGoInGame · deleted · Wrong path (removed)</title>
           <rect x="40" y="110" width="120" height="64" rx="6" class="c-mask"/>
           <rect x="40" y="110" width="120" height="64" rx="6" class="c-security" data-animate="node" style="--step:1" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(46 116) scale(0.6875)">
@@ -4613,7 +4613,6 @@
           </g>
           <text data-detail-anchor x="100" y="140" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">LocalGoInGame</text>
         <text data-detail="context" x="100" y="156" class="t-muted" font-size="9" text-anchor="middle">deleted</text>
-        <text data-detail="fine" x="100" y="166" class="t-security" font-size="7" text-anchor="middle">JWT + PKCE</text>
         </g>
 
         <g id="node-cdn" data-node-id="cdn" data-node-label="After: ClientFlow" tabindex="0" role="button" aria-label="Focus After: ClientFlow, .cnerve, Correct path" aria-pressed="false" data-node-kind="cloud" data-node-sublabel=".cnerve" data-node-context="Correct path">
@@ -4673,8 +4672,8 @@
         <text data-detail="context" x="945" y="344" class="t-muted" font-size="9" text-anchor="middle">via gate only</text>
         </g>
 
-        <g id="node-s3" data-node-id="s3" data-node-label="inGame=1" tabindex="0" role="button" aria-label="Focus inGame=1, RPC proof, Evidence" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="RPC proof" data-node-tag="OAI protected" data-node-context="Evidence">
-          <title>inGame=1 · RPC proof · Evidence · OAI protected</title>
+        <g id="node-s3" data-node-id="s3" data-node-label="inGame=1" tabindex="0" role="button" aria-label="Focus inGame=1, RPC proof, Evidence" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="RPC proof" data-node-context="Evidence">
+          <title>inGame=1 · RPC proof · Evidence</title>
           <rect x="250" y="440" width="130" height="60" rx="6" class="c-mask"/>
           <rect x="250" y="440" width="130" height="60" rx="6" class="c-cloud" data-animate="node" style="--step:4" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(256 446) scale(0.6875)">
@@ -4682,7 +4681,6 @@
           </g>
           <text data-detail-anchor x="315" y="468" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">inGame=1</text>
         <text data-detail="context" x="315" y="484" class="t-muted" font-size="9" text-anchor="middle">RPC proof</text>
-        <text data-detail="fine" x="315" y="492" class="t-cloud" font-size="7" text-anchor="middle">OAI protected</text>
         </g>
 
         <g id="node-queue" data-node-id="queue" data-node-label="ghosts=2" tabindex="0" role="button" aria-label="Focus ghosts=2, one client, Evidence" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="one client" data-node-context="Evidence">
@@ -4715,7 +4713,7 @@
           <rect x="190" y="310" width="30" height="14" rx="3" class="c-mask"/>
           <text x="205" y="320" class="t-backend" font-size="8" text-anchor="middle">was</text>
         </g>
-        <g data-detail="context" data-edge-from="auth" data-edge-to="api" data-edge-label="delete" data-edge-key="1" data-edge-id="jwt-verification">
+        <g data-detail="context" data-edge-from="auth" data-edge-to="api" data-edge-label="delete" data-edge-key="1" data-edge-id="scope-verification">
           <rect x="600.6" y="174" width="38.8" height="14" rx="3" class="c-mask"/>
           <text x="620" y="184" class="t-security" font-size="8" text-anchor="middle">delete</text>
         </g>

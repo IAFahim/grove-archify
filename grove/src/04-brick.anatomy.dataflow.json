@@ -2,40 +2,36 @@
   "schema_version": 1,
   "diagram_type": "dataflow",
   "meta": {
-    "title": "Grove \u00b7 Blob Anatomy + Dispatch",
-    "subtitle": "GraphData bytes \u00b7 header+payload \u00b7 Type switch \u00b7 ECS effect",
-    "output": "04-blob.dataflow.html",
-    "viewBox": [
-      1080,
-      760
-    ],
-    "animation": "trace",
+    "title": "Grove \u00b7 Brick Anatomy",
+    "subtitle": "Header bread \u00b7 filling \u00b7 little arrows to kids",
+    "output": "../04-brick.anatomy.dataflow.html",
     "quality_profile": "standard",
+    "animation": "trace",
     "views": [
       {
         "id": "collection-path",
-        "label": "Blob layout",
+        "label": "Outside of brick",
         "focus": [
           "web",
           "mobile",
           "edge",
           "stream"
         ],
-        "note": "GraphId, Root, Inputs/Outputs feed the node body."
+        "note": "GraphId, Root, Inputs, Outputs live on the brick shell."
       },
       {
         "id": "consent-boundary",
-        "label": "Node body",
+        "label": "Each box",
         "focus": [
           "edge",
           "consent",
           "pii"
         ],
-        "note": "Header Type+NodeId, payload inline, BlobPtrs as edges."
+        "note": "Every node is bread (Type+id) + filling (payload)."
       },
       {
         "id": "analytics-consumers",
-        "label": "Dispatch",
+        "label": "Robot opens doors",
         "focus": [
           "stream",
           "warehouse",
@@ -43,25 +39,29 @@
           "features",
           "model"
         ],
-        "note": "switch(Type) \u2192 static method \u2192 recurse or ECS write."
+        "note": "Type number \u2192 method \u2192 maybe open more doors."
       }
+    ],
+    "viewBox": [
+      1200,
+      780
     ]
   },
   "stages": [
     {
-      "label": "GraphData"
+      "label": "Shell"
     },
     {
-      "label": "Node"
+      "label": "Box"
     },
     {
-      "label": "Dispatch"
+      "label": "Pick"
     },
     {
       "label": "Run"
     },
     {
-      "label": "Effect"
+      "label": "World"
     }
   ],
   "nodes": [
@@ -69,91 +69,81 @@
       "id": "web",
       "type": "frontend",
       "label": "Root",
-      "sublabel": "Exec*",
+      "sublabel": "start door",
       "stage": 0,
-      "row": 0,
-      "tag": "events"
+      "row": 0
     },
     {
       "id": "mobile",
       "type": "frontend",
-      "label": "Inputs",
-      "sublabel": "Key+hash",
+      "label": "I/O list",
+      "sublabel": "keys",
       "stage": 0,
-      "row": 2,
-      "tag": "events"
+      "row": 2
     },
     {
       "id": "edge",
       "type": "cloud",
-      "label": "Header",
-      "sublabel": "Type+id",
+      "label": "Bread",
+      "sublabel": "Type + id",
       "stage": 1,
-      "row": 1,
-      "tag": "TLS"
+      "row": 1
     },
     {
       "id": "consent",
       "type": "security",
-      "label": "Payload",
-      "sublabel": "inline",
+      "label": "Filling",
+      "sublabel": "payload",
       "stage": 2,
-      "row": 0,
-      "tag": "PII guard"
+      "row": 0
     },
     {
       "id": "stream",
       "type": "messagebus",
-      "label": "Switch",
-      "sublabel": "generated",
+      "label": "Door #",
+      "sublabel": "switch",
       "stage": 2,
-      "row": 2,
-      "tag": "ordered"
+      "row": 2
     },
     {
       "id": "pii",
       "type": "security",
-      "label": "BlobPtrs",
-      "sublabel": "children",
+      "label": "Kid arrows",
+      "sublabel": "BlobPtrs",
       "stage": 3,
-      "row": 0,
-      "tag": "restricted"
+      "row": 0
     },
     {
       "id": "warehouse",
       "type": "database",
       "label": "Method",
-      "sublabel": "static",
+      "sublabel": "static C#",
       "stage": 3,
-      "row": 2,
-      "tag": "curated"
+      "row": 2
     },
     {
       "id": "features",
       "type": "database",
       "label": "Recurse",
-      "sublabel": "child call",
+      "sublabel": "more doors",
       "stage": 3,
-      "row": 4,
-      "tag": "derived"
+      "row": 4
     },
     {
       "id": "dashboard",
       "type": "backend",
       "label": "ECS write",
-      "sublabel": "side effect",
+      "sublabel": "move stuff",
       "stage": 4,
-      "row": 1,
-      "tag": "SQL"
+      "row": 1
     },
     {
       "id": "model",
       "type": "backend",
-      "label": "GroveState",
-      "sublabel": "vars",
+      "label": "Backpack",
+      "sublabel": "memory",
       "stage": 4,
-      "row": 4,
-      "tag": "features"
+      "row": 4
     }
   ],
   "flows": [
@@ -162,7 +152,7 @@
       "from": "web",
       "to": "edge",
       "label": "kick",
-      "classification": "user events",
+      "classification": "brick",
       "variant": "emphasis",
       "fromSide": "right",
       "toSide": "left",
@@ -185,8 +175,8 @@
       "id": "mobile-events",
       "from": "mobile",
       "to": "edge",
-      "label": "I/O",
-      "classification": "device events",
+      "label": "keys",
+      "classification": "brick",
       "variant": "default",
       "fromSide": "right",
       "toSide": "left",
@@ -210,7 +200,7 @@
       "from": "edge",
       "to": "consent",
       "label": "pack",
-      "classification": "PII touch",
+      "classification": "brick",
       "variant": "security",
       "fromSide": "top",
       "toSide": "left",
@@ -238,7 +228,7 @@
       "from": "edge",
       "to": "stream",
       "label": "Type",
-      "classification": "append-only",
+      "classification": "brick",
       "variant": "emphasis",
       "fromSide": "right",
       "toSide": "left",
@@ -261,8 +251,8 @@
       "id": "identity-map",
       "from": "consent",
       "to": "pii",
-      "label": "ptrs",
-      "classification": "encrypted PII",
+      "label": "kids",
+      "classification": "brick",
       "variant": "security",
       "route": "straight",
       "labelAt": [
@@ -275,7 +265,7 @@
       "from": "stream",
       "to": "warehouse",
       "label": "case",
-      "classification": "non-PII",
+      "classification": "brick",
       "variant": "emphasis",
       "route": "straight",
       "labelAt": [
@@ -287,8 +277,8 @@
       "id": "daily-aggregates",
       "from": "warehouse",
       "to": "features",
-      "label": "walk",
-      "classification": "batch",
+      "label": "again",
+      "classification": "brick",
       "variant": "dashed",
       "fromSide": "bottom",
       "toSide": "top",
@@ -302,8 +292,8 @@
       "id": "metrics-query",
       "from": "warehouse",
       "to": "dashboard",
-      "label": "mutate",
-      "classification": "read-only",
+      "label": "do",
+      "classification": "brick",
       "variant": "default",
       "fromSide": "right",
       "toSide": "left",
@@ -326,8 +316,8 @@
       "id": "feature-vectors",
       "from": "features",
       "to": "model",
-      "label": "state",
-      "classification": "derived",
+      "label": "memo",
+      "classification": "brick",
       "variant": "dashed",
       "route": "straight",
       "labelAt": [
@@ -340,7 +330,7 @@
       "from": "pii",
       "to": "dashboard",
       "label": "scope",
-      "classification": "approved only",
+      "classification": "brick",
       "variant": "security",
       "fromSide": "right",
       "toSide": "top",
@@ -367,29 +357,29 @@
   "cards": [
     {
       "dot": "emerald",
-      "title": "Header+payload",
+      "title": "Sandwich",
       "items": [
-        "Type+NodeId at offset 0",
-        "Payload after sizeof(header)",
-        "No vtables \u2014 ints + pointers"
+        "Top bread = Type number + NodeId",
+        "Filling = your Speed / scores / kids",
+        "No magic vtable \u2014 just numbers"
       ]
     },
     {
       "dot": "cyan",
-      "title": "Two entries",
+      "title": "Two starts",
       "items": [
-        "Execute pushes from Root",
-        "Calculate pulls Outputs",
-        "Constant/Variable special-cased"
+        "Root.Execute = push the map",
+        "Output.Calculate = pull a value",
+        "Constant / Variable are special snacks"
       ]
     },
     {
       "dot": "rose",
-      "title": "Type ids",
+      "title": "Numbers",
       "items": [
-        "0 Default, negatives built-in",
-        "Your positive enums",
-        "Collision = wrong method"
+        "0 = do nothing",
+        "Negative = Grove toys",
+        "Your positive = your toys"
       ]
     }
   ]

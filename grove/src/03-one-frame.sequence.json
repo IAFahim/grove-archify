@@ -2,40 +2,40 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "One Client Tick \u00b7 Gather \u2192 Graph \u2192 Gate",
-    "subtitle": "ClientAppStateSystem fills context; executor runs; tracker then GoInGame",
-    "output": "../03-tick.sequence.html",
+    "title": "Grove \u00b7 One Frame Movie",
+    "subtitle": "System wakes the robot \u00b7 robot opens doors \u00b7 world moves",
+    "output": "../03-one-frame.sequence.html",
+    "quality_profile": "standard",
+    "animation": "trace",
     "viewBox": [
       960,
       800
     ],
-    "animation": "trace",
-    "quality_profile": "standard",
     "views": [
       {
         "id": "request-and-auth",
-        "label": "Gather",
+        "label": "Wake up",
         "focus": [
           "user",
           "web",
           "api",
           "auth"
         ],
-        "note": "System builds ClientConnectionInput from driver + connection entity."
+        "note": "System builds the robot handle for this frame."
       },
       {
         "id": "cache-fallback",
-        "label": "Run graph",
+        "label": "Open doors",
         "focus": [
           "api",
           "redis",
           "db"
         ],
-        "note": "Executor runs SM; tracker always updates snapshot on root."
+        "note": "Number on the box picks which door to open."
       },
       {
         "id": "return-and-trace",
-        "label": "Gate / wait",
+        "label": "Do stuff",
         "focus": [
           "db",
           "api",
@@ -44,7 +44,7 @@
           "web",
           "user"
         ],
-        "note": "GoInGame may emit RPC; completion waits IsInGame."
+        "note": "Leaf method moves things. Data boxes only open when asked."
       }
     ]
   },
@@ -52,61 +52,61 @@
     {
       "id": "user",
       "type": "external",
-      "label": "NetCode",
-      "sublabel": "driver events"
+      "label": "World",
+      "sublabel": "entities"
     },
     {
       "id": "web",
       "type": "frontend",
-      "label": "StateSystem",
-      "sublabel": "ClientApp"
+      "label": "ISystem",
+      "sublabel": "your system"
     },
     {
       "id": "api",
       "type": "backend",
-      "label": "Executor",
-      "sublabel": "Nerve SM"
+      "label": "GraphImpl",
+      "sublabel": "robot owner"
     },
     {
       "id": "auth",
       "type": "security",
-      "label": "Context",
-      "sublabel": "by value"
+      "label": "Execution",
+      "sublabel": "this frame"
     },
     {
       "id": "redis",
       "type": "database",
-      "label": "Tracker",
-      "sublabel": "snapshot"
+      "label": "Brick",
+      "sublabel": "GraphData"
     },
     {
       "id": "db",
       "type": "database",
-      "label": "GoInGame",
-      "sublabel": "block"
+      "label": "Door #",
+      "sublabel": "Type switch"
     },
     {
       "id": "trace",
       "type": "messagebus",
-      "label": "ECB",
-      "sublabel": "EndSim"
+      "label": "Method",
+      "sublabel": "C# static"
     }
   ],
   "segments": [
     {
       "from": 150,
       "to": 295,
-      "label": "Gather"
+      "label": "Wake"
     },
     {
       "from": 315,
       "to": 505,
-      "label": "Run graph"
+      "label": "Walk brick"
     },
     {
       "from": 525,
       "to": 665,
-      "label": "Gate / wait"
+      "label": "Act"
     }
   ],
   "messages": [
@@ -115,7 +115,7 @@
       "from": "user",
       "to": "web",
       "y": 185,
-      "label": "events",
+      "label": "tick",
       "variant": "default"
     },
     {
@@ -123,7 +123,7 @@
       "from": "web",
       "to": "api",
       "y": 228,
-      "label": "build Connection",
+      "label": "GetExecution",
       "variant": "emphasis"
     },
     {
@@ -131,7 +131,7 @@
       "from": "api",
       "to": "auth",
       "y": 270,
-      "label": "GetExecution",
+      "label": "Update brain",
       "variant": "security"
     },
     {
@@ -139,7 +139,7 @@
       "from": "auth",
       "to": "api",
       "y": 305,
-      "label": "write fields",
+      "label": "handle ready",
       "variant": "return"
     },
     {
@@ -147,7 +147,7 @@
       "from": "api",
       "to": "redis",
       "y": 354,
-      "label": "Run graph",
+      "label": "Schedule job",
       "variant": "default"
     },
     {
@@ -155,7 +155,7 @@
       "from": "redis",
       "to": "api",
       "y": 391,
-      "label": "update snapshot",
+      "label": "SetChunk",
       "variant": "return"
     },
     {
@@ -163,7 +163,7 @@
       "from": "api",
       "to": "db",
       "y": 443,
-      "label": "maybe RPC",
+      "label": "bind bags",
       "variant": "emphasis"
     },
     {
@@ -171,7 +171,7 @@
       "from": "db",
       "to": "api",
       "y": 489,
-      "label": "IsCompleted?",
+      "label": "maybe SetInput",
       "variant": "return"
     },
     {
@@ -179,7 +179,7 @@
       "from": "api",
       "to": "redis",
       "y": 536,
-      "label": "AddComponent / RPC",
+      "label": "put in backpack",
       "variant": "dashed"
     },
     {
@@ -187,7 +187,7 @@
       "from": "api",
       "to": "trace",
       "y": 580,
-      "label": "EndSim buffer",
+      "label": "Execute Root",
       "variant": "dashed"
     },
     {
@@ -195,7 +195,7 @@
       "from": "api",
       "to": "web",
       "y": 625,
-      "label": "state hold",
+      "label": "Type switch",
       "variant": "return"
     },
     {
@@ -203,7 +203,7 @@
       "from": "web",
       "to": "user",
       "y": 662,
-      "label": "next tick",
+      "label": "call method",
       "variant": "return"
     }
   ],
@@ -248,29 +248,29 @@
   "cards": [
     {
       "dot": "emerald",
-      "title": "Context is a value",
+      "title": "Robot jobs",
       "items": [
-        "GetExecution copies context",
-        "Write Connection + CommandBuffer AFTER GetExecution",
-        "That is what nodes actually see"
+        "GraphImpl = keep the robot",
+        "Execution = this frame's remote",
+        "SetChunk = point bags at this group of entities"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Two ways to play",
+      "items": [
+        "Execute = start at Root, push buttons",
+        "Calculate = ask an Output for a number",
+        "Data boxes sleep until someone asks"
       ]
     },
     {
       "dot": "rose",
-      "title": "IsHost false here",
+      "title": "Inputs",
       "items": [
-        "Separate ClientWorld+ServerWorld \u2260 host world",
-        "Only single dual-flag world is host",
-        "GoInGame still adds NetworkStreamInGame when not host"
-      ]
-    },
-    {
-      "dot": "orange",
-      "title": "System only gathers",
-      "items": [
-        "Query NetworkStreamConnection singleton",
-        "Has NetworkId / NetworkStreamInGame",
-        "executor.Run does the graph work"
+        "Not handed as stack args",
+        "Written into the backpack first",
+        "Then the map reads them"
       ]
     }
   ]

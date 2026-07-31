@@ -29,22 +29,20 @@
         "focus": [
           "api",
           "redis",
-          "db"
+          "auth"
         ],
-        "note": "First time for this identity: AddComponent + GoInGameRequest RPC."
+        "note": "Client ECB: AddComponent + GoInGameRequest once per identity."
       },
       {
         "id": "return-and-trace",
-        "label": "Complete",
+        "label": "Wait server",
         "focus": [
           "db",
           "api",
-          "redis",
-          "trace",
           "web",
-          "user"
+          "trace"
         ],
-        "note": "IsCompleted &= IsInGame; gate then CanopyGoTo(gameplay)."
+        "note": "Server marks NetworkStreamInGame; gate completes \u2192 gameplay."
       }
     ]
   },
@@ -77,36 +75,36 @@
       "id": "redis",
       "type": "database",
       "label": "ECB",
-      "sublabel": "RPC"
+      "sublabel": "client EndSim"
     },
     {
       "id": "db",
       "type": "database",
       "label": "Server",
-      "sublabel": "marks in game"
+      "sublabel": "marks InGame"
     },
     {
       "id": "trace",
       "type": "messagebus",
-      "label": "CanopyGoTo",
-      "sublabel": "gameplay"
+      "label": "Gate",
+      "sublabel": "CanopyGoTo"
     }
   ],
   "segments": [
     {
       "from": 150,
       "to": 295,
-      "label": "Request"
+      "label": "Preconditions"
     },
     {
       "from": 315,
       "to": 505,
-      "label": "Fallback"
+      "label": "Request once"
     },
     {
       "from": 525,
       "to": 665,
-      "label": "Response + trace"
+      "label": "Wait server"
     }
   ],
   "messages": [
@@ -139,7 +137,7 @@
       "from": "auth",
       "to": "api",
       "y": 305,
-      "label": "IsInGame?",
+      "label": "known identity",
       "variant": "return"
     },
     {
@@ -147,7 +145,7 @@
       "from": "api",
       "to": "redis",
       "y": 354,
-      "label": "identity changed?",
+      "label": "IsInGame?",
       "variant": "default"
     },
     {
@@ -155,40 +153,40 @@
       "from": "redis",
       "to": "api",
       "y": 391,
-      "label": "request once",
+      "label": "identity changed?",
       "variant": "return"
     },
     {
       "id": "profile-query",
       "from": "api",
-      "to": "db",
+      "to": "redis",
       "y": 443,
       "label": "Add InGame (client)",
       "variant": "emphasis"
     },
     {
       "id": "profile-rows",
-      "from": "db",
-      "to": "api",
+      "from": "api",
+      "to": "redis",
       "y": 489,
-      "label": "GoInGameRequest",
-      "variant": "return"
+      "label": "GoInGameRequest RPC",
+      "variant": "emphasis"
     },
     {
       "id": "cache-write",
       "from": "api",
-      "to": "redis",
+      "to": "auth",
       "y": 536,
-      "label": "server accepts",
+      "label": "remember identity",
       "variant": "dashed"
     },
     {
       "id": "trace-emit",
-      "from": "api",
-      "to": "trace",
+      "from": "db",
+      "to": "api",
       "y": 580,
-      "label": "IsInGame=true",
-      "variant": "dashed"
+      "label": "server marks InGame",
+      "variant": "return"
     },
     {
       "id": "dashboard-response",
@@ -196,12 +194,12 @@
       "to": "web",
       "y": 625,
       "label": "IsCompleted=1",
-      "variant": "return"
+      "variant": "emphasis"
     },
     {
       "id": "page-render",
       "from": "web",
-      "to": "user",
+      "to": "trace",
       "y": 662,
       "label": "goto gameplay",
       "variant": "return"

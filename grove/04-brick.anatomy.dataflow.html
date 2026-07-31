@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" data-preset="signal-flow">
+<html lang="en" data-theme="dark" data-preset="classic">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="archify 2.12.0">
-  <title>Grove · The Whole Machine Diagram</title>
+  <title>Grove · Brick Anatomy Diagram</title>
   <script>
     // Resolve the theme before first paint so light-preference users don't
     // see a dark flash. The toolbar script below re-applies with UI state.
@@ -4496,12 +4496,12 @@
     <div class="header">
       <div class="header-row">
         <div class="pulse-dot"></div>
-        <h1>Grove · The Whole Machine</h1>
+        <h1>Grove · Brick Anatomy</h1>
       </div>
-      <p class="subtitle">com.bovinelabs.grove 2.1.1 · three assemblies, one pipeline, one integer switch</p>
+      <p class="subtitle">Header bread · filling · little arrows to kids</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"author-path","label":"Author path","focus":["gt","editor","importer","auth"],"note":"Graph Toolkit source becomes GroveAuthGraph via ScriptedImporter."},{"id":"bake-path","label":"Bake path","focus":["auth","authoring","baker","blob"],"note":"Auth assets + variants + instance overrides hash into GraphData blobs."},{"id":"run-path","label":"Run path","focus":["blob","impl","exec","state"],"note":"GraphImpl owns context; GraphExecution walks Root / Calculate outputs."},{"id":"codegen","label":"Source-gen","focus":["codegen","impl","exec","nodes"],"note":"ContextGenerator fills Create/Update/SetChunk + Type-id switches on your context."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"collection-path","label":"Outside of brick","focus":["web","mobile","edge","stream"],"note":"GraphId, Root, Inputs, Outputs live on the brick shell."},{"id":"consent-boundary","label":"Each box","focus":["edge","consent","pii"],"note":"Every node is bread (Type+id) + filling (payload)."},{"id":"analytics-consumers","label":"Robot opens doors","focus":["stream","warehouse","dashboard","features","model"],"note":"Type number → method → maybe open more doors."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4544,9 +4544,9 @@
 
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read">
-      <svg viewBox="0 0 910 788" role="img" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="signal-flow" data-quality-profile="standard">
-        <title id="archify-diagram-title">Grove · The Whole Machine</title>
-        <desc id="archify-diagram-description">com.bovinelabs.grove 2.1.1 · three assemblies, one pipeline, one integer switch</desc>
+      <svg viewBox="0 0 1200 780" role="img" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="standard">
+        <title id="archify-diagram-title">Grove · Brick Anatomy</title>
+        <desc id="archify-diagram-description">Header bread · filling · little arrows to kids</desc>
         <!-- Definitions -->
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -4569,244 +4569,220 @@
         <!-- Background Grid -->
         <rect width="100%" height="100%" fill="url(#grid)" />
 
-        <!-- Boundaries (behind everything) -->
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" x="10" y="60" width="800" height="110" rx="12" class="c-region" stroke-width="1"/>
-        <text x="18" y="78" class="t-cloud" font-size="9" font-weight="600">Edit-time</text>
+        <!-- Data Stages -->
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="stage" data-composition-frame-id="0" x="16" y="46" width="168" height="660" rx="10" class="c-lane" stroke-width="1"/>
+        <text x="100" y="68" class="t-dim" font-size="9" font-weight="600" text-anchor="middle">01 / Shell</text>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="1" x="210" y="250" width="600" height="110" rx="12" class="c-region" stroke-width="1"/>
-        <text x="218" y="268" class="t-cloud" font-size="9" font-weight="600">Bake-time</text>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="stage" data-composition-frame-id="1" x="231" y="46" width="168" height="660" rx="10" class="c-lane" stroke-width="1"/>
+        <text x="315" y="68" class="t-dim" font-size="9" font-weight="600" text-anchor="middle">02 / Box</text>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="security-group" data-composition-frame-id="2" x="10" y="440" width="860" height="280" rx="8" class="c-security-group" stroke-width="1"/>
-        <text x="18" y="458" class="t-security" font-size="9" font-weight="600">Run-time</text>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="stage" data-composition-frame-id="2" x="446" y="46" width="168" height="660" rx="10" class="c-lane" stroke-width="1"/>
+        <text x="530" y="68" class="t-dim" font-size="9" font-weight="600" text-anchor="middle">03 / Pick</text>
 
-        <!-- Connection paths (before components for correct z-order) -->
-        <path data-edge-from="gt" data-edge-to="editor" data-edge-label="GroveGraph" data-edge-key="0" data-edge-id="c1" data-composition-points="180,120;240,120" d="M 180 120 L 240 120" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="editor" data-edge-to="importer" data-edge-label="import" data-edge-key="1" data-edge-id="c2" data-composition-points="380,120;440,120" d="M 380 120 L 440 120" class="a-emphasis" data-animate="edge" style="--step:1" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="importer" data-edge-to="auth" data-edge-label="main asset" data-edge-key="2" data-edge-id="c3" data-composition-points="580,120;640,120" d="M 580 120 L 640 120" class="a-emphasis" data-animate="edge" style="--step:2" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="auth" data-edge-to="authoring" data-edge-label="reference Auth" data-edge-key="3" data-edge-id="c4" data-composition-points="710,150;710,215;310,215;310,280" d="M 710 150 L 710 207 Q 710 215 702 215 L 318 215 Q 310 215 310 223 L 310 280" class="a-dashed" data-animate="edge" style="--step:3" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="authoring" data-edge-to="baker" data-edge-key="4" data-edge-id="c5" data-composition-points="380,310;440,310" d="M 380 310 L 440 310" class="a-emphasis" data-animate="edge" style="--step:4" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="baker" data-edge-to="blob" data-edge-label="Create()" data-edge-key="5" data-edge-id="c6" data-composition-points="580,310;640,310" d="M 580 310 L 640 310" class="a-emphasis" data-animate="edge" style="--step:5" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="blob" data-edge-to="exec" data-edge-label="blob ref" data-edge-key="6" data-edge-id="c7" data-composition-points="710,340;710,364;584,364;584,493;560,493" d="M 710 340 L 710 356 Q 710 364 702 364 L 592 364 Q 584 364 584 372 L 584 485 Q 584 493 576 493 L 560 493" class="a-emphasis" data-animate="edge" style="--step:6" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="codegen" data-edge-to="impl" data-edge-key="7" data-edge-id="c8" data-composition-points="180,500;240,500" d="M 180 500 L 240 500" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="impl" data-edge-to="exec" data-edge-key="8" data-edge-id="c9" data-composition-points="380,500;420,500" d="M 380 500 L 420 500" class="a-emphasis" data-animate="edge" style="--step:8" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="exec" data-edge-to="state" data-edge-key="9" data-edge-id="c10" data-composition-points="560,507;584,507;584,523;676,523;676,500;700,500" d="M 560 507 L 576 507 Q 584 507 584 515 L 584 515 Q 584 523 592 523 L 668 523 Q 676 523 676 515 L 676 508 Q 676 500 684 500 L 700 500" class="a-default" data-animate="edge" style="--step:9" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="exec" data-edge-to="nodes" data-edge-key="10" data-edge-id="c11" data-composition-points="490,530;490,640" d="M 490 530 L 490 640" class="a-emphasis" data-animate="edge" style="--step:10" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="codegen" data-edge-to="nodes" data-edge-key="11" data-edge-id="c12" data-composition-points="110,530;110,554;396,554;396,670;420,670" d="M 110 530 L 110 546 Q 110 554 118 554 L 388 554 Q 396 554 396 562 L 396 662 Q 396 670 404 670 L 420 670" class="a-dashed" data-animate="edge" style="--step:11" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="stage" data-composition-frame-id="3" x="661" y="46" width="168" height="660" rx="10" class="c-lane" stroke-width="1"/>
+        <text x="745" y="68" class="t-dim" font-size="9" font-weight="600" text-anchor="middle">04 / Run</text>
 
-        <!-- Components -->
-        <g id="node-gt" data-node-id="gt" data-node-label="Graph Toolkit" tabindex="0" role="button" aria-label="Focus Graph Toolkit, .mygraph, Edit-time" aria-pressed="false" data-node-kind="external" data-node-sublabel=".mygraph" data-node-tag="Unity" data-node-context="Edit-time">
-          <title>Graph Toolkit · .mygraph · Edit-time · Unity</title>
-          <rect x="40" y="90" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="40" y="90" width="140" height="60" rx="6" class="c-external" data-animate="node" style="--step:0" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(46 96) scale(0.6875)">
-            <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
-            <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
-          </g>
-          <text data-detail-anchor x="110" y="118" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Graph Toolkit</text>
-        <text data-detail="context" x="110" y="134" class="t-muted" font-size="9" text-anchor="middle">.mygraph</text>
-        <text data-detail="fine" x="110" y="142" class="t-external" font-size="7" text-anchor="middle">Unity</text>
-        </g>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="stage" data-composition-frame-id="4" x="876" y="46" width="168" height="660" rx="10" class="c-lane" stroke-width="1"/>
+        <text x="960" y="68" class="t-dim" font-size="9" font-weight="600" text-anchor="middle">05 / World</text>
 
-        <g id="node-editor" data-node-id="editor" data-node-label="Grove.Editor" tabindex="0" role="button" aria-label="Focus Grove.Editor, nodes + graph, Edit-time" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="nodes + graph" data-node-tag="author" data-node-context="Edit-time">
-          <title>Grove.Editor · nodes + graph · Edit-time · author</title>
-          <rect x="240" y="90" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="240" y="90" width="140" height="60" rx="6" class="c-frontend" data-animate="node" style="--step:1" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(246 96) scale(0.6875)">
+        <!-- Flow paths -->
+        <path data-edge-from="web" data-edge-to="edge" data-edge-label="kick" data-edge-key="0" data-edge-id="web-clickstream" data-composition-points="156,157;205,157;205,271;259,271" d="M 156 157 L 205 157 L 205 271 L 259 271" class="a-emphasis" data-animate="edge" style="--step:0" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="mobile" data-edge-to="edge" data-edge-label="keys" data-edge-key="1" data-edge-id="mobile-events" data-composition-points="156,385;222,385;222,271;259,271" d="M 156 385 L 222 385 L 222 271 L 259 271" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="edge" data-edge-to="consent" data-edge-label="pack" data-edge-key="2" data-edge-id="consent-enrichment" data-composition-points="315,242;315,112;450,112;450,157;474,157" d="M 315 242 L 315 112 L 450 112 L 450 157 L 474 157" class="a-security" data-animate="edge" style="--step:2" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="edge" data-edge-to="stream" data-edge-label="Type" data-edge-key="3" data-edge-id="accepted-events" data-composition-points="371,271;420,271;420,385;474,385" d="M 371 271 L 420 271 L 420 385 L 474 385" class="a-emphasis" data-animate="edge" style="--step:3" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="consent" data-edge-to="pii" data-edge-label="kids" data-edge-key="4" data-edge-id="identity-map" data-composition-points="586,157;689,157" d="M 586 157 L 689 157" class="a-security" data-animate="edge" style="--step:4" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="stream" data-edge-to="warehouse" data-edge-label="case" data-edge-key="5" data-edge-id="normalized-facts" data-composition-points="586,385;689,385" d="M 586 385 L 689 385" class="a-emphasis" data-animate="edge" style="--step:5" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="warehouse" data-edge-to="features" data-edge-label="again" data-edge-key="6" data-edge-id="daily-aggregates" data-composition-points="745,414;745,584" d="M 745 414 L 745 584" class="a-dashed" data-animate="edge" style="--step:6" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="warehouse" data-edge-to="dashboard" data-edge-label="do" data-edge-key="7" data-edge-id="metrics-query" data-composition-points="801,385;852,385;852,271;904,271" d="M 801 385 L 852 385 L 852 271 L 904 271" class="a-default" data-animate="edge" style="--step:7" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="features" data-edge-to="model" data-edge-label="memo" data-edge-key="8" data-edge-id="feature-vectors" data-composition-points="801,613;904,613" d="M 801 613 L 904 613" class="a-dashed" data-animate="edge" style="--step:8" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="pii" data-edge-to="dashboard" data-edge-label="scope" data-edge-key="9" data-edge-id="restricted-join" data-composition-points="801,157;878,157;878,212;960,212;960,242" d="M 801 157 L 878 157 L 878 212 L 960 212 L 960 242" class="a-security" data-animate="edge" style="--step:9" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+
+        <!-- Nodes -->
+        <g id="node-web" data-node-id="web" data-node-label="Root" tabindex="0" role="button" aria-label="Focus Root, start door, 01 / Shell" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="start door" data-node-context="01 / Shell">
+          <title>Root · start door · 01 / Shell</title>
+          <rect x="44" y="128" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="44" y="128" width="112" height="58" rx="6" class="c-frontend" data-animate="node" style="--step:0" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(50 134) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-detail-anchor x="310" y="118" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Grove.Editor</text>
-        <text data-detail="context" x="310" y="134" class="t-muted" font-size="9" text-anchor="middle">nodes + graph</text>
-        <text data-detail="fine" x="310" y="142" class="t-frontend" font-size="7" text-anchor="middle">author</text>
+          <text data-detail-anchor x="100" y="149" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Root</text>
+          <text data-detail="context" x="100" y="165" class="t-muted" font-size="7" text-anchor="middle">start door</text>
         </g>
 
-        <g id="node-importer" data-node-id="importer" data-node-label="Importer" tabindex="0" role="button" aria-label="Focus Importer, ScriptedImporter, Edit-time" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="ScriptedImporter" data-node-context="Edit-time">
-          <title>Importer · ScriptedImporter · Edit-time</title>
-          <rect x="440" y="90" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="440" y="90" width="140" height="60" rx="6" class="c-frontend" data-animate="node" style="--step:2" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(446 96) scale(0.6875)">
+        <g id="node-mobile" data-node-id="mobile" data-node-label="I/O list" tabindex="0" role="button" aria-label="Focus I/O list, keys, 01 / Shell" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="keys" data-node-context="01 / Shell">
+          <title>I/O list · keys · 01 / Shell</title>
+          <rect x="44" y="356" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="44" y="356" width="112" height="58" rx="6" class="c-frontend" data-animate="node" style="--step:1" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(50 362) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-detail-anchor x="510" y="118" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Importer</text>
-        <text data-detail="context" x="510" y="134" class="t-muted" font-size="9" text-anchor="middle">ScriptedImporter</text>
+          <text data-detail-anchor x="100" y="377" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">I/O list</text>
+          <text data-detail="context" x="100" y="393" class="t-muted" font-size="7" text-anchor="middle">keys</text>
         </g>
 
-        <g id="node-auth" data-node-id="auth" data-node-label="AuthGraph" tabindex="0" role="button" aria-label="Focus AuthGraph, Root · I/O · Nodes, Edit-time" aria-pressed="false" data-node-kind="database" data-node-sublabel="Root · I/O · Nodes" data-node-tag="import" data-node-context="Edit-time">
-          <title>AuthGraph · Root · I/O · Nodes · Edit-time · import</title>
-          <rect x="640" y="90" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="640" y="90" width="140" height="60" rx="6" class="c-database" data-animate="node" style="--step:3" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(646 96) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-detail-anchor x="710" y="118" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">AuthGraph</text>
-        <text data-detail="context" x="710" y="134" class="t-muted" font-size="9" text-anchor="middle">Root · I/O · Nodes</text>
-        <text data-detail="fine" x="710" y="142" class="t-database" font-size="7" text-anchor="middle">import</text>
-        </g>
-
-        <g id="node-authoring" data-node-id="authoring" data-node-label="Authoring" tabindex="0" role="button" aria-label="Focus Authoring, GraphAuthoring, Bake-time" aria-pressed="false" data-node-kind="backend" data-node-sublabel="GraphAuthoring" data-node-tag="MB" data-node-context="Bake-time">
-          <title>Authoring · GraphAuthoring · Bake-time · MB</title>
-          <rect x="240" y="280" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="240" y="280" width="140" height="60" rx="6" class="c-backend" data-animate="node" style="--step:4" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(246 286) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-detail-anchor x="310" y="308" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Authoring</text>
-        <text data-detail="context" x="310" y="324" class="t-muted" font-size="9" text-anchor="middle">GraphAuthoring</text>
-        <text data-detail="fine" x="310" y="332" class="t-backend" font-size="7" text-anchor="middle">MB</text>
-        </g>
-
-        <g id="node-baker" data-node-id="baker" data-node-label="Bake system" tabindex="0" role="button" aria-label="Focus Bake system, auto-spawned, Bake-time" aria-pressed="false" data-node-kind="backend" data-node-sublabel="auto-spawned" data-node-tag="ECS" data-node-context="Bake-time">
-          <title>Bake system · auto-spawned · Bake-time · ECS</title>
-          <rect x="440" y="280" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="440" y="280" width="140" height="60" rx="6" class="c-backend" data-animate="node" style="--step:5" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(446 286) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-detail-anchor x="510" y="308" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Bake system</text>
-        <text data-detail="context" x="510" y="324" class="t-muted" font-size="9" text-anchor="middle">auto-spawned</text>
-        <text data-detail="fine" x="510" y="332" class="t-backend" font-size="7" text-anchor="middle">ECS</text>
-        </g>
-
-        <g id="node-blob" data-node-id="blob" data-node-label="GraphData" tabindex="0" role="button" aria-label="Focus GraphData, blob asset, Bake-time" aria-pressed="false" data-node-kind="database" data-node-sublabel="blob asset" data-node-tag="runtime" data-node-context="Bake-time">
-          <title>GraphData · blob asset · Bake-time · runtime</title>
-          <rect x="640" y="280" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="640" y="280" width="140" height="60" rx="6" class="c-database" data-animate="node" style="--step:6" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(646 286) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-detail-anchor x="710" y="308" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">GraphData</text>
-        <text data-detail="context" x="710" y="324" class="t-muted" font-size="9" text-anchor="middle">blob asset</text>
-        <text data-detail="fine" x="710" y="332" class="t-database" font-size="7" text-anchor="middle">runtime</text>
-        </g>
-
-        <g id="node-codegen" data-node-id="codegen" data-node-label="Source-gen" tabindex="0" role="button" aria-label="Focus Source-gen, Roslyn, Run-time" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Roslyn" data-node-context="Run-time">
-          <title>Source-gen · Roslyn · Run-time</title>
-          <rect x="40" y="470" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="40" y="470" width="140" height="60" rx="6" class="c-cloud" data-animate="node" style="--step:7" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(46 476) scale(0.6875)">
+        <g id="node-edge" data-node-id="edge" data-node-label="Bread" tabindex="0" role="button" aria-label="Focus Bread, Type + id, 02 / Box" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Type + id" data-node-context="02 / Box">
+          <title>Bread · Type + id · 02 / Box</title>
+          <rect x="259" y="242" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="259" y="242" width="112" height="58" rx="6" class="c-cloud" data-animate="node" style="--step:1" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(265 248) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-detail-anchor x="110" y="498" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Source-gen</text>
-        <text data-detail="context" x="110" y="514" class="t-muted" font-size="9" text-anchor="middle">Roslyn</text>
+          <text data-detail-anchor x="315" y="263" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Bread</text>
+          <text data-detail="context" x="315" y="279" class="t-muted" font-size="7" text-anchor="middle">Type + id</text>
         </g>
 
-        <g id="node-impl" data-node-id="impl" data-node-label="GraphImpl" tabindex="0" role="button" aria-label="Focus GraphImpl, context life, Run-time" aria-pressed="false" data-node-kind="backend" data-node-sublabel="context life" data-node-tag="system" data-node-context="Run-time">
-          <title>GraphImpl · context life · Run-time · system</title>
-          <rect x="240" y="470" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="240" y="470" width="140" height="60" rx="6" class="c-backend" data-animate="node" style="--step:8" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(246 476) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+        <g id="node-consent" data-node-id="consent" data-node-label="Filling" tabindex="0" role="button" aria-label="Focus Filling, payload, 03 / Pick" aria-pressed="false" data-node-kind="security" data-node-sublabel="payload" data-node-context="03 / Pick">
+          <title>Filling · payload · 03 / Pick</title>
+          <rect x="474" y="128" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="474" y="128" width="112" height="58" rx="6" class="c-security" data-animate="node" style="--step:3" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(480 134) scale(0.6875)">
+            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
+            <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-detail-anchor x="310" y="498" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">GraphImpl</text>
-        <text data-detail="context" x="310" y="514" class="t-muted" font-size="9" text-anchor="middle">context life</text>
-        <text data-detail="fine" x="310" y="522" class="t-backend" font-size="7" text-anchor="middle">system</text>
+          <text data-detail-anchor x="530" y="149" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Filling</text>
+          <text data-detail="context" x="530" y="165" class="t-muted" font-size="7" text-anchor="middle">payload</text>
         </g>
 
-        <g id="node-exec" data-node-id="exec" data-node-label="Execution" tabindex="0" role="button" aria-label="Focus Execution, SetChunk+run, Run-time" aria-pressed="false" data-node-kind="backend" data-node-sublabel="SetChunk+run" data-node-tag="frame" data-node-context="Run-time">
-          <title>Execution · SetChunk+run · Run-time · frame</title>
-          <rect x="420" y="470" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="420" y="470" width="140" height="60" rx="6" class="c-backend" data-animate="node" style="--step:7" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(426 476) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-detail-anchor x="490" y="498" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Execution</text>
-        <text data-detail="context" x="490" y="514" class="t-muted" font-size="9" text-anchor="middle">SetChunk+run</text>
-        <text data-detail="fine" x="490" y="522" class="t-backend" font-size="7" text-anchor="middle">frame</text>
-        </g>
-
-        <g id="node-state" data-node-id="state" data-node-label="GroveState" tabindex="0" role="button" aria-label="Focus GroveState, per entity, Run-time" aria-pressed="false" data-node-kind="database" data-node-sublabel="per entity" data-node-context="Run-time">
-          <title>GroveState · per entity · Run-time</title>
-          <rect x="700" y="470" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="700" y="470" width="140" height="60" rx="6" class="c-database" data-animate="node" style="--step:10" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(706 476) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-detail-anchor x="770" y="498" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">GroveState</text>
-        <text data-detail="context" x="770" y="514" class="t-muted" font-size="9" text-anchor="middle">per entity</text>
-        </g>
-
-        <g id="node-nodes" data-node-id="nodes" data-node-label="Node methods" tabindex="0" role="button" aria-label="Focus Node methods, int Type ids, Run-time" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="int Type ids" data-node-context="Run-time">
-          <title>Node methods · int Type ids · Run-time</title>
-          <rect x="420" y="640" width="140" height="60" rx="6" class="c-mask"/>
-          <rect x="420" y="640" width="140" height="60" rx="6" class="c-messagebus" data-animate="node" style="--step:11" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(426 646) scale(0.6875)">
+        <g id="node-stream" data-node-id="stream" data-node-label="Door #" tabindex="0" role="button" aria-label="Focus Door #, switch, 03 / Pick" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="switch" data-node-context="03 / Pick">
+          <title>Door # · switch · 03 / Pick</title>
+          <rect x="474" y="356" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="474" y="356" width="112" height="58" rx="6" class="c-messagebus" data-animate="node" style="--step:4" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(480 362) scale(0.6875)">
             <path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/>
             <circle cx="5" cy="4.5" r="1" class="sigil-fill"/>
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-detail-anchor x="490" y="668" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Node methods</text>
-        <text data-detail="context" x="490" y="684" class="t-muted" font-size="9" text-anchor="middle">int Type ids</text>
+          <text data-detail-anchor x="530" y="377" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Door #</text>
+          <text data-detail="context" x="530" y="393" class="t-muted" font-size="7" text-anchor="middle">switch</text>
         </g>
 
-        <!-- Connection labels -->
-        <g data-detail="context" data-edge-from="gt" data-edge-to="editor" data-edge-label="GroveGraph" data-edge-key="0" data-edge-id="c1">
-          <rect x="181" y="100" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="210" y="110" class="t-muted" font-size="8" text-anchor="middle">GroveGraph</text>
-        </g>
-        <g data-detail="context" data-edge-from="editor" data-edge-to="importer" data-edge-label="import" data-edge-key="1" data-edge-id="c2">
-          <rect x="390.6" y="100" width="38.8" height="14" rx="3" class="c-mask"/>
-          <text x="410" y="110" class="t-backend" font-size="8" text-anchor="middle">import</text>
-        </g>
-        <g data-detail="context" data-edge-from="importer" data-edge-to="auth" data-edge-label="main asset" data-edge-key="2" data-edge-id="c3">
-          <rect x="581" y="100" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="610" y="110" class="t-backend" font-size="8" text-anchor="middle">main asset</text>
-        </g>
-        <g data-detail="context" data-edge-from="auth" data-edge-to="authoring" data-edge-label="reference Auth" data-edge-key="3" data-edge-id="c4">
-          <rect x="471.4" y="195" width="77.2" height="14" rx="3" class="c-mask"/>
-          <text x="510" y="205" class="t-messagebus" font-size="8" text-anchor="middle">reference Auth</text>
+        <g id="node-pii" data-node-id="pii" data-node-label="Kid arrows" tabindex="0" role="button" aria-label="Focus Kid arrows, BlobPtrs, 04 / Run" aria-pressed="false" data-node-kind="security" data-node-sublabel="BlobPtrs" data-node-context="04 / Run">
+          <title>Kid arrows · BlobPtrs · 04 / Run</title>
+          <rect x="689" y="128" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="689" y="128" width="112" height="58" rx="6" class="c-security" data-animate="node" style="--step:5" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(695 134) scale(0.6875)">
+            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
+            <path d="m5.8 8 1.5 1.5 3-3"/>
+          </g>
+          <text data-detail-anchor x="745" y="149" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Kid arrows</text>
+          <text data-detail="context" x="745" y="165" class="t-muted" font-size="7" text-anchor="middle">BlobPtrs</text>
         </g>
 
-        <g data-detail="context" data-edge-from="baker" data-edge-to="blob" data-edge-label="Create()" data-edge-key="5" data-edge-id="c6">
-          <rect x="585.8" y="290" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="610" y="300" class="t-backend" font-size="8" text-anchor="middle">Create()</text>
+        <g id="node-warehouse" data-node-id="warehouse" data-node-label="Method" tabindex="0" role="button" aria-label="Focus Method, static C#, 04 / Run" aria-pressed="false" data-node-kind="database" data-node-sublabel="static C#" data-node-context="04 / Run">
+          <title>Method · static C# · 04 / Run</title>
+          <rect x="689" y="356" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="689" y="356" width="112" height="58" rx="6" class="c-database" data-animate="node" style="--step:6" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(695 362) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-detail-anchor x="745" y="377" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Method</text>
+          <text data-detail="context" x="745" y="393" class="t-muted" font-size="7" text-anchor="middle">static C#</text>
         </g>
-        <g data-detail="context" data-edge-from="blob" data-edge-to="exec" data-edge-label="blob ref" data-edge-key="6" data-edge-id="c7">
-          <rect x="622.8" y="344" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="647" y="354" class="t-backend" font-size="8" text-anchor="middle">blob ref</text>
+
+        <g id="node-features" data-node-id="features" data-node-label="Recurse" tabindex="0" role="button" aria-label="Focus Recurse, more doors, 04 / Run" aria-pressed="false" data-node-kind="database" data-node-sublabel="more doors" data-node-context="04 / Run">
+          <title>Recurse · more doors · 04 / Run</title>
+          <rect x="689" y="584" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="689" y="584" width="112" height="58" rx="6" class="c-database" data-animate="node" style="--step:7" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(695 590) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-detail-anchor x="745" y="605" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Recurse</text>
+          <text data-detail="context" x="745" y="621" class="t-muted" font-size="7" text-anchor="middle">more doors</text>
         </g>
 
+        <g id="node-dashboard" data-node-id="dashboard" data-node-label="ECS write" tabindex="0" role="button" aria-label="Focus ECS write, move stuff, 05 / World" aria-pressed="false" data-node-kind="backend" data-node-sublabel="move stuff" data-node-context="05 / World">
+          <title>ECS write · move stuff · 05 / World</title>
+          <rect x="904" y="242" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="904" y="242" width="112" height="58" rx="6" class="c-backend" data-animate="node" style="--step:8" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(910 248) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          </g>
+          <text data-detail-anchor x="960" y="263" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">ECS write</text>
+          <text data-detail="context" x="960" y="279" class="t-muted" font-size="7" text-anchor="middle">move stuff</text>
+        </g>
 
+        <g id="node-model" data-node-id="model" data-node-label="Backpack" tabindex="0" role="button" aria-label="Focus Backpack, memory, 05 / World" aria-pressed="false" data-node-kind="backend" data-node-sublabel="memory" data-node-context="05 / World">
+          <title>Backpack · memory · 05 / World</title>
+          <rect x="904" y="584" width="112" height="58" rx="6" class="c-mask"/>
+          <rect x="904" y="584" width="112" height="58" rx="6" class="c-backend" data-animate="node" style="--step:9" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(910 590) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          </g>
+          <text data-detail-anchor x="960" y="605" class="t-primary" font-size="10" font-weight="600" text-anchor="middle">Backpack</text>
+          <text data-detail="context" x="960" y="621" class="t-muted" font-size="7" text-anchor="middle">memory</text>
+        </g>
 
-
-
+        <!-- Flow labels -->
+        <g data-detail="context" data-edge-from="web" data-edge-to="edge" data-edge-label="kick" data-edge-key="0" data-edge-id="web-clickstream">
+          <rect x="185.75" y="179" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="204" y="190" class="t-backend" font-size="8" text-anchor="middle">kick</text>
+        <text data-detail="fine" x="204" y="201" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="mobile" data-edge-to="edge" data-edge-label="keys" data-edge-key="1" data-edge-id="mobile-events">
+          <rect x="201.75" y="331" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="220" y="342" class="t-muted" font-size="8" text-anchor="middle">keys</text>
+        <text data-detail="fine" x="220" y="353" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="edge" data-edge-to="consent" data-edge-label="pack" data-edge-key="2" data-edge-id="consent-enrichment">
+          <rect x="363.75" y="89" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="382" y="100" class="t-security" font-size="8" text-anchor="middle">pack</text>
+        <text data-detail="fine" x="382" y="111" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="edge" data-edge-to="stream" data-edge-label="Type" data-edge-key="3" data-edge-id="accepted-events">
+          <rect x="419.75" y="313" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="438" y="324" class="t-backend" font-size="8" text-anchor="middle">Type</text>
+        <text data-detail="fine" x="438" y="335" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="consent" data-edge-to="pii" data-edge-label="kids" data-edge-key="4" data-edge-id="identity-map">
+          <rect x="619.75" y="133" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="638" y="144" class="t-security" font-size="8" text-anchor="middle">kids</text>
+        <text data-detail="fine" x="638" y="155" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="stream" data-edge-to="warehouse" data-edge-label="case" data-edge-key="5" data-edge-id="normalized-facts">
+          <rect x="619.75" y="361" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="638" y="372" class="t-backend" font-size="8" text-anchor="middle">case</text>
+        <text data-detail="fine" x="638" y="383" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="warehouse" data-edge-to="features" data-edge-label="again" data-edge-key="6" data-edge-id="daily-aggregates">
+          <rect x="726.75" y="485" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="745" y="496" class="t-messagebus" font-size="8" text-anchor="middle">again</text>
+        <text data-detail="fine" x="745" y="507" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="warehouse" data-edge-to="dashboard" data-edge-label="do" data-edge-key="7" data-edge-id="metrics-query">
+          <rect x="811.75" y="315" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="830" y="326" class="t-muted" font-size="8" text-anchor="middle">do</text>
+        <text data-detail="fine" x="830" y="337" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="features" data-edge-to="model" data-edge-label="memo" data-edge-key="8" data-edge-id="feature-vectors">
+          <rect x="833.75" y="587" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="852" y="598" class="t-messagebus" font-size="8" text-anchor="middle">memo</text>
+        <text data-detail="fine" x="852" y="609" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
+        <g data-detail="context" data-edge-from="pii" data-edge-to="dashboard" data-edge-label="scope" data-edge-key="9" data-edge-id="restricted-join">
+          <rect x="861.75" y="187" width="36.5" height="27" rx="4" class="c-mask"/>
+          <text x="880" y="198" class="t-security" font-size="8" text-anchor="middle">scope</text>
+        <text data-detail="fine" x="880" y="209" class="t-dim" font-size="7" text-anchor="middle">brick</text>
+        </g>
 
         <!-- Legend -->
-        <g data-legend-bridge>
-          <text x="40" y="759" class="t-primary" font-size="9" font-weight="600">Legend</text>
-          <g data-legend-kind="external">
-            <rect x="40" y="764" width="14" height="9" rx="2" class="c-external" stroke-width="1"/>
-            <text x="60" y="772" class="t-muted" font-size="8">External</text>
-          </g>
-          <g data-legend-kind="frontend">
-            <rect x="144" y="764" width="14" height="9" rx="2" class="c-frontend" stroke-width="1"/>
-            <text x="164" y="772" class="t-muted" font-size="8">Frontend</text>
-          </g>
-          <g data-legend-kind="database">
-            <rect x="248" y="764" width="14" height="9" rx="2" class="c-database" stroke-width="1"/>
-            <text x="268" y="772" class="t-muted" font-size="8">Database</text>
-          </g>
-          <g data-legend-kind="backend">
-            <rect x="352" y="764" width="14" height="9" rx="2" class="c-backend" stroke-width="1"/>
-            <text x="372" y="772" class="t-muted" font-size="8">Backend</text>
-          </g>
-          <g data-legend-kind="cloud">
-            <rect x="451" y="764" width="14" height="9" rx="2" class="c-cloud" stroke-width="1"/>
-            <text x="471" y="772" class="t-muted" font-size="8">Cloud</text>
-          </g>
-          <g data-legend-kind="messagebus">
-            <rect x="540" y="764" width="14" height="9" rx="2" class="c-messagebus" stroke-width="1"/>
-            <text x="560" y="772" class="t-muted" font-size="8">Message bus</text>
-          </g>
-        </g>
+        <text x="214" y="724" class="t-primary" font-size="10" font-weight="600">Legend</text>
+        <path d="M 214 744 L 248 744" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <text x="257" y="747" class="t-muted" font-size="8">primary data</text>
+        <path d="M 340 744 L 374 744" class="a-security" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <text x="383" y="747" class="t-muted" font-size="8">policy / PII</text>
+        <path d="M 480 744 L 514 744" class="a-dashed" stroke-width="1.4" marker-end="url(#arrowhead-dashed)"/>
+        <text x="523" y="747" class="t-muted" font-size="8">async batch</text>
+        <rect x="625" y="736" width="14" height="9" rx="2" class="c-database" stroke-width="1"/>
+        <text x="646" y="744" class="t-muted" font-size="8">data store</text>
       </svg>
       <p class="intent-trace-status no-print" id="intent-trace-status" role="status" aria-live="polite" aria-atomic="true"></p>
       <div class="share-chapter-cue no-print" id="share-chapter-cue" hidden role="status" aria-live="polite">
@@ -4992,44 +4968,44 @@
     <div class="cards">
       <div class="card">
         <div class="card-header">
-          <div class="card-dot cyan"></div>
-          <h3>Three assets, not one</h3>
+          <div class="card-dot emerald"></div>
+          <h3>Sandwich</h3>
         </div>
         <ul>
-          <li>&bull; Source: Graph Toolkit .mygraph (GroveGraph)</li>
-          <li>&bull; Import: GroveAuthGraph main + node subassets</li>
-          <li>&bull; Runtime: BlobAssetReference⟨GraphData⟩ on IGraphReference</li>
+          <li>&bull; Top bread = Type number + NodeId</li>
+          <li>&bull; Filling = your Speed / scores / kids</li>
+          <li>&bull; No magic vtable — just numbers</li>
         </ul>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <div class="card-dot emerald"></div>
-          <h3>The runtime joke</h3>
+          <div class="card-dot cyan"></div>
+          <h3>Two starts</h3>
         </div>
         <ul>
-          <li>&bull; Blob stores int Type + payload + blob pointers</li>
-          <li>&bull; Your context holds the switch table (source-gen)</li>
-          <li>&bull; Execute pushes; Calculate pulls</li>
+          <li>&bull; Root.Execute = push the map</li>
+          <li>&bull; Output.Calculate = pull a value</li>
+          <li>&bull; Constant / Variable are special snacks</li>
         </ul>
       </div>
 
       <div class="card">
         <div class="card-header">
           <div class="card-dot rose"></div>
-          <h3>Hard rules</h3>
+          <h3>Numbers</h3>
         </div>
         <ul>
-          <li>&bull; Execution root = one Input boundary → execution</li>
-          <li>&bull; Untyped vars route only — not runtime I/O</li>
-          <li>&bull; Variants strip at bake; GroveState is live memory</li>
+          <li>&bull; 0 = do nothing</li>
+          <li>&bull; Negative = Grove toys</li>
+          <li>&bull; Your positive = your toys</li>
         </ul>
       </div>
     </div>
 
     <!-- Footer -->
     <p class="footer">
-      Architecture diagram &bull; Built with Archify<span class="no-print"> &bull; <a class="artifact-start-link" href="https://tt-a1i.github.io/archify/start.html?type=architecture&amp;source=artifact" target="_blank" rel="noopener noreferrer">Create yours &nearr;</a> &bull; Hover to trace &bull; <kbd>R</kbd> route &bull; Click to focus &bull; <kbd>+</kbd>/<kbd>&minus;</kbd> zoom &bull; <kbd>M</kbd> radar &bull; <kbd>[</kbd>/<kbd>]</kbd> views &bull; <kbd>P</kbd> play story &bull; <kbd>T</kbd> theme &bull; <kbd>E</kbd> export</span>
+      Data-flow diagram &bull; Built with Archify<span class="no-print"> &bull; <a class="artifact-start-link" href="https://tt-a1i.github.io/archify/start.html?type=dataflow&amp;source=artifact" target="_blank" rel="noopener noreferrer">Create yours &nearr;</a> &bull; Hover to trace &bull; <kbd>R</kbd> route &bull; Click to focus &bull; <kbd>+</kbd>/<kbd>&minus;</kbd> zoom &bull; <kbd>M</kbd> radar &bull; <kbd>[</kbd>/<kbd>]</kbd> views &bull; <kbd>P</kbd> play story &bull; <kbd>T</kbd> theme &bull; <kbd>E</kbd> export</span>
     </p>
   </div>
 

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grove — how it works</title>
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0 auto;padding:1.4rem 1.1rem 4rem;max-width:58rem;background:#fff;color:#16181d;
+ font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font-size:1.4rem;margin:.2rem 0 .1rem}
+h2{font-size:1.02rem;margin:1.5rem 0 .35rem}
+p{margin:.45rem 0}
+.crumb{font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;opacity:.65;margin:0 0 .5rem}
+.crumb a{color:inherit}
+.lede{font-size:1.02rem;margin:.35rem 0 .9rem}
+table{border-collapse:collapse;width:100%;margin:.45rem 0 .9rem;font-size:.88rem}
+th,td{border:1px solid #d6d9df;padding:.32rem .5rem;text-align:left;vertical-align:top}
+th{background:#f3f4f7;font-weight:600}
+td.w{white-space:nowrap}
+code{font:.86em ui-monospace,SFMono-Regular,Menlo,monospace;background:#f0f1f4;padding:.05em .3em;border-radius:3px}
+ol{margin:.4rem 0;padding-left:1.25rem}
+li{margin:.25rem 0}
+.tip{border-left:4px solid #1f5fd0;padding:.5rem .8rem;margin:1rem 0;background:rgba(31,95,208,.07)}
+footer{margin-top:2.5rem;font-size:.8rem;opacity:.6;border-top:1px solid #d6d9df;padding-top:.6rem}
+@media(prefers-color-scheme:dark){
+ body{background:#14161a;color:#e5e8ec}
+ th,td,footer{border-color:#343943}
+ th{background:#1e2128}
+ code{background:#1e2128}
+ .tip{background:rgba(127,176,255,.09);border-left-color:#7fb0ff}
+}
+</style>
+</head>
+<body>
+<p class="crumb"><a href="../index.html">docs</a> / grove</p>
+<h1>How Grove works</h1>
+<p class="lede">Watch the maps in order. Each opens as an interactive Archify diagram
+(dark + present mode). Press <b>?</b> in a map for controls, <b>P</b> for guided stories.</p>
+
+<div class="tip"><b>Kid version in one line:</b> you draw a treasure map → Grove freezes it into a brick →
+a robot reads the brick every frame by opening doors with numbers.</div>
+
+<h2>Watch path (do this order)</h2>
+<table>
+<tr><th class="w">#</th><th>Map</th><th>Learn</th></tr>
+<tr>
+  <td class="w">01</td>
+  <td class="w"><a href="01-toy-machine.architecture.html?theme=dark&amp;present=1">Toy machine</a></td>
+  <td>Big picture: draw · bake · play rooms</td>
+</tr>
+<tr>
+  <td class="w">02</td>
+  <td class="w"><a href="02-draw-bake-play.workflow.html?theme=dark&amp;present=1">Draw → bake → play</a></td>
+  <td>Pipeline + the one start-door rule</td>
+</tr>
+<tr>
+  <td class="w">03</td>
+  <td class="w"><a href="03-one-frame.sequence.html?theme=dark&amp;present=1">One frame</a></td>
+  <td>GraphImpl · Execution · SetChunk · Execute</td>
+</tr>
+<tr>
+  <td class="w">04</td>
+  <td class="w"><a href="04-brick.anatomy.dataflow.html?theme=dark&amp;present=1">Brick anatomy</a></td>
+  <td>Header bread + payload filling + Type doors</td>
+</tr>
+<tr>
+  <td class="w">05</td>
+  <td class="w"><a href="05-door-book.sequence.html?theme=dark&amp;present=1">Door book</a></td>
+  <td>Source-gen builds the switch on your context</td>
+</tr>
+<tr>
+  <td class="w">06</td>
+  <td class="w"><a href="06-push-pull.lifecycle.html?theme=dark&amp;present=1">Push vs pull</a></td>
+  <td>Execute pushes · Calculate pulls · backpack</td>
+</tr>
+<tr>
+  <td class="w">07</td>
+  <td class="w"><a href="07-make-a-toy.architecture.html?theme=dark&amp;present=1">Make a toy</a></td>
+  <td>Four pieces of a custom node</td>
+</tr>
+</table>
+
+<h2>Sources</h2>
+<ul>
+<li>Map IR: <code>grove/src/*.json</code></li>
+<li>Package: <code>com.bovinelabs.grove</code> (PackageCache)</li>
+</ul>
+
+<footer>
+<a href="../index.html">← all topics</a>
+</footer>
+</body>
+</html>

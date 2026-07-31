@@ -22,30 +22,28 @@
           "reviewing",
           "completed"
         ],
-        "note": "connecting default \u2192 Initialize \u2192 StartupGate \u2192 gameplay."
+        "note": "connecting default \u2192 Initialize \u2192 StartupGate \u2192 gameplay when complete."
       },
       {
         "id": "human-waits",
         "label": "Gate wait",
         "focus": [
-          "executing",
-          "approval",
           "reviewing",
+          "approval",
           "blocked"
         ],
-        "note": "Gate holds until GoInGame completes (server marks in game)."
+        "note": "GoInGame holds IsCompleted false until server marks in game."
       },
       {
         "id": "recovery-and-exits",
         "label": "Disconnect",
         "focus": [
-          "executing",
+          "queued",
           "failed",
-          "blocked",
           "cancelled",
           "expired"
         ],
-        "note": "Tracker jumps to disconnected on terminal event."
+        "note": "Root tracker jumps to disconnected on terminal event \u2014 not a gate retry."
       }
     ]
   },
@@ -130,7 +128,7 @@
     {
       "id": "blocked",
       "type": "waiting",
-      "label": "waiting",
+      "label": "Hold gate",
       "sublabel": "IsCompleted=0",
       "lane": "waiting",
       "col": 1,
@@ -139,8 +137,8 @@
     {
       "id": "failed",
       "type": "failure",
-      "label": "terminal event",
-      "sublabel": "disconnect",
+      "label": "Tracker sees",
+      "sublabel": "disconnect evt",
       "lane": "exceptions",
       "col": 0,
       "yOffset": 78,
@@ -158,7 +156,7 @@
     {
       "id": "expired",
       "type": "failure",
-      "label": "outcome",
+      "label": "Outcome",
       "sublabel": "published",
       "lane": "terminal",
       "col": 1,
@@ -167,91 +165,79 @@
   ],
   "transitions": [
     {
-      "id": "approval-needed",
+      "id": "t-main-1",
+      "from": "queued",
+      "to": "planning",
+      "variant": "emphasis"
+    },
+    {
+      "id": "t-main-2",
+      "from": "planning",
+      "to": "executing",
+      "variant": "emphasis"
+    },
+    {
+      "id": "t-main-3",
       "from": "executing",
+      "to": "reviewing",
+      "variant": "emphasis"
+    },
+    {
+      "id": "t-main-4",
+      "from": "reviewing",
+      "to": "completed",
+      "variant": "emphasis"
+    },
+    {
+      "id": "t-gate-block",
+      "from": "reviewing",
       "to": "approval",
-      "variant": "security",
+      "variant": "default",
       "fromSide": "bottom",
       "toSide": "top",
       "route": "straight"
     },
     {
-      "id": "review-blocked",
-      "from": "reviewing",
+      "id": "t-wait",
+      "from": "approval",
       "to": "blocked",
-      "variant": "default",
-      "route": "drop"
+      "variant": "dashed"
     },
     {
-      "id": "execution-failed",
-      "from": "executing",
+      "id": "t-wait-back",
+      "from": "blocked",
+      "to": "approval",
+      "variant": "dashed"
+    },
+    {
+      "id": "t-complete",
+      "from": "approval",
+      "to": "reviewing",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "route": "straight"
+    },
+    {
+      "id": "t-disc",
+      "from": "queued",
       "to": "failed",
       "variant": "security",
-      "fromSide": "left",
-      "toSide": "left",
-      "via": [
-        [
-          320,
-          157
-        ],
-        [
-          320,
-          385
-        ]
-      ]
-    },
-    {
-      "id": "failed-retry",
-      "from": "failed",
-      "to": "executing",
-      "variant": "emphasis",
-      "fromSide": "left",
-      "toSide": "top",
-      "via": [
-        [
-          20,
-          385
-        ],
-        [
-          20,
-          80
-        ],
-        [
-          402,
-          80
-        ]
-      ]
-    },
-    {
-      "id": "block-expired",
-      "from": "blocked",
-      "to": "expired",
-      "variant": "security",
       "fromSide": "bottom",
       "toSide": "top",
       "route": "straight"
     },
     {
-      "id": "approval-cancelled",
-      "from": "approval",
+      "id": "t-disc2",
+      "from": "failed",
       "to": "cancelled",
-      "variant": "security",
-      "fromSide": "bottom",
-      "toSide": "top",
-      "via": [
-        [
-          480,
-          336
-        ],
-        [
-          480,
-          432
-        ],
-        [
-          402,
-          432
-        ]
-      ]
+      "variant": "security"
+    },
+    {
+      "id": "t-outcome",
+      "from": "cancelled",
+      "to": "expired",
+      "variant": "dashed"
     }
   ],
   "cards": [
@@ -275,11 +261,11 @@
     },
     {
       "dot": "rose",
-      "title": "Proof",
+      "title": "Disconnect is root-level",
       "items": [
-        "state=gameplay only via gate",
-        "inGame=1 proves RPC path",
-        "no LocalGoInGameSystem left"
+        "Tracker watches every tick on root",
+        "Terminal event \u2192 CanopyGoTo(disconnected)",
+        "Not a gate failure retry loop"
       ]
     }
   ]
