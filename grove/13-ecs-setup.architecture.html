@@ -4501,7 +4501,7 @@
       <p class="subtitle">IGraphReference · authoring · bake discovery · multi-graph · GetState · debug</p>
     </div>
 
-    <script id="archify-guided-views-data" type="application/json">[{"id":"main-path","label":"Happy path","focus":["define_graph","auth_asset","authoring_mb","bake_sys","igraph","isystem"],"note":"Define → Auth asset → Authoring → auto bake → GraphImpl Execute."},{"id":"multi","label":"Multi-graph","focus":["buffer_mb","graphid","remove","grovestate"],"note":"Shared GroveState; RemoveGraphState by GraphId."},{"id":"debug","label":"State API + debug","focus":["getstate","debug_attr","variants","context_type"],"note":"GetState + GraphStateUtil — not GetVariables."}]</script>
+    <script id="archify-guided-views-data" type="application/json">[{"id":"main-path","label":"Happy path","focus":["define_graph","auth_asset","authoring_mb","bake_sys","igraph","isystem"],"note":"Define → Auth asset → Authoring → auto bake → GraphImpl Execute."},{"id":"multi","label":"Multi-graph","focus":["buffer_mb","graphid","remove","grovestate"],"note":"Shared GroveState; RemoveGraphState by GraphId."},{"id":"debug","label":"State API + debug","focus":["getstate","debug_attr","variants","context_type"],"note":"GetState + GraphStateUtil — not GetVariables."},{"id":"link-vs-sub","label":"Subgraph vs GraphLink","focus":["subgraph","graphlink","auth_asset","isystem"],"note":"Toolkit subgraphs are import composition. GraphLink is a runtime jump via GraphLinkData."}]</script>
 
     <div class="guided-views no-print" id="guided-views" hidden aria-label="Guided diagram views">
       <button id="guided-view-prev" type="button" aria-label="Previous guided view" title="Previous guided view ([)">&#8592;</button>
@@ -4544,7 +4544,7 @@
 
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read">
-      <svg viewBox="0 0 1190 520" role="img" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="signal-flow" data-quality-profile="standard">
+      <svg viewBox="0 0 1200 544" role="img" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="signal-flow" data-quality-profile="standard">
         <title id="archify-diagram-title">Grove · ECS Setup Checklist</title>
         <desc id="archify-diagram-description">IGraphReference · authoring · bake discovery · multi-graph · GetState · debug</desc>
         <!-- Definitions -->
@@ -4586,6 +4586,7 @@
         <path data-edge-from="graphid" data-edge-to="remove" data-edge-label="cleanup" data-edge-key="10" data-edge-id="gid-rm" data-composition-points="960,346;1020,346" d="M 960 346 L 1020 346" class="a-default" data-animate="edge" style="--step:10" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="config_var" data-edge-to="debug_attr" data-edge-key="11" data-edge-id="cfg-dbg" data-composition-points="700,400;700,372" d="M 700 400 L 700 372" class="a-default" data-animate="edge" style="--step:11" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         <path data-edge-from="variants" data-edge-to="bake_sys" data-edge-label="strip" data-edge-key="12" data-edge-id="var-bake" data-composition-points="700,240;700,216;726,216;726,200;710,200;710,176" d="M 700 240 L 700 224 Q 700 216 708 216 L 718 216 Q 726 216 726 208 L 726 208 Q 726 200 718 200 L 718 200 Q 710 200 710 192 L 710 176" class="a-default" data-animate="edge" style="--step:12" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="subgraph" data-edge-to="graphlink" data-edge-label="≠" data-edge-key="13" data-edge-id="sub-vs-gl" data-composition-points="990,448;1020,448" d="M 990 448 L 1020 448" class="a-security" data-animate="edge" style="--step:12" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
 
         <!-- Components -->
         <g id="node-define_graph" data-node-id="define_graph" data-node-label="Graph type" tabindex="0" role="button" aria-label="Focus Graph type, + importer, Architecture component" aria-pressed="false" data-node-kind="backend" data-node-sublabel="+ importer" data-node-context="Architecture component">
@@ -4771,6 +4772,33 @@
         <text data-detail="context" x="700" y="440" class="t-muted" font-size="9" text-anchor="middle">enabled</text>
         </g>
 
+        <g id="node-subgraph" data-node-id="subgraph" data-node-label="Toolkit subgraph" tabindex="0" role="button" aria-label="Focus Toolkit subgraph, import scope, Architecture component" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="import scope" data-node-tag="composition" data-node-context="Architecture component">
+          <title>Toolkit subgraph · import scope · Architecture component · composition</title>
+          <rect x="840" y="420" width="150" height="56" rx="6" class="c-mask"/>
+          <rect x="840" y="420" width="150" height="56" rx="6" class="c-cloud" data-animate="node" style="--step:12" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(846 426) scale(0.6875)">
+            <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
+          </g>
+          <text data-detail-anchor x="915" y="446" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Toolkit subgraph</text>
+        <text data-detail="context" x="915" y="462" class="t-muted" font-size="9" text-anchor="middle">import scope</text>
+        <text data-detail="fine" x="915" y="468" class="t-cloud" font-size="7" text-anchor="middle">composition</text>
+        </g>
+
+        <g id="node-graphlink" data-node-id="graphlink" data-node-label="GraphLink" tabindex="0" role="button" aria-label="Focus GraphLink, runtime jump, Architecture component" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="runtime jump" data-node-tag="GraphLinkData" data-node-context="Architecture component">
+          <title>GraphLink · runtime jump · Architecture component · GraphLinkData</title>
+          <rect x="1020" y="420" width="140" height="56" rx="6" class="c-mask"/>
+          <rect x="1020" y="420" width="140" height="56" rx="6" class="c-messagebus" data-animate="node" style="--step:12" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="messagebus" class="semantic-sigil s-messagebus" transform="translate(1026 426) scale(0.6875)">
+            <path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/>
+            <circle cx="5" cy="4.5" r="1" class="sigil-fill"/>
+            <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
+            <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
+          </g>
+          <text data-detail-anchor x="1090" y="446" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">GraphLink</text>
+        <text data-detail="context" x="1090" y="462" class="t-muted" font-size="9" text-anchor="middle">runtime jump</text>
+        <text data-detail="fine" x="1090" y="468" class="t-messagebus" font-size="7" text-anchor="middle">GraphLinkData</text>
+        </g>
+
         <!-- Connection labels -->
         <g data-detail="context" data-edge-from="define_graph" data-edge-to="auth_asset" data-edge-label="import" data-edge-key="0" data-edge-id="def-auth">
           <rect x="185.6" y="88" width="38.8" height="14" rx="3" class="c-mask"/>
@@ -4821,33 +4849,37 @@
           <rect x="696" y="224" width="34" height="14" rx="3" class="c-mask"/>
           <text x="713" y="234" class="t-muted" font-size="8" text-anchor="middle">strip</text>
         </g>
+        <g data-detail="context" data-edge-from="subgraph" data-edge-to="graphlink" data-edge-label="≠" data-edge-key="13" data-edge-id="sub-vs-gl">
+          <rect x="990" y="468" width="30" height="14" rx="3" class="c-mask"/>
+          <text x="1005" y="478" class="t-security" font-size="8" text-anchor="middle">≠</text>
+        </g>
 
         <!-- Legend -->
         <g data-legend-bridge>
-          <text x="40" y="491" class="t-primary" font-size="9" font-weight="600">Legend</text>
+          <text x="40" y="515" class="t-primary" font-size="9" font-weight="600">Legend</text>
           <g data-legend-kind="backend">
-            <rect x="40" y="496" width="14" height="9" rx="2" class="c-backend" stroke-width="1"/>
-            <text x="60" y="504" class="t-muted" font-size="8">Backend</text>
+            <rect x="40" y="520" width="14" height="9" rx="2" class="c-backend" stroke-width="1"/>
+            <text x="60" y="528" class="t-muted" font-size="8">Backend</text>
           </g>
           <g data-legend-kind="database">
-            <rect x="139" y="496" width="14" height="9" rx="2" class="c-database" stroke-width="1"/>
-            <text x="159" y="504" class="t-muted" font-size="8">Database</text>
+            <rect x="139" y="520" width="14" height="9" rx="2" class="c-database" stroke-width="1"/>
+            <text x="159" y="528" class="t-muted" font-size="8">Database</text>
           </g>
           <g data-legend-kind="cloud">
-            <rect x="243" y="496" width="14" height="9" rx="2" class="c-cloud" stroke-width="1"/>
-            <text x="263" y="504" class="t-muted" font-size="8">Cloud</text>
+            <rect x="243" y="520" width="14" height="9" rx="2" class="c-cloud" stroke-width="1"/>
+            <text x="263" y="528" class="t-muted" font-size="8">Cloud</text>
           </g>
           <g data-legend-kind="security">
-            <rect x="332" y="496" width="14" height="9" rx="2" class="c-security" stroke-width="1"/>
-            <text x="352" y="504" class="t-muted" font-size="8">Security</text>
+            <rect x="332" y="520" width="14" height="9" rx="2" class="c-security" stroke-width="1"/>
+            <text x="352" y="528" class="t-muted" font-size="8">Security</text>
           </g>
           <g data-legend-kind="frontend">
-            <rect x="436" y="496" width="14" height="9" rx="2" class="c-frontend" stroke-width="1"/>
-            <text x="456" y="504" class="t-muted" font-size="8">Frontend</text>
+            <rect x="436" y="520" width="14" height="9" rx="2" class="c-frontend" stroke-width="1"/>
+            <text x="456" y="528" class="t-muted" font-size="8">Frontend</text>
           </g>
           <g data-legend-kind="messagebus">
-            <rect x="540" y="496" width="14" height="9" rx="2" class="c-messagebus" stroke-width="1"/>
-            <text x="560" y="504" class="t-muted" font-size="8">Message bus</text>
+            <rect x="540" y="520" width="14" height="9" rx="2" class="c-messagebus" stroke-width="1"/>
+            <text x="560" y="528" class="t-muted" font-size="8">Message bus</text>
           </g>
         </g>
       </svg>
@@ -5068,6 +5100,7 @@
           <li>&bull; Bake auto via IGraphBaking</li>
           <li>&bull; GetState + GraphStateUtil — not GetVariables</li>
           <li>&bull; Variants strip; NodeDebug gated</li>
+          <li>&bull; Toolkit subgraph ≠ GraphLink (runtime GraphLinkData jump)</li>
         </ul>
       </div>
     </div>

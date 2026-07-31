@@ -43,6 +43,17 @@
           "context_type"
         ],
         "note": "GetState + GraphStateUtil \u2014 not GetVariables."
+      },
+      {
+        "id": "link-vs-sub",
+        "label": "Subgraph vs GraphLink",
+        "focus": [
+          "subgraph",
+          "graphlink",
+          "auth_asset",
+          "isystem"
+        ],
+        "note": "Toolkit subgraphs are import composition. GraphLink is a runtime jump via GraphLinkData."
       }
     ]
   },
@@ -256,6 +267,36 @@
         120,
         52
       ]
+    },
+    {
+      "id": "subgraph",
+      "type": "cloud",
+      "label": "Toolkit subgraph",
+      "sublabel": "import scope",
+      "pos": [
+        840,
+        420
+      ],
+      "size": [
+        150,
+        56
+      ],
+      "tag": "composition"
+    },
+    {
+      "id": "graphlink",
+      "type": "messagebus",
+      "label": "GraphLink",
+      "sublabel": "runtime jump",
+      "pos": [
+        1020,
+        420
+      ],
+      "size": [
+        140,
+        56
+      ],
+      "tag": "GraphLinkData"
     }
   ],
   "boundaries": [],
@@ -359,6 +400,14 @@
       "fromSide": "top",
       "toSide": "bottom",
       "labelDy": 28
+    },
+    {
+      "id": "sub-vs-gl",
+      "from": "subgraph",
+      "to": "graphlink",
+      "label": "\u2260",
+      "variant": "security",
+      "labelDy": 40
     }
   ],
   "cards": [
@@ -388,7 +437,8 @@
       "items": [
         "Bake auto via IGraphBaking",
         "GetState + GraphStateUtil \u2014 not GetVariables",
-        "Variants strip; NodeDebug gated"
+        "Variants strip; NodeDebug gated",
+        "Toolkit subgraph \u2260 GraphLink (runtime GraphLinkData jump)"
       ]
     }
   ]

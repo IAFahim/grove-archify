@@ -1,7 +1,7 @@
 {
   "id": "13",
   "title": "ECS Setup Checklist",
-  "blurb": "IGraphReference \u00b7 authoring \u00b7 bake discovery \u00b7 multi-graph \u00b7 GetState \u00b7 debug.",
+  "blurb": "IGraphReference \u00b7 authoring \u00b7 bake discovery \u00b7 multi-graph \u00b7 GetState \u00b7 debug. Toolkit subgraph \u2260 GraphLink runtime jump.",
   "map": "13-ecs-setup.architecture.html",
   "chapters": [
     {
@@ -31,6 +31,13 @@
       "focus": "debug",
       "text": "Use Get State extension and Graph State Util. There is no Get Variables on modern contexts. Node Debug attrs are gated by config vars.",
       "deep": "ExecuteNodeDebug DataNodeDebug under UNITY_INCLUDE_INSTRUMENTATION. graph.debug-enabled and graph.debug-selected."
+    },
+    {
+      "id": "link-vs-sub",
+      "title": "Subgraph vs GraphLink",
+      "focus": "link-vs-sub",
+      "text": "Toolkit subgraphs are editor composition the importer scopes into one Auth graph. GraphLink is different: a runtime execution jump through GraphLinkData into another graph entry. Do not mix the two tools.",
+      "deep": "Native Graph Toolkit subgraphs: importer walks them, scopes node ids into GraphData.Nodes. GraphLink is GroveExecutionTypes.GraphLink = -2. GraphLinkData holds BlobPtr ExecutionHeader and GraphLink.Execute calls that entry. Linked auth graphs use ILinkedGraphs and AddDependencies for bake. Skill notes no stock editor GraphLink node \u2014 wire via Auth."
     }
   ],
   "nodes": {
@@ -108,6 +115,16 @@
       "label": "Debug cfg",
       "short": "Debug config vars enabled and selected.",
       "deep": "GraphConfigurable."
+    },
+    "subgraph": {
+      "label": "Toolkit subgraph",
+      "short": "Toolkit subgraph. Editor composition. Importer scopes ids into one brick.",
+      "deep": "Native Graph Toolkit subgraph nesting. GroveImporter walks subgraphs; NodeIds are scope-sensitive. Land in GraphData.Nodes. This is not GraphLink."
+    },
+    "graphlink": {
+      "label": "GraphLink",
+      "short": "GraphLink. Runtime jump via GraphLinkData to another execution entry. Not a Toolkit subgraph.",
+      "deep": "GraphLinkData has BlobPtr ExecutionHeader. GraphLink.Execute with ExecuteNode GraphLink type -2 runs that entry. Use ILinkedGraphs and AddDependencies so bake tracks linked GroveAuthGraph assets. Different tool from Toolkit subgraph composition."
     }
   }
 }

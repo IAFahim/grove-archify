@@ -66,7 +66,10 @@ P0_P1_TOPICS = [
     ("ecs_setup", r"IGraphReference|IGraphBaking|GraphAuthoring"),
     ("custom_node", r"GroveExecutionAuth|NodeType|Init"),
     ("debug_hooks", r"NodeDebug|debug-enabled|ExecuteNodeDebug"),
+    # Require GraphLink name (not only incidental "subgraphs" phrases elsewhere).
+    ("subgraph_vs_graphlink", r"GraphLink(Data)?"),
 ]
+
 
 
 def load_scripts():
