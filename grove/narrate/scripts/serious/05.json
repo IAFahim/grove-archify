@@ -1,0 +1,31 @@
+{
+  "title": "Source-gen \u2014 internals",
+  "map": "05-door-book.sequence.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Generator",
+      "view": null,
+      "text": "Bovine Labs Context Generator is a Roslyn incremental generator. It skips assemblies named Bovine Labs Grove, Authoring, and Editor, but pulls public attributed methods from referenced Grove into your context switch."
+    },
+    {
+      "id": "request-and-auth",
+      "title": "Discovery",
+      "view": "request-and-auth",
+      "text": "Context Filter requires partial struct implementing I Context of Self. Node Filter finds Execute Node, Data Node, and debug attributes. Context parameter must be ref; generic I Context matches all contexts."
+    },
+    {
+      "id": "cache-fallback",
+      "title": "Emit",
+      "view": "cache-fallback",
+      "text": "Emits Create Generated, Update Generated, Set Chunk Generated from container field patterns, plus Execution Generated and Data Generated switches with Data T payload helpers."
+    },
+    {
+      "id": "return-and-trace",
+      "title": "Runtime",
+      "view": "return-and-trace",
+      "text": "Execution Header Execute calls Execution Generated. Data Header Calculate may short-circuit built-in Grove Data Types before Data Generated. Unknown Type falls through to default."
+    }
+  ],
+  "nodes": {}
+}

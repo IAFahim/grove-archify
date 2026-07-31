@@ -1,0 +1,42 @@
+{
+  "title": "Brick Anatomy \u2014 internals",
+  "map": "04-brick.anatomy.dataflow.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Layout",
+      "view": null,
+      "text": "Graph Data is a blob root: Graph Id, Root pointer, Inputs array, Outputs array, Root Nodes and Nodes hash maps of Node Union tags."
+    },
+    {
+      "id": "collection-path",
+      "title": "Shell",
+      "view": "collection-path",
+      "text": "Graph Input Data stores Variable Key and Burst Type Hash. Graph Output Data also stores a Blob Ptr to a Data Header that produces the value."
+    },
+    {
+      "id": "consent-boundary",
+      "title": "Header+payload",
+      "view": "consent-boundary",
+      "text": "Header is twelve-ish bytes: int Type, ulong Node Id. Payload is at address of header plus size of header. Same pattern for Execution and Data headers."
+    },
+    {
+      "id": "analytics-consumers",
+      "title": "Dispatch",
+      "view": "analytics-consumers",
+      "text": "Data path special-cases Constant, Variable, Variable Set before Data Generated. Execution always goes through Execution Generated for non-default types."
+    }
+  ],
+  "nodes": {
+    "web": "Blob Ptr Execution Header Root. May be invalid for pure Calculate graphs.",
+    "mobile": "Graph Input Data and Graph Output Data arrays.",
+    "edge": "Execution Header or Data Header. I Node Type and Node Id.",
+    "consent": "Payload immediately after header via unsafe address offset.",
+    "stream": "I Context Generator Execution Generated and Data Generated.",
+    "pii": "Blob Array of Blob Ptr headers inside payload structs.",
+    "warehouse": "Execute Node or Data Node target method.",
+    "features": "Child Execute or Calculate calls.",
+    "dashboard": "Component Container Get R W using Entity Index In Chunk.",
+    "model": "Graph State Util Get Variable and Set Variable."
+  }
+}

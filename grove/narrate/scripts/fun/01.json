@@ -1,0 +1,42 @@
+{
+  "title": "The Toy Machine",
+  "map": "01-toy-machine.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "view": null,
+      "text": "Welcome to Grove! Think of it like a toy machine. You draw a treasure map. Grove freezes that map into a hard brick. Then a little robot reads the brick every frame and makes the game world move."
+    },
+    {
+      "id": "request-path",
+      "title": "The main path",
+      "view": "request-path",
+      "text": "Follow the bright path. First you draw. Then the importer makes cards. Then the bake oven freezes everything into one brick called Graph Data. That brick is what play time uses."
+    },
+    {
+      "id": "identity-and-cache",
+      "title": "Helpers",
+      "view": "identity-and-cache",
+      "text": "Two helpers sit beside the path. Numbers on each box pick which door the robot opens. The backpack called Grove State remembers secrets between frames, like inputs and local variables."
+    },
+    {
+      "id": "async-work",
+      "title": "Three rooms",
+      "view": "async-work",
+      "text": "There are three rooms. Draw time is Graph Toolkit. Bake time freezes the brick. Play time is your E C S system. Never mix the rooms up. The pretty map is not the brick."
+    }
+  ],
+  "nodes": {
+    "users": "You draw the pretty map here. This is the source graph people edit.",
+    "s3": "Editor room. Graph Toolkit lives here.",
+    "cdn": "Importer. Turns the pretty map into auth cards.",
+    "lb": "Bake oven. Freezes cards into a brick.",
+    "api": "The brick itself. Blob asset Graph Data.",
+    "auth": "Numbers. Each node type is an integer door key.",
+    "cache": "Backpack. Grove State on the entity.",
+    "db": "Robot brain. Your context with component bags.",
+    "queue": "Play room. Your I System tick.",
+    "worker": "Do the work. Leaf methods move transforms and scores."
+  }
+}

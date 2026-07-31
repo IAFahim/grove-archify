@@ -1,0 +1,31 @@
+{
+  "title": "Push Play vs Pull Ask",
+  "map": "06-push-pull.lifecycle.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "view": null,
+      "text": "Two ways to play the brick. Push starts at Root and presses action buttons. Pull starts at an Output and asks for a number."
+    },
+    {
+      "id": "main-lifecycle",
+      "title": "Push",
+      "view": "main-lifecycle",
+      "text": "Root to Composite to Selector to leaf. Side effects happen. Scores only open when the selector asks."
+    },
+    {
+      "id": "human-waits",
+      "title": "Pull",
+      "view": "human-waits",
+      "text": "Output asks a data box. That box may open Variables or Qualifiers. Nothing runs until something Calculate-s it."
+    },
+    {
+      "id": "recovery-and-exits",
+      "title": "Backpack",
+      "view": "recovery-and-exits",
+      "text": "The backpack keeps variables between frames. Keys include Graph Id. When a graph dies, remove only its keys."
+    }
+  ],
+  "nodes": {}
+}

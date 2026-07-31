@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grove · Narrated player</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a0f18;
+      --panel: #121a2b;
+      --ink: #e8eefc;
+      --muted: #93a4c3;
+      --a: #5eead4;
+      --b: #f0abfc;
+      --line: #24304f;
+      --fun: #86efac;
+      --ser: #7dd3fc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; height: 100vh; display: grid;
+      grid-template-rows: auto 1fr auto;
+      background: var(--bg); color: var(--ink);
+      font: 15px/1.45 system-ui, -apple-system, sans-serif;
+    }
+    header {
+      display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center;
+      padding: 10px 14px; border-bottom: 1px solid var(--line); background: #0d1422;
+    }
+    header h1 { font-size: 1rem; margin: 0; letter-spacing: -.02em; }
+    .crumb { font: 12px ui-monospace, monospace; opacity: .7; }
+    .crumb a { color: var(--muted); }
+    .tracks { display: inline-flex; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: #0a121f; }
+    .tracks button {
+      border: 0; background: transparent; color: var(--muted); padding: 7px 12px;
+      border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer;
+    }
+    .tracks button[aria-selected="true"] { background: #1a2a40; color: #fff; }
+    .tracks button[data-track="fun"][aria-selected="true"] { color: var(--fun); }
+    .tracks button[data-track="serious"][aria-selected="true"] { color: var(--ser); }
+    select, button.ctrl {
+      background: #152033; color: var(--ink); border: 1px solid var(--line);
+      border-radius: 8px; padding: 7px 10px; font-weight: 600; cursor: pointer;
+    }
+    button.ctrl.primary { background: #134e4a; border-color: #2a6b66; color: var(--a); }
+    button.ctrl:disabled { opacity: .45; cursor: not-allowed; }
+    main { display: grid; grid-template-columns: 280px 1fr; min-height: 0; }
+    @media (max-width: 900px) { main { grid-template-columns: 1fr; grid-template-rows: auto 1fr; } }
+    aside {
+      border-right: 1px solid var(--line); background: var(--panel);
+      overflow: auto; padding: 12px;
+    }
+    aside h2 { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 12px 0 8px; }
+    aside h2:first-child { margin-top: 0; }
+    .chapters button, .lessons button {
+      display: block; width: 100%; text-align: left; margin: 0 0 6px;
+      background: #0e1626; border: 1px solid var(--line); color: var(--ink);
+      border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: 13px;
+    }
+    .chapters button[aria-current="true"], .lessons button[aria-current="true"] {
+      border-color: var(--a); background: #132a2a;
+    }
+    .stage { position: relative; min-height: 0; background: #05080f; }
+    .stage iframe { width: 100%; height: 100%; border: 0; display: block; background: #05080f; }
+    footer {
+      border-top: 1px solid var(--line); background: #0d1422;
+      padding: 10px 14px; display: grid; gap: 8px;
+    }
+    .caption {
+      min-height: 2.8em; color: var(--muted); font-size: 14px;
+    }
+    .caption strong { color: var(--ink); }
+    .hint { font-size: 12px; color: var(--muted); }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="crumb"><a href="index.html">grove</a> / player</div>
+      <h1>Narrated Grove lessons</h1>
+    </div>
+    <div class="tracks" role="tablist" aria-label="Track">
+      <button type="button" data-track="fun" aria-selected="true">Fun</button>
+      <button type="button" data-track="serious" aria-selected="false">Serious</button>
+    </div>
+    <select id="lesson" aria-label="Lesson"></select>
+    <div class="row">
+      <button type="button" class="ctrl primary" id="play">Play</button>
+      <button type="button" class="ctrl" id="pause">Pause</button>
+      <button type="button" class="ctrl" id="next">Next chapter</button>
+      <button type="button" class="ctrl" id="stop">Stop</button>
+    </div>
+    <label class="hint"><input type="checkbox" id="hoverAudio" checked /> Hover nodes → short blurb</label>
+  </header>
+  <main>
+    <aside>
+      <h2>Chapters</h2>
+      <div class="chapters" id="chapters"></div>
+      <h2>Tip</h2>
+      <p class="hint">Play walks chapters and jumps the map’s guided view. Hover a box in the diagram for a short node line. Switch <b>Serious</b> for the same lesson with real type names.</p>
+    </aside>
+    <div class="stage">
+      <iframe id="map" title="Archify map" src="about:blank"></iframe>
+    </div>
+  </main>
+  <footer>
+    <div class="caption" id="caption"><strong>Loading narration…</strong></div>
+    <div class="hint">Voice: Inflect-Micro-v2 (local). Audio files under <code>narrate/audio/</code>. Generate with <code>python3 tools/gen_narration.py</code>.</div>
+  </footer>
+  <audio id="audio" preload="auto"></audio>
+  <script>
+  (() => {
+    const $ = (id) => document.getElementById(id);
+    const audio = $("audio");
+    const iframe = $("map");
+    const caption = $("caption");
+    const chaptersEl = $("chapters");
+    const lessonSel = $("lesson");
+
+    let manifest = null;
+    let track = "fun";
+    let lessonId = "01";
+    let chapterIndex = 0;
+    let playing = false;
+    let hoverTimer = null;
+    let boundDoc = null;
+
+    const lessonsForTrack = () =>
+      (manifest?.lessons || []).filter((l) => l.track === track);
+
+    const currentLesson = () =>
+      lessonsForTrack().find((l) => l.id === lessonId) || lessonsForTrack()[0];
+
+    function setCaption(title, text) {
+      caption.innerHTML = `<strong>${escapeHtml(title)}</strong> — ${escapeHtml(text || "")}`;
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function mapUrl(lesson, chapter) {
+      const base = lesson.map + "?theme=dark&present=1&embed=1";
+      const view = chapter?.view;
+      return view ? `${base}#view=${encodeURIComponent(view)}` : base;
+    }
+
+    function loadMap(lesson, chapter) {
+      const url = mapUrl(lesson, chapter);
+      if (iframe.dataset.url !== url) {
+        iframe.dataset.url = url;
+        iframe.src = url;
+      } else if (chapter?.view) {
+        try {
+          iframe.contentWindow.location.hash = `view=${chapter.view}`;
+        } catch (_) {
+          iframe.src = url;
+        }
+      }
+    }
+
+    function renderLessonList() {
+      const list = lessonsForTrack();
+      lessonSel.innerHTML = list
+        .map((l) => `<option value="${l.id}">${l.id} · ${escapeHtml(l.title)}</option>`)
+        .join("");
+      if (!list.find((l) => l.id === lessonId) && list[0]) lessonId = list[0].id;
+      lessonSel.value = lessonId;
+    }
+
+    function renderChapters() {
+      const lesson = currentLesson();
+      if (!lesson) return;
+      chaptersEl.innerHTML = "";
+      lesson.chapters.forEach((ch, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = `${i + 1}. ${ch.title}`;
+        if (i === chapterIndex) b.setAttribute("aria-current", "true");
+        b.addEventListener("click", () => {
+          chapterIndex = i;
+          playChapter(false);
+        });
+        chaptersEl.appendChild(b);
+      });
+    }
+
+    function playClip(url, title, text) {
+      return new Promise((resolve) => {
+        setCaption(title, text);
+        if (!url) {
+          resolve("missing");
+          return;
+        }
+        const onEnd = () => {
+          cleanup();
+          resolve("ended");
+        };
+        const onErr = () => {
+          cleanup();
+          resolve("error");
+        };
+        const cleanup = () => {
+          audio.removeEventListener("ended", onEnd);
+          audio.removeEventListener("error", onErr);
+        };
+        audio.addEventListener("ended", onEnd);
+        audio.addEventListener("error", onErr);
+        audio.src = "narrate/" + url;
+        audio.play().catch(() => resolve("error"));
+      });
+    }
+
+    async function playChapter(autoAdvance) {
+      const lesson = currentLesson();
+      if (!lesson) return;
+      renderChapters();
+      const ch = lesson.chapters[chapterIndex];
+      if (!ch) return;
+      loadMap(lesson, ch);
+      playing = true;
+      const result = await playClip(ch.audio, ch.title, ch.text);
+      if (!playing) return;
+      if (autoAdvance && result === "ended") {
+        if (chapterIndex < lesson.chapters.length - 1) {
+          chapterIndex += 1;
+          playChapter(true);
+        } else {
+          playing = false;
+          setCaption("Done", "Lesson finished. Switch to Serious for the same maps with real type names.");
+        }
+      }
+    }
+
+    function stopAll() {
+      playing = false;
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+    }
+
+    function bindHover() {
+      if (!$("hoverAudio").checked) return;
+      try {
+        const doc = iframe.contentDocument;
+        if (!doc || doc === boundDoc) return;
+        boundDoc = doc;
+        const svg = doc.querySelector("svg");
+        if (!svg) return;
+        svg.addEventListener("pointerover", onNodeHover, true);
+      } catch (_) {
+        /* cross-origin or not ready */
+      }
+    }
+
+    function onNodeHover(ev) {
+      if (!$("hoverAudio").checked || playing) return;
+      const g = ev.target?.closest?.("[data-node-id]");
+      if (!g) return;
+      const id = g.getAttribute("data-node-id");
+      const lesson = currentLesson();
+      const node = lesson?.nodes?.[id];
+      if (!node) return;
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(() => {
+        if (playing) return;
+        playClip(node.audio, `Node · ${id}`, node.text);
+      }, 220);
+    }
+
+    iframe.addEventListener("load", () => {
+      boundDoc = null;
+      setTimeout(bindHover, 400);
+    });
+
+    document.querySelectorAll(".tracks button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        track = btn.dataset.track;
+        document.querySelectorAll(".tracks button").forEach((b) =>
+          b.setAttribute("aria-selected", b === btn ? "true" : "false")
+        );
+        stopAll();
+        chapterIndex = 0;
+        renderLessonList();
+        renderChapters();
+        const lesson = currentLesson();
+        if (lesson) loadMap(lesson, lesson.chapters[0]);
+        setCaption(lesson?.title || track, "Hit Play for narrated chapters.");
+      });
+    });
+
+    lessonSel.addEventListener("change", () => {
+      lessonId = lessonSel.value;
+      chapterIndex = 0;
+      stopAll();
+      renderChapters();
+      const lesson = currentLesson();
+      if (lesson) loadMap(lesson, lesson.chapters[0]);
+      setCaption(lesson.title, "Hit Play.");
+    });
+
+    $("play").addEventListener("click", () => {
+      stopAll();
+      playChapter(true);
+    });
+    $("pause").addEventListener("click", () => {
+      if (audio.paused) audio.play();
+      else audio.pause();
+    });
+    $("next").addEventListener("click", () => {
+      const lesson = currentLesson();
+      if (!lesson) return;
+      stopAll();
+      chapterIndex = Math.min(chapterIndex + 1, lesson.chapters.length - 1);
+      playChapter(false);
+    });
+    $("stop").addEventListener("click", () => {
+      stopAll();
+      setCaption("Stopped", "Press Play to start again.");
+    });
+
+    fetch("narrate/manifest.json")
+      .then((r) => r.json())
+      .then((m) => {
+        manifest = m;
+        renderLessonList();
+        renderChapters();
+        const lesson = currentLesson();
+        if (lesson) {
+          loadMap(lesson, lesson.chapters[0]);
+          setCaption(lesson.title, "Choose Fun or Serious, then Play.");
+        }
+      })
+      .catch((e) => {
+        setCaption("Missing manifest", "Run: python3 tools/gen_narration.py");
+        console.error(e);
+      });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "title": "Draw, Bake, Play \u2014 internals",
+  "map": "02-draw-bake-play.workflow.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Contract",
+      "view": null,
+      "text": "Import and bake are pure authoring. Runtime only consumes Blob Asset Reference Graph Data. Graph Authoring or Graph Authoring Buffer reference Grove Auth Graph, never the source my graph file."
+    },
+    {
+      "id": "happy-path",
+      "title": "Pipeline",
+      "view": "happy-path",
+      "text": "On import, Collect Root Candidates finds Input variables whose first connection resolves to Grove Execution Auth. Auth Root is set only when the candidate count is one. Baking writes Graph Baking Data and registers dependencies via Graph Baker."
+    },
+    {
+      "id": "safety-gate",
+      "title": "Entry",
+      "view": "safety-gate",
+      "text": "Report Root Candidate Errors fires if multiple Input to execution roots exist, or if top-level execution exists with no Input root. Untyped Graph Toolkit variables never become runtime Inputs or Outputs."
+    },
+    {
+      "id": "evidence-loop",
+      "title": "Hash and strip",
+      "view": "evidence-loop",
+      "text": "Bake hash includes graph identity, selected variant values, instance overrides, and Version Key. Grove Variant Auth Register Stripped Nodes removes unselected branches from the blob."
+    }
+  ],
+  "nodes": {
+    "user": "Author intent. Creates Grove Graph asset.",
+    "chat": "Graph Toolkit source. Not referenced by bakers.",
+    "planner": "Grove Importer of T. Grove Node State scopes subgraphs.",
+    "router": "Grove Auth Graph Scriptable Object main asset.",
+    "approval": "Collect Boundary Root Candidates logic.",
+    "blocked": "Import validation failure for entry shape.",
+    "retry": "Reimport after fixing Input to execution wiring.",
+    "tool": "Graph Authoring of T Auth comma T Component.",
+    "external": "Graph Baking System of T C via Setup System reflection.",
+    "store": "Dictionary of Grove Variant Auth to selected branch.",
+    "trace": "Instance values and Grove State initialize bake.",
+    "final": "I Graph Reference Graph property holds the blob."
+  }
+}

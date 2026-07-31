@@ -1,0 +1,42 @@
+{
+  "title": "Custom nodes \u2014 internals",
+  "map": "07-make-a-toy.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Split",
+      "view": null,
+      "text": "Split across assemblies: unmanaged payload and enums in data or runtime, Grove Execution Auth or Data Auth in Authoring, Grove Execution Node in Editor, static Execute Node method in runtime."
+    },
+    {
+      "id": "request-path",
+      "title": "Pieces",
+      "view": "request-path",
+      "text": "Auth Node Type returns your enum int. Init writes blob fields via Blob Remap Builder. Editor Init copies inspector fields onto auth during import."
+    },
+    {
+      "id": "identity-and-cache",
+      "title": "Bake",
+      "view": "identity-and-cache",
+      "text": "Create Node on auth allocates header and payload in the graph blob. Instance overrides patch serializable fields per entity before Create. Add Dependencies tracks extra assets."
+    },
+    {
+      "id": "async-work",
+      "title": "Dispatch",
+      "view": "async-work",
+      "text": "Attribute Execute Node type id must match baked Type. Signature is public or internal static, non-generic outer type, ref context. Optional typed input for context and block nodes."
+    }
+  ],
+  "nodes": {
+    "users": "Unmanaged struct living after Execution Header.",
+    "auth": "Stable int shared by attribute and auth Node Type.",
+    "cdn": "Grove Execution Node of Auth comma Data.",
+    "lb": "I Grove Node Create via Grove Node State.",
+    "api": "Grove Execution Auth of T Data.",
+    "cache": "Use With Graph typeof your Grove Graph.",
+    "db": "Header Type plus payload bytes in Graph Data.",
+    "s3": "Graph Instance Instance Values list.",
+    "queue": "Execution Generated case label.",
+    "worker": "Execute Node method body. Context by ref."
+  }
+}

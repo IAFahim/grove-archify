@@ -1,0 +1,31 @@
+{
+  "title": "Who Builds the Door Book",
+  "map": "05-door-book.sequence.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "view": null,
+      "text": "At compile time a helper writes a door book for your robot brain. At play time the brick only stores door numbers."
+    },
+    {
+      "id": "request-and-auth",
+      "title": "Scan",
+      "view": "request-and-auth",
+      "text": "The generator finds your partial Context, your Execute Node methods, and public built-in methods from Grove."
+    },
+    {
+      "id": "cache-fallback",
+      "title": "Write",
+      "view": "cache-fallback",
+      "text": "It writes Create, Update, Set Chunk Generated, plus big switches for Execute and Data, and debug doors when instrumentation is on."
+    },
+    {
+      "id": "return-and-trace",
+      "title": "Play",
+      "view": "return-and-trace",
+      "text": "Play time: brick says Type, book opens that case, method runs. Built-in toys like Composite live in your book too."
+    }
+  ],
+  "nodes": {}
+}

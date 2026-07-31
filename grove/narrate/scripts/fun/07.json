@@ -1,0 +1,42 @@
+{
+  "title": "Make Your Own Toy",
+  "map": "07-make-a-toy.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "view": null,
+      "text": "Every custom toy has four LEGO pieces: data struct, auth card, draw node, and run method. Grove glues them with numbers."
+    },
+    {
+      "id": "request-path",
+      "title": "Four pieces",
+      "view": "request-path",
+      "text": "Data holds Speed. Auth serializes it. Draw node is what you see in Graph Toolkit. Run method is the static C sharp with the attribute."
+    },
+    {
+      "id": "identity-and-cache",
+      "title": "Wire",
+      "view": "identity-and-cache",
+      "text": "Importer copies draw fields into auth. Bake packs header plus payload. Use With Graph scopes the node to your map type."
+    },
+    {
+      "id": "async-work",
+      "title": "Play",
+      "view": "async-work",
+      "text": "At play, Type hits your case in the door book. Method gets payload, Grove Context, and your context by ref. Then it mutates the world."
+    }
+  ],
+  "nodes": {
+    "users": "Data struct. Unmanaged payload.",
+    "auth": "Type number enum.",
+    "cdn": "Draw node in Toolkit.",
+    "lb": "Importer copies to auth.",
+    "api": "Auth card asset.",
+    "cache": "Use With Graph scope.",
+    "db": "Baked header and payload.",
+    "s3": "Per entity overrides.",
+    "queue": "Generated switch case.",
+    "worker": "Static run method."
+  }
+}

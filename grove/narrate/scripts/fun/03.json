@@ -1,0 +1,31 @@
+{
+  "title": "One Frame Movie",
+  "map": "03-one-frame.sequence.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "view": null,
+      "text": "One frame. The system wakes the robot, points its bags at a chunk of entities, then walks the brick door by door."
+    },
+    {
+      "id": "request-and-auth",
+      "title": "Wake",
+      "view": "request-and-auth",
+      "text": "Get Execution builds this frame's remote control. Update Generated refreshes component handles. Time and logger hop into Grove Context."
+    },
+    {
+      "id": "cache-fallback",
+      "title": "Walk",
+      "view": "cache-fallback",
+      "text": "Set Chunk binds containers. Execute starts at Root. The Type number opens a door that calls a static method."
+    },
+    {
+      "id": "return-and-trace",
+      "title": "Act",
+      "view": "return-and-trace",
+      "text": "Leaf methods write transforms. Data boxes only open when something asks Calculate. Inputs were dropped into the backpack first."
+    }
+  ],
+  "nodes": {}
+}

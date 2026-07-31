@@ -1,0 +1,31 @@
+{
+  "title": "Push vs Pull \u2014 internals",
+  "map": "06-push-pull.lifecycle.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Model",
+      "view": null,
+      "text": "Execution nodes are edge-triggered control flow. Data nodes are demand-driven expressions. There is no full-graph interpreter loop."
+    },
+    {
+      "id": "main-lifecycle",
+      "title": "Execute",
+      "view": "main-lifecycle",
+      "text": "Composite runs Blob Array of Execution Headers in order. Selectors pair Qualifier Data Headers of float with Action Execution Headers; last pair is default threshold path; comparisons use strict greater than."
+    },
+    {
+      "id": "human-waits",
+      "title": "Calculate",
+      "view": "human-waits",
+      "text": "Calculate finds Outputs by Burst Type Hash uniqueness or Variable Key. Variable Get reads Grove State with default. Variable Set evaluates Value child, writes, returns."
+    },
+    {
+      "id": "recovery-and-exits",
+      "title": "State",
+      "view": "recovery-and-exits",
+      "text": "Grove State Key splits Graph Id, optional scope, and key words. Graph State Util Remove Graph State drops entries for one Graph Id only."
+    }
+  ],
+  "nodes": {}
+}

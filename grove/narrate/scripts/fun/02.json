@@ -1,0 +1,44 @@
+{
+  "title": "Draw, Bake, Play",
+  "map": "02-draw-bake-play.workflow.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "view": null,
+      "text": "Welcome to the cooking show. Recipe is your map. Oven is the baker. Dinner plate is the robot tick. Same three steps every time."
+    },
+    {
+      "id": "happy-path",
+      "title": "Main path",
+      "view": "happy-path",
+      "text": "You draw the map, the importer makes cards, authoring puts the card on an entity, the oven freezes a brick, and play time eats the brick."
+    },
+    {
+      "id": "safety-gate",
+      "title": "Start door",
+      "view": "safety-gate",
+      "text": "The start door rule: exactly one Input wire must touch the first action box. Zero starts or two starts means the importer yells."
+    },
+    {
+      "id": "evidence-loop",
+      "title": "Extras",
+      "view": "evidence-loop",
+      "text": "Variants pick a branch while baking, so unpicked paths disappear from the brick. The backpack holds live memory after bake."
+    }
+  ],
+  "nodes": {
+    "user": "You. The designer who wants a brain on the entity.",
+    "chat": "Pretty map file. Dot my graph.",
+    "planner": "Importer walks nodes and subgraphs.",
+    "router": "Auth box with Root, Inputs, Outputs, Nodes.",
+    "approval": "Start door check. Need one Input root.",
+    "blocked": "Import error path. Fix the wires.",
+    "retry": "Reimport after you fix the start door.",
+    "tool": "Graph Authoring mono behaviour on the entity.",
+    "external": "Bake system. Hash and Create blob.",
+    "store": "Variants. Bake-time branch pick.",
+    "trace": "Backpack and overrides live near play.",
+    "final": "It runs. Robot can Execute the brick."
+  }
+}

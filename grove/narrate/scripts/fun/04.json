@@ -1,0 +1,42 @@
+{
+  "title": "Brick Anatomy",
+  "map": "04-brick.anatomy.dataflow.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "view": null,
+      "text": "The brick is a sandwich factory. Shell on the outside. Each box is bread plus filling. Little arrows point to kid boxes."
+    },
+    {
+      "id": "collection-path",
+      "title": "Shell",
+      "view": "collection-path",
+      "text": "Outside: Graph Id stamps the backpack keys. Root is the start door. Inputs and Outputs are the labeled holes."
+    },
+    {
+      "id": "consent-boundary",
+      "title": "Box",
+      "view": "consent-boundary",
+      "text": "Every node: bread is Type and Node Id. Filling is payload like Speed or score lists. Kids are blob pointers."
+    },
+    {
+      "id": "analytics-consumers",
+      "title": "Doors",
+      "view": "analytics-consumers",
+      "text": "Robot reads Type, opens that door in the door book, runs the method, maybe follows more arrows, maybe writes the world."
+    }
+  ],
+  "nodes": {
+    "web": "Root pointer. Where Execute starts.",
+    "mobile": "Inputs and Outputs list on the shell.",
+    "edge": "Bread. Type number and Node Id.",
+    "consent": "Filling. Your payload struct.",
+    "stream": "Door book entry. Generated switch case.",
+    "pii": "Kid arrows. Blob pointers to children.",
+    "warehouse": "Static method. Burst friendly.",
+    "features": "Recurse into more headers.",
+    "dashboard": "E C S write. Side effects.",
+    "model": "Backpack reads and writes."
+  }
+}
