@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "ClientGoInGame \u00b7 Until the Server Says Yes",
+    "subtitle": "InitializeState incomplete \u2192 RPC once per identity \u2192 wait NetworkStreamInGame",
+    "output": "../04-goingame.sequence.html",
+    "viewBox": [
+      960,
+      800
+    ],
+    "animation": "trace",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "request-and-auth",
+        "label": "Preconditions",
+        "focus": [
+          "user",
+          "web",
+          "api",
+          "auth"
+        ],
+        "note": "Need known connection + NetworkId + not disconnected."
+      },
+      {
+        "id": "cache-fallback",
+        "label": "Request once",
+        "focus": [
+          "api",
+          "redis",
+          "db"
+        ],
+        "note": "First time for this identity: AddComponent + GoInGameRequest RPC."
+      },
+      {
+        "id": "return-and-trace",
+        "label": "Complete",
+        "focus": [
+          "db",
+          "api",
+          "redis",
+          "trace",
+          "web",
+          "user"
+        ],
+        "note": "IsCompleted &= IsInGame; gate then CanopyGoTo(gameplay)."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "Snapshot",
+      "sublabel": "tracker wrote"
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Gate",
+      "sublabel": "StartupGate"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "GoInGame",
+      "sublabel": "block"
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "GraphState",
+      "sublabel": "requested id"
+    },
+    {
+      "id": "redis",
+      "type": "database",
+      "label": "ECB",
+      "sublabel": "RPC"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "Server",
+      "sublabel": "marks in game"
+    },
+    {
+      "id": "trace",
+      "type": "messagebus",
+      "label": "CanopyGoTo",
+      "sublabel": "gameplay"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 295,
+      "label": "Request"
+    },
+    {
+      "from": 315,
+      "to": 505,
+      "label": "Fallback"
+    },
+    {
+      "from": 525,
+      "to": 665,
+      "label": "Response + trace"
+    }
+  ],
+  "messages": [
+    {
+      "id": "open-page",
+      "from": "user",
+      "to": "web",
+      "y": 185,
+      "label": "read snapshot",
+      "variant": "default"
+    },
+    {
+      "id": "dashboard-request",
+      "from": "web",
+      "to": "api",
+      "y": 228,
+      "label": "need NetworkId",
+      "variant": "emphasis"
+    },
+    {
+      "id": "verify-jwt",
+      "from": "api",
+      "to": "auth",
+      "y": 270,
+      "label": "not disconnected",
+      "variant": "security"
+    },
+    {
+      "id": "auth-claims",
+      "from": "auth",
+      "to": "api",
+      "y": 305,
+      "label": "IsInGame?",
+      "variant": "return"
+    },
+    {
+      "id": "cache-read",
+      "from": "api",
+      "to": "redis",
+      "y": 354,
+      "label": "identity changed?",
+      "variant": "default"
+    },
+    {
+      "id": "cache-miss",
+      "from": "redis",
+      "to": "api",
+      "y": 391,
+      "label": "request once",
+      "variant": "return"
+    },
+    {
+      "id": "profile-query",
+      "from": "api",
+      "to": "db",
+      "y": 443,
+      "label": "Add InGame (client)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "profile-rows",
+      "from": "db",
+      "to": "api",
+      "y": 489,
+      "label": "GoInGameRequest",
+      "variant": "return"
+    },
+    {
+      "id": "cache-write",
+      "from": "api",
+      "to": "redis",
+      "y": 536,
+      "label": "server accepts",
+      "variant": "dashed"
+    },
+    {
+      "id": "trace-emit",
+      "from": "api",
+      "to": "trace",
+      "y": 580,
+      "label": "IsInGame=true",
+      "variant": "dashed"
+    },
+    {
+      "id": "dashboard-response",
+      "from": "api",
+      "to": "web",
+      "y": 625,
+      "label": "IsCompleted=1",
+      "variant": "return"
+    },
+    {
+      "id": "page-render",
+      "from": "web",
+      "to": "user",
+      "y": 662,
+      "label": "goto gameplay",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "web",
+      "from": 220,
+      "to": 668,
+      "type": "frontend"
+    },
+    {
+      "participant": "api",
+      "from": 228,
+      "to": 632,
+      "type": "backend"
+    },
+    {
+      "participant": "auth",
+      "from": 265,
+      "to": 310,
+      "type": "security"
+    },
+    {
+      "participant": "redis",
+      "from": 349,
+      "to": 398,
+      "type": "database"
+    },
+    {
+      "participant": "db",
+      "from": 438,
+      "to": 496,
+      "type": "database"
+    },
+    {
+      "participant": "trace",
+      "from": 575,
+      "to": 630,
+      "type": "messagebus"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Exactly once",
+      "items": [
+        "RequestedConnectionStateKey scoped by NodeId",
+        "Stores ClientConnectionIdentity after request",
+        "Re-request only if identity changes"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Completion",
+      "items": [
+        "state.IsCompleted &= connection.IsInGame",
+        "Gate ANDs all blocks",
+        "Target FixedString = gameplay"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Not host special-case",
+      "items": [
+        "If IsHost, skip AddComponent NetworkStreamInGame",
+        "Still sends RPC via NetUtility.CreateRPC",
+        "Local dual-world setup is NOT host"
+      ]
+    }
+  ]
+}

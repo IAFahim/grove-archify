@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nerve Client Go-In-Game · the movie</title>
+  <style>
+    :root {
+      --bg:#070b14; --panel:#10182b; --ink:#eaf0ff; --muted:#93a4c3;
+      --a:#67e8f9; --b:#f0abfc; --c:#86efac; --line:#24304f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:ui-sans-serif,system-ui,sans-serif;background:
+      radial-gradient(900px 500px at 0% 0%,#123 0%,transparent 50%),
+      radial-gradient(800px 400px at 100% 10%,#312e81 0%,transparent 45%),
+      var(--bg);color:var(--ink);line-height:1.55}
+    a{color:var(--a);text-decoration:none} a:hover{text-decoration:underline}
+    header,main,footer{max-width:1100px;margin:0 auto;padding:24px}
+    header{padding-top:48px}
+    h1{font-size:clamp(1.8rem,4vw,2.7rem);margin:8px 0;letter-spacing:-.03em}
+    .badge{display:inline-block;border:1px solid var(--line);background:var(--panel);
+      padding:3px 10px;border-radius:999px;font-size:12px;margin-right:6px;color:var(--b)}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin:18px 0}
+    .card{background:linear-gradient(180deg,#15203a,var(--panel));border:1px solid var(--line);
+      border-radius:14px;padding:14px 16px;transition:transform .12s}
+    .card:hover{transform:translateY(-2px);border-color:#3b4f7a}
+    .n{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--b);font-weight:700}
+    .card h3{margin:6px 0 8px;font-size:1.05rem}
+    .card p{margin:0 0 12px;color:var(--muted);font-size:.92rem}
+    .btn{display:inline-block;background:#12353a;border:1px solid #2a5c62;color:var(--a);
+      padding:6px 12px;border-radius:8px;font-weight:600;font-size:.88rem}
+    .btn:hover{background:#184348;text-decoration:none}
+    .reel{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:16px 18px;margin:16px 0}
+    .reel h2{margin:0 0 10px;color:var(--c)}
+    .reel ol{margin:0;padding-left:1.2rem;color:var(--muted)}
+    .reel li{margin:8px 0}
+    .reel strong{color:var(--ink)}
+    table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:.92rem}
+    th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+    th{background:#15203a;color:var(--a)} td{color:var(--muted)} td:first-child{color:var(--ink)}
+    pre{background:#060a12;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;
+      color:#d7e7ff;font-size:.86rem}
+    .warn{border-left:3px solid var(--b);background:#1a1224;padding:10px 14px;border-radius:0 10px 10px 0;
+      color:var(--muted);margin:14px 0}
+    .ok{border-left:3px solid var(--c);background:#0f1f18;padding:10px 14px;border-radius:0 10px 10px 0;
+      color:var(--muted);margin:14px 0}
+    footer{color:var(--muted);font-size:.85rem;padding-bottom:48px}
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <span class="badge">separate folder · nerve-client/</span>
+      <span class="badge">Daggertooth</span>
+      <span class="badge">Nerve + Grove</span>
+    </div>
+    <h1>Client go-in-game — the movie</h1>
+    <p class="muted">
+      Nerve already shipped the client nodes. The project was missing the same three pieces Menu/Service get:
+      context, driver system, settings world route + graph. Watch the maps in order — this is the load-bearing chain,
+      not a style choice.
+    </p>
+    <p><a href="../index.html">← Grove maps (sibling docs)</a></p>
+  </header>
+
+  <main>
+    <div class="reel">
+      <h2>Act structure</h2>
+      <ol>
+        <li><strong>Act I — What was missing.</strong> Stock nodes sat idle; no client graph.</li>
+        <li><strong>Act II — The four pieces.</strong> Context, system, settings, <code>ClientFlow.cnerve</code>.</li>
+        <li><strong>Act III — One tick.</strong> Gather facts → run executor → tracker + gate.</li>
+        <li><strong>Act IV — Go in game.</strong> RPC once, wait <code>NetworkStreamInGame</code>, jump gameplay.</li>
+        <li><strong>Act V — Proof &amp; debt.</strong> LocalGoInGame deleted; asmdef split; dual-client still due.</li>
+      </ol>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="n">01 · architecture</div>
+        <h3>What you wire</h3>
+        <p>Project four vs Nerve stock. Context, system, settings, graph.</p>
+        <a class="btn" href="01-pieces.architecture.html?theme=dark&present=1">Open →</a>
+      </article>
+      <article class="card">
+        <div class="n">02 · lifecycle</div>
+        <h3>State movie</h3>
+        <p>root · connecting → gate → gameplay · disconnect side exit.</p>
+        <a class="btn" href="02-states.lifecycle.html?theme=dark&present=1">Open →</a>
+      </article>
+      <article class="card">
+        <div class="n">03 · sequence</div>
+        <h3>One client tick</h3>
+        <p>System gathers Connection; writes after GetExecution; Run.</p>
+        <a class="btn" href="03-tick.sequence.html?theme=dark&present=1">Open →</a>
+      </article>
+      <article class="card">
+        <div class="n">04 · sequence</div>
+        <h3>GoInGame until yes</h3>
+        <p>Identity-once RPC · wait IsInGame · IsCompleted · GoTo.</p>
+        <a class="btn" href="04-goingame.sequence.html?theme=dark&present=1">Open →</a>
+      </article>
+      <article class="card">
+        <div class="n">05 · workflow</div>
+        <h3>How it lands</h3>
+        <p>Rebuild menu → SettingsWorld(client) → Client.unity → system.</p>
+        <a class="btn" href="05-routing.workflow.html?theme=dark&present=1">Open →</a>
+      </article>
+      <article class="card">
+        <div class="n">06 · dataflow</div>
+        <h3>Types force shape</h3>
+        <p>InitializeState → StartupGate blocks → Initialize → CanopyGoTo.</p>
+        <a class="btn" href="06-typechain.dataflow.html?theme=dark&present=1">Open →</a>
+      </article>
+      <article class="card">
+        <div class="n">07 · architecture</div>
+        <h3>Before / after</h3>
+        <p>Delete LocalGoInGame · proof · remaining debt.</p>
+        <a class="btn" href="07-before-after.architecture.html?theme=dark&present=1">Open →</a>
+      </article>
+    </div>
+
+    <h2>The graph (forced shape)</h2>
+<pre>root  [Client Connection Tracker → "disconnected"]
+ ├─ connecting (default)  [Initialize] ──exec──▶ Startup Gate ("gameplay")
+ │                                                  [Client Go In Game]
+ ├─ gameplay
+ └─ disconnected</pre>
+
+    <div class="warn">
+      <strong>Why this shape:</strong> <code>ClientGoInGame</code> is
+      <code>[ExecuteNode(..., typeof(InitializeState))]</code>.
+      Only <code>StartupGate</code> owns <code>BlobArray&lt;ExecutionHeader&lt;InitializeState&gt;&gt;</code> blocks.
+      Only <code>Initialize</code> runs a connected gate from a Canopy state.
+      So connecting cannot reach gameplay until every gate block completes — and GoInGame only completes when the server has marked the connection in game.
+    </div>
+
+    <h2>Project pieces (same kit as Menu/Service)</h2>
+    <table>
+      <thead><tr><th>Piece</th><th>File</th><th>Job</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>ClientAppContext</td>
+          <td><code>Assets/Scripts/ClientAppContext.cs</code></td>
+          <td>INerveClientContext — Connection snapshot + EndSim ECB + GroveStates + graph from NerveStateMachine</td>
+        </tr>
+        <tr>
+          <td>ClientAppStateSystem</td>
+          <td><code>Assets/Scripts/ClientAppStateSystem.cs</code></td>
+          <td>ClientSimulation — gather driver events / NetworkId / InGame, fill context, executor.Run</td>
+        </tr>
+        <tr>
+          <td>ClientStateSettings</td>
+          <td><code>Assets/Scripts/Authoring/ClientStateSettings.cs</code></td>
+          <td><code>[SettingsWorld("client")]</code> routes the graph into the client world</td>
+        </tr>
+        <tr>
+          <td>ClientFlow.cnerve</td>
+          <td>built by <code>Assets/Editor/ClientGraphSetup.cs</code></td>
+          <td>Code-authored state graph; menu <em>Daggertooth/Rebuild Client Graph</em></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>What Nerve already shipped</h2>
+    <table>
+      <thead><tr><th>Node</th><th>Runtime</th><th>Contract</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>ClientConnectionTracker</td>
+          <td><code>ClientConnectionTracker.Execute</code></td>
+          <td>Needs INerveClientContext; writes ClientConnectionSnapshot; GoTo on disconnect</td>
+        </tr>
+        <tr>
+          <td>ClientGoInGame</td>
+          <td><code>GoInGame.Execute</code></td>
+          <td>Block on InitializeState; RPC once per identity; complete when IsInGame</td>
+        </tr>
+        <tr>
+          <td>StartupGate / Initialize</td>
+          <td>Service state nodes</td>
+          <td>Gate ANDs block completion then CanopyGoTo(target)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>One-tick script</h2>
+<pre>ClientAppStateSystem.OnUpdate
+  connection = {
+    ConnectionEvents = NetworkStreamDriver.ConnectionEventsForTick,
+    IsHost = World.IsHost(),          // false for split Client/Server worlds
+    LocalConnection, HasNetworkId, IsInGame from singleton NetworkStreamConnection
+  }
+  execution = executor.GetExecution(ref state)
+  execution.Context.Connection = connection      // AFTER GetExecution (value copy)
+  execution.Context.CommandBuffer = EndSim ECB
+  executor.Run → graph root/update...
+
+Tracker (on root every relevant update)
+  fold events into ClientConnectionSnapshot in GroveState
+  if Disconnected → CanopyGoTo("disconnected")
+
+If current state == connecting
+  Initialize → StartupGate
+    GoInGame(ref InitializeState):
+      if !known || !NetworkId || disconnected → IsCompleted=false
+      if !IsInGame:
+        if identity not yet requested:
+          AddComponent&lt;NetworkStreamInGame&gt; (if !host)
+          CreateRPC&lt;GoInGameRequest&gt;
+          remember identity in graph state
+      IsCompleted &amp;= IsInGame
+    if all blocks complete → CanopyGoTo("gameplay")</pre>
+
+    <h2>Verified (not assumed)</h2>
+    <div class="ok">
+      With <code>LocalGoInGameSystem</code> deleted:<br/>
+      <code>ClientWorld | machines=1 | conns=1 inGame=1 ghosts=2</code><br/>
+      <code>ClientWorld state = gameplay</code><br/><br/>
+      <strong>inGame=1</strong> ⇒ RPC went out.<br/>
+      <strong>state=gameplay</strong> ⇒ graph sent it — only reachable through the gate.
+    </div>
+
+    <h2>Asmdef trap (real bug fixed)</h2>
+    <div class="warn">
+      Runtime <code>Daggertooth.asmdef</code> must not reference <code>BovineLabs.Nerve.State.Authoring</code>
+      (UNITY_EDITOR-constrained). That ref vanishes in player builds — same family as defineConstraints traps.
+      Split like the sample: <strong>runtime / .Authoring / .Editor</strong>, each carrying the constraints its deps demand.
+    </div>
+
+    <h2>Approval side note</h2>
+    <p class="muted">
+      <code>ConnectionApprovalServerSystem</code> skips JWT only when <code>World.IsServer()</code> is false (pure local world).
+      A separate ServerWorld in one process is still a server — so approval on would hit Unity Authentication.
+      <code>LocalApproveConnectionSystem</code> stays; justification verified.
+    </p>
+
+    <h2>Debt still open</h2>
+    <ul class="muted">
+      <li>AutoRefProcessor reflection</li>
+      <li>Deleted Null ObjectDefinition never verified</li>
+      <li><strong>Dual client not re-tested</strong> — path is symmetric, but want 4 ghosts not faith</li>
+    </ul>
+  </main>
+
+  <footer>
+    Sources: <code>Assets/Scripts/ClientApp*.cs</code>, <code>ClientGraphSetup.cs</code>,
+    <code>com.bovinelabs.nerve</code> Client/GoInGame + Tracker + StartupGate.
+    Maps via Archify. Folder is intentionally separate from Grove root docs.
+  </footer>
+</body>
+</html>

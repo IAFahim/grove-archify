@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "ClientFlow.cnerve \u00b7 State Movie",
+    "subtitle": "root[tracker] \u00b7 connecting \u2192 gate \u2192 gameplay \u00b7 disconnect side exit",
+    "output": "../02-states.lifecycle.html",
+    "viewBox": [
+      980,
+      660
+    ],
+    "animation": "trace",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "main-lifecycle",
+        "label": "Happy path",
+        "focus": [
+          "queued",
+          "planning",
+          "executing",
+          "reviewing",
+          "completed"
+        ],
+        "note": "connecting default \u2192 Initialize \u2192 StartupGate \u2192 gameplay."
+      },
+      {
+        "id": "human-waits",
+        "label": "Gate wait",
+        "focus": [
+          "executing",
+          "approval",
+          "reviewing",
+          "blocked"
+        ],
+        "note": "Gate holds until GoInGame completes (server marks in game)."
+      },
+      {
+        "id": "recovery-and-exits",
+        "label": "Disconnect",
+        "focus": [
+          "executing",
+          "failed",
+          "blocked",
+          "cancelled",
+          "expired"
+        ],
+        "note": "Tracker jumps to disconnected on terminal event."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "main",
+      "label": "Canopy path"
+    },
+    {
+      "id": "waiting",
+      "label": "Gate interior"
+    },
+    {
+      "id": "exceptions",
+      "label": "Disconnect"
+    },
+    {
+      "id": "terminal",
+      "label": "Terminal"
+    }
+  ],
+  "states": [
+    {
+      "id": "queued",
+      "type": "start",
+      "label": "root",
+      "sublabel": "tracker block",
+      "lane": "main",
+      "col": 0,
+      "step": "01",
+      "tag": "entry"
+    },
+    {
+      "id": "planning",
+      "type": "active",
+      "label": "connecting",
+      "sublabel": "default child",
+      "lane": "main",
+      "col": 1,
+      "step": "02",
+      "tag": "model"
+    },
+    {
+      "id": "executing",
+      "type": "active",
+      "label": "Initialize",
+      "sublabel": "runs gate",
+      "lane": "main",
+      "col": 2,
+      "step": "03",
+      "tag": "work"
+    },
+    {
+      "id": "reviewing",
+      "type": "decision",
+      "label": "Startup Gate",
+      "sublabel": "blocks[]",
+      "lane": "main",
+      "col": 3,
+      "step": "04",
+      "tag": "check"
+    },
+    {
+      "id": "completed",
+      "type": "success",
+      "label": "gameplay",
+      "sublabel": "in game",
+      "lane": "main",
+      "col": 4,
+      "step": "05",
+      "tag": "done"
+    },
+    {
+      "id": "approval",
+      "type": "waiting",
+      "label": "GoInGame block",
+      "sublabel": "RPC once",
+      "lane": "waiting",
+      "col": 0,
+      "tag": "pause"
+    },
+    {
+      "id": "blocked",
+      "type": "waiting",
+      "label": "waiting",
+      "sublabel": "IsCompleted=0",
+      "lane": "waiting",
+      "col": 1,
+      "tag": "wait"
+    },
+    {
+      "id": "failed",
+      "type": "failure",
+      "label": "terminal event",
+      "sublabel": "disconnect",
+      "lane": "exceptions",
+      "col": 0,
+      "yOffset": 78,
+      "tag": "retryable"
+    },
+    {
+      "id": "cancelled",
+      "type": "failure",
+      "label": "disconnected",
+      "sublabel": "state",
+      "lane": "terminal",
+      "col": 0,
+      "tag": "terminal"
+    },
+    {
+      "id": "expired",
+      "type": "failure",
+      "label": "outcome",
+      "sublabel": "published",
+      "lane": "terminal",
+      "col": 1,
+      "tag": "terminal"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "approval-needed",
+      "from": "executing",
+      "to": "approval",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight"
+    },
+    {
+      "id": "review-blocked",
+      "from": "reviewing",
+      "to": "blocked",
+      "variant": "default",
+      "route": "drop"
+    },
+    {
+      "id": "execution-failed",
+      "from": "executing",
+      "to": "failed",
+      "variant": "security",
+      "fromSide": "left",
+      "toSide": "left",
+      "via": [
+        [
+          320,
+          157
+        ],
+        [
+          320,
+          385
+        ]
+      ]
+    },
+    {
+      "id": "failed-retry",
+      "from": "failed",
+      "to": "executing",
+      "variant": "emphasis",
+      "fromSide": "left",
+      "toSide": "top",
+      "via": [
+        [
+          20,
+          385
+        ],
+        [
+          20,
+          80
+        ],
+        [
+          402,
+          80
+        ]
+      ]
+    },
+    {
+      "id": "block-expired",
+      "from": "blocked",
+      "to": "expired",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight"
+    },
+    {
+      "id": "approval-cancelled",
+      "from": "approval",
+      "to": "cancelled",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "via": [
+        [
+          480,
+          336
+        ],
+        [
+          480,
+          432
+        ],
+        [
+          402,
+          432
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Graph shape",
+      "items": [
+        "root children: connecting (default), gameplay, disconnected",
+        "tracker on root \u2192 OnDisconnection = disconnected",
+        "connecting Initialize \u2192 Startup Gate target=gameplay"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Gate contract",
+      "items": [
+        "AND of all InitializeState.IsCompleted",
+        "GoInGame false until NetworkStreamInGame",
+        "then CanopyGoTo(gameplay)"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Proof",
+      "items": [
+        "state=gameplay only via gate",
+        "inGame=1 proves RPC path",
+        "no LocalGoInGameSystem left"
+      ]
+    }
+  ]
+}

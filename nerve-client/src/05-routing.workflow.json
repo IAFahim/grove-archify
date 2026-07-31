@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "How the Graph Lands in ClientWorld",
+    "subtitle": "ClientGraphSetup \u2192 ClientStateSettings \u2192 SettingsWorld(client) \u2192 bake \u2192 system",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "happy-path",
+        "label": "Author path",
+        "focus": [
+          "user",
+          "chat",
+          "planner",
+          "router",
+          "approval",
+          "tool",
+          "external",
+          "final"
+        ],
+        "note": "Rebuild menu builds .cnerve and assigns settings."
+      },
+      {
+        "id": "safety-gate",
+        "label": "World route",
+        "focus": [
+          "router",
+          "approval",
+          "blocked",
+          "retry"
+        ],
+        "note": "SettingsWorld attribute is the routing mechanism."
+      },
+      {
+        "id": "evidence-loop",
+        "label": "Runtime",
+        "focus": [
+          "external",
+          "store",
+          "trace"
+        ],
+        "note": "Baked NerveStateMachine entity is what the system Requires."
+      }
+    ],
+    "output": "../05-routing.workflow.html",
+    "viewBox": [
+      720,
+      900
+    ]
+  },
+  "lanes": [
+    {
+      "id": "ui",
+      "label": "Editor"
+    },
+    {
+      "id": "agent",
+      "label": "Assets"
+    },
+    {
+      "id": "policy",
+      "label": "Routing"
+    },
+    {
+      "id": "exceptions",
+      "label": "Miswire",
+      "variant": "exception"
+    },
+    {
+      "id": "tools",
+      "label": "Client world"
+    },
+    {
+      "id": "trace",
+      "label": "ECS entity"
+    }
+  ],
+  "phases": [
+    {
+      "id": "intake",
+      "label": "Intake",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "reasoning",
+      "label": "Plan + route",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "execution",
+      "label": "Execute + report",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "groups": [
+    {
+      "id": "agent_loop",
+      "label": "Planning loop",
+      "lane": "agent",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "tool_work",
+      "label": "Tool work",
+      "lane": "tools",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    },
+    {
+      "id": "exception_path",
+      "label": "Human or policy stop",
+      "lane": "exceptions",
+      "fromCol": 3,
+      "toCol": 5,
+      "variant": "security"
+    }
+  ],
+  "mainPath": [
+    "user",
+    "chat",
+    "planner",
+    "router",
+    "approval",
+    "tool",
+    "external",
+    "final"
+  ],
+  "nodes": [
+    {
+      "id": "user",
+      "lane": "ui",
+      "col": 0,
+      "type": "external",
+      "label": "Menu",
+      "sublabel": "Rebuild Client Graph"
+    },
+    {
+      "id": "chat",
+      "lane": "ui",
+      "col": 1,
+      "type": "frontend",
+      "label": "GraphSetup",
+      "sublabel": "code author"
+    },
+    {
+      "id": "final",
+      "lane": "ui",
+      "col": 5,
+      "type": "backend",
+      "label": "gameplay",
+      "sublabel": "verified"
+    },
+    {
+      "id": "planner",
+      "lane": "agent",
+      "col": 2,
+      "type": "backend",
+      "label": "ClientFlow",
+      "sublabel": "import auth",
+      "tag": "context aware"
+    },
+    {
+      "id": "router",
+      "lane": "agent",
+      "col": 3,
+      "type": "backend",
+      "label": "Settings",
+      "sublabel": "assign asset"
+    },
+    {
+      "id": "approval",
+      "lane": "policy",
+      "col": 3,
+      "type": "security",
+      "label": "World attr",
+      "sublabel": "client",
+      "tag": "block risky ops"
+    },
+    {
+      "id": "blocked",
+      "lane": "exceptions",
+      "col": 4,
+      "type": "security",
+      "label": "Wrong world",
+      "sublabel": "never runs"
+    },
+    {
+      "id": "retry",
+      "lane": "exceptions",
+      "col": 5,
+      "type": "messagebus",
+      "label": "Fix attr",
+      "sublabel": "reassign"
+    },
+    {
+      "id": "tool",
+      "lane": "tools",
+      "col": 4,
+      "type": "messagebus",
+      "label": "Client scene",
+      "sublabel": "prefab bake",
+      "tag": "structured result"
+    },
+    {
+      "id": "external",
+      "lane": "tools",
+      "col": 5,
+      "type": "cloud",
+      "label": "AppSystem",
+      "sublabel": "ClientApp"
+    },
+    {
+      "id": "store",
+      "lane": "trace",
+      "col": 1,
+      "type": "database",
+      "label": "SubScene",
+      "sublabel": "RequiredClient"
+    },
+    {
+      "id": "trace",
+      "lane": "trace",
+      "col": 4,
+      "type": "database",
+      "label": "StateMach",
+      "sublabel": "entity"
+    }
+  ],
+  "edges": [
+    {
+      "id": "request-chat",
+      "from": "user",
+      "to": "chat",
+      "variant": "default"
+    },
+    {
+      "id": "plan-request",
+      "from": "chat",
+      "to": "planner",
+      "label": "build",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "drop",
+      "labelSegment": 1
+    },
+    {
+      "id": "planner-route",
+      "from": "planner",
+      "to": "router",
+      "variant": "default"
+    },
+    {
+      "id": "approval-check",
+      "from": "router",
+      "to": "approval",
+      "label": "world?",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "drop",
+      "labelSegment": 0,
+      "labelDx": 34,
+      "labelDy": 18
+    },
+    {
+      "id": "approved-tool",
+      "from": "approval",
+      "to": "tool",
+      "variant": "emphasis",
+      "fromSide": "left",
+      "toSide": "left",
+      "route": "return-left"
+    },
+    {
+      "id": "approval-denied",
+      "from": "approval",
+      "to": "blocked",
+      "label": "miss",
+      "variant": "security",
+      "role": "error",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "drop",
+      "labelSegment": 1,
+      "labelDy": 12
+    },
+    {
+      "id": "retry-request",
+      "from": "blocked",
+      "to": "retry",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "tool-external-call",
+      "from": "tool",
+      "to": "external",
+      "variant": "default"
+    },
+    {
+      "id": "external-reply",
+      "from": "external",
+      "to": "final",
+      "variant": "emphasis",
+      "role": "return",
+      "fromSide": "right",
+      "toSide": "right",
+      "route": "outside-right",
+      "width": 1.2
+    },
+    {
+      "id": "record-result",
+      "from": "external",
+      "to": "trace",
+      "label": "require",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "route": "bottom-channel",
+      "labelSegment": 1
+    },
+    {
+      "id": "write-trace-memory",
+      "from": "store",
+      "to": "trace",
+      "label": "load",
+      "variant": "dashed",
+      "labelAt": [
+        365,
+        735
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "SettingsWorld is the route",
+      "items": [
+        "EditorSettingsUtility reads [SettingsWorld(\"client\")]",
+        "Adds asset to SettingsAuthoring for client world",
+        "Client.unity lives in RequiredClient SubSceneSet"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Graph is code-built",
+      "items": [
+        "Daggertooth/Rebuild Client Graph",
+        "Not hand-drawn in Toolkit window",
+        "Validation errors fail the rebuild hard"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Asmdef split",
+      "items": [
+        "Runtime Daggertooth must not ref State.Authoring",
+        "Authoring is UNITY_EDITOR constrained",
+        "Editor assembly owns ClientGraphSetup"
+      ]
+    }
+  ]
+}

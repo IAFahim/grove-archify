@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Before vs After \u00b7 LocalGoInGameSystem Deleted",
+    "subtitle": "Stock nodes + project driver beat a custom system reimplementation",
+    "output": "../07-before-after.architecture.html",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "request-path",
+        "label": "Before",
+        "focus": [
+          "users",
+          "cdn",
+          "lb",
+          "api",
+          "db"
+        ],
+        "note": "Service+Menu graphs only; custom LocalGoInGameSystem."
+      },
+      {
+        "id": "identity-and-cache",
+        "label": "After",
+        "focus": [
+          "auth",
+          "api",
+          "cache"
+        ],
+        "note": "Client graph + stock GoInGame; system only gathers."
+      },
+      {
+        "id": "async-work",
+        "label": "Proof",
+        "focus": [
+          "cdn",
+          "s3",
+          "api",
+          "queue",
+          "worker"
+        ],
+        "note": "inGame=1 and state=gameplay with LocalGoInGame gone."
+      }
+    ],
+    "animation": "trace",
+    "visual_preset": "editorial"
+  },
+  "components": [
+    {
+      "id": "users",
+      "type": "external",
+      "label": "Before: no graph",
+      "sublabel": "service+menu only",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        120,
+        60
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "LocalGoInGame",
+      "sublabel": "deleted",
+      "pos": [
+        40,
+        110
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "tag": "JWT + PKCE"
+    },
+    {
+      "id": "cdn",
+      "type": "cloud",
+      "label": "After: ClientFlow",
+      "sublabel": ".cnerve",
+      "pos": [
+        250,
+        300
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "lb",
+      "type": "cloud",
+      "label": "ClientAppSystem",
+      "sublabel": "gather only",
+      "pos": [
+        460,
+        300
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "Stock GoInGame",
+      "sublabel": "package node",
+      "pos": [
+        670,
+        300
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "cache",
+      "type": "database",
+      "label": "Stock Tracker",
+      "sublabel": "package node",
+      "pos": [
+        670,
+        150
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "state=gameplay",
+      "sublabel": "via gate only",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "s3",
+      "type": "cloud",
+      "label": "inGame=1",
+      "sublabel": "RPC proof",
+      "pos": [
+        250,
+        440
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "tag": "OAI protected"
+    },
+    {
+      "id": "queue",
+      "type": "messagebus",
+      "label": "ghosts=2",
+      "sublabel": "one client",
+      "pos": [
+        670,
+        440
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "Player2 debt",
+      "sublabel": "re-test",
+      "pos": [
+        880,
+        440
+      ],
+      "size": [
+        130,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Wrong path (removed)",
+      "wraps": [
+        "users",
+        "auth"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "Correct path",
+      "wraps": [
+        "cdn",
+        "lb",
+        "api",
+        "cache",
+        "db"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Evidence",
+      "wraps": [
+        "s3",
+        "queue",
+        "worker"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "users-to-cdn",
+      "from": "users",
+      "to": "cdn",
+      "label": "was",
+      "variant": "emphasis"
+    },
+    {
+      "id": "jwt-verification",
+      "from": "auth",
+      "to": "api",
+      "label": "delete",
+      "variant": "security",
+      "fromSide": "right",
+      "toSide": "top",
+      "via": [
+        [
+          620,
+          142
+        ],
+        [
+          620,
+          246
+        ],
+        [
+          735,
+          246
+        ]
+      ]
+    },
+    {
+      "id": "cdn-to-lb",
+      "from": "cdn",
+      "to": "lb"
+    },
+    {
+      "id": "static-assets",
+      "from": "cdn",
+      "to": "s3",
+      "label": "prove",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 58
+    },
+    {
+      "id": "lb-to-api",
+      "from": "lb",
+      "to": "api"
+    },
+    {
+      "id": "cache-read-through",
+      "from": "api",
+      "to": "cache",
+      "label": "uses",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": -68
+    },
+    {
+      "id": "api-sql",
+      "from": "api",
+      "to": "db",
+      "label": "only via"
+    },
+    {
+      "id": "enqueue-job",
+      "from": "api",
+      "to": "queue",
+      "label": "see",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 58
+    },
+    {
+      "id": "queue-to-worker",
+      "from": "queue",
+      "to": "worker"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Bug fixed en route",
+      "items": [
+        "Daggertooth.asmdef must not ref Nerve.State.Authoring",
+        "Authoring is UNITY_EDITOR constrained",
+        "Split runtime / Authoring / Editor like the sample"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Approval note",
+      "items": [
+        "ConnectionApprovalServer skips JWT only when !IsServer",
+        "Separate ServerWorld is still a server",
+        "LocalApproveConnectionSystem stays"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Remaining debt",
+      "items": [
+        "AutoRefProcessor reflection",
+        "Deleted Null ObjectDefinition unverified",
+        "Single-client run only \u2014 dual client next"
+      ]
+    }
+  ]
+}

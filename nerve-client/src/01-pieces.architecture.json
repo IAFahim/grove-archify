@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Client Go-In-Game \u00b7 What You Wire",
+    "subtitle": "Nerve already ships the nodes \u2014 project supplies context, system, settings, graph",
+    "output": "../01-pieces.architecture.html",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "request-path",
+        "label": "Project four",
+        "focus": [
+          "users",
+          "cdn",
+          "lb",
+          "api",
+          "db"
+        ],
+        "note": "Context \u2192 System \u2192 Settings \u2192 ClientFlow.cnerve."
+      },
+      {
+        "id": "identity-and-cache",
+        "label": "Nerve stock",
+        "focus": [
+          "auth",
+          "api",
+          "cache"
+        ],
+        "note": "Tracker + GoInGame nodes already in the package."
+      },
+      {
+        "id": "async-work",
+        "label": "World landing",
+        "focus": [
+          "cdn",
+          "s3",
+          "api",
+          "queue",
+          "worker"
+        ],
+        "note": "SettingsWorld(client) \u2192 Client.unity \u2192 client world."
+      }
+    ],
+    "animation": "trace",
+    "visual_preset": "signal-flow"
+  },
+  "components": [
+    {
+      "id": "users",
+      "type": "external",
+      "label": "ClientAppContext",
+      "sublabel": "INerveClientContext",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        120,
+        60
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Shipped nodes",
+      "sublabel": "Tracker \u00b7 GoInGame",
+      "pos": [
+        40,
+        110
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "tag": "JWT + PKCE"
+    },
+    {
+      "id": "cdn",
+      "type": "cloud",
+      "label": "ClientAppStateSystem",
+      "sublabel": "gather + Run",
+      "pos": [
+        250,
+        300
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "lb",
+      "type": "cloud",
+      "label": "ClientStateSettings",
+      "sublabel": "SettingsWorld client",
+      "pos": [
+        460,
+        300
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "ClientFlow.cnerve",
+      "sublabel": "state graph",
+      "pos": [
+        670,
+        300
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "cache",
+      "type": "database",
+      "label": "Connection facts",
+      "sublabel": "per tick input",
+      "pos": [
+        670,
+        150
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "NerveStateMachine",
+      "sublabel": "baked entity",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "s3",
+      "type": "cloud",
+      "label": "Client.unity",
+      "sublabel": "SubSceneSet",
+      "pos": [
+        250,
+        440
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "tag": "OAI protected"
+    },
+    {
+      "id": "queue",
+      "type": "messagebus",
+      "label": "Startup Gate",
+      "sublabel": "InitializeState",
+      "pos": [
+        670,
+        440
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "GoInGame RPC",
+      "sublabel": "until inGame",
+      "pos": [
+        880,
+        440
+      ],
+      "size": [
+        130,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "You write (project)",
+      "wraps": [
+        "users",
+        "cdn",
+        "lb",
+        "api"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "Nerve package ships",
+      "wraps": [
+        "auth",
+        "queue",
+        "worker"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "World routing",
+      "wraps": [
+        "s3",
+        "db"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "users-to-cdn",
+      "from": "users",
+      "to": "cdn",
+      "label": "owns",
+      "variant": "emphasis"
+    },
+    {
+      "id": "jwt-verification",
+      "from": "auth",
+      "to": "api",
+      "label": "reads",
+      "variant": "security",
+      "fromSide": "right",
+      "toSide": "top",
+      "via": [
+        [
+          620,
+          142
+        ],
+        [
+          620,
+          246
+        ],
+        [
+          735,
+          246
+        ]
+      ]
+    },
+    {
+      "id": "cdn-to-lb",
+      "from": "cdn",
+      "to": "lb"
+    },
+    {
+      "id": "static-assets",
+      "from": "cdn",
+      "to": "s3",
+      "label": "loads",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 58
+    },
+    {
+      "id": "lb-to-api",
+      "from": "lb",
+      "to": "api"
+    },
+    {
+      "id": "cache-read-through",
+      "from": "api",
+      "to": "cache",
+      "label": "feeds",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": -68
+    },
+    {
+      "id": "api-sql",
+      "from": "api",
+      "to": "db",
+      "label": "bakes"
+    },
+    {
+      "id": "enqueue-job",
+      "from": "api",
+      "to": "queue",
+      "label": "blocks",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 58
+    },
+    {
+      "id": "queue-to-worker",
+      "from": "queue",
+      "to": "worker"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Missing was project-side",
+      "items": [
+        "Nerve already had ClientConnectionTracker + ClientGoInGame",
+        "Sample had Menu + Service graphs, never a client graph",
+        "LocalGoInGameSystem reimplemented a node that already existed"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Same three pieces as Menu/Service",
+      "items": [
+        "Context (INerveClientContext)",
+        "Driver system (gather + executor.Run)",
+        "SettingsWorld routing + graph asset"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Types force the chain",
+      "items": [
+        "GoInGame needs InitializeState",
+        "Only StartupGate supplies InitializeState blocks",
+        "Only Initialize runs a gate from a Canopy state"
+      ]
+    }
+  ]
+}

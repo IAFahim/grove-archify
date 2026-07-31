@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "One Client Tick \u00b7 Gather \u2192 Graph \u2192 Gate",
+    "subtitle": "ClientAppStateSystem fills context; executor runs; tracker then GoInGame",
+    "output": "../03-tick.sequence.html",
+    "viewBox": [
+      960,
+      800
+    ],
+    "animation": "trace",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "request-and-auth",
+        "label": "Gather",
+        "focus": [
+          "user",
+          "web",
+          "api",
+          "auth"
+        ],
+        "note": "System builds ClientConnectionInput from driver + connection entity."
+      },
+      {
+        "id": "cache-fallback",
+        "label": "Graph run",
+        "focus": [
+          "api",
+          "redis",
+          "db"
+        ],
+        "note": "Executor runs state machine with context Connection + ECB."
+      },
+      {
+        "id": "return-and-trace",
+        "label": "Gate / RPC",
+        "focus": [
+          "db",
+          "api",
+          "redis",
+          "trace",
+          "web",
+          "user"
+        ],
+        "note": "GoInGame may emit RPC; completion waits IsInGame."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "NetCode",
+      "sublabel": "driver events"
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "StateSystem",
+      "sublabel": "ClientApp"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "Executor",
+      "sublabel": "Nerve SM"
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Context",
+      "sublabel": "by value"
+    },
+    {
+      "id": "redis",
+      "type": "database",
+      "label": "Tracker",
+      "sublabel": "snapshot"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "GoInGame",
+      "sublabel": "block"
+    },
+    {
+      "id": "trace",
+      "type": "messagebus",
+      "label": "ECB",
+      "sublabel": "EndSim"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 295,
+      "label": "Request"
+    },
+    {
+      "from": 315,
+      "to": 505,
+      "label": "Fallback"
+    },
+    {
+      "from": 525,
+      "to": 665,
+      "label": "Response + trace"
+    }
+  ],
+  "messages": [
+    {
+      "id": "open-page",
+      "from": "user",
+      "to": "web",
+      "y": 185,
+      "label": "events",
+      "variant": "default"
+    },
+    {
+      "id": "dashboard-request",
+      "from": "web",
+      "to": "api",
+      "y": 228,
+      "label": "build Connection",
+      "variant": "emphasis"
+    },
+    {
+      "id": "verify-jwt",
+      "from": "api",
+      "to": "auth",
+      "y": 270,
+      "label": "GetExecution",
+      "variant": "security"
+    },
+    {
+      "id": "auth-claims",
+      "from": "auth",
+      "to": "api",
+      "y": 305,
+      "label": "write fields",
+      "variant": "return"
+    },
+    {
+      "id": "cache-read",
+      "from": "api",
+      "to": "redis",
+      "y": 354,
+      "label": "Run graph",
+      "variant": "default"
+    },
+    {
+      "id": "cache-miss",
+      "from": "redis",
+      "to": "api",
+      "y": 391,
+      "label": "update snapshot",
+      "variant": "return"
+    },
+    {
+      "id": "profile-query",
+      "from": "api",
+      "to": "db",
+      "y": 443,
+      "label": "maybe RPC",
+      "variant": "emphasis"
+    },
+    {
+      "id": "profile-rows",
+      "from": "db",
+      "to": "api",
+      "y": 489,
+      "label": "IsCompleted?",
+      "variant": "return"
+    },
+    {
+      "id": "cache-write",
+      "from": "api",
+      "to": "redis",
+      "y": 536,
+      "label": "AddComponent / RPC",
+      "variant": "dashed"
+    },
+    {
+      "id": "trace-emit",
+      "from": "api",
+      "to": "trace",
+      "y": 580,
+      "label": "EndSim buffer",
+      "variant": "dashed"
+    },
+    {
+      "id": "dashboard-response",
+      "from": "api",
+      "to": "web",
+      "y": 625,
+      "label": "state hold",
+      "variant": "return"
+    },
+    {
+      "id": "page-render",
+      "from": "web",
+      "to": "user",
+      "y": 662,
+      "label": "next tick",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "web",
+      "from": 220,
+      "to": 668,
+      "type": "frontend"
+    },
+    {
+      "participant": "api",
+      "from": 228,
+      "to": 632,
+      "type": "backend"
+    },
+    {
+      "participant": "auth",
+      "from": 265,
+      "to": 310,
+      "type": "security"
+    },
+    {
+      "participant": "redis",
+      "from": 349,
+      "to": 398,
+      "type": "database"
+    },
+    {
+      "participant": "db",
+      "from": 438,
+      "to": 496,
+      "type": "database"
+    },
+    {
+      "participant": "trace",
+      "from": 575,
+      "to": 630,
+      "type": "messagebus"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Context is a value",
+      "items": [
+        "GetExecution copies context",
+        "Write Connection + CommandBuffer AFTER GetExecution",
+        "That is what nodes actually see"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "IsHost false here",
+      "items": [
+        "Separate ClientWorld+ServerWorld \u2260 host world",
+        "Only single dual-flag world is host",
+        "GoInGame still adds NetworkStreamInGame when not host"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "System only gathers",
+      "items": [
+        "Query NetworkStreamConnection singleton",
+        "Has NetworkId / NetworkStreamInGame",
+        "executor.Run does the graph work"
+      ]
+    }
+  ]
+}
