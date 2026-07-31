@@ -664,6 +664,135 @@ window.GROVE_NARRATE_MANIFEST = {
           "audioDeep": "audio/07/node-worker-deep.wav"
         }
       }
+    },
+    {
+      "id": "08",
+      "title": "The Blob Secret",
+      "blurb": "Why GraphData can hold a whole graph so easily \u2014 three secrets, one brick.",
+      "map": "08-blob-secret.architecture.html",
+      "chapters": [
+        {
+          "id": "intro",
+          "title": "The question",
+          "focus": null,
+          "text": "How can one brick hold a whole graph? The secret is not a clever database. It is that Grove stops storing wires as a list of edges. Bake turns every wire into a pointer sitting inside a node.",
+          "audio": "audio/08/ch-intro.wav"
+        },
+        {
+          "id": "the-trick",
+          "title": "The trick",
+          "focus": "the-trick",
+          "text": "You draw pretty wires. Bake erases that edge list. Secret number one: there is no edge table in the brick. Each wire becomes a kid arrow field on the node that owned the port.",
+          "audio": "audio/08/ch-the-trick.wav"
+        },
+        {
+          "id": "inside-brick",
+          "title": "Inside the brick",
+          "focus": "inside-brick",
+          "text": "The shell is tiny. Graph Data has a Root start door, I O doors for boundary variables, and node maps from id to Node Union. That is almost the whole bookkeeping.",
+          "audio": "audio/08/ch-inside-brick.wav"
+        },
+        {
+          "id": "one-box",
+          "title": "One box",
+          "focus": "one-box",
+          "text": "Look up a node. You get a Node Union: is it execution or data, plus a pointer to bread and filling. Bread is Type number and Node Id. Filling holds your numbers and the kid arrows.",
+          "audio": "audio/08/ch-one-box.wav"
+        },
+        {
+          "id": "play-cheap",
+          "title": "Play is cheap",
+          "focus": "play-cheap",
+          "text": "Play starts at Root, switches on Type, runs a static method, follows kid pointers. Many entities share one brick. Live memory lives in the context backpack, not inside Graph Data.",
+          "audio": "audio/08/ch-play-cheap.wav"
+        }
+      ],
+      "nodes": {
+        "pretty": {
+          "short": "Pretty map. Boxes and wires you draw in Graph Toolkit.",
+          "deep": "Source asset only. Runtime never opens the .mygraph. Import produces GroveAuthGraph; bake produces the blob.",
+          "audio": "audio/08/node-pretty-short.wav",
+          "audioDeep": "audio/08/node-pretty-deep.wav"
+        },
+        "bake": {
+          "short": "Bake. Auth cards freeze into one blob.",
+          "deep": "GroveAuthGraph.Create with instance overrides and variants. BlobRemapBuilder ConstructRoot GraphData, then each node Create.",
+          "audio": "audio/08/node-bake-short.wav",
+          "audioDeep": "audio/08/node-bake-deep.wav"
+        },
+        "noedge": {
+          "short": "No edge table. Secret one. Wires die at bake.",
+          "deep": "There is no BlobArray of edges. Connectivity is only BlobPtr fields on nodes and on GraphOutputData.Value.",
+          "audio": "audio/08/node-noedge-short.wav",
+          "audioDeep": "audio/08/node-noedge-deep.wav"
+        },
+        "brick": {
+          "short": "Graph Data. One immutable blob asset.",
+          "deep": "BlobAssetReference GraphData on IGraphReference. Read-only after bake. Shared across entities that reference it.",
+          "audio": "audio/08/node-brick-short.wav",
+          "audioDeep": "audio/08/node-brick-deep.wav"
+        },
+        "root": {
+          "short": "Root. Blob pointer to the start execution node.",
+          "deep": "BlobPtr ExecutionHeader. Set only when exactly one Input boundary feeds execution. GraphExecution starts here.",
+          "audio": "audio/08/node-root-short.wav",
+          "audioDeep": "audio/08/node-root-deep.wav"
+        },
+        "doors": {
+          "short": "I O doors. Boundary inputs and outputs.",
+          "deep": "GraphInputData is VariableKey plus TypeHash. GraphOutputData adds BlobPtr DataHeader Value that computes the out value.",
+          "audio": "audio/08/node-doors-short.wav",
+          "audioDeep": "audio/08/node-doors-deep.wav"
+        },
+        "nmap": {
+          "short": "Node maps. Id to Node Union for every box.",
+          "deep": "RootNodes for top level. Nodes includes subgraphs. Keys are authored NodeId ulongs.",
+          "audio": "audio/08/node-nmap-short.wav",
+          "audioDeep": "audio/08/node-nmap-deep.wav"
+        },
+        "union": {
+          "short": "Node Union. Tag plus pointer to header.",
+          "deep": "NodeType Execution or Data. AsExecution and AsData cast the BlobPtr Header safely.",
+          "audio": "audio/08/node-union-short.wav",
+          "audioDeep": "audio/08/node-union-deep.wav"
+        },
+        "bread": {
+          "short": "Header bread. Type number and Node Id.",
+          "deep": "ExecutionHeader or DataHeader. Type drives generated dispatch. NodeId scopes debug and state.",
+          "audio": "audio/08/node-bread-short.wav",
+          "audioDeep": "audio/08/node-bread-deep.wav"
+        },
+        "fill": {
+          "short": "Filling. Your payload fields after the header.",
+          "deep": "CompositeData, selector payloads, custom node data. Allocated by that node's Create during bake.",
+          "audio": "audio/08/node-fill-short.wav",
+          "audioDeep": "audio/08/node-fill-deep.wav"
+        },
+        "kids": {
+          "short": "Kid arrows. Secret two. Ports are Blob pointers.",
+          "deep": "Next, Executions array, data inputs. Following a kid is pointer chase, not searching an edge list.",
+          "audio": "audio/08/node-kids-short.wav",
+          "audioDeep": "audio/08/node-kids-deep.wav"
+        },
+        "switch": {
+          "short": "Type switch. Generated code picks the method.",
+          "deep": "ExecuteNode attribute and source generator. Static methods, Burst friendly, no virtual table walk.",
+          "audio": "audio/08/node-switch-short.wav",
+          "audioDeep": "audio/08/node-switch-deep.wav"
+        },
+        "ctx": {
+          "short": "Context. Live backpack. Not stored in the brick.",
+          "deep": "IContext partial struct. Variables, state, chunk caches. GraphData stays immutable while context mutates.",
+          "audio": "audio/08/node-ctx-short.wav",
+          "audioDeep": "audio/08/node-ctx-deep.wav"
+        },
+        "share": {
+          "short": "Many entities. Secret three. One shared brick ref.",
+          "deep": "BlobAssetReference is a handle. Thousands of entities can share one GraphData. Each still has its own context state.",
+          "audio": "audio/08/node-share-short.wav",
+          "audioDeep": "audio/08/node-share-deep.wav"
+        }
+      }
     }
   ]
 };

@@ -1,0 +1,101 @@
+{
+  "id": "08",
+  "title": "The Blob Secret",
+  "blurb": "Why GraphData can hold a whole graph so easily — three secrets, one brick.",
+  "map": "08-blob-secret.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "The question",
+      "focus": null,
+      "text": "How can one brick hold a whole graph? The secret is not a clever database. It is that Grove stops storing wires as a list of edges. Bake turns every wire into a pointer sitting inside a node.",
+      "deep": "GraphData is a Unity Entities blob asset. At bake, GroveAuthGraph.Create builds Root, Inputs, Outputs, RootNodes, and Nodes. There is no connection table in the runtime blob. Ownership of a port means ownership of a BlobPtr field."
+    },
+    {
+      "id": "the-trick",
+      "title": "The trick",
+      "focus": "the-trick",
+      "text": "You draw pretty wires. Bake erases that edge list. Secret number one: there is no edge table in the brick. Each wire becomes a kid arrow field on the node that owned the port.",
+      "deep": "Importer and auth nodes capture port targets as GroveAuth references. Create on each auth node allocates its payload and AuthUtil writes BlobPtr children. Remap builder resolves pointers inside one contiguous blob. Runtime never walks an edges array."
+    },
+    {
+      "id": "inside-brick",
+      "title": "Inside the brick",
+      "focus": "inside-brick",
+      "text": "The shell is tiny. Graph Data has a Root start door, I O doors for boundary variables, and node maps from id to Node Union. That is almost the whole bookkeeping.",
+      "deep": "GraphData fields: GraphId, BlobPtr of ExecutionHeader Root, BlobArray GraphInputData, BlobArray GraphOutputData with Value data pointers, BlobHashMap RootNodes and Nodes of NodeUnion. Optional DebugNames and debug arrays. No adjacency list."
+    },
+    {
+      "id": "one-box",
+      "title": "One box",
+      "focus": "one-box",
+      "text": "Look up a node. You get a Node Union: is it execution or data, plus a pointer to bread and filling. Bread is Type number and Node Id. Filling holds your numbers and the kid arrows.",
+      "deep": "NodeUnion is Type enum plus BlobPtr of Header. ExecutionHeader or DataHeader carries Type int and NodeId. Payload structs sit after the header pattern used by auth Create. Kid ports are BlobPtr of ExecutionHeader or DataHeader, or arrays of those for composite and selectors."
+    },
+    {
+      "id": "play-cheap",
+      "title": "Play is cheap",
+      "focus": "play-cheap",
+      "text": "Play starts at Root, switches on Type, runs a static method, follows kid pointers. Many entities share one brick. Live memory lives in the context backpack, not inside Graph Data.",
+      "deep": "GraphExecution.Execute assigns GroveContext then Root.Value.Execute. Generated dispatch switches on header Type to ExecuteNode methods. Entities hold BlobAssetReference GraphData via IGraphReference. IContext and GroveState hold per-entity variables and state. Sharing the blob is free; mutating the brick is not a thing."
+    }
+  ],
+  "nodes": {
+    "pretty": {
+      "short": "Pretty map. Boxes and wires you draw in Graph Toolkit.",
+      "deep": "Source asset only. Runtime never opens the .mygraph. Import produces GroveAuthGraph; bake produces the blob."
+    },
+    "bake": {
+      "short": "Bake. Auth cards freeze into one blob.",
+      "deep": "GroveAuthGraph.Create with instance overrides and variants. BlobRemapBuilder ConstructRoot GraphData, then each node Create."
+    },
+    "noedge": {
+      "short": "No edge table. Secret one. Wires die at bake.",
+      "deep": "There is no BlobArray of edges. Connectivity is only BlobPtr fields on nodes and on GraphOutputData.Value."
+    },
+    "brick": {
+      "short": "Graph Data. One immutable blob asset.",
+      "deep": "BlobAssetReference GraphData on IGraphReference. Read-only after bake. Shared across entities that reference it."
+    },
+    "root": {
+      "short": "Root. Blob pointer to the start execution node.",
+      "deep": "BlobPtr ExecutionHeader. Set only when exactly one Input boundary feeds execution. GraphExecution starts here."
+    },
+    "doors": {
+      "short": "I O doors. Boundary inputs and outputs.",
+      "deep": "GraphInputData is VariableKey plus TypeHash. GraphOutputData adds BlobPtr DataHeader Value that computes the out value."
+    },
+    "nmap": {
+      "short": "Node maps. Id to Node Union for every box.",
+      "deep": "RootNodes for top level. Nodes includes subgraphs. Keys are authored NodeId ulongs."
+    },
+    "union": {
+      "short": "Node Union. Tag plus pointer to header.",
+      "deep": "NodeType Execution or Data. AsExecution and AsData cast the BlobPtr Header safely."
+    },
+    "bread": {
+      "short": "Header bread. Type number and Node Id.",
+      "deep": "ExecutionHeader or DataHeader. Type drives generated dispatch. NodeId scopes debug and state."
+    },
+    "fill": {
+      "short": "Filling. Your payload fields after the header.",
+      "deep": "CompositeData, selector payloads, custom node data. Allocated by that node's Create during bake."
+    },
+    "kids": {
+      "short": "Kid arrows. Secret two. Ports are Blob pointers.",
+      "deep": "Next, Executions array, data inputs. Following a kid is pointer chase, not searching an edge list."
+    },
+    "switch": {
+      "short": "Type switch. Generated code picks the method.",
+      "deep": "ExecuteNode attribute and source generator. Static methods, Burst friendly, no virtual table walk."
+    },
+    "ctx": {
+      "short": "Context. Live backpack. Not stored in the brick.",
+      "deep": "IContext partial struct. Variables, state, chunk caches. GraphData stays immutable while context mutates."
+    },
+    "share": {
+      "short": "Many entities. Secret three. One shared brick ref.",
+      "deep": "BlobAssetReference is a handle. Thousands of entities can share one GraphData. Each still has its own context state."
+    }
+  }
+}
