@@ -1,0 +1,66 @@
+{
+  "id": "03",
+  "title": "One Frame",
+  "blurb": "One system tick: GraphImpl, SetChunk, Execute.",
+  "map": "03-one-frame.sequence.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "What a frame is",
+      "focus": null,
+      "text": "A frame is one heartbeat of the game. Your system wakes, hands the robot a remote for this frame, points its bags at a group of entities, then walks the brick starting at Root.",
+      "deep": "Graph Impl is constructed in On Create and lives for the system. Each On Update you call Get Execution, schedule a job or iterate chunks, call Set Chunk once per chunk, then Execute or Calculate per entity index."
+    },
+    {
+      "id": "request-and-auth",
+      "title": "Wake the robot",
+      "focus": "request-and-auth",
+      "text": "Get Execution is not a full rebuild. It refreshes generated handles, stamps time and logger into Grove Context, and returns a Graph Execution value. That value is a copy of the context bag for this update.",
+      "deep": "Get Execution runs Update Generated then your Update hook. It builds Grove Context with World time and optional B L Logger. Graph Execution is a struct. Assigning Context copies the containers by value for that handle."
+    },
+    {
+      "id": "cache-fallback",
+      "title": "Walk the brick",
+      "focus": "cache-fallback",
+      "text": "Set Chunk first. That aims Component Container and Buffer Container at this Archetype Chunk. Then Execute starts at Root. Each box has a Type number. The door book opens that case and runs a static method.",
+      "deep": "Set Chunk calls Set Chunk Generated then your Set Chunk. Execute no-ops if the blob is not created or Root is invalid. It sets Entity, Entity Index In Chunk, and Graph Id, then Root Value Execute which enters Execution Generated unless Type is Default."
+    },
+    {
+      "id": "return-and-trace",
+      "title": "Side effects and questions",
+      "focus": "return-and-trace",
+      "text": "Leaf methods write things like Local Transform. Data boxes sleep until something calls Calculate. If you Set Input first, you wrote a variable into the backpack. The graph reads it later. It is not a stack argument to Root.",
+      "deep": "Try Set Input finds a single Graph Input Data entry whose Type Hash matches T. It writes via Set Variable on the Grove State map. Calculate locates an output by unique type or Variable Key, then evaluates the Data Header chain demand-driven."
+    }
+  ],
+  "nodes": {
+    "api": {
+      "short": "Graph Impl. Keeps the context warm across frames.",
+      "deep": "GraphImpl of MyContext. CreateGenerated wires containers from SystemState."
+    },
+    "auth": {
+      "short": "Graph Execution for this update. Remote control for one tick.",
+      "deep": "GraphExecution of MyContext. Field Context is the bag nodes receive by ref."
+    },
+    "db": {
+      "short": "Type switch. Generated Execution Generated on your context.",
+      "deep": "ExecutionGenerated switch cases keyed by header.Type."
+    },
+    "redis": {
+      "short": "The brick. Blob Asset Reference of Graph Data.",
+      "deep": "IGraphReference.Graph blob. GraphId scopes GroveState keys."
+    },
+    "trace": {
+      "short": "A static method with Execute Node. Does the actual work.",
+      "deep": "Your [ExecuteNode] method. Prefer in payload, in GroveContext, ref MyContext."
+    },
+    "user": {
+      "short": "Entities in the world. The job loops them after Set Chunk.",
+      "deep": "Entity handle array from the chunk. Paired with entityIndexInChunk for containers."
+    },
+    "web": {
+      "short": "Your I System. Owns Graph Impl for the whole system lifetime.",
+      "deep": "ISystem with WorldSystemFilter as needed. RequireForUpdate any graph component you query."
+    }
+  }
+}

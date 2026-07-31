@@ -1,0 +1,78 @@
+{
+  "id": "07",
+  "title": "Make a Toy",
+  "blurb": "Four pieces of a custom node from editor to method.",
+  "map": "07-make-a-toy.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "focus": null,
+      "text": "Every custom toy has four LEGO pieces: data struct, auth card, draw node, and run method. Grove glues them with numbers.",
+      "deep": "Split across assemblies: unmanaged payload and enums in data or runtime, Grove Execution Auth or Data Auth in Authoring, Grove Execution Node in Editor, static Execute Node method in runtime."
+    },
+    {
+      "id": "request-path",
+      "title": "Four pieces",
+      "focus": "request-path",
+      "text": "Data holds Speed. Auth serializes it. Draw node is what you see in Graph Toolkit. Run method is the static C sharp with the attribute.",
+      "deep": "Auth Node Type returns your enum int. Init writes blob fields via Blob Remap Builder. Editor Init copies inspector fields onto auth during import."
+    },
+    {
+      "id": "identity-and-cache",
+      "title": "Wire",
+      "focus": "identity-and-cache",
+      "text": "Importer copies draw fields into auth. Bake packs header plus payload. Use With Graph scopes the node to your map type.",
+      "deep": "Create Node on auth allocates header and payload in the graph blob. Instance overrides patch serializable fields per entity before Create. Add Dependencies tracks extra assets."
+    },
+    {
+      "id": "async-work",
+      "title": "Play",
+      "focus": "async-work",
+      "text": "At play, Type hits your case in the door book. Method gets payload, Grove Context, and your context by ref. Then it mutates the world.",
+      "deep": "Attribute Execute Node type id must match baked Type. Signature is public or internal static, non-generic outer type, ref context. Optional typed input for context and block nodes."
+    }
+  ],
+  "nodes": {
+    "api": {
+      "short": "Auth card asset.",
+      "deep": "Grove Execution Auth of T Data."
+    },
+    "auth": {
+      "short": "Type number enum.",
+      "deep": "Stable int shared by attribute and auth Node Type."
+    },
+    "cache": {
+      "short": "Use With Graph scope.",
+      "deep": "Use With Graph typeof your Grove Graph."
+    },
+    "cdn": {
+      "short": "Draw node in Toolkit.",
+      "deep": "Grove Execution Node of Auth comma Data."
+    },
+    "db": {
+      "short": "Baked header and payload.",
+      "deep": "Header Type plus payload bytes in Graph Data."
+    },
+    "lb": {
+      "short": "Importer copies to auth.",
+      "deep": "I Grove Node Create via Grove Node State."
+    },
+    "queue": {
+      "short": "Generated switch case.",
+      "deep": "Execution Generated case label."
+    },
+    "s3": {
+      "short": "Per entity overrides.",
+      "deep": "Graph Instance Instance Values list."
+    },
+    "users": {
+      "short": "Data struct. Unmanaged payload.",
+      "deep": "Unmanaged struct living after Execution Header."
+    },
+    "worker": {
+      "short": "Static run method.",
+      "deep": "Execute Node method body. Context by ref."
+    }
+  }
+}

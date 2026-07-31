@@ -1,32 +1,39 @@
 #!/usr/bin/env python3
-"""Generate Inflect WAVs for Grove lesson narration.
+"""Generate narration for Grove maps — same pipeline as two-capsules.
 
-Uses the warm ReadAloud Inflect worker over a Unix socket (same protocol as ReadAloud).
+Speaks scripts through the ReadAloud Inflect worker, writes:
+  narrate/audio/<lesson>/<clip>.wav
+  narrate/manifest.json
+  narrate/manifest.js   (file:// safe)
 
-  python3 grove/tools/gen_narration.py
-  python3 grove/tools/gen_narration.py --track fun --lesson 01
+    python3 tools/gen_narration.py
+    python3 tools/gen_narration.py --lesson 02 --force
+    python3 tools/gen_narration.py --manifest-only
 """
 from __future__ import annotations
 
 import argparse
 import json
 import os
+import shutil
 import socket
 import sys
 import time
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]  # grove/
+ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "narrate" / "scripts"
 AUDIO = ROOT / "narrate" / "audio"
 MANIFEST = ROOT / "narrate" / "manifest.json"
 MANIFEST_JS = ROOT / "narrate" / "manifest.js"
 
-SOCK = Path(os.environ.get("READALOUD_INFLECT_SOCK")
-            or Path(os.environ.get("XDG_RUNTIME_DIR", "/tmp")) / "readaloud-inflect.sock")
+SOCK = Path(
+    os.environ.get("READALOUD_INFLECT_SOCK")
+    or Path(os.environ.get("XDG_RUNTIME_DIR", "/tmp")) / "readaloud-inflect.sock"
+)
 
 
-def speak(text: str, out: Path, *, speed: float = 1.0, variation: float = 0.45, seed: int = 7) -> None:
+def speak(text: str, out: Path, *, speed: float = 1.0, variation: float = 0.4, seed: int = 11) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = out.with_suffix(".partial.wav")
     if tmp.exists():
@@ -39,7 +46,7 @@ def speak(text: str, out: Path, *, speed: float = 1.0, variation: float = 0.45, 
         "seed": seed,
     }
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    s.settimeout(180)
+    s.settimeout(240)
     try:
         s.connect(str(SOCK))
         s.sendall((json.dumps(req) + "\n").encode("utf-8"))
@@ -53,100 +60,141 @@ def speak(text: str, out: Path, *, speed: float = 1.0, variation: float = 0.45, 
     tmp.replace(out)
 
 
-def load_script(track: str, lesson: str) -> dict:
-    path = SCRIPTS / track / f"{lesson}.json"
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
 def clips_for(script: dict) -> list[tuple[str, str]]:
-    """Return (clip_id, text) pairs."""
     out: list[tuple[str, str]] = []
-    for ch in script["chapters"]:
-        out.append((f"ch-{ch['id']}", ch["text"]))
-    for nid, text in (script.get("nodes") or {}).items():
-        out.append((f"node-{nid}", text))
+    for c in script["chapters"]:
+        out.append((f"ch-{c['id']}", c["text"]))
+        if c.get("deep"):
+            out.append((f"ch-{c['id']}-deep", c["deep"]))
+    for k, v in (script.get("nodes") or {}).items():
+        if isinstance(v, str):
+            out.append((f"node-{k}-short", v))
+        else:
+            out.append((f"node-{k}-short", v["short"]))
+            if v.get("deep"):
+                out.append((f"node-{k}-deep", v["deep"]))
     return out
 
 
-def gen_lesson(track: str, lesson: str, *, force: bool = False, speed: float = 1.0) -> list[str]:
-    script = load_script(track, lesson)
-    wrote: list[str] = []
+def try_migrate(lesson: str, clip_id: str, dest: Path) -> bool:
+    """Reuse older fun/serious layout if present."""
+    candidates = []
+    # old: audio/fun/01/node-users.wav  /  audio/fun/01/ch-intro.wav
+    if clip_id.startswith("node-") and clip_id.endswith("-short"):
+        nid = clip_id[len("node-") : -len("-short")]
+        candidates += [
+            AUDIO / "fun" / lesson / f"node-{nid}.wav",
+            AUDIO / lesson / f"node-{nid}.wav",
+        ]
+    if clip_id.startswith("node-") and clip_id.endswith("-deep"):
+        nid = clip_id[len("node-") : -len("-deep")]
+        candidates += [
+            AUDIO / "serious" / lesson / f"node-{nid}.wav",
+        ]
+    if clip_id.startswith("ch-") and not clip_id.endswith("-deep"):
+        candidates += [
+            AUDIO / "fun" / lesson / f"{clip_id}.wav",
+            AUDIO / "serious" / lesson / f"{clip_id}.wav",
+        ]
+    for src in candidates:
+        if src.exists() and src.stat().st_size > 44:
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dest)
+            return True
+    return False
+
+
+def gen(path: Path, *, force: bool, speed: float) -> int:
+    script = json.loads(path.read_text(encoding="utf-8"))
+    lesson = script["id"]
+    made = 0
     for clip_id, text in clips_for(script):
-        dest = AUDIO / track / lesson / f"{clip_id}.wav"
+        dest = AUDIO / lesson / f"{clip_id}.wav"
         if dest.exists() and not force and dest.stat().st_size > 44:
             continue
-        print(f"  synth {track}/{lesson}/{clip_id} ({len(text)} chars)…", flush=True)
+        if not force and try_migrate(lesson, clip_id, dest):
+            print(f"  reuse {lesson}/{clip_id}", flush=True)
+            made += 1
+            continue
+        print(f"  synth {lesson}/{clip_id}  ({len(text)} chars)", flush=True)
         t0 = time.time()
         speak(text, dest, speed=speed)
-        print(f"    → {dest.stat().st_size} bytes in {time.time()-t0:.1f}s", flush=True)
-        wrote.append(str(dest.relative_to(ROOT)))
-    return wrote
+        print(f"    -> {dest.stat().st_size:,} bytes in {time.time() - t0:.1f}s", flush=True)
+        made += 1
+    return made
 
 
 def build_manifest() -> dict:
     lessons = []
-    for track in ("fun", "serious"):
-        for path in sorted((SCRIPTS / track).glob("*.json")):
-            script = json.loads(path.read_text(encoding="utf-8"))
-            lesson_id = path.stem
-            chapters = []
-            for ch in script["chapters"]:
-                wav = f"audio/{track}/{lesson_id}/ch-{ch['id']}.wav"
-                chapters.append({
-                    "id": ch["id"],
-                    "title": ch.get("title") or ch["id"],
-                    "view": ch.get("view"),
-                    "text": ch["text"],
-                    "audio": wav if (ROOT / "narrate" / wav).exists() else None,
-                })
-            nodes = {}
-            for nid, text in (script.get("nodes") or {}).items():
-                wav = f"audio/{track}/{lesson_id}/node-{nid}.wav"
-                nodes[nid] = {
-                    "text": text,
-                    "audio": wav if (ROOT / "narrate" / wav).exists() else None,
+    for path in sorted(SCRIPTS.glob("*.json")):
+        # skip legacy fun/serious folders if any remain as files only at top level
+        if path.parent != SCRIPTS:
+            continue
+        script = json.loads(path.read_text(encoding="utf-8"))
+        lesson = script["id"]
+
+        def audio_for(clip_id: str):
+            rel = f"audio/{lesson}/{clip_id}.wav"
+            return rel if (ROOT / "narrate" / rel).exists() else None
+
+        nodes = {}
+        for k, v in (script.get("nodes") or {}).items():
+            if isinstance(v, str):
+                nodes[k] = {"short": v, "audio": audio_for(f"node-{k}-short")}
+            else:
+                nodes[k] = {
+                    "short": v["short"],
+                    "deep": v.get("deep"),
+                    "audio": audio_for(f"node-{k}-short"),
+                    "audioDeep": audio_for(f"node-{k}-deep") if v.get("deep") else None,
                 }
-            lessons.append({
-                "track": track,
-                "id": lesson_id,
-                "title": script["title"],
-                "map": script["map"],
-                "chapters": chapters,
-                "nodes": nodes,
+
+        chapters = []
+        for c in script["chapters"]:
+            chapters.append({
+                "id": c["id"],
+                "title": c["title"],
+                "focus": c.get("focus"),
+                "text": c["text"],
+                "audio": audio_for(f"ch-{c['id']}"),
             })
+
+        lessons.append({
+            "id": lesson,
+            "title": script["title"],
+            "blurb": script.get("blurb", ""),
+            "map": script["map"],
+            "chapters": chapters,
+            "nodes": nodes,
+        })
+
     return {
-        "version": 1,
-        "voice": "Inflect-Micro-v2",
+        "version": 2,
+        "voice": "ReadAloud Inflect",
         "lessons": lessons,
     }
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--track", choices=["fun", "serious", "all"], default="all")
-    ap.add_argument("--lesson", default="all", help="01..07 or all")
+    ap.add_argument("--lesson", default="all")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--speed", type=float, default=1.0)
     ap.add_argument("--manifest-only", action="store_true")
     args = ap.parse_args()
 
-    if not args.manifest_only and not SOCK.exists():
-        print(f"Inflect socket missing: {SOCK}", file=sys.stderr)
-        print("Start ReadAloud Inflect worker, or run with env READALOUD_INFLECT_* set.", file=sys.stderr)
-        return 2
+    paths = sorted(p for p in SCRIPTS.glob("*.json") if p.parent == SCRIPTS)
+    if args.lesson != "all":
+        paths = [p for p in paths if p.stem == args.lesson]
 
-    tracks = ["fun", "serious"] if args.track == "all" else [args.track]
     if not args.manifest_only:
-        for track in tracks:
-            lessons = sorted(p.stem for p in (SCRIPTS / track).glob("*.json"))
-            if args.lesson != "all":
-                lessons = [args.lesson]
-            for lesson in lessons:
-                print(f"== {track} / {lesson} ==")
-                gen_lesson(track, lesson, force=args.force, speed=args.speed)
+        if not SOCK.exists():
+            print(f"Inflect socket missing: {SOCK}", file=sys.stderr)
+            return 2
+        for path in paths:
+            print(f"== {path.stem} ==")
+            gen(path, force=args.force, speed=args.speed)
 
-    # always write manifest under narrate/
-    # JSON for tooling; JS for file:// playback (script tags are not CORS-blocked).
     man = build_manifest()
     MANIFEST.write_text(json.dumps(man, indent=2) + "\n", encoding="utf-8")
     MANIFEST_JS.write_text(
@@ -156,7 +204,7 @@ def main() -> int:
         + ";\n",
         encoding="utf-8",
     )
-    print(f"wrote {MANIFEST} + {MANIFEST_JS.name} ({len(man['lessons'])} lesson tracks)")
+    print(f"wrote {MANIFEST.name} + {MANIFEST_JS.name} ({len(man['lessons'])} lessons)")
     return 0
 
 

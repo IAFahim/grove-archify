@@ -1,0 +1,78 @@
+{
+  "id": "06",
+  "title": "Push vs Pull",
+  "blurb": "Execute pushes control flow; Calculate pulls data.",
+  "map": "06-push-pull.lifecycle.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Two play styles",
+      "focus": null,
+      "text": "Push starts at Root and walks action boxes. Pull starts at an Output and asks a data box for a value. Most graphs use both: selectors push, but they pull scores on the way.",
+      "deep": "Runtime is recursive descent through blob pointers. Execute pushes control flow. Calculate pulls expressions. There is no system that visits every node each frame."
+    },
+    {
+      "id": "main-lifecycle",
+      "title": "Push path",
+      "focus": "main-lifecycle",
+      "text": "Root may enter a Composite that runs every child. A Selector scores options, picks one action, executes it. The leaf finally moves the world. Nothing magic loops the whole brick each frame.",
+      "deep": "CompositeData holds a BlobArray of ExecutionHeader pointers. Selectors keep parallel Qualifier and Action arrays; the last pair is the default threshold path; win conditions use strict greater-than on floats."
+    },
+    {
+      "id": "human-waits",
+      "title": "Pull path",
+      "focus": "human-waits",
+      "text": "Calculate on an Output evaluates only the data chain needed. Variables read the backpack. Qualifiers fold floats. If nothing asks, those boxes stay asleep.",
+      "deep": "Outputs bind to DataHeaders. Variable and VariableSet are special-cased before generated dispatch. VariableSet re-evaluates and writes on every Calculate of its output."
+    },
+    {
+      "id": "recovery-and-exits",
+      "title": "Backpack between frames",
+      "focus": "recovery-and-exits",
+      "text": "Inputs, locals, and state machine ints live in Grove State on the entity. Keys include Graph Id. When one graph ends, remove only that Graph Id's keys so other graphs keep their memory.",
+      "deep": "GroveStateKey includes GraphId, optional scope, and key material from Hash128 splits for variables. GraphStateUtil.RemoveGraphState iterates keys and removes those with matching GraphId."
+    }
+  ],
+  "nodes": {
+    "approval": {
+      "short": "An Output or data question. Pull entry.",
+      "deep": "GraphOutputData.Value data header."
+    },
+    "blocked": {
+      "short": "Data node Calculate. Demand driven.",
+      "deep": "DataHeader.Calculate path."
+    },
+    "cancelled": {
+      "short": "Next frame will Get Execution again.",
+      "deep": "Next system update boundary."
+    },
+    "completed": {
+      "short": "World changed this frame for that entity.",
+      "deep": "ECS mutations already applied this tick."
+    },
+    "executing": {
+      "short": "Selector. Pull scores, push one action.",
+      "deep": "Selector family under GroveExecutionTypes."
+    },
+    "expired": {
+      "short": "Same entity still holds Grove State.",
+      "deep": "Persistent GroveState buffer on entity."
+    },
+    "failed": {
+      "short": "Variable. Backpack read or write.",
+      "deep": "Variable or graph-local state entry."
+    },
+    "planning": {
+      "short": "Composite. Run every connected execution child in order.",
+      "deep": "GroveExecutionTypes.Composite runtime."
+    },
+    "queued": {
+      "short": "Root. Push starts here for execution graphs.",
+      "deep": "GraphData.Root ExecutionHeader."
+    },
+    "reviewing": {
+      "short": "Leaf execution. Side effects.",
+      "deep": "Custom or built-in execution leaf."
+    }
+  }
+}

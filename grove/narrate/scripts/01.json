@@ -1,0 +1,78 @@
+{
+  "id": "01",
+  "title": "The Toy Machine",
+  "blurb": "Draw a map, freeze a brick, run it every frame.",
+  "map": "01-toy-machine.architecture.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "focus": null,
+      "text": "Welcome to Grove! Think of it like a toy machine. You draw a treasure map. Grove freezes that map into a hard brick. Then a little robot reads the brick every frame and makes the game world move.",
+      "deep": "Grove is a three-layer package: Editor authoring, Authoring bake, and runtime execution. You author a Graph Toolkit asset that derives Grove Graph. Import produces a Grove Auth Graph. Baking produces a Blob Asset Reference of Graph Data on an I Graph Reference component. Runtime never reads the source map."
+    },
+    {
+      "id": "request-path",
+      "title": "The main path",
+      "focus": "request-path",
+      "text": "Follow the bright path. First you draw. Then the importer makes cards. Then the bake oven freezes everything into one brick called Graph Data. That brick is what play time uses.",
+      "deep": "Pipeline: Grove Importer walks I Grove Nodes and subgraphs, sets Root when exactly one Input boundary resolves to an execution node, then Graph Authoring references the auth asset. Graph Baking Setup System reflects I Graph Baking types and creates Graph Baking System of T C. Auth Create builds the blob."
+    },
+    {
+      "id": "identity-and-cache",
+      "title": "Helpers",
+      "focus": "identity-and-cache",
+      "text": "Two helpers sit beside the path. Numbers on each box pick which door the robot opens. The backpack called Grove State remembers secrets between frames, like inputs and local variables.",
+      "deep": "Each baked node is a header of Type int plus Node Id, then an inline payload. Execution Header Execute calls context Execution Generated, a source-generated switch. Live graph memory is the Grove State buffer, a dynamic untyped hash map keyed by Graph Id so multi-graph entities do not clobber each other."
+    },
+    {
+      "id": "async-work",
+      "title": "Three rooms",
+      "focus": "async-work",
+      "text": "There are three rooms. Draw time is Graph Toolkit. Bake time freezes the brick. Play time is your E C S system. Never mix the rooms up. The pretty map is not the brick.",
+      "deep": "Bovine Labs Grove Editor owns Toolkit nodes and import. Grove Authoring owns auth assets and bakers. Grove runtime owns Graph Impl, Graph Execution, built-in nodes, and the source generator contract. Your I System owns one Graph Impl and builds a Graph Execution each update after Set Chunk."
+    }
+  ],
+  "nodes": {
+    "api": {
+      "short": "The brick itself. Blob asset Graph Data.",
+      "deep": "Blob Asset Reference Graph Data: Root, Inputs, Outputs, node maps, Graph Id."
+    },
+    "auth": {
+      "short": "Numbers. Each node type is an integer door key.",
+      "deep": "Node Type integer. Grove Execution Types negatives for built-ins; your positives for customs."
+    },
+    "cache": {
+      "short": "Backpack. Grove State on the entity.",
+      "deep": "Buffer container of Grove State. Get State extension returns the entity map."
+    },
+    "cdn": {
+      "short": "Importer. Turns the pretty map into auth cards.",
+      "deep": "Grove Importer Scripted Importer of T Auth. Creates auth subassets."
+    },
+    "db": {
+      "short": "Robot brain. Your context with component bags.",
+      "deep": "I Context of T partial struct. Component and Buffer containers wired by the generator."
+    },
+    "lb": {
+      "short": "Bake oven. Freezes cards into a brick.",
+      "deep": "Graph Baking System. Auto-spawned; hashes variants and instance overrides."
+    },
+    "queue": {
+      "short": "Play room. Your I System tick.",
+      "deep": "Graph Impl Get Execution then job Set Chunk and Execute or Calculate."
+    },
+    "s3": {
+      "short": "Editor room. Graph Toolkit lives here.",
+      "deep": "Editor assembly boundary. Graph Toolkit Graph Database assets."
+    },
+    "users": {
+      "short": "You draw the pretty map here. This is the source graph people edit.",
+      "deep": "Source asset. Grove Graph subclass with a Graph attribute extension such as my graph."
+    },
+    "worker": {
+      "short": "Do the work. Leaf methods move transforms and scores.",
+      "deep": "Static methods with Execute Node or Data Node attributes. Context by ref."
+    }
+  }
+}

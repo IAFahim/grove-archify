@@ -1,0 +1,86 @@
+{
+  "id": "02",
+  "title": "Draw \u2192 Bake \u2192 Play",
+  "blurb": "Source map \u2192 importer \u2192 auth asset \u2192 bake \u2192 brick.",
+  "map": "02-draw-bake-play.workflow.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "focus": null,
+      "text": "Welcome to the cooking show. Recipe is your map. Oven is the baker. Dinner plate is the robot tick. Same three steps every time.",
+      "deep": "Import and bake are pure authoring. Runtime only consumes Blob Asset Reference Graph Data. Graph Authoring or Graph Authoring Buffer reference Grove Auth Graph, never the source my graph file."
+    },
+    {
+      "id": "happy-path",
+      "title": "Main path",
+      "focus": "happy-path",
+      "text": "You draw the pretty map. The importer builds an Auth box \u2014 a frozen card deck of Root, inputs, outputs, and nodes. Authoring on an entity only points at that Auth box. The bake oven reads the Auth box and freezes a brick. Play never opens the pretty map again.",
+      "deep": "Source GroveGraph is imported by GroveImporter into GroveAuthGraph plus node subassets. GraphAuthoring references the auth main object. GraphBakingSystem calls Auth.Create to emit GraphData. Runtime IGraphReference holds only the blob."
+    },
+    {
+      "id": "safety-gate",
+      "title": "Start door",
+      "focus": "safety-gate",
+      "text": "The start door rule: exactly one Input wire must touch the first action box. Zero starts or two starts means the importer yells.",
+      "deep": "Report Root Candidate Errors fires if multiple Input to execution roots exist, or if top-level execution exists with no Input root. Untyped Graph Toolkit variables never become runtime Inputs or Outputs."
+    },
+    {
+      "id": "evidence-loop",
+      "title": "Extras",
+      "focus": "evidence-loop",
+      "text": "Variants pick a branch while baking, so unpicked paths disappear from the brick. The backpack holds live memory after bake.",
+      "deep": "Bake hash includes graph identity, selected variant values, instance overrides, and Version Key. Grove Variant Auth Register Stripped Nodes removes unselected branches from the blob."
+    }
+  ],
+  "nodes": {
+    "approval": {
+      "short": "Start door check. The Auth box only gets a Root if exactly one Input boundary connects to an execution node.",
+      "deep": "CollectRootCandidates: exactly one Input variable resolving to GroveExecutionAuth."
+    },
+    "blocked": {
+      "short": "Import error path. Fix the wires.",
+      "deep": "Import validation failure for entry shape."
+    },
+    "chat": {
+      "short": "Pretty map. Graph Toolkit source you edit. Humans draw here; bakers do not read this file at runtime.",
+      "deep": "GroveGraph source asset (.mygraph). Editor only. Not the baker input."
+    },
+    "external": {
+      "short": "Bake oven. Reads the Auth box, applies variants and overrides, freezes a GraphData brick.",
+      "deep": "GraphBakingSystem. Calls Auth.Create with instance values and variant selection."
+    },
+    "final": {
+      "short": "It runs. Robot can Execute the brick.",
+      "deep": "I Graph Reference Graph property holds the blob."
+    },
+    "planner": {
+      "short": "Importer. Reads the pretty map once and builds the Auth box plus node sub-cards.",
+      "deep": "GroveImporter ScriptedImporter. Creates auth subassets and sets Root from Input boundary candidates."
+    },
+    "retry": {
+      "short": "Reimport after you fix the start door.",
+      "deep": "Reimport after fixing Input to execution wiring."
+    },
+    "router": {
+      "short": "Auth box is the imported result of your pretty map. After import, Grove no longer needs the drawing file for bake. This box holds the start Root, Inputs, Outputs, and every node as little cards. Authoring on a GameObject points here \u2014 not at the .mygraph.",
+      "deep": "GroveAuthGraph: ScriptableObject main asset produced by GroveImporter. Fields Root, Inputs, Outputs, Nodes. GraphAuthoring references this asset. GroveAuthGraph.Create builds BlobAssetReference of GraphData."
+    },
+    "store": {
+      "short": "Variants. Bake-time branch pick.",
+      "deep": "Dictionary of Grove Variant Auth to selected branch."
+    },
+    "tool": {
+      "short": "Authoring component on a GameObject. Its job is only to point at an Auth box and optional overrides, then bake.",
+      "deep": "GraphAuthoring of TAuth comma TComponent. References Auth, registers bake deps, writes GraphBakingData."
+    },
+    "trace": {
+      "short": "Backpack and overrides live near play.",
+      "deep": "Instance values and Grove State initialize bake."
+    },
+    "user": {
+      "short": "You. The designer who wants a brain on the entity.",
+      "deep": "Author intent. Creates Grove Graph asset."
+    }
+  }
+}

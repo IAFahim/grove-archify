@@ -1,0 +1,78 @@
+{
+  "id": "04",
+  "title": "Brick Anatomy",
+  "blurb": "What lives inside GraphData \u2014 header, payload, Type.",
+  "map": "04-brick.anatomy.dataflow.html",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "Hello",
+      "focus": null,
+      "text": "The brick is a sandwich factory. Shell on the outside. Each box is bread plus filling. Little arrows point to kid boxes.",
+      "deep": "Graph Data is a blob root: Graph Id, Root pointer, Inputs array, Outputs array, Root Nodes and Nodes hash maps of Node Union tags."
+    },
+    {
+      "id": "collection-path",
+      "title": "Shell",
+      "focus": "collection-path",
+      "text": "Outside: Graph Id stamps the backpack keys. Root is the start door. Inputs and Outputs are the labeled holes.",
+      "deep": "Graph Input Data stores Variable Key and Burst Type Hash. Graph Output Data also stores a Blob Ptr to a Data Header that produces the value."
+    },
+    {
+      "id": "consent-boundary",
+      "title": "Box",
+      "focus": "consent-boundary",
+      "text": "Every node: bread is Type and Node Id. Filling is payload like Speed or score lists. Kids are blob pointers.",
+      "deep": "Header is twelve-ish bytes: int Type, ulong Node Id. Payload is at address of header plus size of header. Same pattern for Execution and Data headers."
+    },
+    {
+      "id": "analytics-consumers",
+      "title": "Doors",
+      "focus": "analytics-consumers",
+      "text": "Robot reads Type, opens that door in the door book, runs the method, maybe follows more arrows, maybe writes the world.",
+      "deep": "Data path special-cases Constant, Variable, Variable Set before Data Generated. Execution always goes through Execution Generated for non-default types."
+    }
+  ],
+  "nodes": {
+    "consent": {
+      "short": "Filling. Your payload struct.",
+      "deep": "Payload immediately after header via unsafe address offset."
+    },
+    "dashboard": {
+      "short": "E C S write. Side effects.",
+      "deep": "Component Container Get R W using Entity Index In Chunk."
+    },
+    "edge": {
+      "short": "Bread. Type number and Node Id.",
+      "deep": "Execution Header or Data Header. I Node Type and Node Id."
+    },
+    "features": {
+      "short": "Recurse into more headers.",
+      "deep": "Child Execute or Calculate calls."
+    },
+    "mobile": {
+      "short": "Inputs and Outputs list on the shell.",
+      "deep": "Graph Input Data and Graph Output Data arrays."
+    },
+    "model": {
+      "short": "Backpack reads and writes.",
+      "deep": "Graph State Util Get Variable and Set Variable."
+    },
+    "pii": {
+      "short": "Kid arrows. Blob pointers to children.",
+      "deep": "Blob Array of Blob Ptr headers inside payload structs."
+    },
+    "stream": {
+      "short": "Door book entry. Generated switch case.",
+      "deep": "I Context Generator Execution Generated and Data Generated."
+    },
+    "warehouse": {
+      "short": "Static method. Burst friendly.",
+      "deep": "Execute Node or Data Node target method."
+    },
+    "web": {
+      "short": "Root pointer. Where Execute starts.",
+      "deep": "Blob Ptr Execution Header Root. May be invalid for pure Calculate graphs."
+    }
+  }
+}
