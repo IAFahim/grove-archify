@@ -194,7 +194,8 @@
         2) Stay on <b>Fun</b> for all seven lessons, then <b>Serious</b>.<br />
         3) <b>Tour</b> only when you want the guided chapter path.
       </p>
-      <p class="hint">Keys: <kbd>Space</kbd> play/pause tour · <kbd>E</kbd> explore · <kbd>T</kbd> tour · <kbd>Esc</kbd> stop · <kbd>1</kbd>/<kbd>2</kbd> Fun/Serious</p>
+      <p class="hint">Keys: <kbd>Space</kbd> play/pause tour · <kbd>B</kbd> browse/explore · <kbd>G</kbd> guided tour · <kbd>Esc</kbd> stop · <kbd>1</kbd>/<kbd>2</kbd> Fun/Serious<br />
+      (Avoid <kbd>E</kbd>/<kbd>T</kbd>/<kbd>P</kbd> — Archify uses those inside the map: export / theme / story.)</p>
     </aside>
     <div class="stage">
       <div class="loading" id="mapLoading" role="status" aria-live="polite"></div>
@@ -740,9 +741,11 @@
         document.querySelector('.seg button[data-track="fun"]').click();
       } else if (ev.key === "2") {
         document.querySelector('.seg button[data-track="serious"]').click();
-      } else if (ev.key === "e" || ev.key === "E") {
+      } else if (ev.key === "b" || ev.key === "B") {
+        // Browse/explore — not E/T (Archify: export / theme)
         document.querySelector('.seg button[data-mode="explore"]').click();
-      } else if (ev.key === "t" || ev.key === "T") {
+      } else if (ev.key === "g" || ev.key === "G") {
+        // Guided tour — not P (Archify: story play)
         document.querySelector('.seg button[data-mode="tour"]').click();
       }
     });
