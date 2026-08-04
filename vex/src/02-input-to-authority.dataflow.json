@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "vex-ee-3 · One keypress, from device to server authority",
+    "subtitle": "Where PlayerMoveInput.Move stops being trusted, and why DriveForce is not a speed cap",
+    "output": "../02-input-to-authority.dataflow.html",
+    "viewBox": [1180, 780],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "main-path",
+        "label": "Device to body",
+        "focus": ["keyboard", "gather", "move_input", "buffer", "clamp", "move_sys", "physics_vel"],
+        "note": "Follow one move from Keyboard.current through the command ring into shared simulation."
+      },
+      {
+        "id": "trust-boundary",
+        "label": "Trust boundary",
+        "focus": ["buffer", "clamp", "no_clamp", "move_sys"],
+        "note": "PlayerMoveInput.Clamp is the only place raw Move is sanitized before TargetSpeed."
+      },
+      {
+        "id": "drive-force-limit",
+        "label": "Force vs speed",
+        "focus": ["clamp", "move_sys", "drive_force", "physics_vel", "no_clamp"],
+        "note": "DriveForce caps impulse per tick; without Clamp a forged |Move| still raises the speed ceiling."
+      }
+    ]
+  },
+  "stages": [
+    { "label": "Device" },
+    { "label": "Client gather" },
+    { "label": "Command stream" },
+    { "label": "Trust boundary" },
+    { "label": "Shared simulation" }
+  ],
+  "nodes": [
+    {
+      "id": "keyboard",
+      "type": "external",
+      "label": "Keyboard.current",
+      "sublabel": "WASD edges only",
+      "stage": 0,
+      "row": 1,
+      "width": 148,
+      "tag": "device"
+    },
+    {
+      "id": "gather",
+      "type": "frontend",
+      "label": "PlayerGatherInputSystem",
+      "sublabel": "GhostInputSystemGroup",
+      "stage": 1,
+      "row": 1,
+      "width": 168,
+      "tag": "honest client"
+    },
+    {
+      "id": "move_input",
+      "type": "messagebus",
+      "label": "PlayerMoveInput",
+      "sublabel": "float2 Move",
+      "stage": 1,
+      "row": 3,
+      "width": 148,
+      "tag": "IInputComponentData"
+    },
+    {
+      "id": "buffer",
+      "type": "messagebus",
+      "label": "InputBufferData",
+      "sublabel": "Copy · Apply · tick",
+      "stage": 2,
+      "row": 1,
+      "width": 148,
+      "tag": "command ring"
+    },
+    {
+      "id": "clamp",
+      "type": "security",
+      "label": "PlayerMoveInput.Clamp",
+      "sublabel": "trust ends here",
+      "stage": 3,
+      "row": 1,
+      "width": 156,
+      "tag": "server rule"
+    },
+    {
+      "id": "no_clamp",
+      "type": "security",
+      "label": "Without Clamp",
+      "sublabel": "Move=(10,0) → 50 m/s",
+      "stage": 3,
+      "row": 3,
+      "width": 148,
+      "tag": "forged client"
+    },
+    {
+      "id": "move_sys",
+      "type": "backend",
+      "label": "PlayerMoveSystem",
+      "sublabel": "client + server same rule",
+      "stage": 4,
+      "row": 1,
+      "width": 148,
+      "tag": "PredictedFixedStep"
+    },
+    {
+      "id": "drive_force",
+      "type": "backend",
+      "label": "DriveForce = 40 N",
+      "sublabel": "force/tick · not |v|",
+      "stage": 4,
+      "row": 0,
+      "width": 148,
+      "tag": "accel only"
+    },
+    {
+      "id": "physics_vel",
+      "type": "database",
+      "label": "PhysicsVelocity",
+      "sublabel": "ApplyLinearImpulse",
+      "stage": 4,
+      "row": 3,
+      "width": 148,
+      "tag": "ghost field"
+    }
+  ],
+  "flows": [
+    {
+      "id": "device-to-gather",
+      "from": "keyboard",
+      "to": "gather",
+      "label": "key edges",
+      "classification": "managed Input System",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": -56
+    },
+    {
+      "id": "gather-write",
+      "from": "gather",
+      "to": "move_input",
+      "label": "write Move",
+      "classification": "normalize |m|>1 only",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": 40
+    },
+    {
+      "id": "pack-command",
+      "from": "move_input",
+      "to": "buffer",
+      "label": "Copy to ring",
+      "classification": "tick-stamped buffer",
+      "variant": "emphasis",
+      "labelDy": 40
+    },
+    {
+      "id": "apply-then-clamp",
+      "from": "buffer",
+      "to": "clamp",
+      "label": "Apply then Clamp",
+      "classification": "value stops being trusted",
+      "variant": "security",
+      "route": "straight",
+      "labelDy": -56
+    },
+    {
+      "id": "trusted-move",
+      "from": "clamp",
+      "to": "move_sys",
+      "label": "trusted |m|≤1",
+      "classification": "sim input",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": -56
+    },
+    {
+      "id": "impulse-to-body",
+      "from": "move_sys",
+      "to": "physics_vel",
+      "label": "impulse",
+      "classification": "replicated ghost field",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": 40
+    },
+    {
+      "id": "force-cap",
+      "from": "move_sys",
+      "to": "drive_force",
+      "label": "force cap",
+      "classification": "accel ceiling only",
+      "variant": "default",
+      "route": "straight",
+      "labelAt": [960, 208]
+    },
+    {
+      "id": "forged-bypass",
+      "from": "buffer",
+      "to": "no_clamp",
+      "label": "if Clamp skipped",
+      "classification": "raw Move as truth",
+      "variant": "dashed",
+      "labelDy": 40
+    },
+    {
+      "id": "speed-hack",
+      "from": "no_clamp",
+      "to": "move_sys",
+      "label": "50 m/s target",
+      "classification": "server still authorizes",
+      "variant": "dashed",
+      "labelDy": 48
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Main path",
+      "items": [
+        "PlayerGatherInputSystem writes PlayerMoveInput on GhostOwnerIsLocal only",
+        "NetCode Copy/Apply move the float2 through InputBufferData per tick",
+        "PlayerMoveSystem runs the same rule on client prediction and server authority"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Trust boundary",
+      "items": [
+        "Honest gather normalizes diagonal length; the wire does not enforce it",
+        "PlayerMoveInput.Clamp is the first sim-side bound on |Move|",
+        "Without it, Move=(10,0) targets 50 m/s and other clients see the cheat as truth"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "DriveForce is not a speed cap",
+      "items": [
+        "TargetSpeed (5 m/s) is the chase goal after Clamp",
+        "DriveForce (40 N) only clamps impulse per tick — acceleration, not |v|",
+        "A forged over-length Move still climbs to an arbitrary ceiling under full authority"
+      ]
+    }
+  ]
+}

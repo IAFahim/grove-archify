@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Bridge · Ordered elimination of camera jitter",
+    "subtitle": "Who jitters → tick stepping → prediction correction → Bridge sync → Cinemachine damping",
+    "output": "../04-jitter-ladder.workflow.html",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "walk-down",
+        "label": "Walk the ladder down",
+        "focus": ["symptom", "who", "stepping", "correction", "bridge", "cinemachine"],
+        "note": "First matching rung is the bug. Do not start at Cinemachine."
+      },
+      {
+        "id": "body-layers",
+        "label": "Body presentation layers",
+        "focus": ["who", "stepping", "hit_step", "correction", "hit_correct"],
+        "note": "Owned-only shake means prediction + presentation of the predicted body."
+      },
+      {
+        "id": "wire-and-lens",
+        "label": "Bridge then lens",
+        "focus": ["bridge", "hit_bridge", "cinemachine", "hit_cm"],
+        "note": "Bridge is a sync layer. Damping is last and only after the mesh is smooth."
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "report", "label": "Report" },
+    { "id": "filter", "label": "Ownership filter" },
+    { "id": "body", "label": "Body presentation" },
+    { "id": "wire", "label": "Bridge + Cinemachine" },
+    { "id": "found", "label": "First match", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "filter_phase", "label": "Filter", "fromCol": 0, "toCol": 1 },
+    { "id": "body_phase", "label": "Body pose", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "wire_phase", "label": "Wire + lens", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "groups": [
+    { "id": "body_group", "label": "Predicted-body presentation", "lane": "body", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "match_band", "label": "Stop at first signature", "lane": "found", "fromCol": 2, "toCol": 5, "variant": "security" }
+  ],
+  "mainPath": ["symptom", "who", "stepping", "correction", "bridge", "cinemachine"],
+  "nodes": [
+    {
+      "id": "symptom",
+      "lane": "report",
+      "col": 0,
+      "type": "external",
+      "label": "Camera shakes",
+      "sublabel": "follow vcam"
+    },
+    {
+      "id": "who",
+      "lane": "filter",
+      "col": 1,
+      "type": "security",
+      "label": "Who jitters?",
+      "sublabel": "GhostOwnerIsLocal",
+      "tag": "rung 0",
+      "width": 118
+    },
+    {
+      "id": "stepping",
+      "lane": "body",
+      "col": 2,
+      "type": "backend",
+      "label": "Tick stepping",
+      "sublabel": "PhysicsGraphicalSmoothing",
+      "tag": "rung 1",
+      "width": 100
+    },
+    {
+      "id": "correction",
+      "lane": "body",
+      "col": 3,
+      "type": "backend",
+      "label": "Correction",
+      "sublabel": "GhostPredictionSmoothing",
+      "tag": "rung 2",
+      "width": 100
+    },
+    {
+      "id": "bridge",
+      "lane": "wire",
+      "col": 4,
+      "type": "messagebus",
+      "label": "Bridge sync",
+      "sublabel": "TargetBridgeSync",
+      "tag": "rung 3",
+      "width": 92
+    },
+    {
+      "id": "cinemachine",
+      "lane": "wire",
+      "col": 5,
+      "type": "frontend",
+      "label": "Cinemachine",
+      "sublabel": "damping · Brain",
+      "tag": "rung 4 last",
+      "width": 92
+    },
+    {
+      "id": "hit_step",
+      "lane": "found",
+      "col": 2,
+      "type": "cloud",
+      "label": "Interp",
+      "sublabel": "SmoothRB",
+      "tag": "LTW≠LT",
+      "width": 60
+    },
+    {
+      "id": "hit_correct",
+      "lane": "found",
+      "col": 3,
+      "type": "cloud",
+      "label": "Regist",
+      "sublabel": "PawnSmth",
+      "tag": "δ0.01",
+      "width": 60
+    },
+    {
+      "id": "hit_bridge",
+      "lane": "found",
+      "col": 4,
+      "type": "security",
+      "label": "Retarg",
+      "sublabel": "CMCamera",
+      "tag": "no lerp",
+      "width": 60
+    },
+    {
+      "id": "hit_cm",
+      "lane": "found",
+      "col": 5,
+      "type": "frontend",
+      "label": "Damp",
+      "sublabel": "mesh ok",
+      "tag": "last",
+      "width": 60
+    }
+  ],
+  "edges": [
+    {
+      "from": "symptom",
+      "to": "who",
+      "variant": "emphasis",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "who",
+      "to": "stepping",
+      "label": "only owned",
+      "variant": "emphasis",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 11
+    },
+    {
+      "from": "stepping",
+      "to": "correction",
+      "variant": "emphasis"
+    },
+    {
+      "from": "correction",
+      "to": "bridge",
+      "variant": "emphasis",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "bridge",
+      "to": "cinemachine"
+    },
+    {
+      "from": "stepping",
+      "to": "hit_step",
+      "variant": "security",
+      "role": "error",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "correction",
+      "to": "hit_correct",
+      "variant": "security",
+      "role": "error",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "bridge",
+      "to": "hit_bridge",
+      "variant": "security",
+      "role": "error",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "cinemachine",
+      "to": "hit_cm",
+      "variant": "security",
+      "role": "error",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Walk down, stop at first match",
+      "items": [
+        "Only-owned shake is the prediction path; remotes are OwnerPredicted-interpolated",
+        "Tick stepping and correction can coexist — fix one, re-check the other",
+        "Never open Cinemachine until the capsule mesh is smooth in world space"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Surprising facts",
+      "items": [
+        "CinemachineTargetBridgeSyncSystem copies LocalToWorld with no lerp",
+        "Stock DefaultTranslationSmoothingAction delta=1 snaps every centimetre correction",
+        "PhysicsGraphicalSmoothing only bakes when Rigidbody.interpolation ≠ None"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Falsifiable probes",
+      "items": [
+        "PhysicsGraphicalSmoothing count on predicted pawns > 0",
+        "Same frame: LocalToWorld.pos ≠ LocalTransform.pos while moving",
+        "CMCamera.TrackingTarget == LookAtTarget == GhostOwnerIsLocal entity"
+      ]
+    }
+  ]
+}

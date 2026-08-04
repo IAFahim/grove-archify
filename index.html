@@ -43,6 +43,21 @@ Open a topic, then play the Archify maps in order.</p>
   <td>Daggertooth <b>client go-in-game</b> wiring (project pieces + ClientFlow). Separate from Grove package internals.</td>
   <td><a href="nerve-client/index.html">Open Nerve client</a></td>
 </tr>
+<tr>
+  <td class="w"><code>nerve-server/</code></td>
+  <td>The side that decides whether a client may join: two-pass <b>approval</b> before a NetworkId exists, what spawns and what reaps it, and which ghosts a connection is actually sent.</td>
+  <td><a href="nerve-server/index.html">Open Nerve server</a></td>
+</tr>
+<tr>
+  <td class="w"><code>bridge/</code></td>
+  <td><b>BovineLabs Bridge</b> from device to camera: the input path, driving Cinemachine from an ECS entity, one frame of following a predicted pawn, and the jitter elimination ladder.</td>
+  <td><a href="bridge/index.html">Open Bridge</a></td>
+</tr>
+<tr>
+  <td class="w"><code>vex/</code></td>
+  <td><b>This project</b>, not the packages: the dependency graph with the layering rule <code>tools/gates.py</code> enforces, and where the server stops trusting client input.</td>
+  <td><a href="vex/index.html">Open vex-ee-3</a></td>
+</tr>
 </table>
 
 <h2>Layout rules</h2>

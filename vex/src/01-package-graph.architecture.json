@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "vex-ee-3 · The nine packages and what may depend on what",
+    "subtitle": "Packages/com.vex.* roles, the only peer edge, and gates.py G3 (Assets→Packages only)",
+    "output": "../01-package-graph.architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "g3-layering",
+        "label": "G3 layering seam",
+        "focus": [
+          "nerve-sample",
+          "appshell-glue",
+          "appshell"
+        ],
+        "note": "Glue in Assets/ may ref Packages and the Nerve sample; com.vex.appshell must not reverse that."
+      },
+      {
+        "id": "peer-run-roomforge",
+        "label": "Only peer package edge",
+        "focus": [
+          "run",
+          "roomforge"
+        ],
+        "note": "Among the nine, only com.vex.run declares and asmdef-refs another com.vex package."
+      },
+      {
+        "id": "roles-islands",
+        "label": "Roles and islands",
+        "focus": [
+          "pipeline",
+          "photolog",
+          "pawn",
+          "session",
+          "camera",
+          "showcase"
+        ],
+        "note": "Editor-only pipeline, noEngine photolog, and peer-independent runtime islands."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "nerve-sample",
+      "type": "external",
+      "label": "BovineLabs.Sample",
+      "sublabel": "Assets/Samples/Nerve",
+      "tag": "sample asm",
+      "pos": [
+        60,
+        70
+      ],
+      "size": [
+        190,
+        64
+      ]
+    },
+    {
+      "id": "appshell-glue",
+      "type": "security",
+      "label": "Vex.AppShell.Glue",
+      "sublabel": "Assets/Vex/AppShell",
+      "tag": "G3 seam",
+      "pos": [
+        360,
+        70
+      ],
+      "size": [
+        200,
+        64
+      ]
+    },
+    {
+      "id": "appshell",
+      "type": "backend",
+      "label": "com.vex.appshell",
+      "sublabel": "Vex.AppShell",
+      "tag": "rt · auth · ed",
+      "pos": [
+        360,
+        250
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "session",
+      "type": "backend",
+      "label": "com.vex.session",
+      "sublabel": "Vex.Session",
+      "tag": "rt · toolbar",
+      "pos": [
+        60,
+        250
+      ],
+      "size": [
+        170,
+        68
+      ]
+    },
+    {
+      "id": "pawn",
+      "type": "backend",
+      "label": "com.vex.pawn",
+      "sublabel": "Vex.Pawn",
+      "tag": "rt · auth · tests",
+      "pos": [
+        600,
+        250
+      ],
+      "size": [
+        170,
+        68
+      ]
+    },
+    {
+      "id": "camera",
+      "type": "backend",
+      "label": "com.vex.camera",
+      "sublabel": "Vex.Camera",
+      "tag": "runtime only",
+      "pos": [
+        820,
+        250
+      ],
+      "size": [
+        160,
+        68
+      ]
+    },
+    {
+      "id": "roomforge",
+      "type": "backend",
+      "label": "com.vex.roomforge",
+      "sublabel": "Vex.RoomForge",
+      "tag": "rt · auth · ed",
+      "pos": [
+        480,
+        430
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "run",
+      "type": "backend",
+      "label": "com.vex.run",
+      "sublabel": "Vex.Run",
+      "tag": "rt · auth · ed · tb",
+      "pos": [
+        720,
+        430
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "showcase",
+      "type": "backend",
+      "label": "com.vex.showcase",
+      "sublabel": "Vex.Showcase",
+      "tag": "rt · auth · ed",
+      "pos": [
+        1000,
+        250
+      ],
+      "size": [
+        170,
+        68
+      ]
+    },
+    {
+      "id": "pipeline",
+      "type": "cloud",
+      "label": "com.vex.pipeline",
+      "sublabel": "Vex.Pipeline.Editor",
+      "tag": "Editor only",
+      "pos": [
+        60,
+        430
+      ],
+      "size": [
+        180,
+        68
+      ]
+    },
+    {
+      "id": "photolog",
+      "type": "frontend",
+      "label": "com.vex.photolog",
+      "sublabel": "Vex.PhotoLog",
+      "tag": "noEngine · UI",
+      "pos": [
+        1000,
+        430
+      ],
+      "size": [
+        170,
+        68
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Assets/ — may reference Packages/",
+      "wraps": [
+        "nerve-sample",
+        "appshell-glue"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Packages/com.vex.* — must not depend on Assets/",
+      "wraps": [
+        "appshell",
+        "session",
+        "pawn",
+        "camera",
+        "roomforge",
+        "run",
+        "showcase",
+        "pipeline",
+        "photolog"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "gates.py G3 — sample asm never in package refs",
+      "wraps": [
+        "appshell",
+        "session",
+        "pawn",
+        "camera",
+        "roomforge",
+        "run",
+        "showcase",
+        "pipeline",
+        "photolog"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "glue-to-appshell",
+      "from": "appshell-glue",
+      "to": "appshell",
+      "label": "Assets→Packages",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "glue-to-sample",
+      "from": "appshell-glue",
+      "to": "nerve-sample",
+      "label": "sample ref",
+      "variant": "dashed",
+      "labelDy": -36
+    },
+    {
+      "id": "run-to-roomforge",
+      "from": "run",
+      "to": "roomforge",
+      "label": "peer dep",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "gates.py G3",
+      "items": [
+        "No Packages/com.vex.* asmdef may reference an Assets/Samples assembly",
+        "Assets/ may reference Packages/; the reverse is a gate failure",
+        "Vex.AppShell.Glue holds the Nerve-sample half so com.vex.appshell stays extractable"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "What may depend on what",
+      "items": [
+        "Only peer package edge: com.vex.run → com.vex.roomforge (package.json + Vex.Run.asmdef)",
+        "session, pawn, camera, showcase, appshell, pipeline, photolog have no com.vex peer deps",
+        "Roles: rt=runtime asm, auth=Authoring, ed=Editor platform, tb=Toolbar, noEngine=headless core"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Surprising roles",
+      "items": [
+        "com.vex.pipeline ships only Vex.Pipeline.Editor (includePlatforms: Editor)",
+        "Vex.PhotoLog sets noEngineReferences:true — pure scan/stamp/export core",
+        "com.vex.camera is a single runtime asm with no Authoring/Editor split"
+      ]
+    }
+  ]
+}

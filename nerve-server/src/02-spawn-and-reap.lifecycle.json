@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Nerve · A player's entities, birth to reap",
+    "subtitle": "Controller + pawn spawn, CommandTarget routing, retention reclaim, and SessionCleanup destroy",
+    "output": "../02-spawn-and-reap.lifecycle.html",
+    "viewBox": [980, 680],
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "birth-to-live",
+        "label": "Birth to live",
+        "focus": ["approved", "pcs-spawn", "own-init", "live"],
+        "note": "PCS instantiates and links; ownership init assigns CommandTarget and GhostOwner."
+      },
+      {
+        "id": "retain-reclaim",
+        "label": "Retention reclaim",
+        "focus": ["disc", "parked", "live"],
+        "note": "Package default: park the graph, then reattach the same entities by AccountIdentity."
+      },
+      {
+        "id": "project-reap",
+        "label": "Project reap",
+        "focus": ["disc", "cleanup"],
+        "note": "SessionCleanup destroys controller and pawn before deactivate can park them."
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "main", "label": "Birth to live" },
+    { "id": "waiting", "label": "Retention" },
+    { "id": "terminal", "label": "Project destroy" }
+  ],
+  "states": [
+    {
+      "id": "approved",
+      "type": "start",
+      "label": "Approved",
+      "sublabel": "ConnectionApproved · empty CommandTarget",
+      "lane": "main",
+      "col": 0,
+      "step": "01",
+      "tag": "entry"
+    },
+    {
+      "id": "pcs-spawn",
+      "type": "active",
+      "label": "PCS spawn",
+      "sublabel": "PlayerConnectionSystem · controller + pawn",
+      "lane": "main",
+      "col": 1,
+      "step": "02",
+      "tag": "spawn"
+    },
+    {
+      "id": "own-init",
+      "type": "active",
+      "label": "Own init",
+      "sublabel": "ControllerOwnershipInitializeSystem",
+      "lane": "main",
+      "col": 2,
+      "step": "03",
+      "tag": "own"
+    },
+    {
+      "id": "live",
+      "type": "success",
+      "label": "Stable active",
+      "sublabel": "CommandTarget@ctrl · AutoCommandTarget@pawn",
+      "lane": "main",
+      "col": 3,
+      "step": "04",
+      "tag": "play"
+    },
+    {
+      "id": "disc",
+      "type": "decision",
+      "label": "Active off",
+      "sublabel": "PlayerConnectionSystem · no DestroyEntity",
+      "lane": "main",
+      "col": 4,
+      "step": "05",
+      "tag": "leave"
+    },
+    {
+      "id": "parked",
+      "type": "waiting",
+      "label": "Parked",
+      "sublabel": "ControllerDeactivateSystemGroup · retained",
+      "lane": "waiting",
+      "col": 0,
+      "tag": "retain"
+    },
+    {
+      "id": "cleanup",
+      "type": "failure",
+      "label": "Cleanup",
+      "sublabel": "SessionCleanupSystem · DestroyEntity",
+      "lane": "terminal",
+      "col": 2,
+      "tag": "reap"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "t-disc-park",
+      "from": "disc",
+      "to": "parked",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "drop"
+    },
+    {
+      "id": "t-park-live",
+      "from": "parked",
+      "to": "live",
+      "label": "AccountIdentity reclaim",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "via": [[402, 220], [556, 220]]
+    },
+    {
+      "id": "t-disc-cleanup",
+      "from": "disc",
+      "to": "cleanup",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Birth write set",
+      "items": [
+        "PCS only Instantiates controller + pawn and stamps four links",
+        "No GhostOwner and no CommandTarget in that write set",
+        "ControllerOwnershipInitializeSystem assigns routing later in InitializeSystemGroup"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Routing split",
+      "items": [
+        "CommandTarget on the connection points at the controller, not the pawn",
+        "Pawn is one hop via PrimaryControlledEntity",
+        "AutoCommandTarget rides the owned pawn ghost for input"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Leave paths",
+      "items": [
+        "PCS disconnect only clears ControllerActive — never DestroyEntity",
+        "Package default parks via ControllerDeactivateSystemGroup",
+        "SessionCleanupSystem destroys the pair so disabled controllers cannot accumulate"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Reclaim",
+      "items": [
+        "Match is AccountIdentity, not NetworkId — HandleExistingController",
+        "ControllerActivateSystemGroup restores ownership and graph enable",
+        "InitializeEntity work does not re-run on reclaim"
+      ]
+    }
+  ]
+}

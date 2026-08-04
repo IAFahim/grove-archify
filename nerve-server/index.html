@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nerve · the server half</title>
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0 auto;padding:1.4rem 1.1rem 4rem;max-width:58rem;background:#fff;color:#16181d;
+ font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font-size:1.4rem;margin:.2rem 0 .1rem}
+p{margin:.45rem 0}
+.lede{font-size:1.02rem;margin:.35rem 0 1rem}
+table{border-collapse:collapse;width:100%;margin:.45rem 0 .9rem;font-size:.88rem}
+th,td{border:1px solid #d6d9df;padding:.32rem .5rem;text-align:left;vertical-align:top}
+th{background:#f3f4f7;font-weight:600}
+td.w{white-space:nowrap}
+a{color:#0b5fbf}
+code{font:.86em ui-monospace,SFMono-Regular,Menlo,monospace;background:#f0f1f4;padding:.05em .3em;border-radius:3px}
+footer{margin-top:2.5rem;font-size:.8rem;opacity:.6;border-top:1px solid #d6d9df;padding-top:.6rem}
+@media(prefers-color-scheme:dark){
+ body{background:#14161a;color:#e5e8ec}
+ th,td,footer{border-color:#343943}
+ th{background:#1e2128}
+ a{color:#7fb2ff}
+ code{background:#1e2128}
+}
+</style></head><body>
+<p><a href="../index.html">← docs</a></p>
+<h1>Nerve · the server half</h1>
+<p class="lede">The existing nerve-client topic covers a client getting itself into a game. This one is the side that decides whether it may: approval before a NetworkId exists, what gets spawned and what reaps it, and which ghosts a given connection is actually sent.</p>
+<table>
+<thead><tr><th>Type</th><th>Map</th><th>What it shows</th></tr></thead>
+<tbody>
+<tr><td class="w">sequence</td><td><a href="01-approval-gate.sequence.html">Nerve · The two-pass approval gate</a></td><td>SessionApprovalSystem gate before NetworkId, then identity once it exists — and why require-connection-approval changes what a refusal can still do</td></tr>
+<tr><td class="w">lifecycle</td><td><a href="02-spawn-and-reap.lifecycle.html">Nerve · A player&#x27;s entities, birth to reap</a></td><td>Controller + pawn spawn, CommandTarget routing, retention reclaim, and SessionCleanup destroy</td></tr>
+<tr><td class="w">dataflow</td><td><a href="03-relevancy.dataflow.html">Nerve · Which ghosts a connection is actually sent</a></td><td>Whether vs how often: live RelevanceAlways + distance isRelevant + deny list; importance scales in BatchScaleWithRelevancy; settings extents are dead</td></tr>
+</tbody></table>
+<footer>3 of 3 built. Sources in <code>src/</code>. Ground truth is the package
+source under <code>Library/PackageCache/</code> — these packages are a fork
+(<code>vex-studio/tertle-monorepo&nbsp;@&nbsp;d55ffc7</code>), not stock Unity.</footer>
+</body></html>

@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Bridge · From key press to command stream",
+    "subtitle": "Device → InputAction → Bridge SystemBase → IInputComponentData → InputBufferData[InputTargetTick] → wire",
+    "output": "../01-input-path.dataflow.html",
+    "viewBox": [1120, 720],
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "main-path",
+        "label": "Key press path",
+        "focus": ["device", "action", "component", "buffer", "wire"],
+        "note": "One value from hardware through Bridge into the NetCode command ring and out on the wire."
+      },
+      {
+        "id": "ecs-boundary",
+        "label": "Managed → ECS",
+        "focus": ["action", "component"],
+        "note": "Callbacks latch System.this.input; SetSingleton is the managed→ECS handoff."
+      },
+      {
+        "id": "tick-stamp",
+        "label": "Tick stamp",
+        "focus": ["component", "buffer", "wire"],
+        "note": "CopyInputToCommandBuffer stamps Tick from NetworkTime.InputTargetTick, not ServerTick."
+      }
+    ]
+  },
+  "stages": [
+    { "label": "Device" },
+    { "label": "Input System" },
+    { "label": "Bridge.Input" },
+    { "label": "NetCode buffer" },
+    { "label": "Wire" }
+  ],
+  "nodes": [
+    {
+      "id": "device",
+      "type": "external",
+      "label": "Physical Device",
+      "sublabel": "keyboard / pad",
+      "stage": 0,
+      "row": 1,
+      "tag": "HID"
+    },
+    {
+      "id": "action",
+      "type": "frontend",
+      "label": "InputAction",
+      "sublabel": "InputActionReference",
+      "stage": 1,
+      "row": 1,
+      "tag": "managed"
+    },
+    {
+      "id": "map-enable",
+      "type": "security",
+      "label": "InputActionMapSystem",
+      "sublabel": "InputAPI.InputEnable",
+      "stage": 1,
+      "row": 3,
+      "tag": "maps cold",
+      "width": 148
+    },
+    {
+      "id": "component",
+      "type": "database",
+      "label": "IInputComponentData",
+      "sublabel": "SetSingleton handoff",
+      "stage": 2,
+      "row": 1,
+      "tag": "ECS boundary",
+      "width": 148
+    },
+    {
+      "id": "buffer",
+      "type": "messagebus",
+      "label": "InputBufferData",
+      "sublabel": "CopyInputToCommandBuffer",
+      "stage": 3,
+      "row": 1,
+      "tag": "InputTargetTick",
+      "width": 148
+    },
+    {
+      "id": "wire",
+      "type": "cloud",
+      "label": "CommandSendSystemGroup",
+      "sublabel": "OutgoingCommandDataStreamBuffer",
+      "stage": 4,
+      "row": 1,
+      "tag": "wire",
+      "width": 148
+    }
+  ],
+  "flows": [
+    {
+      "id": "hid-to-action",
+      "from": "device",
+      "to": "action",
+      "label": "binding",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": 40
+    },
+    {
+      "id": "enable-maps",
+      "from": "map-enable",
+      "to": "action",
+      "label": "Enable()",
+      "variant": "security",
+      "route": "straight",
+      "labelDy": 82
+    },
+    {
+      "id": "action-to-ecs",
+      "from": "action",
+      "to": "component",
+      "label": "SetSingleton",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": 40
+    },
+    {
+      "id": "stamp-tick",
+      "from": "component",
+      "to": "buffer",
+      "label": "InputTargetTick",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": 55
+    },
+
+    {
+      "id": "buffer-to-wire",
+      "from": "buffer",
+      "to": "wire",
+      "label": "serialize",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": 40
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Main path",
+      "items": [
+        "Hardware → InputAction → Bridge nested System → IInputComponentData → InputBufferData<T> → CommandSend",
+        "Bridge stops at the component; NetCode owns the ring, serializer, and send path",
+        "Under NetCode, InputSystemGroup is reparented into GhostInputSystemGroup so gather runs before OrderLast copy"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Managed → ECS boundary",
+      "items": [
+        "Action callbacks write private this.input on the managed SystemBase — still not ECS",
+        "OnUpdate SetSingleton is the handoff onto IInputComponentData (GhostOwnerIsLocal only)",
+        "All action maps start disabled; without InputAPI.InputEnable, callbacks never fire"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Tick stamp",
+      "items": [
+        "CopyInputToCommandBufferSystem stamps Tick from NetworkTime.InputTargetTick",
+        "Do not use ServerTick for command data — InputTargetTick is the gather/send target",
+        "InputBufferData<T> implements ICommandData; that is the buffer NetCode serializes to the wire"
+      ]
+    }
+  ]
+}

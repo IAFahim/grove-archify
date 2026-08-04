@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Bridge · One frame of a camera following a predicted pawn",
+    "subtitle": "Tick gate → correction + LTW-only graphical pose → Bridge sync → Cinemachine damping",
+    "output": "../03-follow-predicted.sequence.html",
+    "viewBox": [980, 820],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "tick-gate",
+        "label": "Full vs partial tick",
+        "focus": ["nettime", "fixed_mgr", "pred_fixed"],
+        "note": "At ratio 1, partial ticks skip PredictedFixedStepSimulationSystemGroup entirely."
+      },
+      {
+        "id": "pose-layers",
+        "label": "Correction + graphical",
+        "focus": ["pred_fixed", "pred_smooth", "graphical"],
+        "note": "Rollback eases LocalTransform; SmoothRigidBodies writes LocalToWorld only."
+      },
+      {
+        "id": "bridge-lens",
+        "label": "Bridge then lens",
+        "focus": ["graphical", "bridge", "cine"],
+        "note": "Bridge copies LTW with no lerp; Cinemachine damping is last, not a netcode fix."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "nettime",
+      "type": "external",
+      "label": "NetworkTime",
+      "sublabel": "ClientSimulation frame"
+    },
+    {
+      "id": "fixed_mgr",
+      "type": "backend",
+      "label": "FixedRateMgr",
+      "sublabel": "NetcodePredictionFixedRateManager"
+    },
+    {
+      "id": "pred_fixed",
+      "type": "backend",
+      "label": "PredFixedStep",
+      "sublabel": "PredictedFixedStepSimulationSystemGroup"
+    },
+    {
+      "id": "pred_smooth",
+      "type": "security",
+      "label": "PredSmooth",
+      "sublabel": "GhostPredictionSmoothingSystem"
+    },
+    {
+      "id": "graphical",
+      "type": "frontend",
+      "label": "SmoothRBGraph",
+      "sublabel": "SmoothRigidBodiesGraphicalMotion"
+    },
+    {
+      "id": "bridge",
+      "type": "messagebus",
+      "label": "BridgeXform",
+      "sublabel": "BridgeTransformSyncSystemGroup"
+    },
+    {
+      "id": "cine",
+      "type": "cloud",
+      "label": "Cine + Brain",
+      "sublabel": "CinemachineSyncSystem"
+    }
+  ],
+  "segments": [
+    { "from": 150, "to": 300, "label": "Tick gate" },
+    { "from": 320, "to": 520, "label": "Pose (sim + presentation)" },
+    { "from": 540, "to": 720, "label": "Bridge → lens" }
+  ],
+  "messages": [
+    {
+      "id": "frame-clock",
+      "from": "nettime",
+      "to": "fixed_mgr",
+      "y": 185,
+      "label": "IsPartialTick?",
+      "variant": "default",
+      "note": "Every ClientSimulation frame carries NetworkTime; the fixed-rate manager gates physics on it."
+    },
+    {
+      "id": "full-step",
+      "from": "fixed_mgr",
+      "to": "pred_fixed",
+      "y": 230,
+      "label": "step physics (full tick)",
+      "variant": "emphasis",
+      "note": "ShouldGroupUpdate allows steps when !IsPartialTick, or when m_StepRatio > 1 even on partial."
+    },
+    {
+      "id": "partial-skip",
+      "from": "fixed_mgr",
+      "to": "nettime",
+      "y": 275,
+      "label": "no step @ ratio 1 partial",
+      "variant": "dashed",
+      "note": "Default 1:1 ratio: PredictedFixedStepSimulationSystemGroup does not run on partial ticks — LocalTransform holds still."
+    },
+    {
+      "id": "rollback-replay",
+      "from": "pred_fixed",
+      "to": "pred_smooth",
+      "y": 345,
+      "label": "rollback + replay → LocalTransform",
+      "variant": "security",
+      "note": "On snapshot mispredict, NetCode rewinds and re-simulates; GhostPredictionSmoothingSystem then eases Position only."
+    },
+    {
+      "id": "correction-ease",
+      "from": "pred_smooth",
+      "to": "graphical",
+      "y": 395,
+      "label": "eased Position (if registered)",
+      "variant": "return",
+      "note": "DefaultTranslationSmoothingAction blends LocalTransform.Position; Bridge never softens this."
+    },
+    {
+      "id": "ltw-only",
+      "from": "pred_fixed",
+      "to": "graphical",
+      "y": 450,
+      "label": "write LocalToWorld only",
+      "variant": "emphasis",
+      "note": "SmoothRigidBodiesGraphicalMotion rewrites LocalToWorld and deliberately leaves LocalTransform alone — safe under rollback."
+    },
+    {
+      "id": "partial-graphical",
+      "from": "nettime",
+      "to": "graphical",
+      "y": 500,
+      "label": "still runs on partial",
+      "variant": "dashed",
+      "note": "Graphical smoothing is the sub-tick presentation path; it is not gated by the fixed-rate manager."
+    },
+    {
+      "id": "bridge-target",
+      "from": "graphical",
+      "to": "bridge",
+      "y": 565,
+      "label": "entity LTW → Tracking/LookAt bridges",
+      "variant": "emphasis",
+      "note": "CinemachineTargetBridgeSyncSystem assigns LTW with no lerp; missing LTW skips the copy."
+    },
+    {
+      "id": "bridge-managed",
+      "from": "bridge",
+      "to": "cine",
+      "y": 615,
+      "label": "LTW → managed Transform → CM*",
+      "variant": "default",
+      "note": "BridgeTransformSyncSystem then CinemachineSyncSystem push ECS pose into the managed vcam Follow/LookAt."
+    },
+    {
+      "id": "brain-damping",
+      "from": "cine",
+      "to": "nettime",
+      "y": 670,
+      "label": "Brain + damping → view",
+      "variant": "return",
+      "note": "Cinemachine damping is last and cannot un-step a target that still jumps each tick."
+    }
+  ],
+  "activations": [
+    { "participant": "fixed_mgr", "from": 180, "to": 290, "type": "backend" },
+    { "participant": "pred_fixed", "from": 225, "to": 460, "type": "backend" },
+    { "participant": "pred_smooth", "from": 340, "to": 410, "type": "security" },
+    { "participant": "graphical", "from": 390, "to": 575, "type": "frontend" },
+    { "participant": "bridge", "from": 560, "to": 630, "type": "messagebus" },
+    { "participant": "cine", "from": 610, "to": 685, "type": "cloud" }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Skipped on partial (ratio 1)",
+      "items": [
+        "PredictedFixedStepSimulationSystemGroup does not step",
+        "Physics does not advance LocalTransform",
+        "Correction + graphical + Bridge + Brain still run"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Two pose writers",
+      "items": [
+        "GhostPredictionSmoothingSystem edits LocalTransform.Position",
+        "SmoothRigidBodiesGraphicalMotion edits LocalToWorld only",
+        "Simulation never sees the graphical matrix"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Bridge is not a smoother",
+      "items": [
+        "CinemachineTargetBridgeSyncSystem is a straight LTW assign",
+        "OrderLast after TransformSystemGroup so it reads post-smoother LTW",
+        "Damping the lens cannot fix a stepped mesh"
+      ]
+    }
+  ]
+}

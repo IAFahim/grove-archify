@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bridge · from device to camera</title>
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0 auto;padding:1.4rem 1.1rem 4rem;max-width:58rem;background:#fff;color:#16181d;
+ font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font-size:1.4rem;margin:.2rem 0 .1rem}
+p{margin:.45rem 0}
+.lede{font-size:1.02rem;margin:.35rem 0 1rem}
+table{border-collapse:collapse;width:100%;margin:.45rem 0 .9rem;font-size:.88rem}
+th,td{border:1px solid #d6d9df;padding:.32rem .5rem;text-align:left;vertical-align:top}
+th{background:#f3f4f7;font-weight:600}
+td.w{white-space:nowrap}
+a{color:#0b5fbf}
+code{font:.86em ui-monospace,SFMono-Regular,Menlo,monospace;background:#f0f1f4;padding:.05em .3em;border-radius:3px}
+footer{margin-top:2.5rem;font-size:.8rem;opacity:.6;border-top:1px solid #d6d9df;padding-top:.6rem}
+@media(prefers-color-scheme:dark){
+ body{background:#14161a;color:#e5e8ec}
+ th,td,footer{border-color:#343943}
+ th{background:#1e2128}
+ a{color:#7fb2ff}
+ code{background:#1e2128}
+}
+</style></head><body>
+<p><a href="../index.html">← docs</a></p>
+<h1>Bridge · from device to camera</h1>
+<p class="lede">BovineLabs Bridge is the seam between an ECS entity and the GameObject world Cinemachine and the Input System still live in. These four maps follow one input in and one camera pose out. The load-bearing idea across all of them: Bridge is a sync layer, not a smoothing layer — it reproduces faithfully whatever discontinuity already exists.</p>
+<table>
+<thead><tr><th>Type</th><th>Map</th><th>What it shows</th></tr></thead>
+<tbody>
+<tr><td class="w">dataflow</td><td><a href="01-input-path.dataflow.html">Bridge · From key press to command stream</a></td><td>Device → InputAction → Bridge SystemBase → IInputComponentData → InputBufferData[InputTargetTick] → wire</td></tr>
+<tr><td class="w">architecture</td><td><a href="02-cinemachine-from-ecs.architecture.html">Bridge · Driving Cinemachine from an ECS entity</a></td><td>Proxy Transform + OrderLast flush — Bridge is a sync layer, not a smoothing layer</td></tr>
+<tr><td class="w">sequence</td><td><a href="03-follow-predicted.sequence.html">Bridge · One frame of a camera following a predicted pawn</a></td><td>Tick gate → correction + LTW-only graphical pose → Bridge sync → Cinemachine damping</td></tr>
+<tr><td class="w">workflow</td><td><a href="04-jitter-ladder.workflow.html">Bridge · Ordered elimination of camera jitter</a></td><td>Who jitters → tick stepping → prediction correction → Bridge sync → Cinemachine damping</td></tr>
+</tbody></table>
+<footer>4 of 4 built. Sources in <code>src/</code>. Ground truth is the package
+source under <code>Library/PackageCache/</code> — these packages are a fork
+(<code>vex-studio/tertle-monorepo&nbsp;@&nbsp;d55ffc7</code>), not stock Unity.</footer>
+</body></html>

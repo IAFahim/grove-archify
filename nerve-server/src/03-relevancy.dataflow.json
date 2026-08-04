@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Nerve · Which ghosts a connection is actually sent",
+    "subtitle": "Whether vs how often: live RelevanceAlways + distance isRelevant + deny list; importance scales in BatchScaleWithRelevancy; settings extents are dead",
+    "output": "../03-relevancy.dataflow.html",
+    "viewBox": [1280, 900],
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "live-vs-dead",
+        "label": "Live vs decoration",
+        "focus": ["always", "dead", "oncreate"],
+        "note": "RelevanceAlways is load-bearing. clampExtents, expandExtents, Provider, Manual, InputBounds bake but never run."
+      },
+      {
+        "id": "whether-path",
+        "label": "Whether sent",
+        "focus": ["conn-pos", "partition", "batch", "deny", "combine", "send"],
+        "note": "Per connection: distance sets isRelevant; RelevanceAlways OR that flag; deny list can only exclude."
+      },
+      {
+        "id": "how-often",
+        "label": "How often",
+        "focus": ["batch", "send"],
+        "note": "BatchScaleWithRelevancy also scales priority; GhostSendSystem ranks after the whether mask."
+      }
+    ]
+  },
+  "stages": [
+    { "label": "Surface" },
+    { "label": "Nerve setup" },
+    { "label": "Scale" },
+    { "label": "Rules" },
+    { "label": "Snapshot" }
+  ],
+  "nodes": [
+    {
+      "id": "always",
+      "type": "security",
+      "label": "RelevanceAlways",
+      "sublabel": "RelevanceAlwaysAuthoring",
+      "stage": 0,
+      "row": 0,
+      "tag": "LIVE bake",
+      "width": 148
+    },
+    {
+      "id": "dead",
+      "type": "external",
+      "label": "RelevancySettings",
+      "sublabel": "clamp · expand · Provider · Manual · Bounds",
+      "stage": 0,
+      "row": 2,
+      "tag": "DECORATION",
+      "width": 148
+    },
+    {
+      "id": "oncreate",
+      "type": "backend",
+      "label": "RelevancySystem.OnCreate",
+      "sublabel": "no live OnUpdate",
+      "stage": 1,
+      "row": 0,
+      "tag": "once",
+      "width": 156
+    },
+    {
+      "id": "partition",
+      "type": "backend",
+      "label": "DistancePartitioning",
+      "sublabel": "GhostDistancePartitioningSystem",
+      "stage": 1,
+      "row": 2,
+      "tag": "tile shared",
+      "width": 156
+    },
+    {
+      "id": "conn-pos",
+      "type": "database",
+      "label": "GhostConnectionPosition",
+      "sublabel": "GoInGame adds · you write Position",
+      "stage": 1,
+      "row": 4,
+      "tag": "interest center",
+      "width": 156
+    },
+    {
+      "id": "batch",
+      "type": "messagebus",
+      "label": "BatchScaleWithRelevancy",
+      "sublabel": "isRelevant + priority together",
+      "stage": 2,
+      "row": 0,
+      "tag": "distSq ≤ 16",
+      "width": 156
+    },
+    {
+      "id": "combine",
+      "type": "backend",
+      "label": "UpdateGhostRelevancy",
+      "sublabel": "always | distance · then deny",
+      "stage": 3,
+      "row": 0,
+      "tag": "whether",
+      "width": 156
+    },
+    {
+      "id": "deny",
+      "type": "security",
+      "label": "GhostRelevancySet",
+      "sublabel": "deny under SetIsIrrelevant",
+      "stage": 3,
+      "row": 2,
+      "tag": "app-owned",
+      "width": 148
+    },
+    {
+      "id": "send",
+      "type": "cloud",
+      "label": "GhostSendSystem",
+      "sublabel": "mask first · then rank priority",
+      "stage": 4,
+      "row": 0,
+      "tag": "how often",
+      "width": 148
+    }
+  ],
+  "flows": [
+    {
+      "id": "always-to-setup",
+      "from": "always",
+      "to": "oncreate",
+      "label": "DefaultRelevancyQuery",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": -28
+    },
+    {
+      "id": "setup-to-partition",
+      "from": "oncreate",
+      "to": "partition",
+      "label": "GhostDistanceData",
+      "variant": "default",
+      "route": "straight",
+      "labelAt": [280, 270]
+    },
+    {
+      "id": "setup-to-batch",
+      "from": "oncreate",
+      "to": "batch",
+      "label": "GhostImportance",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": -28
+    },
+    {
+      "id": "tile-to-batch",
+      "from": "partition",
+      "to": "batch",
+      "label": "chunk tile",
+      "variant": "default",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelAt": [420, 300]
+    },
+    {
+      "id": "pos-to-batch",
+      "from": "conn-pos",
+      "to": "batch",
+      "label": "center",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "bottom",
+      "labelAt": [500, 500]
+    },
+    {
+      "id": "batch-whether",
+      "from": "batch",
+      "to": "combine",
+      "label": "isRelevant",
+      "classification": "whether",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": -28
+    },
+    {
+      "id": "deny-whether",
+      "from": "deny",
+      "to": "combine",
+      "label": "exclude only",
+      "classification": "whether",
+      "variant": "security",
+      "route": "straight",
+      "labelAt": [785, 428]
+    },
+    {
+      "id": "mask-to-send",
+      "from": "combine",
+      "to": "send",
+      "label": "relevancy mask",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": -28
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Load-bearing surface",
+      "items": [
+        "RelevanceAlwaysAuthoring bakes RelevanceAlways; OnCreate sets DefaultRelevancyQuery to that tag",
+        "GhostImportance + GhostDistanceData + SetIsIrrelevant are one-shot OnCreate writes",
+        "GhostConnectionPosition is added at go-in-game; Position is project-owned or stays at origin"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Decoration (does not cull)",
+      "items": [
+        "RelevancySettings clampExtents / expandExtents bake RelevanceConfig and nothing live reads it",
+        "RelevanceProvider, RelevanceManual, InputBounds only appear in commented OnUpdate",
+        "Turning inspector extents does not change which ghosts a connection receives"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Whether vs how often",
+      "items": [
+        "BatchScaleWithRelevancy sets isRelevant (distSq ≤ 16) and scales priority in the same call",
+        "UpdateGhostRelevancy: RelevanceAlways | prioChunk.isRelevant, then GhostRelevancySet deny under SetIsIrrelevant",
+        "Importance ranking happens in GhostSendSystem after the whether mask — deny cannot force-include a distance cull"
+      ]
+    }
+  ]
+}

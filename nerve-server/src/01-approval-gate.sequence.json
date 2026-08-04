@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Nerve · The two-pass approval gate",
+    "subtitle": "SessionApprovalSystem gate before NetworkId, then identity once it exists — and why require-connection-approval changes what a refusal can still do",
+    "output": "../01-approval-gate.sequence.html",
+    "viewBox": [980, 860],
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "flag-and-handshake",
+        "label": "Flag + handshake",
+        "focus": ["bootstrap", "driver", "client", "receive"],
+        "note": "ConfigVar is copied onto NetworkStreamDriver before Listen/Connect; flag on parks in State.Approval with no NetworkId."
+      },
+      {
+        "id": "gate-pass",
+        "label": "Pass 1 · gate",
+        "focus": ["receive", "approval", "client"],
+        "note": "SessionApprovalSystem stamps ConnectionApproved or NetworkStreamRequestDisconnect before NetCode assigns NetworkId (when the flag is on)."
+      },
+      {
+        "id": "identity-and-pcs",
+        "label": "Pass 2 · identity → PCS",
+        "focus": ["receive", "approval", "pcs"],
+        "note": "AccountIdentity local-{networkId} lands only after NetworkId; PlayerConnectionSystem matches the full quartet."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "client",
+      "type": "external",
+      "label": "Client",
+      "sublabel": "connecting peer"
+    },
+    {
+      "id": "bootstrap",
+      "type": "backend",
+      "label": "Bootstrap",
+      "sublabel": "BovineLabsBootstrap.NetCode"
+    },
+    {
+      "id": "driver",
+      "type": "backend",
+      "label": "NSDriver",
+      "sublabel": "NetworkStreamDriver"
+    },
+    {
+      "id": "receive",
+      "type": "backend",
+      "label": "NSReceive",
+      "sublabel": "NetworkStreamReceiveSystem"
+    },
+    {
+      "id": "approval",
+      "type": "security",
+      "label": "SessionGate",
+      "sublabel": "SessionApprovalSystem"
+    },
+    {
+      "id": "pcs",
+      "type": "backend",
+      "label": "PCS",
+      "sublabel": "PlayerConnectionSystem"
+    }
+  ],
+  "segments": [
+    { "from": 150, "to": 310, "label": "Flag + handshake" },
+    { "from": 330, "to": 540, "label": "Pass 1 · gate" },
+    { "from": 560, "to": 760, "label": "NetworkId · Pass 2 · PCS" }
+  ],
+  "messages": [
+    {
+      "id": "cfg-to-driver",
+      "from": "bootstrap",
+      "to": "driver",
+      "y": 180,
+      "label": "RequireConnectionApproval ← ConfigVar",
+      "variant": "security",
+      "note": "network.require-connection-approval is copied onto the driver before Listen/Connect; flip after bind logs an error and has no effect."
+    },
+    {
+      "id": "client-connect",
+      "from": "client",
+      "to": "receive",
+      "y": 230,
+      "label": "connect · protocol handshake",
+      "variant": "emphasis"
+    },
+    {
+      "id": "flag-off-auto",
+      "from": "receive",
+      "to": "client",
+      "y": 280,
+      "label": "flag OFF → ApproveConnection + NetworkId",
+      "variant": "dashed",
+      "note": "With the flag off NetCode auto-approves at handshake end. A later refuse is only a kick a few frames after a real NetworkId already exists."
+    },
+    {
+      "id": "flag-on-hold",
+      "from": "receive",
+      "to": "client",
+      "y": 335,
+      "label": "flag ON → State.Approval · no NetworkId",
+      "variant": "emphasis",
+      "note": "ServerRequestApprovalAfterHandshake is sent; only IApprovalRpcCommand traffic is allowed until ConnectionApproved appears. Non-approval RPCs disconnect as InvalidRpc."
+    },
+    {
+      "id": "pass1-admit",
+      "from": "approval",
+      "to": "receive",
+      "y": 400,
+      "label": "+ConnectionApproved",
+      "variant": "emphasis",
+      "note": "Pass 1 acts only when state is Approval or NetworkId is already present — the dual shape that works with the ConfigVar on or off. Counts existing ConnectionApproved against session.max-players."
+    },
+    {
+      "id": "pass1-refuse",
+      "from": "approval",
+      "to": "client",
+      "y": 460,
+      "label": "+NetworkStreamRequestDisconnect ApprovalFailure",
+      "variant": "security",
+      "note": "Server full. With the flag ON the refused client never receives a NetworkId and never gets a snapshot. With the flag OFF the peer already had a full connection for a few frames."
+    },
+    {
+      "id": "netcode-networkid",
+      "from": "receive",
+      "to": "client",
+      "y": 530,
+      "label": "ApproveConnection → NetworkId",
+      "variant": "emphasis",
+      "note": "NetworkStreamReceiveSystem calls ApproveConnection the moment ConnectionApproved appears while requireConnectionApproval is set and state is Approval. Client auto-tags ConnectionApproved from ServerApprovedConnection; the server marker is game-authored only."
+    },
+    {
+      "id": "pass2-identity",
+      "from": "approval",
+      "to": "receive",
+      "y": 600,
+      "label": "+AccountIdentity local-{networkId}",
+      "variant": "emphasis",
+      "note": "Pass 2 runs only after NetworkId exists. The string is fake and recycle-unsafe; PlayerConnectionSystem reconnect keys on it."
+    },
+    {
+      "id": "pcs-match",
+      "from": "receive",
+      "to": "pcs",
+      "y": 670,
+      "label": "quartet: Approved · Identity · NetworkId · CommandTarget",
+      "variant": "default",
+      "note": "PlayerConnectionSystem spawns only when all four are on the server connection. Missing ConnectionApproved or AccountIdentity is a silent no-op — NetworkId alone is not enough."
+    },
+    {
+      "id": "pcs-spawn",
+      "from": "pcs",
+      "to": "client",
+      "y": 730,
+      "label": "spawn controller / session",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    { "participant": "bootstrap", "from": 170, "to": 200, "type": "backend" },
+    { "participant": "driver", "from": 175, "to": 250, "type": "backend" },
+    { "participant": "receive", "from": 220, "to": 690, "type": "backend" },
+    { "participant": "approval", "from": 385, "to": 620, "type": "security" },
+    { "participant": "pcs", "from": 655, "to": 750, "type": "backend" }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Two passes, one reason",
+      "items": [
+        "Pass 1 decides yes/no before NetCode hands out NetworkId (when approval is required)",
+        "Pass 2 names the account only after NetworkId exists",
+        "PlayerConnectionSystem needs both stamps plus NetworkId and CommandTarget"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "ConfigVar changes refusal",
+      "items": [
+        "ON: State.Approval holds the door — refused clients get no NetworkId and no snapshots",
+        "OFF: NetCode auto-approves; a project refuse is a post-hoc kick after a real connection",
+        "Public bind wants the flag true so a refusal is not a brief full peer"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Server tags are not free",
+      "items": [
+        "ConnectionApproved on the client does not appear on the server",
+        "AccountIdentity is Nerve-only — NetCode never stamps it",
+        "local-{networkId} collides after NetworkId recycle without destroy-on-leave"
+      ]
+    }
+  ]
+}

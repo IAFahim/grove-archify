@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Bridge \u00b7 Driving Cinemachine from an ECS entity",
+    "subtitle": "Proxy Transform + OrderLast flush \u2014 Bridge is a sync layer, not a smoothing layer",
+    "output": "../02-cinemachine-from-ecs.architecture.html",
+    "quality_profile": "showcase",
+    "visual_preset": "signal-flow",
+    "views": [
+      {
+        "id": "main-sync-path",
+        "label": "Entity \u2192 lens",
+        "focus": [
+          "tracked",
+          "target-sync",
+          "proxy",
+          "xform-sync",
+          "bridge-object",
+          "cm-sync",
+          "cm-managed",
+          "brain"
+        ],
+        "note": "LocalToWorld is copied twice, then handed to Cinemachine as a Transform."
+      },
+      {
+        "id": "order-last",
+        "label": "OrderLast flush",
+        "focus": [
+          "after-transform",
+          "bts-group",
+          "target-sync",
+          "xform-sync"
+        ],
+        "note": "BridgeTransformSyncSystemGroup sits OrderLast inside AfterTransformSystemGroup."
+      },
+      {
+        "id": "no-smooth",
+        "label": "Sync not smooth",
+        "focus": [
+          "tracked",
+          "target-sync",
+          "proxy"
+        ],
+        "note": "CinemachineTargetBridgeSyncSystem assigns LocalToWorld with no interpolation."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "tracked",
+      "type": "database",
+      "label": "Tracked entity",
+      "sublabel": "LocalToWorld only",
+      "tag": "ECS",
+      "pos": [
+        40,
+        360
+      ],
+      "size": [
+        150,
+        56
+      ]
+    },
+    {
+      "id": "cm-camera",
+      "type": "database",
+      "label": "CMCamera",
+      "sublabel": "TrackingTarget Entity",
+      "tag": "IComponentData",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        150,
+        56
+      ]
+    },
+    {
+      "id": "after-transform",
+      "type": "cloud",
+      "label": "AfterTransformSystemGroup",
+      "sublabel": "UpdateAfter TransformSystemGroup",
+      "pos": [
+        320,
+        50
+      ],
+      "size": [
+        210,
+        56
+      ]
+    },
+    {
+      "id": "bts-group",
+      "type": "cloud",
+      "label": "BridgeTransformSyncSystemGroup",
+      "sublabel": "OrderLast = true",
+      "tag": "flush",
+      "pos": [
+        620,
+        50
+      ],
+      "size": [
+        230,
+        56
+      ]
+    },
+    {
+      "id": "target-sync",
+      "type": "backend",
+      "label": "CinemachineTargetBridgeSyncSystem",
+      "sublabel": "before BridgeTransformSync",
+      "tag": "no interp",
+      "pos": [
+        320,
+        340
+      ],
+      "size": [
+        230,
+        64
+      ]
+    },
+    {
+      "id": "proxy",
+      "type": "database",
+      "label": "CMCameraTargetBridgeObjects",
+      "sublabel": "proxy entity LTW",
+      "tag": "mirror",
+      "pos": [
+        640,
+        340
+      ],
+      "size": [
+        200,
+        56
+      ]
+    },
+    {
+      "id": "xform-sync",
+      "type": "backend",
+      "label": "BridgeTransformSyncSystem",
+      "sublabel": "LTW \u2192 TransformAccess",
+      "pos": [
+        930,
+        340
+      ],
+      "size": [
+        200,
+        56
+      ]
+    },
+    {
+      "id": "bridge-object",
+      "type": "frontend",
+      "label": "BridgeObject",
+      "sublabel": "pooled TransformHandle",
+      "tag": "GO",
+      "pos": [
+        1220,
+        340
+      ],
+      "size": [
+        180,
+        56
+      ]
+    },
+    {
+      "id": "cm-sync",
+      "type": "backend",
+      "label": "CinemachineSyncSystem",
+      "sublabel": "BridgeSyncSystemGroup",
+      "pos": [
+        1220,
+        520
+      ],
+      "size": [
+        180,
+        56
+      ]
+    },
+    {
+      "id": "cm-managed",
+      "type": "frontend",
+      "label": "CinemachineCamera",
+      "sublabel": "managed MonoBehaviour",
+      "tag": "GO only",
+      "pos": [
+        1490,
+        520
+      ],
+      "size": [
+        180,
+        56
+      ]
+    },
+    {
+      "id": "brain",
+      "type": "external",
+      "label": "CinemachineBrain",
+      "sublabel": "Main Camera",
+      "pos": [
+        1760,
+        520
+      ],
+      "size": [
+        150,
+        56
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "ECS data",
+      "wraps": [
+        "tracked",
+        "cm-camera",
+        "proxy"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "AfterTransformSystemGroup \u00b7 OrderLast flush",
+      "wraps": [
+        "after-transform",
+        "bts-group",
+        "target-sync",
+        "xform-sync"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Managed Cinemachine",
+      "wraps": [
+        "bridge-object",
+        "cm-sync",
+        "cm-managed",
+        "brain"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "order-last",
+      "from": "after-transform",
+      "to": "bts-group",
+      "label": "OrderLast",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cm-which-entity",
+      "from": "cm-camera",
+      "to": "target-sync",
+      "label": "TrackingTarget",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "ltw-in",
+      "from": "tracked",
+      "to": "target-sync",
+      "label": "LocalToWorld",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelDy": 44
+    },
+    {
+      "id": "assign-no-interp",
+      "from": "target-sync",
+      "to": "proxy",
+      "label": "assign (no interp)",
+      "variant": "emphasis",
+      "labelDy": 48
+    },
+    {
+      "id": "proxy-to-xform",
+      "from": "proxy",
+      "to": "xform-sync"
+    },
+    {
+      "id": "ltw-to-transform",
+      "from": "xform-sync",
+      "to": "bridge-object"
+    },
+    {
+      "id": "resolve-target",
+      "from": "bridge-object",
+      "to": "cm-sync",
+      "label": "proxy Transform",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "wire-cm",
+      "from": "cm-sync",
+      "to": "cm-managed",
+      "label": "Target"
+    },
+    {
+      "id": "drive-brain",
+      "from": "cm-managed",
+      "to": "brain"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "Sync, not smoothing",
+      "items": [
+        "CinemachineTargetBridgeSyncSystem assigns LocalToWorld when present \u2014 no lerp, no filter",
+        "Noise on the source is noise on the lens; fix jitter upstream of Bridge"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Order is the product",
+      "items": [
+        "BridgeTransformSyncSystemGroup is OrderLast inside AfterTransformSystemGroup",
+        "Target proxy LTW is written before BridgeTransformSyncSystem pushes Transforms"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Proxy is what Cinemachine sees",
+      "items": [
+        "CMCamera holds Entity targets; bake creates CMCameraTargetBridgeObjects",
+        "CinemachineSyncSystem resolves the proxy BridgeObject Transform for Follow/LookAt"
+      ]
+    }
+  ]
+}
